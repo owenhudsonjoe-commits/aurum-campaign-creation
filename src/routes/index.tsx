@@ -5,7 +5,7 @@ import { Nav } from "@/components/Nav";
 import { GoldParticles } from "@/components/GoldParticles";
 import { AurumLogo } from "@/components/AurumLogo";
 import { ProductCard } from "@/components/ProductCard";
-import { ClientMedallion } from "@/components/ClientMedallion";
+import { AurumMandala } from "@/components/AurumMandala";
 import { PaisleyDivider } from "@/components/PaisleyDivider";
 import { ArchFrame } from "@/components/ArchFrame";
 import heroImg from "@/assets/pk-hero.jpg";
@@ -124,8 +124,8 @@ function Home() {
         <div className="absolute inset-0 jaali-bg opacity-35" />
         <GoldParticles count={28} />
 
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[58%] h-[520px] w-[520px] md:h-[680px] md:w-[680px] pointer-events-none">
-          <ClientMedallion className="h-full w-full" />
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[55%] h-[480px] w-[480px] md:h-[640px] md:w-[640px] pointer-events-none opacity-70">
+          <AurumMandala className="h-full w-full" />
         </div>
 
         <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">

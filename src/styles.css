@@ -175,4 +175,13 @@
   .animate-marquee {
     animation: marquee 40s linear infinite;
   }
+
+  @keyframes mandala-spin-cw {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+  @keyframes mandala-spin-ccw {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(-360deg); }
+  }
 }
