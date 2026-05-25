@@ -70,10 +70,7 @@ export function AurumMandala({ className = "" }: { className?: string }) {
         <g style={{ transformOrigin: "300px 300px", animation: "mandala-spin-ccw 60s linear infinite" }}>
           {Array.from({ length: 16 }).map((_, i) => {
             const angle = (i / 16) * 360;
-            const rad = (angle * Math.PI) / 180;
             const r = 248;
-            const cx = 300 + r * Math.sin(rad);
-            const cy = 300 - r * Math.cos(rad);
             return (
               <g key={i} transform={`rotate(${angle} 300 300)`}>
                 <circle cx="300" cy={300 - r} r="9" fill="none" stroke="url(#goldStroke)" strokeWidth="1" opacity="0.7" />
