@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Search, User, Heart, ShoppingBag } from "lucide-react";
 import { AurumLogo } from "./AurumLogo";
 
-const links = ["Collection", "Lookbook", "Atelier", "VIP", "Journal"];
+const links = ["Bridal", "Festive", "Atelier", "Lookbook", "Bespoke"];
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -17,12 +17,12 @@ export function Nav() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-700 ${
         scrolled
-          ? "backdrop-blur-xl bg-background/60 border-b border-border/60"
+          ? "backdrop-blur-xl bg-ivory/70 border-b border-gold/30"
           : "bg-transparent"
       }`}
     >
       <div className="mx-auto flex max-w-[1600px] items-center justify-between px-6 md:px-12 py-5">
-        <nav className="hidden md:flex items-center gap-10 text-[11px] uppercase tracking-luxe text-foreground/80">
+        <nav className="hidden md:flex items-center gap-8 text-[11px] uppercase tracking-luxe text-foreground/85">
           {links.slice(0, 3).map((l) => (
             <a key={l} href="#" className="relative group">
               <span className="transition-colors group-hover:text-gold">{l}</span>
@@ -35,8 +35,8 @@ export function Nav() {
           <AurumLogo className="text-2xl md:text-3xl" />
         </a>
 
-        <div className="flex items-center gap-6 text-foreground/80">
-          <nav className="hidden md:flex items-center gap-10 text-[11px] uppercase tracking-luxe">
+        <div className="flex items-center gap-6 text-foreground/85">
+          <nav className="hidden md:flex items-center gap-8 text-[11px] uppercase tracking-luxe">
             {links.slice(3).map((l) => (
               <a key={l} href="#" className="relative group">
                 <span className="transition-colors group-hover:text-gold">{l}</span>
@@ -50,7 +50,7 @@ export function Nav() {
             <Heart className="h-4 w-4 cursor-pointer transition-colors hover:text-gold" strokeWidth={1.2} />
             <div className="relative">
               <ShoppingBag className="h-4 w-4 cursor-pointer transition-colors hover:text-gold" strokeWidth={1.2} />
-              <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-gradient-gold text-[9px] text-white">2</span>
+              <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-gradient-gold text-[9px] text-ivory">2</span>
             </div>
           </div>
         </div>

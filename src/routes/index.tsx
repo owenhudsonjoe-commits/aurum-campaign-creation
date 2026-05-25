@@ -4,21 +4,31 @@ import { Nav } from "@/components/Nav";
 import { GoldParticles } from "@/components/GoldParticles";
 import { AurumLogo } from "@/components/AurumLogo";
 import { ProductCard } from "@/components/ProductCard";
-import heroImg from "@/assets/hero-aurum.jpg";
-import p1 from "@/assets/product-1.jpg";
-import p2 from "@/assets/product-2.jpg";
-import p3 from "@/assets/product-3.jpg";
-import p4 from "@/assets/product-4.jpg";
-import look1 from "@/assets/lookbook-1.jpg";
-import look2 from "@/assets/lookbook-2.jpg";
+import { ClientMedallion } from "@/components/ClientMedallion";
+import { PaisleyDivider } from "@/components/PaisleyDivider";
+import { ArchFrame } from "@/components/ArchFrame";
+import heroImg from "@/assets/pk-hero.jpg";
+import bridal from "@/assets/pk-bridal.jpg";
+import pret from "@/assets/pk-pret.jpg";
+import men from "@/assets/pk-men.jpg";
+import atelier from "@/assets/pk-atelier.jpg";
+import look1 from "@/assets/pk-look-1.jpg";
+import look2 from "@/assets/pk-look-2.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "AURUM — Crafted for the Exceptional" },
-      { name: "description", content: "AURUM. Luxury fashion beyond wealth. A private house of couture for the modern elite." },
-      { property: "og:title", content: "AURUM — Crafted for the Exceptional" },
-      { property: "og:description", content: "Luxury Fashion Beyond Wealth." },
+      { title: "AURUM — Heritage Couture, Reimagined" },
+      {
+        name: "description",
+        content:
+          "AURUM. A private house of Pakistani heritage couture — bridal, festive pret and bespoke menswear hand-crafted in Lahore.",
+      },
+      { property: "og:title", content: "AURUM — Heritage Couture, Reimagined" },
+      {
+        property: "og:description",
+        content: "Pakistani luxury couture for the modern maharani.",
+      },
       { property: "og:image", content: "/aurum-og.jpg" },
     ],
     links: [
@@ -26,7 +36,7 @@ export const Route = createFileRoute("/")({
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@300;400;500&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&family=Noto+Nastaliq+Urdu:wght@400;500&display=swap",
       },
     ],
   }),
@@ -34,10 +44,16 @@ export const Route = createFileRoute("/")({
 });
 
 const products = [
-  { image: p1, name: "Étoile Silk Gown", category: "Atelier Couture", price: "€ 12,400" },
-  { image: p2, name: "Monarch Cashmere Coat", category: "Maison Homme", price: "€ 8,950" },
-  { image: p3, name: "Solis 18K Chronograph", category: "Haute Joaillerie", price: "€ 46,000" },
-  { image: p4, name: "Vesper Tailored Blazer", category: "Prêt-à-Porter", price: "€ 6,200" },
+  { image: bridal, name: "Shahnaaz Bridal Lehenga", category: "Bridal Couture", price: "PKR 1,250,000" },
+  { image: pret, name: "Mehrunnisa Festive Set", category: "Festive Prêt", price: "PKR 285,000" },
+  { image: men, name: "Asaf Jah Sherwani", category: "Maison Homme", price: "PKR 495,000" },
+  { image: look1, name: "Zumurrud Anarkali", category: "Heritage Couture", price: "PKR 685,000" },
+];
+
+const collections = [
+  { image: bridal, title: "Bridal Couture", caption: "Shaadi · Mehndi · Walima", href: "#" },
+  { image: pret, title: "Festive Prêt", caption: "Eid · Mehndi · Sangeet", href: "#" },
+  { image: men, title: "Maison Homme", caption: "Sherwani · Bandhgala", href: "#" },
 ];
 
 function Home() {
@@ -46,71 +62,126 @@ function Home() {
       <Nav />
 
       {/* HERO */}
-      <section className="relative h-[100svh] w-full overflow-hidden">
+      <section className="relative h-[100svh] w-full overflow-hidden bg-ivory">
+        {/* Background image, soft */}
         <img
           src={heroImg}
-          alt="AURUM campaign — three models in a golden marble boutique"
+          alt="AURUM bridal couture campaign in Mughal palace"
           width={1920}
           height={1080}
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full object-cover opacity-50"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-onyx/40 via-onyx/10 to-background" />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
-        <GoldParticles count={26} />
+        <div className="absolute inset-0 bg-gradient-to-b from-ivory/40 via-ivory/30 to-ivory" />
+        <div className="absolute inset-0 jaali-bg opacity-40" />
+        <GoldParticles count={22} />
+
+        {/* 3D Medallion */}
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[58%] h-[520px] w-[520px] md:h-[680px] md:w-[680px] pointer-events-none">
+          <ClientMedallion className="h-full w-full" />
+        </div>
 
         <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
           <div className="animate-reveal" style={{ animationDelay: "0.2s" }}>
-            <p className="text-[11px] uppercase tracking-luxe text-ivory/80">Maison AURUM · Est. MMXXV</p>
+            <p className="font-urdu text-base md:text-lg text-gold-warm">معرفت ، نزاکت ، نفاست</p>
+            <p className="mt-2 text-[10px] uppercase tracking-luxe text-emerald/80">Maison AURUM · Lahore · Est. MMXXV</p>
           </div>
-          <div className="my-8 animate-reveal" style={{ animationDelay: "0.4s" }}>
-            <AurumLogo className="text-[18vw] md:text-[12rem] leading-none" />
+
+          <div className="my-10 md:my-12 animate-reveal" style={{ animationDelay: "0.5s" }}>
+            <AurumLogo className="text-[16vw] md:text-[10rem] leading-none mix-blend-multiply" />
           </div>
-          <div className="max-w-2xl animate-reveal" style={{ animationDelay: "0.7s" }}>
-            <h1 className="font-display text-3xl md:text-5xl text-ivory leading-[1.1]">
-              Crafted for the <em className="text-gradient-gold not-italic">Exceptional</em>
+
+          <div className="max-w-2xl animate-reveal" style={{ animationDelay: "0.8s" }}>
+            <h1 className="font-display text-3xl md:text-5xl text-ink leading-[1.1]">
+              Woven for the <em className="text-gradient-gold not-italic">Modern Maharani</em>
             </h1>
-            <p className="mt-6 text-sm md:text-base text-ivory/80 font-light tracking-wide">
-              Luxury Fashion Beyond Wealth — a private house of couture for the modern elite.
+            <p className="mt-6 text-sm md:text-base text-ink/75 font-light tracking-wide">
+              A private house of Pakistani heritage couture — bridal, festive prêt and bespoke
+              tailoring, hand-crafted in our Lahore atelier.
             </p>
           </div>
+
           <a
             href="#collection"
             className="group mt-12 inline-flex items-center gap-4 animate-reveal"
-            style={{ animationDelay: "1s" }}
+            style={{ animationDelay: "1.1s" }}
           >
-            <span className="relative overflow-hidden rounded-full bg-gradient-gold animate-shimmer px-10 py-4 text-[11px] uppercase tracking-luxe text-white shadow-luxe transition-transform duration-500 group-hover:scale-[1.02]">
-              Enter the Collection
+            <span className="relative overflow-hidden rounded-full bg-gradient-gold animate-shimmer px-10 py-4 text-[11px] uppercase tracking-luxe text-ivory shadow-luxe transition-transform duration-500 group-hover:scale-[1.02]">
+              Discover the Atelier
             </span>
-            <span className="flex h-12 w-12 items-center justify-center rounded-full border border-gold/60 text-gold transition-all duration-500 group-hover:bg-gradient-gold group-hover:text-white">
+            <span className="flex h-12 w-12 items-center justify-center rounded-full border border-gold/70 text-gold transition-all duration-500 group-hover:bg-gradient-gold group-hover:text-ivory">
               <ArrowRight className="h-4 w-4" strokeWidth={1.2} />
             </span>
           </a>
         </div>
 
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-luxe text-ivory/60">
-          Scroll · Découvrir
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-luxe text-emerald/70">
+          Scroll · دیکھیے
         </div>
       </section>
 
       {/* MARQUEE */}
-      <section className="border-y border-border/60 bg-background py-6 overflow-hidden">
-        <div className="flex items-center gap-16 whitespace-nowrap text-[11px] uppercase tracking-luxe text-muted-foreground">
-          {Array.from({ length: 8 }).map((_, i) => (
-            <span key={i} className="flex items-center gap-16">
-              Paris · Milano · Tokyo · Dubai · New York
-              <Sparkles className="h-3 w-3 text-gold" />
-            </span>
+      <section className="border-y border-gold/30 bg-emerald-deep py-5 overflow-hidden">
+        <div className="flex animate-marquee whitespace-nowrap text-[11px] uppercase tracking-luxe text-gold-warm">
+          {Array.from({ length: 2 }).map((_, k) => (
+            <div key={k} className="flex shrink-0 items-center gap-12 pr-12">
+              {["Lahore", "Karachi", "Islamabad", "Delhi", "Dubai", "London", "New York", "Toronto"].map((c) => (
+                <span key={c} className="flex items-center gap-12">
+                  {c}
+                  <Sparkles className="h-3 w-3 text-gold" />
+                </span>
+              ))}
+            </div>
           ))}
         </div>
       </section>
 
-      {/* COLLECTION */}
-      <section id="collection" className="px-6 md:px-12 py-28 md:py-40">
+      {/* FEATURED COLLECTIONS — three pillars */}
+      <section id="collection" className="px-6 md:px-12 py-28 md:py-36">
         <div className="mx-auto max-w-[1600px]">
           <div className="mb-16 flex flex-col items-center text-center">
-            <p className="text-[11px] uppercase tracking-luxe text-gold">Saison 01</p>
-            <h2 className="mt-4 font-display text-5xl md:text-7xl">The New Collection</h2>
-            <div className="gold-line mt-10 w-40" />
+            <p className="text-[11px] uppercase tracking-luxe text-gold">Saison MMXXV</p>
+            <h2 className="mt-4 font-display text-5xl md:text-7xl text-ink">
+              The <em className="text-gradient-gold not-italic">Three Houses</em>
+            </h2>
+            <PaisleyDivider className="mt-8" />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
+            {collections.map((c, i) => (
+              <a key={c.title} href={c.href} className="group block animate-reveal" style={{ animationDelay: `${i * 0.15}s` }}>
+                <ArchFrame className="aspect-[3/4]" borderClass="border-gold/50">
+                  <img
+                    src={c.image}
+                    alt={c.title}
+                    loading="lazy"
+                    className="h-full w-full object-cover transition-transform duration-[1600ms] ease-out group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-emerald-deep/85 via-emerald-deep/15 to-transparent" />
+                  <div className="absolute inset-x-0 bottom-0 p-8 text-ivory">
+                    <p className="text-[10px] uppercase tracking-luxe text-gold-warm">{c.caption}</p>
+                    <h3 className="mt-3 font-display text-3xl md:text-4xl italic">{c.title}</h3>
+                    <span className="mt-4 inline-flex items-center gap-2 text-[11px] uppercase tracking-luxe border-b border-gold/60 pb-1 transition-colors group-hover:text-gold-warm">
+                      Explore <ArrowRight className="h-3 w-3" />
+                    </span>
+                  </div>
+                </ArchFrame>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SIGNATURE PIECES */}
+      <section className="px-6 md:px-12 pb-28 md:pb-36">
+        <div className="mx-auto max-w-[1600px]">
+          <div className="mb-14 flex items-end justify-between gap-6 flex-wrap">
+            <div>
+              <p className="text-[11px] uppercase tracking-luxe text-gold">Signature Pieces</p>
+              <h2 className="mt-4 font-display text-4xl md:text-6xl text-ink italic">Editions of the season</h2>
+            </div>
+            <a href="#" className="text-[11px] uppercase tracking-luxe text-foreground hover:text-gold transition-colors border-b border-gold/60 pb-1">
+              View all couture
+            </a>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
@@ -121,118 +192,140 @@ function Home() {
         </div>
       </section>
 
-      {/* LOOKBOOK */}
-      <section className="relative px-6 md:px-12 py-28 bg-secondary">
-        <div className="mx-auto max-w-[1600px]">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <div className="lg:col-span-5 order-2 lg:order-1">
-              <p className="text-[11px] uppercase tracking-luxe text-gold">Lookbook MMXXV</p>
-              <h2 className="mt-6 font-display text-5xl md:text-6xl leading-[1.05]">
-                A theatre of <em className="text-gradient-gold not-italic">quiet</em> wealth.
-              </h2>
-              <p className="mt-8 max-w-md text-muted-foreground font-light leading-relaxed">
-                Captured within our Parisian atelier, the season unfolds as a study in restraint —
-                ivory cashmere, hand-spun silk, and the cold weight of solid gold.
-              </p>
-              <a href="#" className="mt-10 inline-flex items-center gap-3 text-[11px] uppercase tracking-luxe text-foreground group">
-                <span className="border-b border-gold pb-1 transition-colors group-hover:text-gold">View the Film</span>
-                <ArrowRight className="h-3 w-3 text-gold transition-transform group-hover:translate-x-1" />
-              </a>
-            </div>
-            <div className="lg:col-span-7 order-1 lg:order-2 grid grid-cols-5 gap-4">
-              <div className="col-span-3 aspect-[3/4] overflow-hidden shadow-card">
-                <img src={look2} alt="Lookbook scene" width={1200} height={800} loading="lazy" className="h-full w-full object-cover hover:scale-105 transition-transform duration-[1400ms]" />
-              </div>
-              <div className="col-span-2 flex flex-col gap-4">
-                <div className="aspect-square overflow-hidden shadow-card">
-                  <img src={look1} alt="Interior" width={1200} height={800} loading="lazy" className="h-full w-full object-cover hover:scale-105 transition-transform duration-[1400ms]" />
-                </div>
-                <div className="aspect-[3/4] overflow-hidden shadow-card">
-                  <img src={p1} alt="Silk gown" width={800} height={1024} loading="lazy" className="h-full w-full object-cover hover:scale-105 transition-transform duration-[1400ms]" />
-                </div>
-              </div>
-            </div>
+      {/* THE ATELIER */}
+      <section className="relative bg-emerald-deep text-ivory overflow-hidden">
+        <div className="absolute inset-0 jaali-emerald opacity-20" />
+        <div className="relative mx-auto max-w-[1600px] grid grid-cols-1 lg:grid-cols-2 gap-0 items-stretch">
+          <div className="relative aspect-[4/5] lg:aspect-auto lg:min-h-[720px]">
+            <img src={atelier} alt="Zardozi hand embroidery" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent to-emerald-deep/40 lg:to-emerald-deep/0" />
           </div>
-        </div>
-      </section>
-
-      {/* LIMITED PIECES */}
-      <section className="relative px-6 md:px-12 py-32">
-        <div className="mx-auto max-w-[1600px] grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-          <div className="relative aspect-[4/5] overflow-hidden shadow-luxe">
-            <img src={p2} alt="Limited edition piece" width={800} height={1024} loading="lazy" className="h-full w-full object-cover" />
-            <div className="absolute top-6 left-6 bg-background/90 backdrop-blur px-4 py-2 text-[10px] uppercase tracking-luxe text-gold border border-gold/40">
-              1 of 12
-            </div>
-          </div>
-          <div>
-            <p className="text-[11px] uppercase tracking-luxe text-gold">Pièces Exclusives</p>
-            <h2 className="mt-6 font-display text-5xl md:text-6xl leading-[1.05]">
-              Rarity, <em className="text-gradient-gold not-italic">obsessively</em> pursued.
+          <div className="px-8 md:px-16 py-24 flex flex-col justify-center">
+            <p className="text-[11px] uppercase tracking-luxe text-gold-warm">The Atelier</p>
+            <h2 className="mt-6 font-display text-5xl md:text-6xl leading-[1.05] text-ivory">
+              Three hundred hours, <em className="text-gradient-gold not-italic">one heirloom</em>.
             </h2>
-            <p className="mt-8 max-w-lg text-muted-foreground font-light leading-relaxed">
-              Each Aurum exclusive is hand-numbered, produced in editions never exceeding twelve,
-              and accompanied by a private appointment with our maître tailor.
+            <p className="mt-8 max-w-lg text-ivory/75 font-light leading-relaxed">
+              Every Aurum piece is hand-finished in our Gulberg atelier by master karigars — the
+              same families who have practised <em>zardozi</em>, <em>dabka</em>, <em>tilla</em> and
+              <em> kamdani</em> for five generations.
             </p>
-            <div className="mt-12 grid grid-cols-3 gap-8 max-w-md">
+            <div className="mt-12 grid grid-cols-3 gap-6 max-w-md">
               {[
-                { n: "12", l: "Editions" },
-                { n: "240h", l: "Of craft" },
-                { n: "1", l: "of yours" },
+                { n: "300+", l: "Hours of craft" },
+                { n: "42", l: "Master karigars" },
+                { n: "5", l: "Generations" },
               ].map((s) => (
                 <div key={s.l}>
                   <p className="font-display text-4xl text-gradient-gold">{s.n}</p>
-                  <p className="mt-2 text-[10px] uppercase tracking-luxe text-muted-foreground">{s.l}</p>
+                  <p className="mt-2 text-[10px] uppercase tracking-luxe text-ivory/60">{s.l}</p>
                 </div>
               ))}
             </div>
-            <a href="#" className="mt-12 inline-flex items-center gap-3 rounded-full border border-foreground/80 px-8 py-3 text-[11px] uppercase tracking-luxe text-foreground transition-all hover:bg-foreground hover:text-background">
-              Request Access <ArrowRight className="h-3 w-3" />
+            <a href="#" className="mt-12 inline-flex items-center gap-3 self-start rounded-full border border-gold-warm/70 px-8 py-3 text-[11px] uppercase tracking-luxe text-gold-warm transition-all hover:bg-gradient-gold hover:text-ivory hover:border-transparent">
+              Inside the atelier <ArrowRight className="h-3 w-3" />
             </a>
           </div>
         </div>
       </section>
 
-      {/* VIP */}
-      <section className="relative px-6 md:px-12 py-32 bg-onyx text-ivory overflow-hidden">
-        <GoldParticles count={20} />
+      {/* LOOKBOOK — asymmetric */}
+      <section className="px-6 md:px-12 py-28 md:py-36">
+        <div className="mx-auto max-w-[1600px]">
+          <div className="mb-16 flex flex-col items-center text-center">
+            <p className="text-[11px] uppercase tracking-luxe text-gold">Lookbook · شاہی</p>
+            <h2 className="mt-4 font-display text-5xl md:text-7xl text-ink italic">Darbar</h2>
+            <PaisleyDivider className="mt-8" />
+          </div>
+
+          <div className="grid grid-cols-12 gap-4 md:gap-6">
+            <div className="col-span-12 md:col-span-7">
+              <ArchFrame className="aspect-[4/5] shadow-card">
+                <img src={look2} alt="Lookbook scene" loading="lazy" className="h-full w-full object-cover" />
+              </ArchFrame>
+            </div>
+            <div className="col-span-12 md:col-span-5 flex flex-col gap-4 md:gap-6">
+              <ArchFrame className="aspect-[4/5] shadow-card">
+                <img src={look1} alt="Anarkali in courtyard" loading="lazy" className="h-full w-full object-cover" />
+              </ArchFrame>
+              <div className="hidden md:flex flex-1 flex-col justify-end px-2">
+                <p className="font-display italic text-2xl text-ink leading-snug">
+                  "We do not chase trends. We honour the loom, the needle, and the hand that
+                  remembers what they have made for centuries."
+                </p>
+                <p className="mt-4 text-[10px] uppercase tracking-luxe text-muted-foreground">
+                  — Mehr Aurangzeb, Creative Director
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* BESPOKE */}
+      <section className="relative px-6 md:px-12 py-32 bg-emerald-deep text-ivory overflow-hidden">
+        <div className="absolute inset-0 jaali-emerald opacity-25" />
+        <GoldParticles count={18} />
+
+        {/* repeating gold medallion silhouettes */}
+        <div className="absolute inset-y-0 left-0 w-32 opacity-20 pointer-events-none hidden md:block">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <svg key={i} viewBox="0 0 60 60" className="w-full text-gold-warm" style={{ marginTop: i === 0 ? 0 : 10 }}>
+              <circle cx="30" cy="30" r="20" stroke="currentColor" strokeWidth="0.5" fill="none" />
+              <circle cx="30" cy="30" r="14" stroke="currentColor" strokeWidth="0.5" fill="none" />
+              <path d="M30 12 L 35 28 L 30 22 L 25 28 Z" fill="currentColor" />
+            </svg>
+          ))}
+        </div>
+        <div className="absolute inset-y-0 right-0 w-32 opacity-20 pointer-events-none hidden md:block">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <svg key={i} viewBox="0 0 60 60" className="w-full text-gold-warm" style={{ marginTop: i === 0 ? 0 : 10 }}>
+              <circle cx="30" cy="30" r="20" stroke="currentColor" strokeWidth="0.5" fill="none" />
+              <circle cx="30" cy="30" r="14" stroke="currentColor" strokeWidth="0.5" fill="none" />
+              <path d="M30 12 L 35 28 L 30 22 L 25 28 Z" fill="currentColor" />
+            </svg>
+          ))}
+        </div>
+
         <div className="relative mx-auto max-w-3xl text-center">
-          <p className="text-[11px] uppercase tracking-luxe text-gold">The Aurum Cercle</p>
+          <p className="text-[11px] uppercase tracking-luxe text-gold-warm">Bespoke · بسپوک</p>
           <h2 className="mt-6 font-display text-5xl md:text-7xl leading-[1.05] text-ivory">
-            A private membership for <em className="text-gradient-gold not-italic">modern royalty</em>.
+            A private commission, <em className="text-gradient-gold not-italic">your story</em>.
           </h2>
-          <p className="mt-8 text-ivory/70 font-light leading-relaxed">
-            Concierge styling. First access to drops. Invitations to private salons in Paris,
-            Tokyo and Dubai. Membership is by introduction only.
+          <p className="mt-8 text-ivory/75 font-light leading-relaxed">
+            Made-to-measure consultations at our Lahore, Karachi and Dubai ateliers — or by private
+            appointment in your city. Each commission is hand-illustrated, hand-embroidered, and
+            delivered in our signature emerald trunk.
           </p>
           <a href="#" className="mt-12 inline-flex items-center gap-4 group">
-            <span className="rounded-full bg-gradient-gold animate-shimmer px-10 py-4 text-[11px] uppercase tracking-luxe text-white shadow-luxe">
-              Request an Invitation
+            <span className="rounded-full bg-gradient-gold animate-shimmer px-10 py-4 text-[11px] uppercase tracking-luxe text-ivory shadow-luxe">
+              Request a Private Appointment
             </span>
           </a>
         </div>
       </section>
 
       {/* TESTIMONIALS */}
-      <section className="px-6 md:px-12 py-32">
+      <section className="px-6 md:px-12 py-28 md:py-36">
         <div className="mx-auto max-w-[1600px]">
           <div className="mb-16 text-center">
-            <p className="text-[11px] uppercase tracking-luxe text-gold">Spoken of, quietly</p>
-            <h2 className="mt-4 font-display text-5xl md:text-6xl">In Their Words</h2>
+            <p className="text-[11px] uppercase tracking-luxe text-gold">In Their Words</p>
+            <h2 className="mt-4 font-display text-5xl md:text-6xl italic text-ink">Praise, quietly</h2>
+            <PaisleyDivider className="mt-8" />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16">
             {[
-              { q: "Aurum understands restraint. It is the only house I trust for the rooms that matter.", a: "L. Aldington", r: "Patron, London" },
-              { q: "The fit is architectural. Every piece feels carved, not sewn.", a: "K. Nakamura", r: "Collector, Tokyo" },
-              { q: "Quiet, weightless, and unmistakably gold. The new definition of wealth.", a: "S. Hadid-Reyes", r: "Curator, Dubai" },
+              { q: "I have worn couture from every house in Paris. Aurum is the only one that made me feel I was wearing a poem.", a: "Sanam Aurangzeb", r: "Patron · Lahore" },
+              { q: "The bridal lehenga arrived in a trunk lined with rose silk. We cried before we opened it.", a: "Aisha Mansoor", r: "Bride · Karachi" },
+              { q: "Restrained, heirloom, unmistakably South Asian. This is the new face of luxury.", a: "Tanya Khan", r: "Editor · Vogue Arabia" },
             ].map((t) => (
-              <div key={t.a} className="border-t border-border pt-8">
+              <div key={t.a} className="border-t border-gold/40 pt-8">
                 <div className="flex gap-1 text-gold">
                   {Array.from({ length: 5 }).map((_, i) => (
                     <Star key={i} className="h-3 w-3 fill-current" strokeWidth={0} />
                   ))}
                 </div>
-                <blockquote className="mt-6 font-display text-2xl leading-snug text-foreground">"{t.q}"</blockquote>
+                <blockquote className="mt-6 font-display italic text-2xl leading-snug text-foreground">"{t.q}"</blockquote>
                 <p className="mt-8 text-[11px] uppercase tracking-luxe text-muted-foreground">{t.a} · {t.r}</p>
               </div>
             ))}
@@ -241,24 +334,26 @@ function Home() {
       </section>
 
       {/* INSTAGRAM */}
-      <section className="px-6 md:px-12 pb-32">
+      <section className="px-6 md:px-12 pb-28">
         <div className="mx-auto max-w-[1600px]">
           <div className="mb-10 flex items-end justify-between">
             <div>
               <p className="text-[11px] uppercase tracking-luxe text-gold">@maison.aurum</p>
-              <h2 className="mt-4 font-display text-4xl md:text-5xl">The Feed</h2>
+              <h2 className="mt-4 font-display text-4xl md:text-5xl italic text-ink">The Feed</h2>
             </div>
             <a href="#" className="hidden md:flex items-center gap-2 text-[11px] uppercase tracking-luxe text-foreground hover:text-gold transition-colors">
               <Instagram className="h-4 w-4" strokeWidth={1.2} /> Follow
             </a>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-6 gap-2 md:gap-3">
-            {[p1, look2, p4, p3, look1, p2].map((img, i) => (
-              <a key={i} href="#" className="group relative aspect-square overflow-hidden">
-                <img src={img} alt={`Feed ${i + 1}`} loading="lazy" className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110" />
-                <div className="absolute inset-0 bg-onyx/0 transition-colors duration-500 group-hover:bg-onyx/40 flex items-center justify-center">
-                  <Instagram className="h-5 w-5 text-ivory opacity-0 transition-opacity group-hover:opacity-100" strokeWidth={1.2} />
-                </div>
+          <div className="grid grid-cols-2 md:grid-cols-6 gap-3">
+            {[bridal, look2, pret, men, look1, atelier].map((img, i) => (
+              <a key={i} href="#" className="group relative">
+                <ArchFrame className="aspect-square">
+                  <img src={img} alt={`Feed ${i + 1}`} loading="lazy" className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110" />
+                  <div className="absolute inset-0 bg-emerald-deep/0 transition-colors duration-500 group-hover:bg-emerald-deep/50 flex items-center justify-center">
+                    <Instagram className="h-5 w-5 text-ivory opacity-0 transition-opacity group-hover:opacity-100" strokeWidth={1.2} />
+                  </div>
+                </ArchFrame>
               </a>
             ))}
           </div>
@@ -266,39 +361,42 @@ function Home() {
       </section>
 
       {/* FOOTER */}
-      <footer className="border-t border-border bg-secondary/50 px-6 md:px-12 pt-20 pb-10">
-        <div className="mx-auto max-w-[1600px]">
+      <footer className="border-t border-gold/40 bg-emerald-deep text-ivory px-6 md:px-12 pt-20 pb-10 relative overflow-hidden">
+        <div className="absolute inset-0 jaali-emerald opacity-15 pointer-events-none" />
+        <div className="relative mx-auto max-w-[1600px]">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
             <div className="md:col-span-4">
               <AurumLogo className="text-3xl" />
-              <p className="mt-6 max-w-xs text-sm text-muted-foreground font-light leading-relaxed">
-                Maison Aurum. A private house of couture, jewellery and objets — for those who require nothing, and choose everything.
+              <p className="mt-6 max-w-xs text-sm text-ivory/70 font-light leading-relaxed">
+                Maison Aurum. A private house of Pakistani couture, joaillerie and bespoke
+                tailoring — for those who require nothing, and choose everything.
               </p>
-              <div className="mt-8 flex items-center gap-3 text-[11px] uppercase tracking-luxe text-muted-foreground">
-                <Globe className="h-3 w-3 text-gold" /> EN · FR · JP · AR
-                <span className="ml-4">€ EUR</span>
+              <p className="mt-6 font-urdu text-lg text-gold-warm">میسن اورم — لاہور</p>
+              <div className="mt-8 flex items-center gap-3 text-[11px] uppercase tracking-luxe text-ivory/60">
+                <Globe className="h-3 w-3 text-gold-warm" /> EN · UR · AR · FR
+                <span className="ml-4">PKR · USD · AED</span>
               </div>
             </div>
             {[
-              { t: "Maison", l: ["The House", "Atelier", "Sustainability", "Press"] },
-              { t: "Shop", l: ["New Collection", "Couture", "Joaillerie", "Exclusives"] },
-              { t: "Cercle", l: ["VIP Membership", "Private Salons", "Concierge", "Appointments"] },
+              { t: "Maison", l: ["The House", "Atelier", "Press", "Sustainability"] },
+              { t: "Couture", l: ["Bridal", "Festive Prêt", "Maison Homme", "Joaillerie"] },
+              { t: "Cercle", l: ["Bespoke", "Private Salons", "Trunk Shows", "Concierge"] },
               { t: "Service", l: ["Contact", "Shipping", "Care", "Authenticity"] },
             ].map((c) => (
               <div key={c.t} className="md:col-span-2">
-                <p className="text-[11px] uppercase tracking-luxe text-gold">{c.t}</p>
-                <ul className="mt-6 space-y-3 text-sm font-light text-foreground/80">
+                <p className="text-[11px] uppercase tracking-luxe text-gold-warm">{c.t}</p>
+                <ul className="mt-6 space-y-3 text-sm font-light text-ivory/80">
                   {c.l.map((x) => (
-                    <li key={x}><a href="#" className="hover:text-gold transition-colors">{x}</a></li>
+                    <li key={x}><a href="#" className="hover:text-gold-warm transition-colors">{x}</a></li>
                   ))}
                 </ul>
               </div>
             ))}
           </div>
           <div className="gold-line my-12" />
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-[10px] uppercase tracking-luxe text-muted-foreground">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-[10px] uppercase tracking-luxe text-ivory/60">
             <p>© MMXXV Maison Aurum · All rights reserved</p>
-            <p>Paris · Milano · Tokyo · Dubai · New York</p>
+            <p>Lahore · Karachi · Dubai · London · New York</p>
           </div>
         </div>
       </footer>
