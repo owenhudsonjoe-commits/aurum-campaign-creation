@@ -1,0 +1,8 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "XBgRrkras4qzpf5gaPBZi"
+uri = "file://src/assets/pk-hero.png"
+type = "image"
+title = "pakistani-bridal-hero"

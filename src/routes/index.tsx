@@ -8,7 +8,7 @@ import { ProductCard } from "@/components/ProductCard";
 import { AurumMandala } from "@/components/AurumMandala";
 import { PaisleyDivider } from "@/components/PaisleyDivider";
 import { ArchFrame } from "@/components/ArchFrame";
-import heroImg from "@/assets/pk-hero.jpg";
+import heroImg from "@/assets/pk-hero.png";
 import bridal from "@/assets/pk-bridal.jpg";
 import pret from "@/assets/pk-pret.jpg";
 import men from "@/assets/pk-men.jpg";
