@@ -124,10 +124,6 @@ function Home() {
         <div className="absolute inset-0 jaali-bg opacity-35" />
         <GoldParticles count={28} />
 
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[55%] h-[480px] w-[480px] md:h-[640px] md:w-[640px] pointer-events-none opacity-70">
-          <AurumMandala className="h-full w-full" />
-        </div>
-
         <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
           <div className="animate-reveal" style={{ animationDelay: "0.2s" }}>
             <p className="font-urdu text-base md:text-lg text-gold-warm">معرفت ، نزاکت ، نفاست</p>
