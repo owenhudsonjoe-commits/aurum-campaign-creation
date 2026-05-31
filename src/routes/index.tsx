@@ -1,11 +1,9 @@
 import { useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Star, Globe, Sparkles, Instagram, Shield, Truck, Award, Clock, Phone, ChevronDown } from "lucide-react";
 import { Nav } from "@/components/Nav";
 import { GoldParticles } from "@/components/GoldParticles";
 import { AurumLogo } from "@/components/AurumLogo";
-import { ProductCard } from "@/components/ProductCard";
-import { AurumMandala } from "@/components/AurumMandala";
 import { PaisleyDivider } from "@/components/PaisleyDivider";
 import { ArchFrame } from "@/components/ArchFrame";
 import heroImg from "@/assets/pk-hero.png";
@@ -44,17 +42,10 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-const products = [
-  { image: bridal, name: "Shahnaaz Bridal Lehenga", category: "Bridal Couture", price: "PKR 1,250,000", badge: "Limited" as const },
-  { image: pret, name: "Mehrunnisa Festive Set", category: "Festive Prêt", price: "PKR 285,000", badge: "New" as const },
-  { image: men, name: "Asaf Jah Sherwani", category: "Maison Homme", price: "PKR 495,000" },
-  { image: look1, name: "Zumurrud Anarkali", category: "Heritage Couture", price: "PKR 685,000", badge: "Last Piece" as const },
-];
-
 const collections = [
-  { image: bridal, title: "Bridal Couture", caption: "Shaadi · Mehndi · Walima", href: "#", urdu: "شادی" },
-  { image: pret, title: "Festive Prêt", caption: "Eid · Mehndi · Sangeet", href: "#", urdu: "عید" },
-  { image: men, title: "Maison Homme", caption: "Sherwani · Bandhgala", href: "#", urdu: "مردانہ" },
+  { image: bridal, title: "Bridal Couture", caption: "Shaadi · Mehndi · Walima", urdu: "شادی" },
+  { image: pret, title: "Festive Prêt", caption: "Eid · Mehndi · Sangeet", urdu: "عید" },
+  { image: men, title: "Maison Homme", caption: "Sherwani · Bandhgala", urdu: "مردانہ" },
 ];
 
 const press = [
@@ -108,7 +99,6 @@ function Home() {
     <div className="relative min-h-screen bg-background text-foreground overflow-x-hidden">
       <Nav />
 
-      {/* Extra top padding for announcement bar + nav */}
       <div className="h-[41px]" />
 
       {/* HERO */}
@@ -144,28 +134,23 @@ function Home() {
             </p>
           </div>
 
-          {/* Dual CTA */}
           <div className="flex flex-col sm:flex-row items-center gap-4 mt-10 animate-reveal" style={{ animationDelay: "1.05s" }}>
-            <a
-              href="#collection"
-              className="group inline-flex items-center gap-3"
-            >
+            <Link to="/shop" className="group inline-flex items-center gap-3">
               <span className="relative overflow-hidden rounded-full bg-gradient-gold animate-shimmer px-10 py-4 text-[11px] uppercase tracking-luxe text-ivory shadow-luxe transition-transform duration-500 group-hover:scale-[1.03]">
                 Discover the Collections
               </span>
               <span className="flex h-12 w-12 items-center justify-center rounded-full border border-gold/70 text-gold transition-all duration-500 group-hover:bg-gradient-gold group-hover:text-ivory">
                 <ArrowRight className="h-4 w-4" strokeWidth={1.2} />
               </span>
-            </a>
-            <a
-              href="#bespoke"
+            </Link>
+            <Link
+              to="/bespoke"
               className="rounded-full border border-ink/30 px-8 py-4 text-[11px] uppercase tracking-luxe text-ink/80 hover:border-gold hover:text-gold transition-all duration-500"
             >
               Book a Consultation
-            </a>
+            </Link>
           </div>
 
-          {/* Social proof pill */}
           <div className="mt-10 animate-reveal" style={{ animationDelay: "1.3s" }}>
             <div className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-ivory/60 backdrop-blur px-5 py-2.5">
               <div className="flex gap-0.5">
@@ -247,7 +232,7 @@ function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
             {collections.map((c, i) => (
-              <a key={c.title} href={c.href} className="group block animate-reveal" style={{ animationDelay: `${i * 0.15}s` }}>
+              <Link key={c.title} to="/shop" className="group block animate-reveal" style={{ animationDelay: `${i * 0.15}s` }}>
                 <ArchFrame className="aspect-[3/4]" borderClass="border-gold/50">
                   <img
                     src={c.image}
@@ -265,44 +250,18 @@ function Home() {
                     </span>
                   </div>
                 </ArchFrame>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* SIGNATURE PIECES */}
-      <section className="px-6 md:px-12 pb-28 md:pb-36">
-        <div className="mx-auto max-w-[1600px]">
-          <div className="mb-14 flex items-end justify-between gap-6 flex-wrap">
-            <div>
-              <p className="text-[11px] uppercase tracking-luxe text-gold">Signature Pieces</p>
-              <h2 className="mt-4 font-display text-4xl md:text-6xl text-ink italic">Editions of the season</h2>
-              <p className="mt-3 text-sm text-muted-foreground font-light">Each piece is made to order and unique to you.</p>
-            </div>
-            <a href="#" className="flex items-center gap-2 text-[11px] uppercase tracking-luxe text-foreground hover:text-gold transition-colors border-b border-gold/60 pb-1">
-              View all couture <ArrowRight className="h-3 w-3" />
-            </a>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
-            {products.map((p) => (
-              <ProductCard key={p.name} {...p} />
+              </Link>
             ))}
           </div>
 
-          {/* Urgency strip */}
-          <div className="mt-16 rounded-2xl border border-gold/30 bg-amber-50/50 px-8 py-6 flex flex-col md:flex-row items-center justify-between gap-5">
-            <div className="flex items-center gap-4">
-              <Clock className="h-5 w-5 text-gold flex-shrink-0" strokeWidth={1.2} />
-              <div>
-                <p className="text-sm font-medium text-ink">Season's Final Appointments</p>
-                <p className="text-xs text-muted-foreground font-light mt-0.5">Order by 15 August to receive your piece before Eid al-Adha</p>
-              </div>
-            </div>
-            <a href="#bespoke" className="flex-shrink-0 rounded-full bg-gradient-gold px-8 py-3 text-[10px] uppercase tracking-luxe text-ivory shadow-luxe hover:opacity-90 transition-opacity whitespace-nowrap">
-              Reserve Your Slot
-            </a>
+          {/* Shop CTA */}
+          <div className="mt-16 text-center">
+            <Link
+              to="/shop"
+              className="inline-flex items-center gap-3 rounded-full border border-gold/50 px-10 py-4 text-[11px] uppercase tracking-luxe text-ink hover:bg-gradient-gold hover:text-ivory hover:border-transparent transition-all duration-500"
+            >
+              View All Collections <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
+            </Link>
           </div>
         </div>
       </section>
@@ -338,9 +297,9 @@ function Home() {
                 </div>
               ))}
             </div>
-            <a href="#" className="mt-12 inline-flex items-center gap-3 self-start rounded-full border border-gold-warm/70 px-8 py-3.5 text-[11px] uppercase tracking-luxe text-gold-warm transition-all hover:bg-gradient-gold hover:text-ivory hover:border-transparent">
+            <Link to="/bespoke" className="mt-12 inline-flex items-center gap-3 self-start rounded-full border border-gold-warm/70 px-8 py-3.5 text-[11px] uppercase tracking-luxe text-gold-warm transition-all hover:bg-gradient-gold hover:text-ivory hover:border-transparent">
               Inside the atelier <ArrowRight className="h-3 w-3" />
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -363,9 +322,9 @@ function Home() {
                   <div className="absolute bottom-8 left-8 text-ivory">
                     <p className="text-[10px] uppercase tracking-luxe text-gold-warm">Campaign · MMXXV</p>
                     <p className="mt-2 font-display text-2xl italic">The Darbar Edit</p>
-                    <a href="#" className="mt-4 inline-flex items-center gap-2 text-[10px] uppercase tracking-luxe border-b border-gold/50 pb-0.5 hover:text-gold-warm transition-colors">
-                      View Lookbook <ArrowRight className="h-3 w-3" />
-                    </a>
+                    <Link to="/shop" className="mt-4 inline-flex items-center gap-2 text-[10px] uppercase tracking-luxe border-b border-gold/50 pb-0.5 hover:text-gold-warm transition-colors">
+                      View Collections <ArrowRight className="h-3 w-3" />
+                    </Link>
                   </div>
                 </ArchFrame>
               </div>
@@ -389,13 +348,12 @@ function Home() {
         </div>
       </section>
 
-      {/* BESPOKE — with process steps */}
+      {/* BESPOKE */}
       <section id="bespoke" className="relative px-6 md:px-12 py-28 md:py-36 bg-emerald-deep text-ivory overflow-hidden">
         <div className="absolute inset-0 jaali-emerald opacity-25" />
         <GoldParticles count={22} />
 
         <div className="relative mx-auto max-w-[1600px]">
-          {/* Heading */}
           <div className="text-center mb-20">
             <p className="text-[11px] uppercase tracking-luxe text-gold-warm">Bespoke · بسپوک</p>
             <h2 className="mt-6 font-display text-5xl md:text-7xl leading-[1.05] text-ivory">
@@ -409,7 +367,6 @@ function Home() {
             </p>
           </div>
 
-          {/* Process steps */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
             {bespokeSteps.map((step, i) => (
               <div key={step.n} className="relative group">
@@ -426,13 +383,12 @@ function Home() {
             ))}
           </div>
 
-          {/* CTA */}
           <div className="text-center space-y-5">
-            <a href="#" className="inline-flex items-center gap-4 group">
+            <Link to="/bespoke" className="inline-flex items-center gap-4 group">
               <span className="rounded-full bg-gradient-gold animate-shimmer px-12 py-4 text-[11px] uppercase tracking-luxe text-ivory shadow-luxe transition-transform duration-500 group-hover:scale-[1.02]">
                 Request a Private Appointment
               </span>
-            </a>
+            </Link>
             <div className="flex items-center justify-center gap-2 text-[10px] uppercase tracking-luxe text-ivory/40">
               <Phone className="h-3 w-3 text-gold/50" strokeWidth={1.2} />
               <span>Or call us: +92 42 111 AURUM</span>
@@ -450,7 +406,6 @@ function Home() {
             <PaisleyDivider className="mt-8" />
           </div>
 
-          {/* Feature quote */}
           <div className="mb-16 relative px-8 md:px-16 py-12 border border-gold/30 rounded-2xl bg-gradient-to-br from-amber-50/60 to-ivory text-center">
             <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-ivory px-4">
               <div className="flex gap-1 text-gold justify-center">
@@ -579,15 +534,15 @@ function Home() {
         </div>
       </footer>
 
-      {/* Floating WhatsApp / Contact Button */}
-      <a
-        href="#bespoke"
+      {/* Floating Book Now Button */}
+      <Link
+        to="/bespoke"
         className="fixed bottom-8 right-8 z-50 flex items-center gap-2.5 rounded-full bg-gradient-gold shadow-luxe px-5 py-3.5 text-[10px] uppercase tracking-luxe text-ivory hover:scale-105 transition-transform duration-300"
         aria-label="Book appointment"
       >
         <Phone className="h-3.5 w-3.5" strokeWidth={1.5} />
         <span className="hidden sm:block">Book Now</span>
-      </a>
+      </Link>
     </div>
   );
 }
