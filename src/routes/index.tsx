@@ -232,23 +232,19 @@ function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 max-w-4xl mx-auto">
             {fabricCategories.map((c, i) => (
               <Link key={c.title} to="/shop" search={{ fabric: c.fabric }} className="group block animate-reveal" style={{ animationDelay: `${i * 0.15}s` }}>
-                <ArchFrame className="aspect-[3/4]" borderClass="border-gold/50">
-                  <img
-                    src={c.image}
-                    alt={c.title}
-                    loading="lazy"
-                    className="h-full w-full object-cover transition-transform duration-[1600ms] ease-out group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-emerald-deep/90 via-emerald-deep/20 to-transparent" />
-                  <div className="absolute inset-x-0 bottom-0 p-8 text-ivory">
-                    <p className="font-urdu text-lg text-gold-warm">{c.urdu}</p>
-                    <p className="mt-1 text-[10px] uppercase tracking-luxe text-ivory/60">{c.caption}</p>
-                    <h3 className="mt-3 font-display text-4xl md:text-5xl italic">{c.title}</h3>
-                    <span className="mt-5 inline-flex items-center gap-2 text-[11px] uppercase tracking-luxe border-b border-gold/60 pb-1 transition-colors group-hover:text-gold-warm group-hover:border-gold-warm">
+                <div className="relative flex flex-col items-center justify-center aspect-[3/4] border border-gold/40 bg-ivory group-hover:border-gold transition-colors duration-500 overflow-hidden">
+                  <div className="absolute inset-0 jaali-bg opacity-20" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-amber-50/40" />
+                  <div className="relative z-10 flex flex-col items-center text-center px-10">
+                    <p className="font-urdu text-3xl text-gold-warm mb-4">{c.urdu}</p>
+                    <div className="gold-line mb-8 w-16" />
+                    <h3 className="font-display text-6xl md:text-7xl italic text-ink group-hover:text-gradient-gold transition-colors duration-500">{c.title}</h3>
+                    <p className="mt-6 text-[11px] uppercase tracking-luxe text-muted-foreground">{c.caption}</p>
+                    <span className="mt-10 inline-flex items-center gap-2 text-[11px] uppercase tracking-luxe border-b border-gold/50 pb-1 text-ink/70 transition-colors group-hover:text-gold group-hover:border-gold">
                       Explore <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
                     </span>
                   </div>
-                </ArchFrame>
+                </div>
               </Link>
             ))}
           </div>
