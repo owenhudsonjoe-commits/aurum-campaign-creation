@@ -190,8 +190,16 @@ function ShopPage() {
                     <p className="text-[10px] uppercase tracking-luxe text-muted-foreground">{product.category} · {product.fabricType}</p>
                     <h3 className="mt-1 font-display text-lg italic text-foreground leading-snug">{product.name}</h3>
                     {product.urduName && <p className="font-urdu text-sm text-gold-warm/70 mt-0.5">{product.urduName}</p>}
-                    <div className="flex items-center justify-between mt-1.5">
-                      <p className="font-display text-base text-gradient-gold">{formatPrice(product.price)}</p>
+                    <div className="flex items-center gap-2 flex-wrap mt-1.5">
+                      {product.discountedPrice ? (
+                        <>
+                          <p className="font-display text-base text-red-600 font-semibold">{formatPrice(product.discountedPrice)}</p>
+                          <p className="font-display text-sm text-muted-foreground line-through">{formatPrice(product.price)}</p>
+                          <span className="text-[9px] font-bold bg-red-500 text-white px-1.5 py-0.5 rounded-sm">{product.discountPercent}% OFF</span>
+                        </>
+                      ) : (
+                        <p className="font-display text-base text-gradient-gold">{formatPrice(product.price)}</p>
+                      )}
                     </div>
                     <p className="mt-1 text-[9px] uppercase tracking-luxe text-muted-foreground/60">{product.leadTime}</p>
                   </div>
