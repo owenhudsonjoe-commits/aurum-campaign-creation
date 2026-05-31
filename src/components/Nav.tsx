@@ -5,12 +5,11 @@ import { AurumLogo } from "./AurumLogo";
 import { useCart } from "@/lib/cart";
 
 const leftLinks = [
-  { label: "Bridal", href: "/shop" },
-  { label: "Festive", href: "/shop" },
-  { label: "Men's", href: "/shop" },
+  { label: "Bridal", href: "/shop", search: { collection: "Bridal" as const, fabric: "Stitched" as const } },
+  { label: "Festive", href: "/shop", search: { collection: "Festive / Pret" as const, fabric: "Stitched" as const } },
+  { label: "Men's", href: "/shop", search: { collection: "Men's" as const, fabric: "Stitched" as const } },
 ];
 const rightLinks = [
-  { label: "Lookbook", href: "/" },
   { label: "Bespoke", href: "/bespoke" },
 ];
 
@@ -18,7 +17,6 @@ export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const cartCount = useCart((s) => s.count());
-  const navigate = useNavigate();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -46,14 +44,14 @@ export function Nav() {
       <header
         className={`fixed inset-x-0 top-[41px] z-50 transition-all duration-700 ${
           scrolled
-            ? "backdrop-blur-xl bg-ivory/85 border-b border-gold/30 shadow-[0_4px_40px_rgba(0,0,0,0.07)]"
+            ? "backdrop-blur-xl bg-ivory/90 border-b border-gold/30 shadow-[0_4px_40px_rgba(0,0,0,0.07)]"
             : "bg-transparent"
         }`}
       >
         <div className="mx-auto flex max-w-[1600px] items-center justify-between px-6 md:px-12 py-5">
           <nav className="hidden md:flex items-center gap-8 text-[11px] uppercase tracking-luxe text-foreground/85">
             {leftLinks.map((l) => (
-              <Link key={l.label} to={l.href} className="relative group">
+              <Link key={l.label} to={l.href} search={l.search} className="relative group">
                 <span className="transition-colors group-hover:text-gold">{l.label}</span>
                 <span className="absolute -bottom-1 left-0 h-px w-0 bg-gradient-gold transition-all duration-500 group-hover:w-full" />
               </Link>
@@ -77,7 +75,6 @@ export function Nav() {
               <Link to="/shop" className="hidden md:block">
                 <Search className="h-4 w-4 cursor-pointer transition-colors hover:text-gold" strokeWidth={1.2} />
               </Link>
-              <User className="hidden md:block h-4 w-4 cursor-pointer transition-colors hover:text-gold" strokeWidth={1.2} />
               <Heart className="h-4 w-4 cursor-pointer transition-colors hover:text-gold" strokeWidth={1.2} />
               <Link to="/cart" className="relative">
                 <ShoppingBag className="h-4 w-4 cursor-pointer transition-colors hover:text-gold" strokeWidth={1.2} />
@@ -112,13 +109,24 @@ export function Nav() {
             </button>
           </div>
           <nav className="flex flex-col px-8 py-8">
-            {[...leftLinks, ...rightLinks].map((l, i) => (
+            {leftLinks.map((l, i) => (
+              <Link
+                key={l.label}
+                to={l.href}
+                search={l.search}
+                onClick={() => setMobileOpen(false)}
+                className="py-5 border-b border-gold/10 font-display text-2xl italic text-ivory/80 hover:text-gold-warm transition-colors flex items-center justify-between"
+              >
+                {l.label}
+                <span className="text-gold/30 text-sm font-sans not-italic tracking-wider">→</span>
+              </Link>
+            ))}
+            {rightLinks.map((l) => (
               <Link
                 key={l.label}
                 to={l.href}
                 onClick={() => setMobileOpen(false)}
                 className="py-5 border-b border-gold/10 font-display text-2xl italic text-ivory/80 hover:text-gold-warm transition-colors flex items-center justify-between"
-                style={{ animationDelay: `${i * 0.05}s` }}
               >
                 {l.label}
                 <span className="text-gold/30 text-sm font-sans not-italic tracking-wider">→</span>
