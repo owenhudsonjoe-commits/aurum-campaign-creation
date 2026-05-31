@@ -11,8 +11,6 @@ import bridal from "@/assets/pk-bridal.jpg";
 import pret from "@/assets/pk-pret.jpg";
 import men from "@/assets/pk-men.jpg";
 import atelier from "@/assets/pk-atelier.jpg";
-import look1 from "@/assets/pk-look-1.jpg";
-import look2 from "@/assets/pk-look-2.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -309,49 +307,6 @@ function Home() {
         </div>
       </section>
 
-      {/* LOOKBOOK */}
-      <section className="px-6 md:px-12 py-28 md:py-36">
-        <div className="mx-auto max-w-[1600px]">
-          <div className="mb-16 flex flex-col items-center text-center">
-            <p className="text-[11px] uppercase tracking-luxe text-gold">Lookbook · شاہی</p>
-            <h2 className="mt-4 font-display text-5xl md:text-7xl text-ink italic">Darbar</h2>
-            <PaisleyDivider className="mt-8" />
-          </div>
-
-          <div className="grid grid-cols-12 gap-4 md:gap-6">
-            <div className="col-span-12 md:col-span-7">
-              <div className="group relative">
-                <ArchFrame className="aspect-[4/5] shadow-card">
-                  <img src={look2} alt="Lookbook scene" loading="lazy" className="h-full w-full object-cover transition-transform duration-[1600ms] group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-emerald-deep/70 via-transparent to-transparent" />
-                  <div className="absolute bottom-8 left-8 text-ivory">
-                    <p className="text-[10px] uppercase tracking-luxe text-gold-warm">Campaign · MMXXV</p>
-                    <p className="mt-2 font-display text-2xl italic">The Darbar Edit</p>
-                    <Link to="/shop" className="mt-4 inline-flex items-center gap-2 text-[10px] uppercase tracking-luxe border-b border-gold/50 pb-0.5 hover:text-gold-warm transition-colors">
-                      View Collections <ArrowRight className="h-3 w-3" />
-                    </Link>
-                  </div>
-                </ArchFrame>
-              </div>
-            </div>
-            <div className="col-span-12 md:col-span-5 flex flex-col gap-4 md:gap-6">
-              <ArchFrame className="aspect-[4/5] shadow-card">
-                <img src={look1} alt="Anarkali in courtyard" loading="lazy" className="h-full w-full object-cover" />
-              </ArchFrame>
-              <div className="hidden md:flex flex-1 flex-col justify-end px-2 py-4">
-                <div className="gold-line mb-6" />
-                <p className="font-display italic text-xl text-ink leading-snug">
-                  "We do not chase trends. We honour the loom, the needle, and the hand that
-                  remembers what they have made for centuries."
-                </p>
-                <p className="mt-5 text-[10px] uppercase tracking-luxe text-muted-foreground">
-                  — Mehr Aurangzeb, Creative Director
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* BESPOKE */}
       <section id="bespoke" className="relative px-6 md:px-12 py-28 md:py-36 bg-emerald-deep text-ivory overflow-hidden">
@@ -465,7 +420,7 @@ function Home() {
             </a>
           </div>
           <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
-            {[bridal, look2, pret, men, look1, atelier].map((img, i) => (
+            {[bridal, pret, men, atelier, bridal, pret].map((img, i) => (
               <a key={i} href="#" className="group relative overflow-hidden" style={{ borderTopLeftRadius: "50% 22%", borderTopRightRadius: "50% 22%" }}>
                 <div className="aspect-square overflow-hidden" style={{ borderTopLeftRadius: "50% 22%", borderTopRightRadius: "50% 22%" }}>
                   <img src={img} alt={`Feed ${i + 1}`} loading="lazy" className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110" />
