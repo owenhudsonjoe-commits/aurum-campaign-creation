@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { z } from "zod";
 import { Nav } from "@/components/Nav";
@@ -7,7 +7,8 @@ import { ArchFrame } from "@/components/ArchFrame";
 import { PRODUCTS, formatPrice } from "@/lib/products";
 import type { FabricType, Collection } from "@/lib/products";
 import { useCart } from "@/lib/cart";
-import { ShoppingBag, ArrowRight, Heart } from "lucide-react";
+import { useWishlist } from "@/lib/wishlist";
+import { ShoppingBag, ArrowRight, Heart, Search, X } from "lucide-react";
 
 const FABRIC_TABS: FabricType[] = ["Stitched", "Unstitched"];
 const COLLECTIONS: Collection[] = ["Bridal", "Festive / Pret", "Men's"];
@@ -39,17 +40,27 @@ function ShopPage() {
   const { collection: initialCollection, fabric: initialFabric } = Route.useSearch();
   const [fabric, setFabric] = useState<FabricType>(initialFabric);
   const [activeCollection, setActiveCollection] = useState<Collection | "All">(initialCollection);
-  const [wishlisted, setWishlisted] = useState<Set<string>>(new Set());
   const { addItem } = useCart();
+  const { toggle: toggleWishlist, isWishlisted } = useWishlist();
   const [addedId, setAddedId] = useState<string | null>(null);
+  const [query, setQuery] = useState("");
+  const [searchOpen, setSearchOpen] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
     return PRODUCTS.filter((p) => {
       const fabricMatch = p.fabricType === fabric;
       const colMatch = activeCollection === "All" || p.category === activeCollection;
-      return fabricMatch && colMatch;
+      const searchMatch =
+        !q ||
+        p.name.toLowerCase().includes(q) ||
+        p.fabricType.toLowerCase().includes(q) ||
+        p.category.toLowerCase().includes(q) ||
+        p.details.some((d) => d.toLowerCase().includes(q));
+      return fabricMatch && colMatch && searchMatch;
     });
-  }, [fabric, activeCollection]);
+  }, [fabric, activeCollection, query]);
 
   function handleAdd(productId: string, e: React.MouseEvent) {
     e.preventDefault();
@@ -59,13 +70,14 @@ function ShopPage() {
     setTimeout(() => setAddedId(null), 1800);
   }
 
-  function toggleWishlist(id: string, e: React.MouseEvent) {
-    e.preventDefault();
-    setWishlisted((prev) => {
-      const next = new Set(prev);
-      next.has(id) ? next.delete(id) : next.add(id);
-      return next;
-    });
+  function openSearch() {
+    setSearchOpen(true);
+    setTimeout(() => inputRef.current?.focus(), 50);
+  }
+
+  function clearSearch() {
+    setQuery("");
+    inputRef.current?.focus();
   }
 
   const meta = collectionMeta[activeCollection];
@@ -84,9 +96,9 @@ function ShopPage() {
         </p>
       </div>
 
-      {/* Fabric tabs + Collection pills — always visible */}
+      {/* Sticky filter bar */}
       <div className="sticky top-[41px] z-40 bg-ivory/97 backdrop-blur border-b border-gold/20">
-        {/* Fabric tabs */}
+        {/* Fabric tabs + search toggle */}
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 flex items-center justify-between border-b border-gold/10">
           <div className="flex">
             {FABRIC_TABS.map((tab) => (
@@ -102,11 +114,44 @@ function ShopPage() {
               </button>
             ))}
           </div>
-          <p className="text-[10px] uppercase tracking-luxe text-muted-foreground hidden sm:block">
-            {filtered.length} {filtered.length === 1 ? "piece" : "pieces"}
-          </p>
+
+          <div className="flex items-center gap-4">
+            {/* Expandable search */}
+            <div className={`flex items-center transition-all duration-300 ${searchOpen ? "gap-2" : "gap-0"}`}>
+              {searchOpen && (
+                <div className="relative flex items-center">
+                  <input
+                    ref={inputRef}
+                    type="text"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Search products…"
+                    className="w-48 md:w-64 pl-3 pr-7 py-1.5 text-[11px] border border-gold/30 bg-transparent focus:outline-none focus:border-gold text-ink placeholder:text-muted-foreground/50 transition-all"
+                    onKeyDown={(e) => { if (e.key === "Escape") { setSearchOpen(false); setQuery(""); } }}
+                  />
+                  {query && (
+                    <button onClick={clearSearch} className="absolute right-2 text-muted-foreground hover:text-ink transition-colors">
+                      <X className="h-3 w-3" strokeWidth={1.5} />
+                    </button>
+                  )}
+                </div>
+              )}
+              <button
+                onClick={() => { if (searchOpen) { setSearchOpen(false); setQuery(""); } else { openSearch(); } }}
+                className="text-muted-foreground hover:text-gold transition-colors p-1"
+                aria-label="Toggle search"
+              >
+                {searchOpen ? <X className="h-4 w-4" strokeWidth={1.2} /> : <Search className="h-4 w-4" strokeWidth={1.2} />}
+              </button>
+            </div>
+
+            <p className="text-[10px] uppercase tracking-luxe text-muted-foreground hidden sm:block">
+              {filtered.length} {filtered.length === 1 ? "piece" : "pieces"}
+            </p>
+          </div>
         </div>
-        {/* Collection pills — always shown */}
+
+        {/* Collection pills */}
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-3 flex items-center gap-2 flex-wrap">
           {(["All", ...COLLECTIONS] as const).map((col) => (
             <button
@@ -124,18 +169,46 @@ function ShopPage() {
         </div>
       </div>
 
+      {/* Search results label */}
+      {query && (
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 pt-8 pb-0">
+          <p className="text-[11px] uppercase tracking-luxe text-muted-foreground">
+            {filtered.length === 0
+              ? `No results for "${query}"`
+              : `${filtered.length} result${filtered.length !== 1 ? "s" : ""} for "${query}"`}
+          </p>
+        </div>
+      )}
+
       {/* Products grid */}
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-14">
         {filtered.length === 0 ? (
           <div className="text-center py-28 border border-gold/20">
-            <p className="font-display text-3xl italic text-muted-foreground mb-3">Coming Soon</p>
-            <p className="text-sm text-muted-foreground mb-8 max-w-xs mx-auto">We're adding new pieces to this collection — check back soon or explore another category.</p>
-            <button
-              onClick={() => setActiveCollection("All")}
-              className="inline-flex items-center gap-2 bg-gradient-gold text-ivory px-8 py-3.5 text-[11px] uppercase tracking-luxe hover:shadow-luxe transition-shadow"
-            >
-              View All Pieces <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
-            </button>
+            {query ? (
+              <>
+                <p className="font-display text-3xl italic text-muted-foreground mb-3">No matches found</p>
+                <p className="text-sm text-muted-foreground mb-8 max-w-xs mx-auto">
+                  Try a different search term or browse all pieces below.
+                </p>
+                <button
+                  onClick={() => { setQuery(""); setActiveCollection("All"); }}
+                  className="inline-flex items-center gap-2 bg-gradient-gold text-ivory px-8 py-3.5 text-[11px] uppercase tracking-luxe hover:shadow-luxe transition-shadow"
+                >
+                  Clear Search <X className="h-3.5 w-3.5" strokeWidth={1.5} />
+                </button>
+              </>
+            ) : (
+              <>
+                <p className="font-display text-3xl italic text-muted-foreground mb-3">Coming Soon</p>
+                <p className="text-sm text-muted-foreground mb-8 max-w-xs mx-auto">We're adding new pieces to this collection — check back soon or explore another category.</p>
+                <button
+                  onClick={() => setActiveCollection("All")}
+                  className="inline-flex items-center gap-2 bg-gradient-gold text-ivory px-8 py-3.5 text-[11px] uppercase tracking-luxe hover:shadow-luxe transition-shadow"
+                >
+                  View All Pieces <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
+                </button>
+              </>
+            )}
           </div>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-14">
@@ -151,7 +224,6 @@ function ShopPage() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-emerald-deep/60 via-transparent to-transparent opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
 
-                    {/* Badge */}
                     {product.badge && (
                       <div className="absolute top-4 left-4 z-20">
                         <span className={`px-3 py-1 text-[9px] uppercase tracking-luxe font-medium ${
@@ -165,16 +237,22 @@ function ShopPage() {
                       </div>
                     )}
 
-                    {/* Wishlist */}
+                    {product.discountPercent && (
+                      <div className="absolute top-4 right-12 z-20">
+                        <span className="px-2 py-1 text-[9px] font-bold bg-red-500 text-white uppercase">
+                          -{product.discountPercent}%
+                        </span>
+                      </div>
+                    )}
+
                     <button
-                      onClick={(e) => toggleWishlist(product.id, e)}
+                      onClick={(e) => { e.preventDefault(); toggleWishlist(product); }}
                       className="absolute top-4 right-4 z-20 w-8 h-8 flex items-center justify-center bg-ivory/80 backdrop-blur opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-ivory"
                       aria-label="Wishlist"
                     >
-                      <Heart className={`h-3.5 w-3.5 transition-all ${wishlisted.has(product.id) ? "fill-gold text-gold" : "text-ink"}`} strokeWidth={1.5} />
+                      <Heart className={`h-3.5 w-3.5 transition-all ${isWishlisted(product.id) ? "fill-gold text-gold" : "text-ink"}`} strokeWidth={1.5} />
                     </button>
 
-                    {/* Add to bag */}
                     <button
                       onClick={(e) => handleAdd(product.id, e)}
                       className={`absolute bottom-5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 rounded-full px-5 py-2.5 text-[10px] uppercase tracking-luxe backdrop-blur translate-y-4 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100 whitespace-nowrap ${
