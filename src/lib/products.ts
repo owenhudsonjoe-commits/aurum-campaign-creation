@@ -53,6 +53,53 @@ export interface Product {
 
 export const PRODUCTS: Product[] = [
   {
+    id: "f-002",
+    slug: "rupenzal-2pc-printed",
+    name: "Rupenzal 2 Pc (Printed)",
+    category: "Festive / Pret",
+    fabricType: "Stitched",
+    price: 8000,
+    discountedPrice: 3840,
+    discountPercent: 52,
+    badge: "Bestseller",
+    images: [
+      "/rupenzal-1.png",
+      "/rupenzal-2.png",
+      "/rupenzal-3.png",
+      "/rupenzal-4.png",
+      "/rupenzal-5.png",
+      "/rupenzal-6.png",
+      "/rupenzal-7.png",
+    ],
+    description:
+      "The Rupenzal 2 Piece is a vision of floral romance — crafted in premium Grip Silk with an all-over blue floral print on a crisp white base. The flowing silhouette features intricate embroidered borders at the hem and sleeves, with a delicate dotted net dupatta to complete the look. Perfect for festive evenings, garden parties, and beachside celebrations.",
+    details: [
+      "Fabric: Premium Grip Silk",
+      "Print: All-over blue floral digital print",
+      "Embroidery: Embroidered hem and sleeve borders",
+      "Set: 2-piece stitched (maxi kameez + dupatta)",
+      "Colour: White / Steel Blue",
+      "Occasion: Festive, Eid, mehndi, outdoor celebrations",
+      "Care: Dry clean only — handle with care",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2–3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      { size: "S", chest: '18–19"', shoulder: '14"', hips: '18"', armHole: '9"', legOpening: '8"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
+    ],
+    sizeChartImage: "/rupenzal-size-chart.png",
+    reviewCount: 7,
+    soldCount: 32,
+    soldTimeframe: "13 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
+  {
     id: "f-001",
     slug: "simran-3pc-organza",
     name: "Simran 3 Pc",
