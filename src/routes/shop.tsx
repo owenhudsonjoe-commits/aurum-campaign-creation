@@ -1,13 +1,23 @@
 import { useState, useMemo } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { z } from "zod";
 import { Nav } from "@/components/Nav";
 import { ArchFrame } from "@/components/ArchFrame";
 import { PRODUCTS, formatPrice } from "@/lib/products";
 import type { FabricType, Collection } from "@/lib/products";
 import { useCart } from "@/lib/cart";
-import { ShoppingBag, Heart, SlidersHorizontal, X } from "lucide-react";
+import { ShoppingBag, SlidersHorizontal, X } from "lucide-react";
+
+const FABRIC_TABS: FabricType[] = ["Stitched", "Unstitched"];
+const COLLECTIONS: Collection[] = ["Bridal", "Festive / Pret", "Men's"];
+
+const shopSearchSchema = z.object({
+  collection: z.enum(["All", "Bridal", "Festive / Pret", "Men's"]).optional().default("All"),
+  fabric: z.enum(["Stitched", "Unstitched"]).optional().default("Stitched"),
+});
 
 export const Route = createFileRoute("/shop")({
+  validateSearch: shopSearchSchema,
   head: () => ({
     meta: [
       { title: "Shop — Maison Aurum" },
@@ -17,12 +27,10 @@ export const Route = createFileRoute("/shop")({
   component: ShopPage,
 });
 
-const FABRIC_TABS: FabricType[] = ["Stitched", "Unstitched"];
-const COLLECTIONS: Collection[] = ["Bridal", "Festive / Pret", "Men's"];
-
 function ShopPage() {
-  const [fabric, setFabric] = useState<FabricType>("Stitched");
-  const [activeCollection, setActiveCollection] = useState<Collection | "All">("All");
+  const { collection: initialCollection, fabric: initialFabric } = Route.useSearch();
+  const [fabric, setFabric] = useState<FabricType>(initialFabric);
+  const [activeCollection, setActiveCollection] = useState<Collection | "All">(initialCollection);
   const [filterOpen, setFilterOpen] = useState(false);
   const { addItem, count } = useCart();
   const [addedId, setAddedId] = useState<string | null>(null);

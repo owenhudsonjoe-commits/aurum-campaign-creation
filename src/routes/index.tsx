@@ -43,9 +43,9 @@ export const Route = createFileRoute("/")({
 });
 
 const collections = [
-  { image: bridal, title: "Bridal Couture", caption: "Shaadi · Mehndi · Walima", urdu: "شادی" },
-  { image: pret, title: "Festive Prêt", caption: "Eid · Mehndi · Sangeet", urdu: "عید" },
-  { image: men, title: "Maison Homme", caption: "Sherwani · Bandhgala", urdu: "مردانہ" },
+  { image: bridal, title: "Bridal Couture", caption: "Shaadi · Mehndi · Walima", urdu: "شادی", collection: "Bridal" as const, fabric: "Stitched" as const },
+  { image: pret, title: "Festive Prêt", caption: "Eid · Mehndi · Sangeet", urdu: "عید", collection: "Festive / Pret" as const, fabric: "Stitched" as const },
+  { image: men, title: "Maison Homme", caption: "Sherwani · Bandhgala", urdu: "مردانہ", collection: "Men's" as const, fabric: "Stitched" as const },
 ];
 
 const press = [
@@ -232,7 +232,7 @@ function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
             {collections.map((c, i) => (
-              <Link key={c.title} to="/shop" className="group block animate-reveal" style={{ animationDelay: `${i * 0.15}s` }}>
+              <Link key={c.title} to="/shop" search={{ collection: c.collection, fabric: c.fabric }} className="group block animate-reveal" style={{ animationDelay: `${i * 0.15}s` }}>
                 <ArchFrame className="aspect-[3/4]" borderClass="border-gold/50">
                   <img
                     src={c.image}
