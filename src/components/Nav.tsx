@@ -3,6 +3,7 @@ import { Search, User, Heart, ShoppingBag, Menu, X, Phone } from "lucide-react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { AurumLogo } from "./AurumLogo";
 import { useCart } from "@/lib/cart";
+import { useWishlist } from "@/lib/wishlist";
 
 const leftLinks = [
   { label: "Bridal", href: "/shop", search: { collection: "Bridal" as const, fabric: "Stitched" as const } },
@@ -17,6 +18,7 @@ export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const cartCount = useCart((s) => s.count());
+  const wishlistCount = useWishlist((s) => s.count());
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -75,7 +77,14 @@ export function Nav() {
               <Link to="/shop" className="hidden md:block">
                 <Search className="h-4 w-4 cursor-pointer transition-colors hover:text-gold" strokeWidth={1.2} />
               </Link>
-              <Heart className="h-4 w-4 cursor-pointer transition-colors hover:text-gold" strokeWidth={1.2} />
+              <Link to="/wishlist" className="relative">
+                <Heart className={`h-4 w-4 cursor-pointer transition-colors hover:text-gold ${wishlistCount > 0 ? "fill-gold text-gold" : ""}`} strokeWidth={1.2} />
+                {wishlistCount > 0 && (
+                  <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[9px] text-ivory font-medium">
+                    {wishlistCount > 9 ? "9+" : wishlistCount}
+                  </span>
+                )}
+              </Link>
               <Link to="/cart" className="relative">
                 <ShoppingBag className="h-4 w-4 cursor-pointer transition-colors hover:text-gold" strokeWidth={1.2} />
                 {cartCount > 0 && (

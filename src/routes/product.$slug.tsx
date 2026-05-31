@@ -6,6 +6,7 @@ import { ArchFrame } from "@/components/ArchFrame";
 import { PaisleyDivider } from "@/components/PaisleyDivider";
 import { getProductBySlug, formatPrice, PRODUCTS } from "@/lib/products";
 import { useCart } from "@/lib/cart";
+import { useWishlist } from "@/lib/wishlist";
 import { ShoppingBag, Heart, ChevronDown, ArrowRight, Ruler, Phone, Shield, Truck, RefreshCcw, Star, Zap, Clock } from "lucide-react";
 
 export const Route = createFileRoute("/product/$slug")({
@@ -43,9 +44,10 @@ function ProductPage() {
   if (!product) throw notFound();
 
   const { addItem } = useCart();
+  const { toggle: toggleWishlist, isWishlisted } = useWishlist();
+  const wishlisted = isWishlisted(product.id);
   const [selectedSize, setSelectedSize] = useState<string>("");
   const [mainImage, setMainImage] = useState(0);
-  const [wishlisted, setWishlisted] = useState(false);
   const [added, setAdded] = useState(false);
   const [sizeChartOpen, setSizeChartOpen] = useState(false);
   const [descOpen, setDescOpen] = useState(true);
@@ -127,7 +129,7 @@ function ProductPage() {
                   </div>
                 )}
                 <button
-                  onClick={() => setWishlisted(!wishlisted)}
+                  onClick={() => toggleWishlist(product)}
                   className="absolute top-5 right-5 z-10 w-10 h-10 flex items-center justify-center bg-ivory/80 backdrop-blur hover:bg-ivory transition-colors"
                   aria-label="Wishlist"
                 >
