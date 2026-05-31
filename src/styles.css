@@ -95,6 +95,12 @@
   }
 }
 
+@layer components {
+  .input-aurum {
+    @apply w-full border border-gold/30 bg-ivory px-4 py-3 text-sm text-ink placeholder:text-muted-foreground/50 outline-none focus:border-gold transition-colors;
+  }
+}
+
 @layer utilities {
   .font-display { font-family: var(--font-display); }
   .font-urdu { font-family: var(--font-urdu); }

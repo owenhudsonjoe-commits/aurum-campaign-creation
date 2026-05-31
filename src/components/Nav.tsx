@@ -1,12 +1,24 @@
 import { useEffect, useState } from "react";
 import { Search, User, Heart, ShoppingBag, Menu, X, Phone } from "lucide-react";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { AurumLogo } from "./AurumLogo";
+import { useCart } from "@/lib/cart";
 
-const links = ["Bridal", "Festive", "Atelier", "Lookbook", "Bespoke"];
+const leftLinks = [
+  { label: "Bridal", href: "/shop" },
+  { label: "Festive", href: "/shop" },
+  { label: "Men's", href: "/shop" },
+];
+const rightLinks = [
+  { label: "Lookbook", href: "/" },
+  { label: "Bespoke", href: "/bespoke" },
+];
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const cartCount = useCart((s) => s.count());
+  const navigate = useNavigate();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -40,35 +52,41 @@ export function Nav() {
       >
         <div className="mx-auto flex max-w-[1600px] items-center justify-between px-6 md:px-12 py-5">
           <nav className="hidden md:flex items-center gap-8 text-[11px] uppercase tracking-luxe text-foreground/85">
-            {links.slice(0, 3).map((l) => (
-              <a key={l} href="#" className="relative group">
-                <span className="transition-colors group-hover:text-gold">{l}</span>
+            {leftLinks.map((l) => (
+              <Link key={l.label} to={l.href} className="relative group">
+                <span className="transition-colors group-hover:text-gold">{l.label}</span>
                 <span className="absolute -bottom-1 left-0 h-px w-0 bg-gradient-gold transition-all duration-500 group-hover:w-full" />
-              </a>
+              </Link>
             ))}
           </nav>
 
-          <a href="#" className="absolute left-1/2 -translate-x-1/2">
+          <Link to="/" className="absolute left-1/2 -translate-x-1/2">
             <AurumLogo className="text-2xl md:text-3xl" />
-          </a>
+          </Link>
 
           <div className="flex items-center gap-5 text-foreground/85">
             <nav className="hidden md:flex items-center gap-8 text-[11px] uppercase tracking-luxe">
-              {links.slice(3).map((l) => (
-                <a key={l} href="#" className="relative group">
-                  <span className="transition-colors group-hover:text-gold">{l}</span>
+              {rightLinks.map((l) => (
+                <Link key={l.label} to={l.href} className="relative group">
+                  <span className="transition-colors group-hover:text-gold">{l.label}</span>
                   <span className="absolute -bottom-1 left-0 h-px w-0 bg-gradient-gold transition-all duration-500 group-hover:w-full" />
-                </a>
+                </Link>
               ))}
             </nav>
             <div className="flex items-center gap-4">
-              <Search className="hidden md:block h-4 w-4 cursor-pointer transition-colors hover:text-gold" strokeWidth={1.2} />
+              <Link to="/shop" className="hidden md:block">
+                <Search className="h-4 w-4 cursor-pointer transition-colors hover:text-gold" strokeWidth={1.2} />
+              </Link>
               <User className="hidden md:block h-4 w-4 cursor-pointer transition-colors hover:text-gold" strokeWidth={1.2} />
               <Heart className="h-4 w-4 cursor-pointer transition-colors hover:text-gold" strokeWidth={1.2} />
-              <div className="relative">
+              <Link to="/cart" className="relative">
                 <ShoppingBag className="h-4 w-4 cursor-pointer transition-colors hover:text-gold" strokeWidth={1.2} />
-                <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-gradient-gold text-[9px] text-ivory font-medium">2</span>
-              </div>
+                {cartCount > 0 && (
+                  <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-gradient-gold text-[9px] text-ivory font-medium">
+                    {cartCount > 9 ? "9+" : cartCount}
+                  </span>
+                )}
+              </Link>
               <button
                 className="md:hidden ml-1 text-foreground/85 hover:text-gold transition-colors"
                 onClick={() => setMobileOpen(true)}
@@ -94,26 +112,38 @@ export function Nav() {
             </button>
           </div>
           <nav className="flex flex-col px-8 py-8">
-            {links.map((l, i) => (
-              <a
-                key={l}
-                href="#"
+            {[...leftLinks, ...rightLinks].map((l, i) => (
+              <Link
+                key={l.label}
+                to={l.href}
                 onClick={() => setMobileOpen(false)}
                 className="py-5 border-b border-gold/10 font-display text-2xl italic text-ivory/80 hover:text-gold-warm transition-colors flex items-center justify-between"
                 style={{ animationDelay: `${i * 0.05}s` }}
               >
-                {l}
+                {l.label}
                 <span className="text-gold/30 text-sm font-sans not-italic tracking-wider">→</span>
-              </a>
+              </Link>
             ))}
+            <Link
+              to="/cart"
+              onClick={() => setMobileOpen(false)}
+              className="py-5 border-b border-gold/10 font-display text-2xl italic text-ivory/80 hover:text-gold-warm transition-colors flex items-center justify-between"
+            >
+              Your Bag {cartCount > 0 && <span className="text-gold text-sm font-sans not-italic">({cartCount})</span>}
+              <span className="text-gold/30 text-sm font-sans not-italic tracking-wider">→</span>
+            </Link>
           </nav>
           <div className="mt-auto px-8 pb-12 space-y-5">
             <p className="text-[10px] uppercase tracking-luxe text-gold-warm">Visit our Ateliers</p>
             <p className="text-sm text-ivory/60 font-light leading-relaxed">Lahore · Karachi · Dubai · London · New York</p>
-            <a href="#" className="mt-4 inline-flex items-center gap-2 rounded-full bg-gradient-gold px-6 py-3.5 text-[10px] uppercase tracking-luxe text-ivory shadow-luxe">
+            <Link
+              to="/bespoke"
+              onClick={() => setMobileOpen(false)}
+              className="mt-4 inline-flex items-center gap-2 rounded-full bg-gradient-gold px-6 py-3.5 text-[10px] uppercase tracking-luxe text-ivory shadow-luxe"
+            >
               <Phone className="h-3 w-3" strokeWidth={1.5} />
               Book Private Appointment
-            </a>
+            </Link>
           </div>
         </div>
       </div>
