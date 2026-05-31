@@ -1,3 +1,11 @@
+const simran1 = "/simran-1.png";
+const simran2 = "/simran-2.png";
+const simran3 = "/simran-3.png";
+const simran4 = "/simran-4.png";
+const simran5 = "/simran-5.png";
+const simran6 = "/simran-6.png";
+const simranSizeChart = "/simran-size-chart.png";
+
 export type Badge = "New" | "Limited" | "Last Piece" | "Bestseller";
 export type FabricType = "Stitched" | "Unstitched";
 export type Collection = "Bridal" | "Festive / Pret" | "Men's";
@@ -9,6 +17,11 @@ export interface SizeChartRow {
   hips?: string;
   length?: string;
   shoulder?: string;
+  armHole?: string;
+  legOpening?: string;
+  trouserLength?: string;
+  shirtLength?: string;
+  thigh?: string;
 }
 
 export interface Product {
@@ -19,18 +32,96 @@ export interface Product {
   category: Collection;
   fabricType: FabricType;
   price: number;
+  discountedPrice?: number;
+  discountPercent?: number;
   badge?: Badge;
   images: string[];
   description: string;
   details: string[];
   leadTime: string;
+  estimatedDelivery?: string;
   sizes: string[];
   sizeChart: SizeChartRow[];
+  sizeChartImage?: string;
+  reviewCount?: number;
+  soldCount?: number;
+  soldTimeframe?: string;
+  returnPolicy?: string;
   inStock: boolean;
   featured?: boolean;
 }
 
-export const PRODUCTS: Product[] = [];
+export const PRODUCTS: Product[] = [
+  {
+    id: "f-001",
+    slug: "simran-3pc-organza",
+    name: "Simran 3 Pc",
+    category: "Festive / Pret",
+    fabricType: "Stitched",
+    price: 9500,
+    discountedPrice: 3230,
+    discountPercent: 66,
+    badge: "Bestseller",
+    images: [simran1, simran2, simran3, simran4, simran5, simran6],
+    description:
+      "The Simran 3 Piece is a celebration of effortless elegance — crafted in sheer periwinkle organza adorned with intricate white thread embroidery running through the kameez, sleeves, and hemline. A floral lace border grounds the silhouette with refinement, while the soft dupatta adds a graceful finishing touch. Ready-to-wear and perfectly suited for festive gatherings, Eid, and family celebrations.",
+    details: [
+      "Fabric: Premium Organza",
+      "Embroidery: White thread embroidery on kameez, sleeves, and hemline",
+      "Border: Floral lace hem detail",
+      "Set: 3-piece stitched (kameez, trouser, dupatta)",
+      "Colour: Periwinkle / Sky Blue",
+      "Occasion: Festive, Eid, mehndi, family gatherings",
+      "Care: Dry clean only — do not wring or bleach",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2–3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      {
+        size: "S",
+        chest: '18–19"',
+        shoulder: '14"',
+        hips: '18"',
+        armHole: '9"',
+        legOpening: '8"',
+        trouserLength: '37"',
+        shirtLength: '37"',
+        thigh: '12"',
+      },
+      {
+        size: "M",
+        chest: '21"',
+        shoulder: '15"',
+        hips: '21"',
+        armHole: '9.5"',
+        legOpening: '9"',
+        trouserLength: '37"',
+        shirtLength: '37"',
+        thigh: '12"',
+      },
+      {
+        size: "L",
+        chest: '23"',
+        shoulder: '16"',
+        hips: '23"',
+        armHole: '10"',
+        legOpening: '9.5"',
+        trouserLength: '38"',
+        shirtLength: '38"',
+        thigh: '13"',
+      },
+    ],
+    sizeChartImage: simranSizeChart,
+    reviewCount: 7,
+    soldCount: 35,
+    soldTimeframe: "13 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
+];
 
 export function getProductBySlug(slug: string): Product | undefined {
   return PRODUCTS.find((p) => p.slug === slug);
@@ -49,5 +140,5 @@ export function getFeaturedProducts(): Product[] {
 }
 
 export function formatPrice(price: number): string {
-  return "PKR " + price.toLocaleString("en-PK");
+  return "RS " + price.toLocaleString("en-PK");
 }

@@ -6,7 +6,7 @@ import { ArchFrame } from "@/components/ArchFrame";
 import { PaisleyDivider } from "@/components/PaisleyDivider";
 import { getProductBySlug, formatPrice, PRODUCTS } from "@/lib/products";
 import { useCart } from "@/lib/cart";
-import { ShoppingBag, Heart, ChevronDown, ArrowRight, Ruler, Phone, Shield, Truck, RefreshCcw, Star } from "lucide-react";
+import { ShoppingBag, Heart, ChevronDown, ArrowRight, Ruler, Phone, Shield, Truck, RefreshCcw, Star, Zap, Clock } from "lucide-react";
 
 export const Route = createFileRoute("/product/$slug")({
   head: ({ params }) => {
@@ -21,11 +21,21 @@ export const Route = createFileRoute("/product/$slug")({
   component: ProductPage,
 });
 
-const reviews = [
+const defaultReviews = [
   { name: "Ayesha R.", city: "Lahore", rating: 5, text: "Absolutely breathtaking. The embroidery quality exceeded all my expectations — my mehndi guests were speechless." },
-  { name: "Zara M.", city: "Dubai", rating: 5, text: "Ordered from Dubai with a tight 10-week window. They delivered two days early. Flawless craftsmanship." },
+  { name: "Zara M.", city: "Dubai", rating: 5, text: "Ordered from Dubai with a tight window. They delivered two days early. Flawless craftsmanship." },
   { name: "Sana K.", city: "London", rating: 5, text: "The attention to detail is extraordinary. Every motif is perfectly placed. Worth every penny." },
 ];
+
+function StarRow({ count, size = "h-3 w-3" }: { count: number; size?: string }) {
+  return (
+    <div className="flex items-center gap-0.5">
+      {Array.from({ length: 5 }).map((_, i) => (
+        <Star key={i} className={`${size} ${i < count ? "fill-gold text-gold" : "fill-muted text-muted"}`} strokeWidth={0} />
+      ))}
+    </div>
+  );
+}
 
 function ProductPage() {
   const { slug } = Route.useParams();
@@ -59,14 +69,14 @@ function ProductPage() {
     [product]
   );
 
-  const hasSizeChart = product.sizeChart.length > 0;
-  const sizeChartHeaders = product.category === "Men's"
-    ? ["Size", "Chest", "Waist", "Shoulder", "Length"]
-    : product.fabricType === "Unstitched"
-    ? ["Piece", "Metres"]
-    : ["Size", "Chest", "Waist", "Hips", "Length"];
+  const hasSizeChart = product.sizeChart.length > 0 || !!product.sizeChartImage;
+  const reviewCount = product.reviewCount ?? 48;
 
-  const whatsappMsg = encodeURIComponent(`Hi, I'm interested in the ${product.name} (${formatPrice(product.price)}). Could you please assist me?`);
+  const whatsappMsg = encodeURIComponent(
+    `Hi, I'm interested in the ${product.name} (${product.discountedPrice ? formatPrice(product.discountedPrice) : formatPrice(product.price)}). Could you please assist me?`
+  );
+
+  const displayPrice = product.discountedPrice ?? product.price;
 
   return (
     <div className="min-h-screen bg-ivory">
@@ -109,6 +119,13 @@ function ProductPage() {
                     </span>
                   </div>
                 )}
+                {product.discountPercent && (
+                  <div className="absolute top-5 right-16 z-10">
+                    <span className="px-3 py-1.5 text-[9px] uppercase tracking-luxe font-semibold bg-red-500 text-white">
+                      -{product.discountPercent}%
+                    </span>
+                  </div>
+                )}
                 <button
                   onClick={() => setWishlisted(!wishlisted)}
                   className="absolute top-5 right-5 z-10 w-10 h-10 flex items-center justify-center bg-ivory/80 backdrop-blur hover:bg-ivory transition-colors"
@@ -118,12 +135,12 @@ function ProductPage() {
                 </button>
               </div>
               {product.images.length > 1 && (
-                <div className="flex gap-3">
+                <div className="flex gap-2 flex-wrap">
                   {product.images.map((img, i) => (
                     <button
                       key={i}
                       onClick={() => setMainImage(i)}
-                      className={`relative flex-1 aspect-square overflow-hidden transition-all ${
+                      className={`relative w-[calc(16.66%-8px)] min-w-[50px] aspect-square overflow-hidden transition-all ${
                         mainImage === i ? "ring-2 ring-gold ring-offset-1" : "opacity-60 hover:opacity-100"
                       }`}
                     >
@@ -135,15 +152,15 @@ function ProductPage() {
               {/* Review snippet */}
               <div className="mt-4 p-5 border border-gold/20 bg-amber-50/30">
                 <div className="flex items-center gap-1 mb-2">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} className="h-3 w-3 fill-gold text-gold" strokeWidth={0} />
-                  ))}
-                  <span className="ml-2 text-[10px] uppercase tracking-luxe text-muted-foreground">5.0 · 48 reviews</span>
+                  <StarRow count={5} />
+                  <span className="ml-2 text-[10px] uppercase tracking-luxe text-muted-foreground">
+                    5.0 · {reviewCount} reviews
+                  </span>
                 </div>
                 <p className="text-sm font-light text-muted-foreground italic leading-relaxed">
-                  "{reviews[0].text}"
+                  "{defaultReviews[0].text}"
                 </p>
-                <p className="mt-2 text-[10px] uppercase tracking-luxe text-ink">{reviews[0].name} · {reviews[0].city}</p>
+                <p className="mt-2 text-[10px] uppercase tracking-luxe text-ink">{defaultReviews[0].name} · {defaultReviews[0].city}</p>
               </div>
             </div>
 
@@ -155,14 +172,61 @@ function ProductPage() {
               {product.urduName && (
                 <p className="font-urdu text-2xl text-gold mb-1">{product.urduName}</p>
               )}
-              <h1 className="font-display text-4xl lg:text-5xl italic text-ink leading-tight mb-1">
+              <h1 className="font-display text-4xl lg:text-5xl italic text-ink leading-tight mb-3">
                 {product.name}
               </h1>
-              <p className="font-display text-3xl text-gradient-gold mt-3 mb-1">{formatPrice(product.price)}</p>
+
+              {/* Reviews & sold row */}
+              <div className="flex items-center gap-3 flex-wrap mb-4">
+                <div className="flex items-center gap-1.5">
+                  <StarRow count={5} size="h-3.5 w-3.5" />
+                  <span className="text-[11px] text-muted-foreground underline underline-offset-2 cursor-pointer hover:text-gold-warm transition-colors">
+                    {reviewCount} reviews
+                  </span>
+                </div>
+                {product.soldCount && product.soldTimeframe && (
+                  <div className="flex items-center gap-1 px-2.5 py-1 bg-red-50 border border-red-100 rounded-sm">
+                    <Zap className="h-3 w-3 text-red-500" strokeWidth={2} />
+                    <span className="text-[10px] font-medium text-red-600 uppercase tracking-wide">
+                      {product.soldCount} sold in the last {product.soldTimeframe}
+                    </span>
+                  </div>
+                )}
+              </div>
+
+              {/* Price block */}
+              <div className="mb-2">
+                {product.discountedPrice ? (
+                  <div className="flex items-baseline gap-3 flex-wrap">
+                    <span className="font-display text-3xl text-red-600 font-semibold">
+                      {formatPrice(product.discountedPrice)}
+                    </span>
+                    <span className="font-display text-xl text-muted-foreground line-through">
+                      {formatPrice(product.price)}
+                    </span>
+                    <span className="px-2 py-0.5 text-[10px] font-bold bg-red-500 text-white uppercase tracking-wide rounded-sm">
+                      {product.discountPercent}% OFF
+                    </span>
+                  </div>
+                ) : (
+                  <p className="font-display text-3xl text-gradient-gold">{formatPrice(product.price)}</p>
+                )}
+              </div>
               <p className="text-[10px] uppercase tracking-luxe text-muted-foreground mb-1">Inclusive of all taxes</p>
-              <p className="text-[10px] uppercase tracking-luxe text-muted-foreground mb-8">
-                <span className="text-emerald-700">●</span> Made to order · {product.leadTime}
-              </p>
+
+              {/* Delivery row */}
+              <div className="flex items-center gap-4 flex-wrap mb-6 mt-2">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-emerald-600 text-xs">●</span>
+                  <span className="text-[11px] text-emerald-700 font-medium uppercase tracking-wide">In Stock</span>
+                </div>
+                {product.estimatedDelivery && (
+                  <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+                    <Clock className="h-3.5 w-3.5 text-gold" strokeWidth={1.5} />
+                    <span>Estimated Delivery: <strong className="text-ink">{product.estimatedDelivery}</strong></span>
+                  </div>
+                )}
+              </div>
 
               {/* Size selection */}
               <div className="mb-6">
@@ -209,42 +273,37 @@ function ProductPage() {
                     <p className="text-[11px] uppercase tracking-luxe text-ink">Size Guide</p>
                     <button onClick={() => setSizeChartOpen(false)} className="text-muted-foreground hover:text-ink text-xs">✕</button>
                   </div>
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-[11px]">
-                      <thead>
-                        <tr className="border-b border-gold/20">
-                          {sizeChartHeaders.map((h) => (
-                            <th key={h} className="text-left py-2 pr-4 uppercase tracking-luxe text-muted-foreground font-normal">{h}</th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {product.sizeChart.map((row, i) => (
-                          <tr key={i} className={`border-b border-gold/10 ${selectedSize === row.size ? "bg-gold/5" : ""}`}>
-                            <td className="py-2.5 pr-4 font-medium text-ink">{row.size}</td>
-                            {product.category === "Men's" ? (
-                              <>
-                                <td className="py-2.5 pr-4 text-muted-foreground">{row.chest ?? "—"}</td>
-                                <td className="py-2.5 pr-4 text-muted-foreground">{row.waist ?? "—"}</td>
-                                <td className="py-2.5 pr-4 text-muted-foreground">{row.shoulder ?? "—"}</td>
-                                <td className="py-2.5 pr-4 text-muted-foreground">{row.length ?? "—"}</td>
-                              </>
-                            ) : product.fabricType === "Unstitched" ? (
-                              <td className="py-2.5 pr-4 text-muted-foreground">{row.length ?? "—"}</td>
-                            ) : (
-                              <>
-                                <td className="py-2.5 pr-4 text-muted-foreground">{row.chest ?? "—"}</td>
-                                <td className="py-2.5 pr-4 text-muted-foreground">{row.waist ?? "—"}</td>
-                                <td className="py-2.5 pr-4 text-muted-foreground">{row.hips ?? "—"}</td>
-                                <td className="py-2.5 pr-4 text-muted-foreground">{row.length ?? "—"}</td>
-                              </>
-                            )}
+                  {product.sizeChartImage ? (
+                    <img
+                      src={product.sizeChartImage}
+                      alt="Size Chart"
+                      className="w-full rounded-sm object-contain max-h-[400px]"
+                    />
+                  ) : (
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-[11px]">
+                        <thead>
+                          <tr className="border-b border-gold/20">
+                            {["Size", "Chest", "Waist", "Hips", "Length"].map((h) => (
+                              <th key={h} className="text-left py-2 pr-4 uppercase tracking-luxe text-muted-foreground font-normal">{h}</th>
+                            ))}
                           </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                  <p className="mt-3 text-[10px] text-muted-foreground">All measurements in inches. For custom sizing, select "Custom" and note measurements at checkout.</p>
+                        </thead>
+                        <tbody>
+                          {product.sizeChart.map((row, i) => (
+                            <tr key={i} className={`border-b border-gold/10 ${selectedSize === row.size ? "bg-gold/5" : ""}`}>
+                              <td className="py-2.5 pr-4 font-medium text-ink">{row.size}</td>
+                              <td className="py-2.5 pr-4 text-muted-foreground">{row.chest ?? "—"}</td>
+                              <td className="py-2.5 pr-4 text-muted-foreground">{row.waist ?? "—"}</td>
+                              <td className="py-2.5 pr-4 text-muted-foreground">{row.hips ?? "—"}</td>
+                              <td className="py-2.5 pr-4 text-muted-foreground">{row.length ?? "—"}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+                  <p className="mt-3 text-[10px] text-muted-foreground">Sizes may vary by ±0.5 inches. All measurements in inches.</p>
                 </div>
               )}
 
@@ -292,10 +351,11 @@ function ProductPage() {
                   )},
                   { label: "Shipping & Returns", key: "shipping", open: shippingOpen, toggle: () => setShippingOpen(!shippingOpen), content: (
                     <div className="pb-5 space-y-3 text-sm text-muted-foreground font-light">
-                      <p>All pieces are made to order in our Lahore atelier. Production begins after order confirmation.</p>
-                      <p><strong className="text-ink font-medium">Delivery timeline:</strong> {product.leadTime} from order confirmation. We will share tracking details as soon as your piece is dispatched.</p>
-                      <p><strong className="text-ink font-medium">Shipping:</strong> Complimentary worldwide via DHL Express. Signature required on delivery.</p>
-                      <p><strong className="text-ink font-medium">Returns:</strong> As each piece is made to your measurements, we are unable to accept returns. Exchanges are considered on a case-by-case basis — please contact us within 48 hours of receipt.</p>
+                      {product.estimatedDelivery && (
+                        <p><strong className="text-ink font-medium">Estimated Delivery:</strong> {product.estimatedDelivery} from order confirmation.</p>
+                      )}
+                      <p><strong className="text-ink font-medium">Shipping:</strong> Complimentary nationwide delivery. Tracking details shared once dispatched.</p>
+                      <p><strong className="text-ink font-medium">Return Policy:</strong> {product.returnPolicy ?? "As each piece is made to your measurements, we are unable to accept returns. Exchanges are considered on a case-by-case basis — please contact us within 48 hours of receipt."}</p>
                     </div>
                   )},
                 ].map(({ label, key, open, toggle, content }) => (
@@ -315,9 +375,9 @@ function ProductPage() {
               {/* Trust bar */}
               <div className="mt-8 grid grid-cols-3 gap-3">
                 {[
-                  { icon: Truck, label: "Worldwide Shipping", sub: "Complimentary · DHL" },
+                  { icon: Truck, label: "Fast Delivery", sub: product.estimatedDelivery ?? "2–5 days" },
                   { icon: Shield, label: "Authenticity Cert.", sub: "Included with every piece" },
-                  { icon: RefreshCcw, label: "Bespoke Exchanges", sub: "Within 48 hrs of delivery" },
+                  { icon: RefreshCcw, label: "Easy Returns", sub: "Within 24 hrs of delivery" },
                 ].map(({ icon: Icon, label, sub }) => (
                   <div key={label} className="text-center p-4 border border-gold/15">
                     <Icon className="h-4 w-4 text-gold mx-auto mb-2" strokeWidth={1.2} />
@@ -340,20 +400,16 @@ function ProductPage() {
               </div>
               <div className="text-right hidden sm:block">
                 <div className="flex items-center gap-1 justify-end mb-1">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} className="h-3.5 w-3.5 fill-gold text-gold" strokeWidth={0} />
-                  ))}
+                  <StarRow count={5} size="h-3.5 w-3.5" />
                 </div>
-                <p className="text-[10px] uppercase tracking-luxe text-muted-foreground">5.0 · 48 Verified Reviews</p>
+                <p className="text-[10px] uppercase tracking-luxe text-muted-foreground">5.0 · {reviewCount} Verified Reviews</p>
               </div>
             </div>
             <div className="grid md:grid-cols-3 gap-6">
-              {reviews.map((r) => (
+              {defaultReviews.map((r) => (
                 <div key={r.name} className="border border-gold/20 p-7 bg-ivory">
                   <div className="flex items-center gap-1 mb-4">
-                    {Array.from({ length: r.rating }).map((_, i) => (
-                      <Star key={i} className="h-3 w-3 fill-gold text-gold" strokeWidth={0} />
-                    ))}
+                    <StarRow count={r.rating} />
                   </div>
                   <p className="text-sm font-light text-muted-foreground italic leading-relaxed mb-5">"{r.text}"</p>
                   <div className="border-t border-gold/10 pt-4 flex items-center justify-between">
@@ -387,7 +443,7 @@ function ProductPage() {
                   <div className="mt-3 px-1">
                     <p className="text-[10px] uppercase tracking-luxe text-muted-foreground">{p.category}</p>
                     <h3 className="font-display text-base italic text-ink mt-0.5">{p.name}</h3>
-                    <p className="font-display text-sm text-gradient-gold mt-1">{formatPrice(p.price)}</p>
+                    <p className="font-display text-sm text-gradient-gold mt-1">{formatPrice(p.discountedPrice ?? p.price)}</p>
                   </div>
                 </Link>
               ))}
