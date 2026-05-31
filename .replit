@@ -1,7 +1,7 @@
 modules = ["nodejs-20", "web", "bun"]
 [agent]
 expertMode = true
-stack = "BEST_EFFORT_FALLBACK"
+stack = "GAMESTACK_JS"
 
 [nix]
 channel = "stable-25_05"
@@ -27,7 +27,7 @@ outputType = "webview"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "/nix/store/1lagpgadaybvs1n2312gysg2phjk89y8-nodejs-20.20.0-wrapped/bin/node node_modules/.bin/vite dev"
+args = "bun run dev"
 waitForPort = 5000
 
 [[ports]]
@@ -35,6 +35,7 @@ localPort = 5000
 externalPort = 80
 
 [deployment]
-deploymentTarget = "static"
-build = ["bun", "run", "build"]
+deploymentTarget = "autoscale"
+build = ["npm", "run", "build"]
 publicDir = "dist/client"
+run = ["node", "./dist/index.cjs"]
