@@ -44,7 +44,7 @@ export const Route = createFileRoute("/")({
 
 const fabricCategories = [
   { image: "/stitched-card.png", hasImage: true, title: "Stitched", caption: "Ready-to-wear & made-to-measure", urdu: "سلا ہوا", fabric: "Stitched" as const },
-  { image: null, hasImage: false, title: "Unstitched", caption: "Premium fabrics, tailored your way", urdu: "ان سلا", fabric: "Unstitched" as const },
+  { image: "/unstitched-card.png", hasImage: true, title: "Unstitched", caption: "Premium fabrics, tailored your way", urdu: "ان سلا", fabric: "Unstitched" as const },
 ];
 
 const press = [
