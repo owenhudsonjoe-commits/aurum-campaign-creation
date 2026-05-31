@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { z } from "zod";
 import { Nav } from "@/components/Nav";
+import { Footer } from "@/components/Footer";
 import { ArchFrame } from "@/components/ArchFrame";
 import { PRODUCTS, formatPrice } from "@/lib/products";
 import type { FabricType, Collection } from "@/lib/products";
@@ -210,6 +211,7 @@ function ShopPage() {
           Book an Atelier Consultation <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
         </Link>
       </div>
+      <Footer />
     </div>
   );
 }

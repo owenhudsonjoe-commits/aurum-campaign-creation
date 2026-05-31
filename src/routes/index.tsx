@@ -2,6 +2,7 @@ import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Star, Globe, Sparkles, Instagram, Shield, Truck, Award, Clock, Phone, ChevronDown } from "lucide-react";
 import { Nav } from "@/components/Nav";
+import { Footer } from "@/components/Footer";
 import { GoldParticles } from "@/components/GoldParticles";
 import { AurumLogo } from "@/components/AurumLogo";
 import { PaisleyDivider } from "@/components/PaisleyDivider";
@@ -453,46 +454,7 @@ function Home() {
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="border-t border-gold/40 bg-emerald-deep text-ivory px-6 md:px-12 pt-20 pb-10 relative overflow-hidden">
-        <div className="absolute inset-0 jaali-emerald opacity-15 pointer-events-none" />
-        <div className="relative mx-auto max-w-[1600px]">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
-            <div className="md:col-span-4">
-              <AurumLogo className="text-3xl" />
-              <p className="mt-6 max-w-xs text-sm text-ivory/70 font-light leading-relaxed">
-                Maison Aurum. A private house of Pakistani couture, joaillerie and bespoke
-                tailoring — for those who require nothing, and choose everything.
-              </p>
-              <p className="mt-6 font-urdu text-lg text-gold-warm">میسن اورم — لاہور</p>
-              <div className="mt-8 flex items-center gap-3 text-[11px] uppercase tracking-luxe text-ivory/60">
-                <Globe className="h-3 w-3 text-gold-warm flex-shrink-0" /> EN · UR · AR · FR
-                <span className="ml-4">PKR · USD · AED</span>
-              </div>
-            </div>
-            {[
-              { t: "Maison", l: ["The House", "Atelier", "Press", "Sustainability"] },
-              { t: "Couture", l: ["Bridal", "Festive Prêt", "Maison Homme", "Joaillerie"] },
-              { t: "Cercle", l: ["Bespoke", "Private Salons", "Trunk Shows", "Concierge"] },
-              { t: "Service", l: ["Contact", "Shipping", "Care", "Authenticity"] },
-            ].map((c) => (
-              <div key={c.t} className="md:col-span-2">
-                <p className="text-[11px] uppercase tracking-luxe text-gold-warm">{c.t}</p>
-                <ul className="mt-6 space-y-3 text-sm font-light text-ivory/80">
-                  {c.l.map((x) => (
-                    <li key={x}><a href="#" className="hover:text-gold-warm transition-colors">{x}</a></li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-          <div className="gold-line my-12" />
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-[10px] uppercase tracking-luxe text-ivory/60">
-            <p>© MMXXV Maison Aurum · All rights reserved</p>
-            <p>Lahore · Karachi · Dubai · London · New York</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
 
       {/* Floating Book Now Button */}
       <Link

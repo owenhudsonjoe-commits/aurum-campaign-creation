@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Nav } from "@/components/Nav";
+import { Footer } from "@/components/Footer";
 import { PaisleyDivider } from "@/components/PaisleyDivider";
 import { Phone, Mail, MapPin, Clock, CheckCircle, ArrowRight, Star } from "lucide-react";
 import atelier from "@/assets/pk-atelier.jpg";
@@ -243,15 +244,7 @@ function BespokePage() {
         </div>
       </section>
 
-      {/* Footer strip */}
-      <div className="border-t border-gold/20 bg-emerald-deep text-ivory py-10 text-center">
-        <p className="text-[10px] uppercase tracking-luxe text-gold-warm mb-2">Ready to begin?</p>
-        <p className="font-display text-2xl italic mb-2">Your atelier awaits.</p>
-        <div className="flex items-center justify-center gap-2 text-[10px] uppercase tracking-luxe text-ivory/40 mt-4">
-          <Mail className="h-3 w-3 text-gold/50" strokeWidth={1.2} />
-          <a href="mailto:aurumshop12@gmail.com" className="hover:text-ivory/70 transition-colors">aurumshop12@gmail.com</a>
-        </div>
-      </div>
+      <Footer />
     </div>
   );
 }

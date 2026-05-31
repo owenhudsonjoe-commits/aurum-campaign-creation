@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Nav } from "@/components/Nav";
+import { Footer } from "@/components/Footer";
 import { ArchFrame } from "@/components/ArchFrame";
 import { PaisleyDivider } from "@/components/PaisleyDivider";
 import { getProductBySlug, formatPrice, PRODUCTS } from "@/lib/products";
@@ -404,6 +405,7 @@ function ProductPage() {
             Book an Atelier Consultation <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
           </Link>
         </div>
+        <Footer />
       </div>
     </div>
   );
