@@ -43,8 +43,8 @@ export const Route = createFileRoute("/")({
 });
 
 const fabricCategories = [
-  { image: bridal, title: "Stitched", caption: "Ready-to-wear & made-to-measure", urdu: "سلا ہوا", fabric: "Stitched" as const },
-  { image: pret, title: "Unstitched", caption: "Premium fabrics, tailored your way", urdu: "ان سلا", fabric: "Unstitched" as const },
+  { image: "/stitched-card.png", hasImage: true, title: "Stitched", caption: "Ready-to-wear & made-to-measure", urdu: "سلا ہوا", fabric: "Stitched" as const },
+  { image: null, hasImage: false, title: "Unstitched", caption: "Premium fabrics, tailored your way", urdu: "ان سلا", fabric: "Unstitched" as const },
 ];
 
 const press = [
@@ -232,15 +232,25 @@ function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 max-w-4xl mx-auto">
             {fabricCategories.map((c, i) => (
               <Link key={c.title} to="/shop" search={{ fabric: c.fabric }} className="group block animate-reveal" style={{ animationDelay: `${i * 0.15}s` }}>
-                <div className="relative flex flex-col items-center justify-center aspect-[3/4] border border-gold/40 bg-ivory group-hover:border-gold transition-colors duration-500 overflow-hidden">
-                  <div className="absolute inset-0 jaali-bg opacity-20" />
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-amber-50/40" />
-                  <div className="relative z-10 flex flex-col items-center text-center px-10">
-                    <p className="font-urdu text-3xl text-gold-warm mb-4">{c.urdu}</p>
+                <div className="relative flex flex-col items-center justify-center aspect-[3/4] border border-gold/40 group-hover:border-gold transition-colors duration-500 overflow-hidden bg-ivory">
+                  {c.hasImage && c.image && (
+                    <>
+                      <img src={c.image} alt={c.title} className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1600ms] ease-out group-hover:scale-105" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-emerald-deep/85 via-emerald-deep/30 to-transparent" />
+                    </>
+                  )}
+                  {!c.hasImage && (
+                    <>
+                      <div className="absolute inset-0 jaali-bg opacity-20" />
+                      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-amber-50/40" />
+                    </>
+                  )}
+                  <div className={`relative z-10 flex flex-col items-center text-center px-10 ${c.hasImage ? "absolute inset-x-0 bottom-0 p-8" : ""}`}>
+                    <p className={`font-urdu text-3xl mb-4 ${c.hasImage ? "text-gold-warm" : "text-gold-warm"}`}>{c.urdu}</p>
                     <div className="gold-line mb-8 w-16" />
-                    <h3 className="font-display text-6xl md:text-7xl italic text-ink group-hover:text-gradient-gold transition-colors duration-500">{c.title}</h3>
-                    <p className="mt-6 text-[11px] uppercase tracking-luxe text-muted-foreground">{c.caption}</p>
-                    <span className="mt-10 inline-flex items-center gap-2 text-[11px] uppercase tracking-luxe border-b border-gold/50 pb-1 text-ink/70 transition-colors group-hover:text-gold group-hover:border-gold">
+                    <h3 className={`font-display text-6xl md:text-7xl italic ${c.hasImage ? "text-ivory" : "text-ink group-hover:text-gradient-gold transition-colors duration-500"}`}>{c.title}</h3>
+                    <p className={`mt-6 text-[11px] uppercase tracking-luxe ${c.hasImage ? "text-ivory/70" : "text-muted-foreground"}`}>{c.caption}</p>
+                    <span className={`mt-10 inline-flex items-center gap-2 text-[11px] uppercase tracking-luxe border-b pb-1 transition-colors ${c.hasImage ? "border-gold/60 text-ivory/80 group-hover:text-gold-warm group-hover:border-gold-warm" : "border-gold/50 text-ink/70 group-hover:text-gold group-hover:border-gold"}`}>
                       Explore <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
                     </span>
                   </div>
