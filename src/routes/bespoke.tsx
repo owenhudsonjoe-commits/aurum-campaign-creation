@@ -189,7 +189,7 @@ function BespokePage() {
                 <button type="submit" className="flex-1 flex items-center justify-center gap-2 bg-gradient-gold text-ivory py-4 text-[11px] uppercase tracking-luxe hover:shadow-luxe transition-shadow">
                   Request Consultation <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
                 </button>
-                <a href="https://wa.me/923001234567" target="_blank" rel="noopener noreferrer"
+                <a href="https://wa.me/923318541663" target="_blank" rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 border border-gold/40 text-gold-warm px-8 py-4 text-[11px] uppercase tracking-luxe hover:border-gold-warm transition-colors">
                   <Phone className="h-3.5 w-3.5" strokeWidth={1.5} />
                   WhatsApp Us
@@ -249,7 +249,7 @@ function BespokePage() {
         <p className="font-display text-2xl italic mb-2">Your atelier awaits.</p>
         <div className="flex items-center justify-center gap-2 text-[10px] uppercase tracking-luxe text-ivory/40 mt-4">
           <Mail className="h-3 w-3 text-gold/50" strokeWidth={1.2} />
-          <span>atelier@maisonaurum.com</span>
+          <a href="mailto:aurumshop12@gmail.com" className="hover:text-ivory/70 transition-colors">aurumshop12@gmail.com</a>
         </div>
       </div>
     </div>

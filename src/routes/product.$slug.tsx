@@ -264,7 +264,7 @@ function ProductPage() {
 
               {/* WhatsApp order */}
               <a
-                href={`https://wa.me/923001234567?text=${whatsappMsg}`}
+                href={`https://wa.me/923318541663?text=${whatsappMsg}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full flex items-center justify-center gap-2.5 py-3.5 mb-10 border border-gold/30 text-[11px] uppercase tracking-luxe text-ink hover:border-gold-warm hover:text-gold-warm transition-colors"
