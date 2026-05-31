@@ -42,10 +42,9 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-const collections = [
-  { image: bridal, title: "Bridal Couture", caption: "Shaadi · Mehndi · Walima", urdu: "شادی", collection: "Bridal" as const, fabric: "Stitched" as const },
-  { image: pret, title: "Festive Prêt", caption: "Eid · Mehndi · Sangeet", urdu: "عید", collection: "Festive / Pret" as const, fabric: "Stitched" as const },
-  { image: men, title: "Maison Homme", caption: "Sherwani · Bandhgala", urdu: "مردانہ", collection: "Men's" as const, fabric: "Stitched" as const },
+const fabricCategories = [
+  { image: bridal, title: "Stitched", caption: "Ready-to-wear & made-to-measure", urdu: "سلا ہوا", fabric: "Stitched" as const },
+  { image: pret, title: "Unstitched", caption: "Premium fabrics, tailored your way", urdu: "ان سلا", fabric: "Unstitched" as const },
 ];
 
 const press = [
@@ -222,17 +221,17 @@ function Home() {
           <div className="mb-16 flex flex-col items-center text-center">
             <p className="text-[11px] uppercase tracking-luxe text-gold">Saison MMXXV</p>
             <h2 className="mt-4 font-display text-5xl md:text-7xl text-ink">
-              The <em className="text-gradient-gold not-italic">Three Houses</em>
+              Shop by <em className="text-gradient-gold not-italic">Style</em>
             </h2>
             <PaisleyDivider className="mt-8" />
             <p className="mt-8 max-w-xl text-sm text-muted-foreground font-light leading-relaxed">
-              Three distinct worlds of Pakistani heritage couture — each crafted for a different chapter of your story.
+              Choose how you wear it — ready-made to perfection, or fabric in hand for your own tailor's touch.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
-            {collections.map((c, i) => (
-              <Link key={c.title} to="/shop" search={{ collection: c.collection, fabric: c.fabric }} className="group block animate-reveal" style={{ animationDelay: `${i * 0.15}s` }}>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 max-w-4xl mx-auto">
+            {fabricCategories.map((c, i) => (
+              <Link key={c.title} to="/shop" search={{ fabric: c.fabric }} className="group block animate-reveal" style={{ animationDelay: `${i * 0.15}s` }}>
                 <ArchFrame className="aspect-[3/4]" borderClass="border-gold/50">
                   <img
                     src={c.image}
@@ -244,7 +243,7 @@ function Home() {
                   <div className="absolute inset-x-0 bottom-0 p-8 text-ivory">
                     <p className="font-urdu text-lg text-gold-warm">{c.urdu}</p>
                     <p className="mt-1 text-[10px] uppercase tracking-luxe text-ivory/60">{c.caption}</p>
-                    <h3 className="mt-3 font-display text-3xl md:text-4xl italic">{c.title}</h3>
+                    <h3 className="mt-3 font-display text-4xl md:text-5xl italic">{c.title}</h3>
                     <span className="mt-5 inline-flex items-center gap-2 text-[11px] uppercase tracking-luxe border-b border-gold/60 pb-1 transition-colors group-hover:text-gold-warm group-hover:border-gold-warm">
                       Explore <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
                     </span>
