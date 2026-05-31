@@ -53,6 +53,52 @@ export interface Product {
 
 export const PRODUCTS: Product[] = [
   {
+    id: "f-003",
+    slug: "casper-3pc-cotton",
+    name: "Casper 3 Pc",
+    category: "Festive / Pret",
+    fabricType: "Stitched",
+    price: 7200,
+    discountedPrice: 3312,
+    discountPercent: 54,
+    badge: "Bestseller",
+    images: [
+      "/casper-1.png",
+      "/casper-2.png",
+      "/casper-3.png",
+      "/casper-4.png",
+      "/casper-5.png",
+      "/casper-6.png",
+    ],
+    description:
+      "The Casper 3 Piece is a study in understated elegance — ivory premium cotton with a heavily embellished gold tilla yoke that catches the light beautifully. The wide-leg sharara is adorned with scattered floral gold threadwork, while a soft mint-tinted organza dupatta with tassel ends completes this timeless ensemble. A perfect festive choice for the woman who speaks through grace.",
+    details: [
+      "Fabric: Premium Cotton",
+      "Embroidery: Gold tilla and zari yoke, scattered floral threadwork on sharara",
+      "Buttons: Pearl button placket",
+      "Set: 3-piece stitched (kameez, sharara, dupatta)",
+      "Colour: Ivory / Off-White with gold embellishment",
+      "Occasion: Festive, Eid, walima, family functions",
+      "Care: Dry clean only — do not tumble dry",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2–3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      { size: "S", chest: '18–19"', shoulder: '14"', hips: '18"', armHole: '9"', legOpening: '8"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
+    ],
+    sizeChartImage: "/casper-size-chart.png",
+    reviewCount: 7,
+    soldCount: 38,
+    soldTimeframe: "13 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
+  {
     id: "f-002",
     slug: "rupenzal-2pc-printed",
     name: "Rupenzal 2 Pc (Printed)",
