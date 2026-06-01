@@ -53,6 +53,50 @@ export interface Product {
 
 export const PRODUCTS: Product[] = [
   {
+    id: "f-005",
+    slug: "zara-3pc-cotton",
+    name: "Zara 3 Pc",
+    category: "Festive / Pret",
+    fabricType: "Stitched",
+    price: 9000,
+    discountedPrice: 3060,
+    discountPercent: 66,
+    badge: "Bestseller",
+    images: [
+      "/zara-1.png",
+      "/zara-2.png",
+      "/zara-3.png",
+      "/zara-4.png",
+      "/zara-5.png",
+    ],
+    description:
+      "Zara 3 Piece captures the romance of a Lahori spring — dusty rose premium cotton adorned with all-over white floral threadwork and intricate border embroidery at the hem and cuffs. The matching chikankari dupatta and straight-cut trouser create a complete, effortlessly feminine look that is just as beautiful at a mehndi as it is on a family lunch.",
+    details: [
+      "Fabric: Premium Cotton",
+      "Embroidery: White chikankari floral motifs, dense border at hem and cuffs",
+      "Set: 3-piece stitched (kameez, trouser, dupatta)",
+      "Colour: Dusty Rose / Blush Pink with white embroidery",
+      "Occasion: Festive, Eid, mehndi, casual gatherings",
+      "Care: Machine wash cold, gentle cycle — do not tumble dry",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2–3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      { size: "S", chest: '18–19"', shoulder: '14"', hips: '18"', armHole: '9"', legOpening: '8"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
+    ],
+    sizeChartImage: "/zara-size-chart.png",
+    reviewCount: 7,
+    soldCount: 21,
+    soldTimeframe: "13 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
+  {
     id: "f-004",
     slug: "sahar-3pc-organza",
     name: "Sahar 3 Pc",
