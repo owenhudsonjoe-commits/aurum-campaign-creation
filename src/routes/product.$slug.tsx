@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
@@ -7,7 +7,8 @@ import { PaisleyDivider } from "@/components/PaisleyDivider";
 import { getProductBySlug, formatPrice, PRODUCTS } from "@/lib/products";
 import { useCart } from "@/lib/cart";
 import { useWishlist } from "@/lib/wishlist";
-import { ShoppingBag, Heart, ChevronDown, ArrowRight, Ruler, Phone, Shield, Truck, RefreshCcw, Star, Zap, Clock } from "lucide-react";
+import { useRecentlyViewed } from "@/lib/recentlyViewed";
+import { ShoppingBag, Heart, ChevronDown, ArrowRight, Ruler, Phone, Shield, Truck, RefreshCcw, Star, Zap, Clock, History } from "lucide-react";
 
 export const Route = createFileRoute("/product/$slug")({
   head: ({ params }) => {
@@ -45,9 +46,16 @@ function ProductPage() {
 
   const { addItem } = useCart();
   const { toggle: toggleWishlist, isWishlisted } = useWishlist();
+  const { add: trackView, items: recentItems } = useRecentlyViewed();
   const wishlisted = isWishlisted(product.id);
   const [selectedSize, setSelectedSize] = useState<string>("");
   const [mainImage, setMainImage] = useState(0);
+
+  useEffect(() => {
+    trackView(product);
+  }, [product.id]);
+
+  const recentlyViewed = recentItems.filter((p) => p.id !== product.id).slice(0, 4);
   const [added, setAdded] = useState(false);
   const [sizeChartOpen, setSizeChartOpen] = useState(false);
   const [descOpen, setDescOpen] = useState(true);
@@ -446,6 +454,47 @@ function ProductPage() {
                     <p className="text-[10px] uppercase tracking-luxe text-muted-foreground">{p.category}</p>
                     <h3 className="font-display text-base italic text-ink mt-0.5">{p.name}</h3>
                     <p className="font-display text-sm text-gradient-gold mt-1">{formatPrice(p.discountedPrice ?? p.price)}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Recently Viewed */}
+        {recentlyViewed.length > 0 && (
+          <section className="px-6 md:px-12 py-20 max-w-[1400px] mx-auto border-t border-gold/10">
+            <div className="flex items-center gap-3 mb-10">
+              <History className="h-4 w-4 text-gold-warm" strokeWidth={1.5} />
+              <div>
+                <p className="text-[10px] uppercase tracking-luxe text-gold mb-1">Your Journey</p>
+                <h2 className="font-display text-4xl italic text-ink">Recently Viewed</h2>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10">
+              {recentlyViewed.map((p) => (
+                <Link key={p.id} to="/product/$slug" params={{ slug: p.slug }} className="group block">
+                  <ArchFrame className="aspect-[3/4]">
+                    <img src={p.images[0]} alt={p.name} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1600ms] group-hover:scale-105" />
+                    {p.discountPercent && (
+                      <div className="absolute top-3 right-3 z-10">
+                        <span className="px-2 py-1 text-[9px] font-bold bg-red-500 text-white">-{p.discountPercent}%</span>
+                      </div>
+                    )}
+                  </ArchFrame>
+                  <div className="mt-3 px-1">
+                    <p className="text-[10px] uppercase tracking-luxe text-muted-foreground">{p.category}</p>
+                    <h3 className="font-display text-base italic text-ink mt-0.5">{p.name}</h3>
+                    <div className="flex items-center gap-2 mt-1">
+                      {p.discountedPrice ? (
+                        <>
+                          <p className="font-display text-sm text-red-600 font-semibold">{formatPrice(p.discountedPrice)}</p>
+                          <p className="font-display text-xs text-muted-foreground line-through">{formatPrice(p.price)}</p>
+                        </>
+                      ) : (
+                        <p className="font-display text-sm text-gradient-gold">{formatPrice(p.price)}</p>
+                      )}
+                    </div>
                   </div>
                 </Link>
               ))}
