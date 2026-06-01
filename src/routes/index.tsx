@@ -488,7 +488,6 @@ function Home() {
         <span className="hidden sm:block">Book Now</span>
       </Link>
 
-      <BackToTop />
     </div>
   );
 }
