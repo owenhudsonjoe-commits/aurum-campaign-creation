@@ -8,7 +8,15 @@ import { PRODUCTS, formatPrice } from "@/lib/products";
 import type { FabricType, Collection } from "@/lib/products";
 import { useCart } from "@/lib/cart";
 import { useWishlist } from "@/lib/wishlist";
-import { ShoppingBag, ArrowRight, Heart, Search, X } from "lucide-react";
+import { ShoppingBag, ArrowRight, Heart, Search, X, ChevronDown } from "lucide-react";
+
+type SortOption = "featured" | "price-asc" | "price-desc" | "most-popular";
+const SORT_LABELS: Record<SortOption, string> = {
+  featured: "Featured",
+  "price-asc": "Price: Low to High",
+  "price-desc": "Price: High to Low",
+  "most-popular": "Most Popular",
+};
 
 const FABRIC_TABS: FabricType[] = ["Stitched", "Unstitched"];
 const COLLECTIONS: Collection[] = ["Bridal", "Festive / Pret", "Men's"];
@@ -45,11 +53,13 @@ function ShopPage() {
   const [addedId, setAddedId] = useState<string | null>(null);
   const [query, setQuery] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
+  const [sort, setSort] = useState<SortOption>("featured");
+  const [sortOpen, setSortOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return PRODUCTS.filter((p) => {
+    const result = PRODUCTS.filter((p) => {
       const fabricMatch = p.fabricType === fabric;
       const colMatch = activeCollection === "All" || p.category === activeCollection;
       const searchMatch =
@@ -60,7 +70,16 @@ function ShopPage() {
         p.details.some((d) => d.toLowerCase().includes(q));
       return fabricMatch && colMatch && searchMatch;
     });
-  }, [fabric, activeCollection, query]);
+
+    return [...result].sort((a, b) => {
+      const aPrice = a.discountedPrice ?? a.price;
+      const bPrice = b.discountedPrice ?? b.price;
+      if (sort === "price-asc") return aPrice - bPrice;
+      if (sort === "price-desc") return bPrice - aPrice;
+      if (sort === "most-popular") return (b.soldCount ?? 0) - (a.soldCount ?? 0);
+      return 0;
+    });
+  }, [fabric, activeCollection, query, sort]);
 
   function handleAdd(productId: string, e: React.MouseEvent) {
     e.preventDefault();
@@ -115,7 +134,35 @@ function ShopPage() {
             ))}
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
+            {/* Sort dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => setSortOpen((v) => !v)}
+                className="flex items-center gap-1.5 text-[10px] uppercase tracking-luxe text-muted-foreground hover:text-ink transition-colors border border-gold/20 px-3 py-1.5 hover:border-gold/50"
+              >
+                {SORT_LABELS[sort]}
+                <ChevronDown className={`h-3 w-3 transition-transform duration-200 ${sortOpen ? "rotate-180" : ""}`} strokeWidth={1.5} />
+              </button>
+              {sortOpen && (
+                <div className="absolute right-0 top-full mt-1 z-50 bg-ivory border border-gold/20 shadow-luxe min-w-[180px]">
+                  {(Object.keys(SORT_LABELS) as SortOption[]).map((opt) => (
+                    <button
+                      key={opt}
+                      onClick={() => { setSort(opt); setSortOpen(false); }}
+                      className={`w-full text-left px-4 py-2.5 text-[10px] uppercase tracking-luxe transition-colors ${
+                        sort === opt
+                          ? "bg-ink text-ivory"
+                          : "text-muted-foreground hover:bg-gold/10 hover:text-ink"
+                      }`}
+                    >
+                      {SORT_LABELS[opt]}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
             {/* Expandable search */}
             <div className={`flex items-center transition-all duration-300 ${searchOpen ? "gap-2" : "gap-0"}`}>
               {searchOpen && (
@@ -126,7 +173,7 @@ function ShopPage() {
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder="Search products…"
-                    className="w-48 md:w-64 pl-3 pr-7 py-1.5 text-[11px] border border-gold/30 bg-transparent focus:outline-none focus:border-gold text-ink placeholder:text-muted-foreground/50 transition-all"
+                    className="w-40 md:w-56 pl-3 pr-7 py-1.5 text-[11px] border border-gold/30 bg-transparent focus:outline-none focus:border-gold text-ink placeholder:text-muted-foreground/50 transition-all"
                     onKeyDown={(e) => { if (e.key === "Escape") { setSearchOpen(false); setQuery(""); } }}
                   />
                   {query && (
