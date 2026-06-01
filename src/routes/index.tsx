@@ -3,6 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Star, Globe, Sparkles, Instagram, Shield, Truck, Award, Clock, Phone, ChevronDown } from "lucide-react";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
+import { BackToTop } from "@/components/BackToTop";
 import { GoldParticles } from "@/components/GoldParticles";
 import { AurumLogo } from "@/components/AurumLogo";
 import { PaisleyDivider } from "@/components/PaisleyDivider";
@@ -12,6 +13,15 @@ import bridal from "@/assets/pk-bridal.jpg";
 import pret from "@/assets/pk-pret.jpg";
 import men from "@/assets/pk-men.jpg";
 import atelier from "@/assets/pk-atelier.jpg";
+
+const feedItems = [
+  { src: "/casper-1.png",   slug: "casper-3pc-cotton",    label: "Casper 3 Pc" },
+  { src: "/simran-2.png",   slug: "simran-3pc-organza",   label: "Simran 3 Pc" },
+  { src: "/rupenzal-3.png", slug: "rupenzal-2pc-printed", label: "Rupenzal 2 Pc" },
+  { src: "/casper-4.png",   slug: "casper-3pc-cotton",    label: "Casper 3 Pc" },
+  { src: "/simran-4.png",   slug: "simran-3pc-organza",   label: "Simran 3 Pc" },
+  { src: "/rupenzal-5.png", slug: "rupenzal-2pc-printed", label: "Rupenzal 2 Pc" },
+];
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -421,15 +431,27 @@ function Home() {
             </a>
           </div>
           <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
-            {[bridal, pret, men, atelier, bridal, pret].map((img, i) => (
-              <a key={i} href="#" className="group relative overflow-hidden" style={{ borderTopLeftRadius: "50% 22%", borderTopRightRadius: "50% 22%" }}>
+            {feedItems.map((item, i) => (
+              <Link
+                key={i}
+                to="/product/$slug"
+                params={{ slug: item.slug }}
+                className="group relative overflow-hidden"
+                style={{ borderTopLeftRadius: "50% 22%", borderTopRightRadius: "50% 22%" }}
+              >
                 <div className="aspect-square overflow-hidden" style={{ borderTopLeftRadius: "50% 22%", borderTopRightRadius: "50% 22%" }}>
-                  <img src={img} alt={`Feed ${i + 1}`} loading="lazy" className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110" />
-                  <div className="absolute inset-0 flex items-center justify-center bg-emerald-deep/0 transition-colors duration-500 group-hover:bg-emerald-deep/50">
+                  <img
+                    src={item.src}
+                    alt={item.label}
+                    loading="lazy"
+                    className="h-full w-full object-cover object-top transition-transform duration-1000 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-1.5 bg-emerald-deep/0 transition-colors duration-500 group-hover:bg-emerald-deep/60">
                     <Instagram className="h-5 w-5 text-ivory opacity-0 transition-all duration-500 group-hover:opacity-100 scale-75 group-hover:scale-100" strokeWidth={1.2} />
+                    <p className="text-[9px] uppercase tracking-luxe text-ivory opacity-0 transition-all duration-500 group-hover:opacity-100 font-medium">{item.label}</p>
                   </div>
                 </div>
-              </a>
+              </Link>
             ))}
           </div>
         </div>
@@ -465,6 +487,8 @@ function Home() {
         <Phone className="h-3.5 w-3.5" strokeWidth={1.5} />
         <span className="hidden sm:block">Book Now</span>
       </Link>
+
+      <BackToTop />
     </div>
   );
 }
