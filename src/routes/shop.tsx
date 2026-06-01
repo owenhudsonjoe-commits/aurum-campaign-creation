@@ -4,6 +4,7 @@ import { z } from "zod";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { ArchFrame } from "@/components/ArchFrame";
+import { SaleBanner } from "@/components/SaleBanner";
 import { PRODUCTS, formatPrice } from "@/lib/products";
 import type { FabricType, Collection } from "@/lib/products";
 import { useCart } from "@/lib/cart";
@@ -227,8 +228,13 @@ function ShopPage() {
         </div>
       )}
 
+      {/* Flash sale banner */}
+      <div className="max-w-[1400px] mx-auto px-6 md:px-12 pt-10 pb-0">
+        <SaleBanner />
+      </div>
+
       {/* Products grid */}
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-14">
+      <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-10">
         {filtered.length === 0 ? (
           <div className="text-center py-28 border border-gold/20">
             {query ? (
