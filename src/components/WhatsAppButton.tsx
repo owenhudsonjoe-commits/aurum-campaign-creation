@@ -1,4 +1,4 @@
-const WA_NUMBER = "923318542663";
+const WA_NUMBER = "923318541663";
 const WA_MESSAGE = encodeURIComponent("Hello! I'm interested in a piece from Maison Aurum. Could you help me?");
 const WA_URL = `https://wa.me/${WA_NUMBER}?text=${WA_MESSAGE}`;
 
