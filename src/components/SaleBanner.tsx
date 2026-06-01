@@ -12,15 +12,12 @@ function getTimeLeft() {
   return { h, m, s };
 }
 
-function Pad({ n }: { n: number }) {
-  return <span>{String(n).padStart(2, "0")}</span>;
-}
-
 export function SaleBanner() {
-  const [timeLeft, setTimeLeft] = useState(getTimeLeft());
+  const [timeLeft, setTimeLeft] = useState<{ h: number; m: number; s: number } | null>(null);
   const [dismissed, setDismissed] = useState(false);
 
   useEffect(() => {
+    setTimeLeft(getTimeLeft());
     const id = setInterval(() => setTimeLeft(getTimeLeft()), 1000);
     return () => clearInterval(id);
   }, []);
