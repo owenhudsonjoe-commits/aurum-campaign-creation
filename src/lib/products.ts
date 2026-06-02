@@ -1,3 +1,11 @@
+const rimsha1 = "/rimsha-1.png";
+const rimsha2 = "/rimsha-2.png";
+const rimsha3 = "/rimsha-3.png";
+const rimsha4 = "/rimsha-4.png";
+const rimsha5 = "/rimsha-5.png";
+const rimsha6 = "/rimsha-6.png";
+const rimshaSizeChart = "/rimsha-size-chart.png";
+
 const zyra1 = "/zyra-1.png";
 const zyra2 = "/zyra-2.png";
 const zyra3 = "/zyra-3.png";
@@ -68,6 +76,45 @@ export interface Product {
 }
 
 export const PRODUCTS: Product[] = [
+  {
+    id: "f-010",
+    slug: "rimsha-3pc-organza",
+    name: "Rimsha 3 Pc",
+    category: "Festive / Pret",
+    fabricType: "Stitched",
+    price: 9000,
+    discountedPrice: 4050,
+    discountPercent: 55,
+    badge: "Bestseller",
+    images: [rimsha1, rimsha2, rimsha3, rimsha4, rimsha5, rimsha6],
+    description:
+      "Rimsha 3 Piece is a vision of artisan opulence — rich mocha organza layered with bold ivory cutwork appliqué that blooms across every inch of the kameez and sleeves. Grand floral medallions, lattice panels, and trailing vine motifs are all rendered in crisp relief against the sheer base, creating a three-dimensional texture that photographs like a dream. The straight-cut satin trouser and coordinated organza dupatta with matching cutwork border complete a look that is impossible to ignore.",
+    details: [
+      "Fabric: Premium Organza (kameez & dupatta)",
+      "Trouser: Satin lining",
+      "Embroidery: Full-coverage ivory cutwork appliqué — floral medallions, lattice panels, vine motifs",
+      "Set: 3-piece stitched (kameez, trouser, dupatta)",
+      "Colour: Mocha / Warm Brown with ivory appliqué",
+      "Occasion: Festive, Eid, walima, formal dinners",
+      "Care: Dry clean only — do not wring or bleach",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2–3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      { size: "S", chest: '18–19"', shoulder: '14"', hips: '18"', armHole: '9"', legOpening: '8"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
+    ],
+    sizeChartImage: rimshaSizeChart,
+    reviewCount: 7,
+    soldCount: 38,
+    soldTimeframe: "13 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
   {
     id: "f-009",
     slug: "zyra-3pc-shamoz-silk",
