@@ -1,3 +1,12 @@
+const charm1 = "/charm-1.png";
+const charm2 = "/charm-2.png";
+const charm3 = "/charm-3.png";
+const charm4 = "/charm-4.png";
+const charm5 = "/charm-5.png";
+const charm6 = "/charm-6.png";
+const charm7 = "/charm-7.png";
+const charmSizeChart = "/charm-size-chart.png";
+
 const simran1 = "/simran-1.png";
 const simran2 = "/simran-2.png";
 const simran3 = "/simran-3.png";
@@ -52,6 +61,45 @@ export interface Product {
 }
 
 export const PRODUCTS: Product[] = [
+  {
+    id: "f-008",
+    slug: "charm-2pc-cotton",
+    name: "Charm 2 Pc",
+    category: "Festive / Pret",
+    fabricType: "Stitched",
+    price: 7990,
+    discountedPrice: 3435,
+    discountPercent: 57,
+    badge: "Bestseller",
+    images: [charm1, charm2, charm3, charm4, charm5, charm6, charm7],
+    description:
+      "The Charm 2 Piece is effortless festive elegance distilled into a single rose-toned silhouette — crafted in breathable premium cotton with delicate floral threadwork adorning the sleeves and trouser hem. Intricate cutwork borders trace the cuffs and wide-leg bottoms, while soft scattered embroidery adds a light, romantic touch to the full ensemble. A versatile, polished look that moves seamlessly from an afternoon dawat to an evening mehfil.",
+    details: [
+      "Fabric: Premium Cotton",
+      "Embroidery: Scattered floral threadwork on sleeves and trouser hem",
+      "Border: Cutwork (katha) trim on cuffs, hem, and trouser hem",
+      "Set: 2-piece stitched (kameez + trouser)",
+      "Colour: Dusty Rose / Mauve",
+      "Occasion: Festive, Eid, dawat, casual gatherings",
+      "Care: Machine wash cold, gentle cycle — do not tumble dry",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2–3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      { size: "S", chest: '18–19"', shoulder: '14"', hips: '18"', armHole: '9"', legOpening: '8"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
+    ],
+    sizeChartImage: charmSizeChart,
+    reviewCount: 7,
+    soldCount: 35,
+    soldTimeframe: "13 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
   {
     id: "f-007",
     slug: "zeba-3pc-cotton",
