@@ -53,6 +53,53 @@ export interface Product {
 
 export const PRODUCTS: Product[] = [
   {
+    id: "f-006",
+    slug: "namal-3pc-cotton",
+    name: "Namal 3 Pc",
+    category: "Festive / Pret",
+    fabricType: "Stitched",
+    price: 8500,
+    discountedPrice: 3060,
+    discountPercent: 64,
+    badge: "Bestseller",
+    images: [
+      "/namal-1.png",
+      "/namal-2.png",
+      "/namal-3.png",
+      "/namal-4.png",
+      "/namal-5.png",
+      "/namal-6.png",
+    ],
+    description:
+      "Namal 3 Piece is a study in quiet confidence — deep forest green premium cotton, richly embroidered with ivory and black thread in grand floral arches at the neckline, dense bands at the hem and cuffs, and a delicate scatter of mirror-work on the matching chiffon dupatta. Paired with ivory straight-leg trousers carrying coordinated border embroidery at the ankle, this ensemble moves effortlessly from a family dawat to a moonlit mehndi.",
+    details: [
+      "Fabric: Premium Cotton",
+      "Embroidery: Ivory & black threadwork — neckline arch, dense hem and cuff borders",
+      "Dupatta: Olive-green chiffon with scattered mirror-work",
+      "Trouser: Ivory with matching green border embroidery",
+      "Set: 3-piece stitched (kameez, trouser, dupatta)",
+      "Colour: Forest Green with ivory & black embroidery",
+      "Occasion: Festive, Eid, mehndi, dawat",
+      "Care: Machine wash cold, gentle cycle — do not tumble dry",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2–3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      { size: "S", chest: '18–19"', shoulder: '14"', hips: '18"', armHole: '9"', legOpening: '8"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
+    ],
+    sizeChartImage: "/namal-size-chart.png",
+    reviewCount: 7,
+    soldCount: 31,
+    soldTimeframe: "13 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
+  {
     id: "f-005",
     slug: "zara-3pc-cotton",
     name: "Zara 3 Pc",
