@@ -1,3 +1,10 @@
+const zyra1 = "/zyra-1.png";
+const zyra2 = "/zyra-2.png";
+const zyra3 = "/zyra-3.png";
+const zyra4 = "/zyra-4.png";
+const zyra5 = "/zyra-5.png";
+const zyraSizeChart = "/zyra-size-chart.png";
+
 const charm1 = "/charm-1.png";
 const charm2 = "/charm-2.png";
 const charm3 = "/charm-3.png";
@@ -61,6 +68,45 @@ export interface Product {
 }
 
 export const PRODUCTS: Product[] = [
+  {
+    id: "f-009",
+    slug: "zyra-3pc-shamoz-silk",
+    name: "Zyra 3 Pc",
+    category: "Festive / Pret",
+    fabricType: "Stitched",
+    price: 9000,
+    discountedPrice: 4320,
+    discountPercent: 52,
+    badge: "Bestseller",
+    images: [zyra1, zyra2, zyra3, zyra4, zyra5],
+    description:
+      "Zyra 3 Piece is a masterclass in modern restraint — rich midnight navy Shamoz Silk with a distinctive square neckline edged in tone-on-tone crystal and bead embellishment. A sweeping hem border of hand-scattered sequin florals catches every light, while the matching palazzos and draped dupatta complete a silhouette that is at once architectural and deeply feminine. For the woman who commands a room without trying.",
+    details: [
+      "Fabric: Shamoz Silk",
+      "Embellishment: Crystal & bead trim on square neckline",
+      "Embroidery: Sequin floral hem border (hand-worked)",
+      "Set: 3-piece stitched (kameez, palazzo trouser, dupatta)",
+      "Colour: Midnight Navy",
+      "Occasion: Festive, Eid, walima, formal evenings",
+      "Care: Dry clean only — do not wring or bleach",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2–3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      { size: "S", chest: '18–19"', shoulder: '14"', hips: '18"', armHole: '9"', legOpening: '8"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
+    ],
+    sizeChartImage: zyraSizeChart,
+    reviewCount: 7,
+    soldCount: 35,
+    soldTimeframe: "13 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
   {
     id: "f-008",
     slug: "charm-2pc-cotton",
