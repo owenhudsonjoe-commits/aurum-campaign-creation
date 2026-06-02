@@ -1,3 +1,8 @@
+const shanzay1 = "/shanzay-1.png";
+const shanzay2 = "/shanzay-2.png";
+const shanzay3 = "/shanzay-3.png";
+const shanzaySizeChart = "/shanzay-size-chart.png";
+
 const rimsha1 = "/rimsha-1.png";
 const rimsha2 = "/rimsha-2.png";
 const rimsha3 = "/rimsha-3.png";
@@ -76,6 +81,46 @@ export interface Product {
 }
 
 export const PRODUCTS: Product[] = [
+  {
+    id: "f-011",
+    slug: "shanzay-3pc-cotton",
+    name: "Shanzay 3 Pc",
+    category: "Festive / Pret",
+    fabricType: "Stitched",
+    price: 9000,
+    discountedPrice: 5400,
+    discountPercent: 40,
+    badge: "Bestseller",
+    images: [shanzay1, shanzay2, shanzay3],
+    description:
+      "Shanzay 3 Piece is the purest expression of tonal dressing — head-to-toe ivory premium cotton dressed in dense all-over chikankari embroidery. Grand medallion motifs cascade from the neckline panel down to the hem, while intricate lace cuffs and a scalloped cutwork border at the trouser hem lend it a delicate, heirloom quality. Paired with a soft ivory dupatta, this ensemble carries quiet confidence from a family Eid gathering to a garden brunch.",
+    details: [
+      "Fabric: Premium Cotton",
+      "Embroidery: All-over chikankari — medallion motifs, dense thread fill",
+      "Cuffs: Floral lace trim",
+      "Border: Scalloped cutwork hem on kameez and trouser",
+      "Set: 3-piece stitched (kameez, trouser, dupatta)",
+      "Colour: Ivory / Off-White",
+      "Occasion: Festive, Eid, dawat, garden celebrations",
+      "Care: Machine wash cold, gentle cycle — do not tumble dry",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2–3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      { size: "S", chest: '18–19"', shoulder: '14"', hips: '18"', armHole: '9"', legOpening: '8"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
+    ],
+    sizeChartImage: shanzaySizeChart,
+    reviewCount: 7,
+    soldCount: 39,
+    soldTimeframe: "13 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
   {
     id: "f-010",
     slug: "rimsha-3pc-organza",
