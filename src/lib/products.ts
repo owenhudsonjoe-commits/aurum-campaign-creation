@@ -1,3 +1,10 @@
+const hazel1 = "/hazel-1.png";
+const hazel2 = "/hazel-2.png";
+const hazel3 = "/hazel-3.png";
+const hazel4 = "/hazel-4.png";
+const hazel5 = "/hazel-5.png";
+const hazelSizeChart = "/hazel-size-chart.png";
+
 const iris1 = "/iris-1.png";
 const iris2 = "/iris-2.png";
 const iris3 = "/iris-3.png";
@@ -95,6 +102,47 @@ export interface Product {
 }
 
 export const PRODUCTS: Product[] = [
+  {
+    id: "f-014",
+    slug: "hazel-3pc-organza",
+    name: "Hazel 3 Pc",
+    category: "Festive / Pret",
+    fabricType: "Stitched",
+    price: 16000,
+    discountedPrice: 8000,
+    discountPercent: 50,
+    badge: "Bestseller",
+    images: [hazel1, hazel2, hazel3, hazel4, hazel5],
+    description:
+      "Hazel 3 Piece is luminosity made wearable — sheer champagne-gold organza layered over a soft base, carrying dense zardozi panels that trace the neckline, cascade down the front, and pool into a scalloped lace hem. The sheer bell sleeves, encased in a wide embroidered cuff, add dramatic elegance, while the matching organza dupatta — kissed with pearl-sequin bootas and a gold lace border — completes a look that belongs on every special occasion. When the light catches it, Hazel glows.",
+    details: [
+      "Fabric: Premium Organza (kameez & dupatta)",
+      "Embroidery: Dense zardozi neckline & cascading front panels",
+      "Hem: Scalloped lace border with mirror highlights",
+      "Sleeves: Sheer bell sleeves with wide embroidered cuffs",
+      "Dupatta: Organza with pearl-sequin bootas & gold lace border",
+      "Set: 3-piece stitched (kameez, trousers, dupatta)",
+      "Colour: Champagne Gold / Soft Pistachio",
+      "Occasion: Walima, formal evenings, Eid, wedding guest",
+      "Care: Dry clean only",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2–3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      { size: "S", chest: '18–19"', shoulder: '14"', hips: '18"', armHole: '9"', legOpening: '8"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
+    ],
+    sizeChartImage: hazelSizeChart,
+    reviewCount: 7,
+    soldCount: 39,
+    soldTimeframe: "13 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
   {
     id: "f-013",
     slug: "iris-2pc-arabic-lawn",
