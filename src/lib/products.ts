@@ -1,3 +1,10 @@
+const iris1 = "/iris-1.png";
+const iris2 = "/iris-2.png";
+const iris3 = "/iris-3.png";
+const iris4 = "/iris-4.png";
+const iris5 = "/iris-5.png";
+const irisSizeChart = "/iris-size-chart.png";
+
 const tabeer1 = "/tabeer-1.png";
 const tabeer2 = "/tabeer-2.png";
 const tabeer3 = "/tabeer-3.png";
@@ -88,6 +95,46 @@ export interface Product {
 }
 
 export const PRODUCTS: Product[] = [
+  {
+    id: "f-013",
+    slug: "iris-2pc-arabic-lawn",
+    name: "Iris 2 Pc",
+    category: "Festive / Pret",
+    fabricType: "Stitched",
+    price: 5800,
+    discountedPrice: 3480,
+    discountPercent: 40,
+    badge: "Bestseller",
+    images: [iris1, iris2, iris3, iris4, iris5],
+    description:
+      "Iris 2 Piece is the art of quiet confidence — deep plum Arabic Lawn draped in scattered gold-and-blush threadwork bootas that catch the light with every movement. The straight-cut kurta carries a signature paisley panel at the pocket, flowing into crisply tailored wide-leg trousers anchored by a rich embroidered border — a bold statement in gold and mauve that elevates the hem into a work of art. Clean silhouette, maximum impact: this is festive dressing refined to its purest form.",
+    details: [
+      "Fabric: Premium Arabic Lawn",
+      "Embroidery: Scattered gold & blush bootas across body",
+      "Pocket detail: Signature hand-worked paisley panel",
+      "Trouser hem: Bold gold & mauve embroidered border",
+      "Set: 2-piece stitched (kurta + wide-leg trousers)",
+      "Colour: Deep Plum with gold & rose-blush embellishment",
+      "Occasion: Festive, Eid, semi-formal evenings",
+      "Care: Dry clean recommended",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2–3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      { size: "S", chest: '18–19"', shoulder: '14"', hips: '18"', armHole: '9"', legOpening: '8"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
+    ],
+    sizeChartImage: irisSizeChart,
+    reviewCount: 7,
+    soldCount: 35,
+    soldTimeframe: "13 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
   {
     id: "f-012",
     slug: "tabeer-3pc-chiffon",
