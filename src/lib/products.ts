@@ -1,3 +1,11 @@
+const nazneen1 = "/nazneen-1.png";
+const nazneen2 = "/nazneen-2.png";
+const nazneen3 = "/nazneen-3.png";
+const nazneen4 = "/nazneen-4.png";
+const nazneen5 = "/nazneen-5.png";
+const nazneen6 = "/nazneen-6.png";
+const nazneenSizeChart = "/nazneen-size-chart.png";
+
 const hazel1 = "/hazel-1.png";
 const hazel2 = "/hazel-2.png";
 const hazel3 = "/hazel-3.png";
@@ -102,6 +110,48 @@ export interface Product {
 }
 
 export const PRODUCTS: Product[] = [
+  {
+    id: "f-015",
+    slug: "nazneen-3pc-organza",
+    name: "Nazneen 3 Pc",
+    category: "Festive / Pret",
+    fabricType: "Stitched",
+    price: 17000,
+    discountedPrice: 6800,
+    discountPercent: 60,
+    badge: "Bestseller",
+    images: [nazneen1, nazneen2, nazneen3, nazneen4, nazneen5, nazneen6],
+    description:
+      "Nazneen 3 Piece is a love letter to lilac — sheer mauve-grey organza densely worked with white pearl-thread chikankari and silver sequin trellis that covers every inch of the body in a haze of delicate embroidery. The architectural front panel frames an arched jaal motif from collar to hem, while the sheer sleeves carry scrolling floral vines that end in a fine lace cuff. The softly printed organza dupatta trails like a cloud — dotted with floral sprigs and a scalloped edge that dissolves into the air. Ethereal, romantic, and undeniably refined.",
+    details: [
+      "Fabric: Premium Organza (kameez & dupatta)",
+      "Embroidery: All-over white chikankari & silver sequin trellis",
+      "Front panel: Arched jaal motif with pearl-thread work",
+      "Hem: Dense cutwork lace border",
+      "Sleeves: Sheer with scrolling floral vine embroidery & lace cuff",
+      "Dupatta: Organza with floral sprigs & scalloped edge",
+      "Set: 3-piece stitched (kameez, trousers, dupatta)",
+      "Colour: Mauve-Grey / Lilac with white & silver embellishment",
+      "Occasion: Walima, Eid, formal evenings, wedding guest",
+      "Care: Dry clean only",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2–3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      { size: "S", chest: '18–19"', shoulder: '14"', hips: '18"', armHole: '9"', legOpening: '8"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
+    ],
+    sizeChartImage: nazneenSizeChart,
+    reviewCount: 7,
+    soldCount: 36,
+    soldTimeframe: "13 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
   {
     id: "f-014",
     slug: "hazel-3pc-organza",
