@@ -1,3 +1,13 @@
+const mehmal1 = "/mehmal-1.png";
+const mehmal2 = "/mehmal-2.png";
+const mehmal3 = "/mehmal-3.png";
+const mehmal4 = "/mehmal-4.png";
+const mehmal5 = "/mehmal-5.png";
+const mehmal6 = "/mehmal-6.png";
+const mehmal7 = "/mehmal-7.png";
+const mehmal8 = "/mehmal-8.png";
+const mehmalSizeChart = "/mehmal-size-chart.png";
+
 const nazneen1 = "/nazneen-1.png";
 const nazneen2 = "/nazneen-2.png";
 const nazneen3 = "/nazneen-3.png";
@@ -110,6 +120,46 @@ export interface Product {
 }
 
 export const PRODUCTS: Product[] = [
+  {
+    id: "f-016",
+    slug: "mehmal-2pc-arabic-lawn",
+    name: "Mehmal 2 Pc",
+    category: "Festive / Pret",
+    fabricType: "Stitched",
+    price: 6500,
+    discountedPrice: 3445,
+    discountPercent: 47,
+    badge: "Bestseller",
+    images: [mehmal1, mehmal2, mehmal3, mehmal4, mehmal5, mehmal6, mehmal7, mehmal8],
+    description:
+      "Mehmal 2 Piece is bold femininity distilled — rich crimson Arabic Lawn cut into a long straight kurta with a clean mandarin collar and pintuck placket. The showstopper: an oversized hand-embroidered bloom in blush-white and gold adorns the side front hem and cuffs, each petal worked in dense satin stitch with raised dimensional texture. The matching straight trousers keep the silhouette sleek and grounded. Mehmal is for the woman who doesn't need a dupatta to command a room.",
+    details: [
+      "Fabric: Premium Arabic Lawn",
+      "Embroidery: Oversized hand-embroidered floral bloom — blush-white & gold satin stitch",
+      "Collar: Clean mandarin with pintuck placket",
+      "Cuffs: Matching floral embroidery panels",
+      "Set: 2-piece stitched (kurta + straight trousers)",
+      "Colour: Rich Crimson with blush-white & gold embellishment",
+      "Occasion: Festive, Eid, semi-formal gatherings",
+      "Care: Dry clean recommended",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2–3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      { size: "S", chest: '18–19"', shoulder: '14"', hips: '18"', armHole: '9"', legOpening: '8"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
+    ],
+    sizeChartImage: mehmalSizeChart,
+    reviewCount: 7,
+    soldCount: 37,
+    soldTimeframe: "13 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
   {
     id: "f-015",
     slug: "nazneen-3pc-organza",
