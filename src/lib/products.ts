@@ -1,3 +1,10 @@
+const tabeer1 = "/tabeer-1.png";
+const tabeer2 = "/tabeer-2.png";
+const tabeer3 = "/tabeer-3.png";
+const tabeer4 = "/tabeer-4.png";
+const tabeer5 = "/tabeer-5.png";
+const tabeerSizeChart = "/tabeer-size-chart.png";
+
 const shanzay1 = "/shanzay-1.png";
 const shanzay2 = "/shanzay-2.png";
 const shanzay3 = "/shanzay-3.png";
@@ -81,6 +88,47 @@ export interface Product {
 }
 
 export const PRODUCTS: Product[] = [
+  {
+    id: "f-012",
+    slug: "tabeer-3pc-chiffon",
+    name: "Tabeer 3 Pc",
+    category: "Festive / Pret",
+    fabricType: "Stitched",
+    price: 8500,
+    discountedPrice: 4760,
+    discountPercent: 44,
+    badge: "Bestseller",
+    images: [tabeer1, tabeer2, tabeer3, tabeer4, tabeer5],
+    description:
+      "Tabeer 3 Piece is where poetry meets craftsmanship — deep midnight navy premium chiffon adorned with hand-worked silver zardozi at the neckline and cascading floral panels down the front. Scattered mirror-work bootas catch the light across the body, while richly embroidered cuffs and a grand silver-gold hem border on the flowing sharara bring a regal finale to every step. The matching sheer dupatta, scattered with silver sequin bootas, floats effortlessly — completing a look built for those who wear occasions, not the other way around.",
+    details: [
+      "Fabric: Premium Chiffon",
+      "Embroidery: Silver zardozi neckline, cascading floral panels, mirror-work bootas",
+      "Cuffs: Richly embroidered silver-gold",
+      "Hem: Grand silver-gold border on sharara",
+      "Dupatta: Sheer chiffon with scattered sequin bootas",
+      "Set: 3-piece stitched (kameez, sharara, dupatta)",
+      "Colour: Midnight Navy with silver & gold embellishment",
+      "Occasion: Festive, Eid, walima, formal evenings",
+      "Care: Dry clean only — handle dupatta with care",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2–3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      { size: "S", chest: '18–19"', shoulder: '14"', hips: '18"', armHole: '9"', legOpening: '8"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
+    ],
+    sizeChartImage: tabeerSizeChart,
+    reviewCount: 7,
+    soldCount: 36,
+    soldTimeframe: "13 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
   {
     id: "f-011",
     slug: "shanzay-3pc-cotton",
