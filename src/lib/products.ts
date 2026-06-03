@@ -1,3 +1,12 @@
+const zarmina1 = "/zarmina-1.png";
+const zarmina2 = "/zarmina-2.png";
+const zarmina3 = "/zarmina-3.png";
+const zarmina4 = "/zarmina-4.png";
+const zarmina5 = "/zarmina-5.png";
+const zarmina6 = "/zarmina-6.png";
+const zarmina7 = "/zarmina-7.png";
+const zarminaSizeChart = "/zarmina-size-chart.png";
+
 const mehmal1 = "/mehmal-1.png";
 const mehmal2 = "/mehmal-2.png";
 const mehmal3 = "/mehmal-3.png";
@@ -120,6 +129,49 @@ export interface Product {
 }
 
 export const PRODUCTS: Product[] = [
+  {
+    id: "f-017",
+    slug: "zarmina-2pc-crush-silk",
+    name: "Zarmina 2 Pc",
+    category: "Festive / Pret",
+    fabricType: "Stitched",
+    price: 6500,
+    discountedPrice: 3120,
+    discountPercent: 52,
+    badge: "Bestseller",
+    images: [zarmina1, zarmina2, zarmina3, zarmina4, zarmina5, zarmina6, zarmina7],
+    description:
+      "Zarmina 2 Piece is pure ivory poetry — crushed silk flowing in a full-sweep maxi silhouette that catches light in a thousand ripples. The square neckline is framed in delicate chikankari with pearl pom-pom trim on the sleeves, adding a playful feminine touch to an otherwise regal form. The skirt flares dramatically from the fitted waist, finishing in a satin ruffle hem that grazes the floor. With a sheer organza dupatta trimmed in gold, Zarmina is everything a celebration should feel like: effortless, luminous, and unforgettable.",
+    details: [
+      "Fabric: Premium Crush Silk",
+      "Silhouette: Full-sweep maxi with dramatic flare",
+      "Neckline: Square with chikankari embroidery",
+      "Sleeves: Puff with pearl pom-pom trim",
+      "Hem: Satin ruffle border",
+      "Dupatta: Sheer organza with gold trim (2.5M)",
+      "Set: 2-piece stitched (maxi + dupatta)",
+      "Colour: Ivory / Off-White with gold accents",
+      "Maxi Length: 55\" | Sleeve Length: 16\"",
+      "Occasion: Mehndi, Eid, festive gatherings, garden parties",
+      "Care: Dry clean recommended",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2–3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      { size: "S", chest: '20"', shoulder: '15"', hips: '—', armHole: '8"', legOpening: '—', trouserLength: '—', shirtLength: '55"', thigh: '—' },
+      { size: "M", chest: '22"', shoulder: '16"', hips: '—', armHole: '9"', legOpening: '—', trouserLength: '—', shirtLength: '55"', thigh: '—' },
+      { size: "L", chest: '23"', shoulder: '17"', hips: '—', armHole: '10.5"', legOpening: '—', trouserLength: '—', shirtLength: '55"', thigh: '—' },
+    ],
+    sizeChartImage: zarminaSizeChart,
+    reviewCount: 7,
+    soldCount: 39,
+    soldTimeframe: "13 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
   {
     id: "f-016",
     slug: "mehmal-2pc-arabic-lawn",
