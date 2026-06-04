@@ -1,3 +1,9 @@
+const nayaab1 = "/nayaab-1.png";
+const nayaab2 = "/nayaab-2.png";
+const nayaab3 = "/nayaab-3.png";
+const nayaab4 = "/nayaab-4.png";
+const nayaabSizeChart = "/nayaab-size-chart.png";
+
 const zarmina1 = "/zarmina-1.png";
 const zarmina2 = "/zarmina-2.png";
 const zarmina3 = "/zarmina-3.png";
@@ -129,6 +135,47 @@ export interface Product {
 }
 
 export const PRODUCTS: Product[] = [
+  {
+    id: "f-018",
+    slug: "nayaab-3pc-chiffon-crepe",
+    name: "Nayaab 3 Pc",
+    category: "Festive / Pret",
+    fabricType: "Stitched",
+    price: 15000,
+    discountedPrice: 6750,
+    discountPercent: 55,
+    badge: "Bestseller",
+    images: [nayaab1, nayaab2, nayaab3, nayaab4],
+    description:
+      "Nayaab 3 Piece is quiet luxury at its most breathtaking — ivory chiffon and crepe layered into a floor-sweeping silhouette that moves like a whisper. The kurta carries a delicate gold sequin scatter across the body, framed by a dense geometric gold border at the hem that anchors the ethereal fabric to earth. Sheer chiffon sleeves and a billowing dupatta embroidered in matching gold sequin bootas complete the look. Nayaab is for the woman who needs no colour to command every room she enters.",
+    details: [
+      "Fabric: Premium Chiffon & Crepe blend",
+      "Embroidery: All-over gold sequin scatter on body",
+      "Hem: Dense geometric gold sequin border",
+      "Sleeves: Sheer chiffon with sequin detailing",
+      "Dupatta: Chiffon with gold sequin bootas & border",
+      "Set: 3-piece stitched (kurta, trousers, dupatta)",
+      "Colour: Ivory / Off-White with gold embellishment",
+      "Occasion: Walima, Eid, formal evenings, wedding guest",
+      "Care: Dry clean only",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2–3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      { size: "S", chest: '18–19"', shoulder: '14"', hips: '18"', armHole: '9"', legOpening: '8"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
+    ],
+    sizeChartImage: nayaabSizeChart,
+    reviewCount: 7,
+    soldCount: 39,
+    soldTimeframe: "13 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
   {
     id: "f-017",
     slug: "zarmina-2pc-crush-silk",
