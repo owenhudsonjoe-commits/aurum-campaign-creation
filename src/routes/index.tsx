@@ -12,6 +12,7 @@ import heroImg from "@/assets/pk-hero.png";
 import bridal from "@/assets/pk-bridal.jpg";
 import pret from "@/assets/pk-pret.jpg";
 import men from "@/assets/pk-men.jpg";
+const dailyWearImg = "/zirwaha-1.png";
 import atelier from "@/assets/pk-atelier.jpg";
 
 const feedItems = [
@@ -276,6 +277,54 @@ function Home() {
             >
               View All Collections <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* SHOP BY COLLECTION */}
+      <section className="px-6 md:px-12 py-28 md:py-36 bg-ivory border-t border-gold/20">
+        <div className="mx-auto max-w-[1600px]">
+          <div className="mb-16 flex flex-col items-center text-center">
+            <p className="text-[11px] uppercase tracking-luxe text-gold">Our Collections</p>
+            <h2 className="mt-4 font-display text-5xl md:text-7xl text-ink">
+              Shop by <em className="text-gradient-gold not-italic">Collection</em>
+            </h2>
+            <PaisleyDivider className="mt-8" />
+          </div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+            {[
+              { image: bridal, title: "Bridal", urdu: "دُلہن", caption: "Shaadi · Mehndi · Walima", collection: "Bridal" as const },
+              { image: pret, title: "Festive", urdu: "تہوار", caption: "Eid · Mehndi · Sangeet", collection: "Festive / Pret" as const },
+              { image: dailyWearImg, title: "Daily Wear", urdu: "روزمرہ", caption: "Everyday · Casual · Work", collection: "Daily Wear" as const },
+              { image: men, title: "Men's", urdu: "مردانہ", caption: "Sherwani · Bandhgala", collection: "Men's" as const },
+            ].map((c, i) => (
+              <Link
+                key={c.title}
+                to="/shop"
+                search={{ collection: c.collection, fabric: "Stitched" as const }}
+                className="group block animate-reveal"
+                style={{ animationDelay: `${i * 0.12}s` }}
+              >
+                <div className="relative aspect-[3/4] overflow-hidden border border-gold/30 group-hover:border-gold transition-colors duration-500">
+                  <img
+                    src={c.image}
+                    alt={c.title}
+                    loading="lazy"
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1600ms] ease-out group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-emerald-deep/85 via-emerald-deep/25 to-transparent" />
+                  <div className="absolute inset-x-0 bottom-0 p-6 md:p-8 flex flex-col items-start">
+                    <p className="font-urdu text-xl text-gold-warm mb-2">{c.urdu}</p>
+                    <h3 className="font-display text-2xl md:text-3xl italic text-ivory leading-tight">{c.title}</h3>
+                    <p className="mt-1 text-[10px] uppercase tracking-luxe text-ivory/60">{c.caption}</p>
+                    <span className="mt-5 inline-flex items-center gap-1.5 text-[10px] uppercase tracking-luxe border-b border-gold/60 pb-0.5 text-ivory/80 group-hover:text-gold-warm group-hover:border-gold-warm transition-colors">
+                      Explore <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
