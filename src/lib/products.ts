@@ -1,3 +1,10 @@
+const zimal1 = "/zimal-1.png";
+const zimal2 = "/zimal-2.png";
+const zimal3 = "/zimal-3.png";
+const zimal4 = "/zimal-4.png";
+const zimal5 = "/zimal-5.png";
+const zimalSizeChart = "/zimal-size-chart.png";
+
 const mishka1 = "/mishka-1.png";
 const mishka2 = "/mishka-2.png";
 const mishka3 = "/mishka-3.png";
@@ -144,6 +151,47 @@ export interface Product {
 }
 
 export const PRODUCTS: Product[] = [
+  {
+    id: "f-020",
+    slug: "zimal-3pc-silk",
+    name: "Zimal 3 Pc",
+    category: "Festive / Pret",
+    fabricType: "Stitched",
+    price: 15500,
+    discountedPrice: 5850,
+    discountPercent: 61,
+    badge: "Bestseller",
+    images: [zimal1, zimal2, zimal3, zimal4, zimal5],
+    description:
+      "Zimal 3 Piece is sunshine captured in silk — a radiant mustard yellow set that carries the warmth of golden hour in every thread. The kurta features a V-neck keyhole neckline adorned with delicate multi-colour floral embroidery in pink, teal, and silver, while the hem and sleeves are decorated with bold chevron zari borders that catch light with every movement. Dhoti-style trousers in the same lustrous silk mirror the hem embroidery, and the dupatta floats in matching yellow with a tonal gold border. Zimal is celebration made visible — bold, joyful, and impossible to ignore.",
+    details: [
+      "Fabric: Premium Pure Silk",
+      "Neckline: V-neck keyhole with multi-colour floral embroidery (pink, teal, silver thread)",
+      "Hem & Sleeves: Bold chevron zari border",
+      "Trousers: Dhoti-style silk with matching chevron hem border",
+      "Dupatta: Pure silk with tonal gold border",
+      "Set: 3-piece stitched (kurta, dhoti trousers, dupatta)",
+      "Colour: Mustard Yellow with multi-colour & gold embellishment",
+      "Occasion: Mehndi, Eid, festive day events, bridal showers",
+      "Care: Dry clean recommended",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2–3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      { size: "S", chest: '18–19"', shoulder: '14"', hips: '18"', armHole: '9"', legOpening: '8"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
+    ],
+    sizeChartImage: zimalSizeChart,
+    reviewCount: 7,
+    soldCount: 25,
+    soldTimeframe: "13 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
   {
     id: "f-019",
     slug: "mishka-3pc-organza-silk-crepe",
