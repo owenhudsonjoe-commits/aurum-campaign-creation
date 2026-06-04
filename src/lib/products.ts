@@ -1,3 +1,16 @@
+const hoorain1 = "/hoorain-1.png";
+const hoorain2 = "/hoorain-2.png";
+const hoorain3 = "/hoorain-3.png";
+const hoorain4 = "/hoorain-4.png";
+const hoorain5 = "/hoorain-5.png";
+const hoorain6 = "/hoorain-6.png";
+const hoorain7 = "/hoorain-7.png";
+const hoorain8 = "/hoorain-8.png";
+const hoorain9 = "/hoorain-9.png";
+const hoorain10 = "/hoorain-10.png";
+const hoorain11 = "/hoorain-11.png";
+const hoorainSizeChart = "/hoorain-size-chart.png";
+
 const magenta1 = "/magenta-1.png";
 const magenta2 = "/magenta-2.png";
 const magenta3 = "/magenta-3.png";
@@ -161,6 +174,48 @@ export interface Product {
 }
 
 export const PRODUCTS: Product[] = [
+  {
+    id: "f-022",
+    slug: "hoorain-3pc-chiffon",
+    name: "Hoorain 3 Pc",
+    category: "Festive / Pret",
+    fabricType: "Stitched",
+    price: 16500,
+    discountedPrice: 5940,
+    discountPercent: 64,
+    badge: "Bestseller",
+    images: [hoorain1, hoorain2, hoorain3, hoorain4, hoorain5, hoorain6, hoorain7, hoorain8, hoorain9, hoorain10, hoorain11],
+    description:
+      "Hoorain 3 Piece is the essence of a golden Lahori celebration — amber chiffon that glows like turmeric and marigold, scattered with pearl-like mukaish dots across the full body. The placket runs a bold geometric zigzag border in antique gold, framing a neckline embellished with mirror stones and fine tilla work. The gharara trousers are a work of art in their own right: heavily embroidered in sage green, blush pink, and ivory thread with dense botanical motifs and scalloped lace hems. The dupatta — full-length amber chiffon with large ivory appliqué florals and a gold lace border — completes a look made for mehndi mornings and golden evenings. Hoorain is joy, heritage, and beauty in every thread.",
+    details: [
+      "Fabric: Premium Chiffon",
+      "Body: All-over mukaish (pearl dot) embellishment",
+      "Placket: Geometric zigzag tilla border with mirror stone neckline",
+      "Trousers: Gharara with dense botanical embroidery in sage, blush & ivory",
+      "Trouser Hem: Heavy scalloped lace border",
+      "Dupatta: Full-length chiffon with ivory appliqué florals & gold lace border (2.5M)",
+      "Set: 3-piece stitched (kurta, gharara, dupatta)",
+      "Colour: Amber / Golden Yellow with ivory & gold embellishment",
+      "Occasion: Mehndi, Mayun, Eid, festive celebrations",
+      "Care: Dry clean only",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2–3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      { size: "S", chest: '18–19"', shoulder: '14"', hips: '18"', armHole: '9"', legOpening: '8"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
+    ],
+    sizeChartImage: hoorainSizeChart,
+    reviewCount: 7,
+    soldCount: 34,
+    soldTimeframe: "13 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
   {
     id: "f-021",
     slug: "magenta-3pc-chiffon-grip",
