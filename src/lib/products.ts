@@ -1,3 +1,9 @@
+const blueZephyr1 = "/blue-zephyr-1.png";
+const blueZephyr2 = "/blue-zephyr-2.png";
+const blueZephyr3 = "/blue-zephyr-3.png";
+const blueZephyr4 = "/blue-zephyr-4.png";
+const blueZephyrSizeChart = "/blue-zephyr-size-chart.png";
+
 const hoorain1 = "/hoorain-1.png";
 const hoorain2 = "/hoorain-2.png";
 const hoorain3 = "/hoorain-3.png";
@@ -174,6 +180,46 @@ export interface Product {
 }
 
 export const PRODUCTS: Product[] = [
+  {
+    id: "f-023",
+    slug: "blue-zephyr-3pc-bemberg-chiffon",
+    name: "Blue Zephyr 3 Pc",
+    category: "Festive / Pret",
+    fabricType: "Stitched",
+    price: 11820,
+    discountedPrice: 5910,
+    discountPercent: 50,
+    badge: "Bestseller",
+    images: [blueZephyr1, blueZephyr2, blueZephyr3, blueZephyr4],
+    description:
+      "Blue Zephyr 3 Piece is the calm before the celebration — sky blue Bemberg crinkle chiffon that moves like a summer breeze. The sleeveless kurta is covered from neckline to hem in dense vertical stripes of gold sequin and silver thread embroidery, creating an all-over shimmer that catches every angle of light. The wide-leg gharara trousers in the same crinkle fabric carry a delicate floral embroidered hem panel in ivory and silver. The dupatta drapes long in matching sky blue with a gold sequin border, finished with playful shell tassel tassels. Blue Zephyr is effortless festive dressing — light, breezy, and luminous.",
+    details: [
+      "Fabric: Premium Bemberg Crinkle Chiffon",
+      "Kurta: Sleeveless with all-over vertical gold sequin & silver thread stripes",
+      "Trousers: Wide-leg gharara with ivory & silver floral embroidered hem panel",
+      "Dupatta: Crinkle chiffon with gold sequin border & shell tassel finish (2.5M)",
+      "Set: 3-piece stitched (kurta, gharara, dupatta)",
+      "Colour: Sky Blue with gold & silver embellishment",
+      "Occasion: Eid, garden parties, daytime festivities, mehndi",
+      "Care: Dry clean recommended",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2–3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      { size: "S", chest: '18–19"', shoulder: '14"', hips: '18"', armHole: '9"', legOpening: '8"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
+    ],
+    sizeChartImage: blueZephyrSizeChart,
+    reviewCount: 7,
+    soldCount: 34,
+    soldTimeframe: "13 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
   {
     id: "f-022",
     slug: "hoorain-3pc-chiffon",
