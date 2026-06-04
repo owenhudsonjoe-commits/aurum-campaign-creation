@@ -1,3 +1,12 @@
+const mishka1 = "/mishka-1.png";
+const mishka2 = "/mishka-2.png";
+const mishka3 = "/mishka-3.png";
+const mishka4 = "/mishka-4.png";
+const mishka5 = "/mishka-5.png";
+const mishka6 = "/mishka-6.png";
+const mishka7 = "/mishka-7.png";
+const mishkaSizeChart = "/mishka-size-chart.png";
+
 const nayaab1 = "/nayaab-1.png";
 const nayaab2 = "/nayaab-2.png";
 const nayaab3 = "/nayaab-3.png";
@@ -135,6 +144,48 @@ export interface Product {
 }
 
 export const PRODUCTS: Product[] = [
+  {
+    id: "f-019",
+    slug: "mishka-3pc-organza-silk-crepe",
+    name: "Mishka 3 Pc",
+    category: "Festive / Pret",
+    fabricType: "Stitched",
+    price: 21700,
+    discountedPrice: 9331,
+    discountPercent: 57,
+    badge: "Bestseller",
+    images: [mishka1, mishka2, mishka3, mishka4, mishka5, mishka6, mishka7],
+    description:
+      "Mishka 3 Piece is a masterclass in Pakistani couture — mauve organza and silk crepe fused into a silhouette that is at once regal and romantic. The kurta is densely hand-embellished from neckline to hem: a jewelled column of mirror-cut stones cascades down the placket while the entire body blooms with intricate chikankari bootas in gold thread. The sleeves are a garden unto themselves — deep cutwork organza florals outlined in pearl and sequin finish in a scalloped border of breathtaking detail. Palazzo trousers in silk crepe carry a matching gold floral hem border, and the dupatta drifts in panels of sheer organza, its edge finished in the same lavish gold lace. Mishka is for the woman who knows that every stitch tells a story.",
+    details: [
+      "Fabric: Organza & Silk Crepe",
+      "Embroidery: Hand-worked chikankari bootas in gold thread across body",
+      "Neckline: Jewelled with mirror-cut stones & pearl detailing",
+      "Sleeves: Cutwork organza florals with sequin & pearl border",
+      "Trousers: Silk Crepe with gold floral hem border",
+      "Dupatta: Sheer organza with heavy gold lace border (2.5M)",
+      "Set: 3-piece stitched (kurta, palazzo trousers, dupatta)",
+      "Colour: Mauve / Dusty Rose with gold embellishment",
+      "Occasion: Barat, Walima, formal dinners, luxury weddings",
+      "Care: Dry clean only",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2–3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      { size: "S", chest: '18–19"', shoulder: '14"', hips: '18"', armHole: '9"', legOpening: '8"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
+    ],
+    sizeChartImage: mishkaSizeChart,
+    reviewCount: 7,
+    soldCount: 36,
+    soldTimeframe: "13 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
   {
     id: "f-018",
     slug: "nayaab-3pc-chiffon-crepe",
