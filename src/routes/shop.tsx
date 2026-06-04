@@ -20,10 +20,10 @@ const SORT_LABELS: Record<SortOption, string> = {
 };
 
 const FABRIC_TABS: FabricType[] = ["Stitched", "Unstitched"];
-const COLLECTIONS: Collection[] = ["Bridal", "Festive / Pret", "Men's"];
+const COLLECTIONS: Collection[] = ["Bridal", "Festive / Pret", "Daily Wear", "Men's"];
 
 const shopSearchSchema = z.object({
-  collection: z.enum(["All", "Bridal", "Festive / Pret", "Men's"]).optional().default("All"),
+  collection: z.enum(["All", "Bridal", "Festive / Pret", "Daily Wear", "Men's"]).optional().default("All"),
   fabric: z.enum(["Stitched", "Unstitched"]).optional().default("Stitched"),
 });
 
@@ -42,6 +42,7 @@ const collectionMeta: Record<string, { label: string; sub: string }> = {
   All: { label: "All Collections", sub: "Every piece, every house" },
   Bridal: { label: "Bridal Couture", sub: "Shaadi · Mehndi · Walima" },
   "Festive / Pret": { label: "Festive Prêt", sub: "Eid · Mehndi · Sangeet" },
+  "Daily Wear": { label: "Daily Wear", sub: "Everyday elegance · Casual · Work" },
   "Men's": { label: "Maison Homme", sub: "Sherwani · Bandhgala" },
 };
 

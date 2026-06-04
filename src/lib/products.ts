@@ -156,7 +156,7 @@ const simranSizeChart = "/simran-size-chart.png";
 
 export type Badge = "New" | "Limited" | "Last Piece" | "Bestseller";
 export type FabricType = "Stitched" | "Unstitched";
-export type Collection = "Bridal" | "Festive / Pret" | "Men's";
+export type Collection = "Bridal" | "Festive / Pret" | "Men's" | "Daily Wear";
 
 export interface SizeChartRow {
   size: string;
@@ -204,7 +204,7 @@ export const PRODUCTS: Product[] = [
     id: "f-025",
     slug: "zirwaha-3pc-arabic-lawn",
     name: "Zirwaha 3 Pc",
-    category: "Festive / Pret",
+    category: "Daily Wear",
     fabricType: "Stitched",
     price: 12565,
     discountedPrice: 4398,
@@ -581,7 +581,7 @@ export const PRODUCTS: Product[] = [
     id: "f-016",
     slug: "mehmal-2pc-arabic-lawn",
     name: "Mehmal 2 Pc",
-    category: "Festive / Pret",
+    category: "Daily Wear",
     fabricType: "Stitched",
     price: 6500,
     discountedPrice: 3445,
@@ -704,7 +704,7 @@ export const PRODUCTS: Product[] = [
     id: "f-013",
     slug: "iris-2pc-arabic-lawn",
     name: "Iris 2 Pc",
-    category: "Festive / Pret",
+    category: "Daily Wear",
     fabricType: "Stitched",
     price: 5800,
     discountedPrice: 3480,
@@ -785,7 +785,7 @@ export const PRODUCTS: Product[] = [
     id: "f-011",
     slug: "shanzay-3pc-cotton",
     name: "Shanzay 3 Pc",
-    category: "Festive / Pret",
+    category: "Daily Wear",
     fabricType: "Stitched",
     price: 9000,
     discountedPrice: 5400,
@@ -903,7 +903,7 @@ export const PRODUCTS: Product[] = [
     id: "f-008",
     slug: "charm-2pc-cotton",
     name: "Charm 2 Pc",
-    category: "Festive / Pret",
+    category: "Daily Wear",
     fabricType: "Stitched",
     price: 7990,
     discountedPrice: 3435,
@@ -989,7 +989,7 @@ export const PRODUCTS: Product[] = [
     id: "f-006",
     slug: "namal-3pc-cotton",
     name: "Namal 3 Pc",
-    category: "Festive / Pret",
+    category: "Daily Wear",
     fabricType: "Stitched",
     price: 8500,
     discountedPrice: 3060,
@@ -1036,7 +1036,7 @@ export const PRODUCTS: Product[] = [
     id: "f-005",
     slug: "zara-3pc-cotton",
     name: "Zara 3 Pc",
-    category: "Festive / Pret",
+    category: "Daily Wear",
     fabricType: "Stitched",
     price: 9000,
     discountedPrice: 3060,

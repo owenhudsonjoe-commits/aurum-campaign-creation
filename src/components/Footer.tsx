@@ -6,6 +6,7 @@ import { PaisleyDivider } from "./PaisleyDivider";
 const collections = [
   { label: "Bridal Couture", href: "/shop", search: { collection: "Bridal" as const, fabric: "Stitched" as const } },
   { label: "Festive Prêt", href: "/shop", search: { collection: "Festive / Pret" as const, fabric: "Stitched" as const } },
+  { label: "Daily Wear", href: "/shop", search: { collection: "Daily Wear" as const, fabric: "Stitched" as const } },
   { label: "Men's", href: "/shop", search: { collection: "Men's" as const, fabric: "Stitched" as const } },
   { label: "Unstitched", href: "/shop", search: { collection: "All" as const, fabric: "Unstitched" as const } },
 ];
