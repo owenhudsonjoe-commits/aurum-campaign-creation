@@ -1,3 +1,8 @@
+const zirwaha1 = "/zirwaha-1.png";
+const zirwaha2 = "/zirwaha-2.png";
+const zirwaha3 = "/zirwaha-3.png";
+const zirwahaSizeChart = "/zirwaha-size-chart.png";
+
 const nayha1 = "/nayha-1.png";
 const nayha2 = "/nayha-2.png";
 const nayha3 = "/nayha-3.png";
@@ -195,6 +200,48 @@ export interface Product {
 }
 
 export const PRODUCTS: Product[] = [
+  {
+    id: "f-025",
+    slug: "zirwaha-3pc-arabic-lawn",
+    name: "Zirwaha 3 Pc",
+    category: "Festive / Pret",
+    fabricType: "Stitched",
+    price: 12565,
+    discountedPrice: 4398,
+    discountPercent: 65,
+    badge: "Bestseller",
+    images: [zirwaha1, zirwaha2, zirwaha3],
+    description:
+      "Zirwaha 3 Piece is understated elegance at its finest — crisp ivory Arabic lawn in a clean straight-cut silhouette that lets the embroidery do all the talking. The sleeves are a showstopper: fully adorned in an ink-blue floral vine print in the traditional Arabic lawn style, blooming with roses and leaves that cascade from shoulder to a richly bordered cuff in navy geometric motifs. The placket carries a precise column of navy embroidery stitching, while the hem is finished in a bold band of matching navy geometric border. Paired with tailored ivory straight trousers, Zirwaha is the perfect balance of modern minimalism and heritage craft — refined, cool, and effortlessly chic.",
+    details: [
+      "Fabric: Premium Arabic Lawn",
+      "Silhouette: Straight-cut kurta with tailored straight trousers",
+      "Sleeves: Full-length with all-over navy floral vine print & geometric cuff border",
+      "Placket: Navy embroidery stitching",
+      "Hem: Bold navy geometric border",
+      "Trousers: Tailored straight-cut in matching ivory lawn",
+      "Set: 3-piece stitched (kurta, trousers, dupatta)",
+      "Colour: Ivory / Off-White with navy blue embellishment",
+      "Occasion: Eid, festive gatherings, semi-formal daytime events",
+      "Care: Machine wash cold or dry clean",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2–3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      { size: "S", chest: '18–19"', shoulder: '14"', hips: '18"', armHole: '9"', legOpening: '8"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
+    ],
+    sizeChartImage: zirwahaSizeChart,
+    reviewCount: 7,
+    soldCount: 39,
+    soldTimeframe: "13 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
   {
     id: "f-024",
     slug: "nayha-3pc-chiffon",
