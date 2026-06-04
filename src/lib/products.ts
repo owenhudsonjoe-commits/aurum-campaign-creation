@@ -1,3 +1,18 @@
+const nayha1 = "/nayha-1.png";
+const nayha2 = "/nayha-2.png";
+const nayha3 = "/nayha-3.png";
+const nayha4 = "/nayha-4.png";
+const nayha5 = "/nayha-5.png";
+const nayha6 = "/nayha-6.png";
+const nayha7 = "/nayha-7.png";
+const nayha8 = "/nayha-8.png";
+const nayha9 = "/nayha-9.png";
+const nayha10 = "/nayha-10.png";
+const nayha11 = "/nayha-11.png";
+const nayha12 = "/nayha-12.png";
+const nayha13 = "/nayha-13.png";
+const nayhaSizeChart = "/nayha-size-chart.png";
+
 const blueZephyr1 = "/blue-zephyr-1.png";
 const blueZephyr2 = "/blue-zephyr-2.png";
 const blueZephyr3 = "/blue-zephyr-3.png";
@@ -180,6 +195,49 @@ export interface Product {
 }
 
 export const PRODUCTS: Product[] = [
+  {
+    id: "f-024",
+    slug: "nayha-3pc-chiffon",
+    name: "Nayha 3 Pc",
+    category: "Festive / Pret",
+    fabricType: "Stitched",
+    price: 23700,
+    discountedPrice: 8058,
+    discountPercent: 66,
+    badge: "Bestseller",
+    images: [nayha1, nayha2, nayha3, nayha4, nayha5, nayha6, nayha7, nayha8, nayha9, nayha10, nayha11, nayha12, nayha13],
+    description:
+      "Nayha 3 Piece is the definition of festive magnificence — a deep teal chiffon ensemble adorned with an intricate cascade of gold zardozi and sequin embroidery from neckline to hem. The full-length anarkali kurta features a scoop neckline encrusted with delicate floral goldwork, while scattered star and boteh motifs travel across the entire body in gleaming gold thread. The palatial sleeves are fully sheer with dense embellishment, finishing in an ornate cuff border. The wide-leg sharara trousers mirror the kurta's embroidery at the hem with a bold gold border, and the dupatta — lush organza in matching teal — is edged in a sweeping vine-and-bloom gold lace. Nayha is regal, resplendent, and utterly unforgettable.",
+    details: [
+      "Fabric: Premium Chiffon",
+      "Silhouette: Full-length anarkali kurta with sharara trousers",
+      "Embroidery: Gold zardozi, sequin & thread — scattered stars and boteh across body",
+      "Neckline: Scoop with heavy floral goldwork",
+      "Sleeves: Sheer full-length with dense embellishment & ornate cuff border",
+      "Trousers: Wide-leg sharara with matching gold embroidered hem border",
+      "Dupatta: Organza with gold vine-and-bloom lace border (2.5M)",
+      "Set: 3-piece stitched (anarkali kurta, sharara trousers, dupatta)",
+      "Colour: Deep Teal / Peacock Blue with gold embellishment",
+      "Occasion: Barat, Walima, festive evenings, luxury wedding guest",
+      "Care: Dry clean only",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2–3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      { size: "S", chest: '18–19"', shoulder: '14"', hips: '18"', armHole: '9"', legOpening: '8"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
+    ],
+    sizeChartImage: nayhaSizeChart,
+    reviewCount: 7,
+    soldCount: 32,
+    soldTimeframe: "13 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
   {
     id: "f-023",
     slug: "blue-zephyr-3pc-bemberg-chiffon",
