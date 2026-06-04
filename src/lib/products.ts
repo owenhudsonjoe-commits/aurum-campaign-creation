@@ -1,3 +1,13 @@
+const magenta1 = "/magenta-1.png";
+const magenta2 = "/magenta-2.png";
+const magenta3 = "/magenta-3.png";
+const magenta4 = "/magenta-4.png";
+const magenta5 = "/magenta-5.png";
+const magenta6 = "/magenta-6.png";
+const magenta7 = "/magenta-7.png";
+const magenta8 = "/magenta-8.png";
+const magentaSizeChart = "/magenta-size-chart.png";
+
 const zimal1 = "/zimal-1.png";
 const zimal2 = "/zimal-2.png";
 const zimal3 = "/zimal-3.png";
@@ -151,6 +161,49 @@ export interface Product {
 }
 
 export const PRODUCTS: Product[] = [
+  {
+    id: "f-021",
+    slug: "magenta-3pc-chiffon-grip",
+    name: "Magenta 3 Pc",
+    category: "Festive / Pret",
+    fabricType: "Stitched",
+    price: 19750,
+    discountedPrice: 6715,
+    discountPercent: 66,
+    badge: "Bestseller",
+    images: [magenta1, magenta2, magenta3, magenta4, magenta5, magenta6, magenta7, magenta8],
+    description:
+      "Magenta 3 Piece is pure opulence — deep crimson chiffon blanketed in a cascade of hand-worked flowers, vines, and intricate jaal embroidery in silver, gold, and multicolour thread. Every inch of the kurta is alive with embellishment: emerald stone accents at the neckline, heavy zardozi-style borders at the hem, and fully embroidered sleeves finished in a scalloped lace cuff. The grip gharara trousers in matching magenta add drama and movement, their ruched texture catching light with every step. The dupatta — sheer chiffon fringed in gold tassels — frames the entire look in a final flourish of luxury. Magenta is for the woman who dresses like a celebration.",
+    details: [
+      "Fabric: Premium Chiffon (kurta) & Grip (gharara trousers)",
+      "Embroidery: Dense hand-worked floral jaal in silver, gold & multicolour thread",
+      "Neckline: Round with emerald stone accents",
+      "Hem: Heavy zardozi-style border",
+      "Sleeves: Fully embroidered with scalloped lace cuff",
+      "Trousers: Grip gharara with ruched texture",
+      "Dupatta: Sheer chiffon with embroidery & gold tassel fringe (2.5M)",
+      "Set: 3-piece stitched (kurta, gharara, dupatta)",
+      "Colour: Deep Magenta / Crimson with silver & gold embellishment",
+      "Occasion: Barat, Walima, luxury weddings, formal evenings",
+      "Care: Dry clean only",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2–3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      { size: "S", chest: '18–19"', shoulder: '14"', hips: '18"', armHole: '9"', legOpening: '8"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
+    ],
+    sizeChartImage: magentaSizeChart,
+    reviewCount: 7,
+    soldCount: 34,
+    soldTimeframe: "13 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
   {
     id: "f-020",
     slug: "zimal-3pc-silk",
