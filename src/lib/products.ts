@@ -1,3 +1,8 @@
+const berry1 = "/berry-1.png";
+const berry2 = "/berry-2.png";
+const berry3 = "/berry-3.png";
+const berrySizeChart = "/berry-size-chart.png";
+
 const buttercup1 = "/buttercup-1.png";
 const buttercup2 = "/buttercup-2.png";
 const buttercup3 = "/buttercup-3.png";
@@ -227,6 +232,47 @@ export interface Product {
 }
 
 export const PRODUCTS: Product[] = [
+  {
+    id: "f-029",
+    slug: "berry-2pc-arabic-lawn",
+    name: "Berry 2 Pc",
+    category: "Daily Wear",
+    fabricType: "Stitched",
+    price: 6500,
+    discountedPrice: 2925,
+    discountPercent: 55,
+    badge: "Bestseller",
+    images: [berry1, berry2, berry3],
+    description:
+      "Berry 2 Piece is a lesson in effortless dressing — a deep berry-red Arabic lawn kurta paired with cream palazzo trousers scattered in hand-embroidered crimson heart motifs, a pairing that is at once minimalist and full of personality. The kurta's clean split neckline and relaxed A-line silhouette are elevated by wide bell sleeves finished with delicate lace cuff trim — the only ornamentation on an otherwise pristine upper half. The contrast of rich berry against ivory hearts gives Berry a whimsical, warm quality that makes it the kind of set you reach for again and again.",
+    details: [
+      "Fabric: Premium Arabic Lawn",
+      "Silhouette: A-line kurta with wide palazzo trousers",
+      "Embroidery: Hand-embroidered crimson heart motifs on trouser",
+      "Neckline: Clean split neckline",
+      "Sleeves: Wide bell sleeves with lace cuff trim",
+      "Set: 2-piece stitched (kurta & palazzo)",
+      "Colour: Berry Red / Ivory",
+      "Occasion: Everyday casual, home, outings",
+      "Care: Machine wash cold, gentle cycle",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2–3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      { size: "S", chest: '18–19"', shoulder: '14"', hips: '18"', armHole: '9"', legOpening: '8"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
+    ],
+    sizeChartImage: berrySizeChart,
+    reviewCount: 7,
+    soldCount: 35,
+    soldTimeframe: "13 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
   {
     id: "f-028",
     slug: "buttercup-3pc-lawn-cotton",
