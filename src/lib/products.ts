@@ -1,3 +1,12 @@
+const buttercup1 = "/buttercup-1.png";
+const buttercup2 = "/buttercup-2.png";
+const buttercup3 = "/buttercup-3.png";
+const buttercup4 = "/buttercup-4.png";
+const buttercup5 = "/buttercup-5.png";
+const buttercup6 = "/buttercup-6.png";
+const buttercup7 = "/buttercup-7.png";
+const buttercupSizeChart = "/buttercup-size-chart.png";
+
 const sena1 = "/sena-1.png";
 const sena2 = "/sena-2.png";
 const sena3 = "/sena-3.png";
@@ -218,6 +227,50 @@ export interface Product {
 }
 
 export const PRODUCTS: Product[] = [
+  {
+    id: "f-028",
+    slug: "buttercup-3pc-lawn-cotton",
+    name: "Buttercup 3 Pc",
+    category: "Daily Wear",
+    fabricType: "Stitched",
+    price: 9999,
+    discountedPrice: 3399,
+    discountPercent: 66,
+    badge: "Bestseller",
+    images: [buttercup1, buttercup2, buttercup3, buttercup4, buttercup5, buttercup6, buttercup7],
+    description:
+      "Buttercup 3 Piece captures the warmth of golden afternoon light in a single outfit — a luminous butter-yellow lawn cotton kurta with a refined split neckline edged in delicate scalloped white lace trim that runs the full placket length. The wide-cut sleeves are finished in intricate white cutwork cuffs, and the hemline carries a signature scalloped lace border that dips gracefully at the sides. Matching palazzos in the same buttery tone feature embroidered hems, and the sheer chiffon dupatta drapes effortlessly over the look. Clean lines, no excess — just the quiet confidence of perfectly executed simplicity.",
+    details: [
+      "Fabric: Premium Lawn Cotton",
+      "Silhouette: Straight kurta with wide palazzos & dupatta",
+      "Embroidery: White cutwork cuffs & scalloped lace hem border",
+      "Neckline: Split neckline with scalloped white lace trim",
+      "Sleeves: Wide-cut with intricate cutwork cuffs",
+      "Hem: Scalloped lace border with side dip",
+      "Trousers: Matching palazzo with embroidered hem",
+      "Dupatta: Sheer chiffon with embroidered border",
+      "Set: 3-piece stitched (kurta, palazzo, dupatta)",
+      "Colour: Butter Yellow / White",
+      "Occasion: Casual outings, tea parties, daywear",
+      "Care: Machine wash cold, gentle cycle",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2–3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      { size: "S", chest: '18–19"', shoulder: '14"', hips: '18"', armHole: '9"', legOpening: '8"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
+    ],
+    sizeChartImage: buttercupSizeChart,
+    reviewCount: 7,
+    soldCount: 35,
+    soldTimeframe: "13 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
   {
     id: "f-027",
     slug: "sena-3pc-lawn",
