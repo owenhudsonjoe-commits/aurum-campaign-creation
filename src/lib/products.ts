@@ -1,3 +1,14 @@
+const sena1 = "/sena-1.png";
+const sena2 = "/sena-2.png";
+const sena3 = "/sena-3.png";
+const sena4 = "/sena-4.png";
+const sena5 = "/sena-5.png";
+const sena6 = "/sena-6.png";
+const sena7 = "/sena-7.png";
+const sena8 = "/sena-8.png";
+const sena9 = "/sena-9.png";
+const senaSizeChart = "/sena-size-chart.png";
+
 const meridia1 = "/meridia-1.png";
 const meridia2 = "/meridia-2.png";
 const meridia3 = "/meridia-3.png";
@@ -207,6 +218,49 @@ export interface Product {
 }
 
 export const PRODUCTS: Product[] = [
+  {
+    id: "f-027",
+    slug: "sena-3pc-lawn",
+    name: "Sena 3 Pc",
+    category: "Daily Wear",
+    fabricType: "Stitched",
+    price: 8890,
+    discountedPrice: 3022,
+    discountPercent: 66,
+    badge: "Bestseller",
+    images: [sena1, sena2, sena3, sena4, sena5, sena6, sena7, sena8, sena9],
+    description:
+      "Sena 3 Piece is a study in soft femininity — a blush peach premium lawn kurta adorned with intricate hand-guided floral embroidery in tonal silk threads, scattered mirror-work, and a delicate pearl-trim neckline that catches the light with every movement. The V-neck silhouette tapers into a curved hem finished in lace cutwork, mirrored on the wide-mouth cuffs. The ivory wide-leg trousers feature a signature broderie anglaise hem that peeks beneath the kurta's edge — a refined contrast that elevates the look. A softly textured dupatta completes this three-piece ensemble. Light, breathable, and exquisitely detailed, Sena is everyday luxury at its finest.",
+    details: [
+      "Fabric: Premium Lawn",
+      "Silhouette: Short kurta with wide-leg trousers & dupatta",
+      "Embroidery: Tonal floral silk thread with mirror work throughout",
+      "Neckline: V-neck with pearl trim & lace inlay",
+      "Sleeves: Straight sleeves with lace cutwork cuffs",
+      "Hem: Curved hem with lace cutwork border",
+      "Trousers: Ivory wide-leg with broderie anglaise hem",
+      "Set: 3-piece stitched (kurta, trousers, dupatta)",
+      "Colour: Blush Peach / Ivory",
+      "Occasion: Casual outings, brunches, family gatherings",
+      "Care: Machine wash cold, gentle cycle",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2–3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      { size: "S", chest: '18–19"', shoulder: '14"', hips: '18"', armHole: '9"', legOpening: '8"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
+    ],
+    sizeChartImage: senaSizeChart,
+    reviewCount: 7,
+    soldCount: 39,
+    soldTimeframe: "13 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
   {
     id: "f-026",
     slug: "meridia-3pc-cotton",
