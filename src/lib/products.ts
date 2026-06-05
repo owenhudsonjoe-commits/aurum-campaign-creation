@@ -1,3 +1,10 @@
+const meridia1 = "/meridia-1.png";
+const meridia2 = "/meridia-2.png";
+const meridia3 = "/meridia-3.png";
+const meridia4 = "/meridia-4.png";
+const meridia5 = "/meridia-5.png";
+const meridiaSizeChart = "/meridia-size-chart.png";
+
 const zirwaha1 = "/zirwaha-1.png";
 const zirwaha2 = "/zirwaha-2.png";
 const zirwaha3 = "/zirwaha-3.png";
@@ -200,6 +207,49 @@ export interface Product {
 }
 
 export const PRODUCTS: Product[] = [
+  {
+    id: "f-026",
+    slug: "meridia-3pc-cotton",
+    name: "Meridia 3 Pc",
+    category: "Daily Wear",
+    fabricType: "Stitched",
+    price: 9499,
+    discountedPrice: 3799,
+    discountPercent: 60,
+    badge: "Bestseller",
+    images: [meridia1, meridia2, meridia3, meridia4, meridia5],
+    description:
+      "Meridia 3 Piece is a statement in tonal dressing — rich crimson premium cotton worked in a dense all-over self-embroidery of floral vines and delicate cutwork panels that create a sense of depth and dimension without a single contrasting colour. The straight-cut kurta features a V-neck with ornate lace inlay, fully embroidered bell sleeves with intricate cutwork cuffs, and a dramatic side hemline bordered in scalloped lace. The matching straight trousers carry the same lace hem detailing, and the dupatta — sheer crimson chiffon with an embroidered border — completes the look. Meridia is understated luxury in its most wearable form.",
+    details: [
+      "Fabric: Premium Cotton",
+      "Silhouette: Straight-cut kurta with straight trousers & dupatta",
+      "Embroidery: Dense self-colour floral vine & cutwork all over",
+      "Neckline: V-neck with ornate lace inlay",
+      "Sleeves: Bell sleeves with intricate cutwork cuffs",
+      "Hem: Scalloped lace border on kurta & trouser hem",
+      "Dupatta: Sheer chiffon with embroidered border",
+      "Set: 3-piece stitched (kurta, trousers, dupatta)",
+      "Colour: Crimson / Deep Red (tonal self-embroidery)",
+      "Occasion: Casual outings, family gatherings, daytime events",
+      "Care: Machine wash cold or dry clean",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2–3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      { size: "S", chest: '18–19"', shoulder: '14"', hips: '18"', armHole: '9"', legOpening: '8"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
+    ],
+    sizeChartImage: meridiaSizeChart,
+    reviewCount: 7,
+    soldCount: 39,
+    soldTimeframe: "13 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
   {
     id: "f-025",
     slug: "zirwaha-3pc-arabic-lawn",
