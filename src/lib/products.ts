@@ -1,3 +1,10 @@
+const blackShanzay1 = "/black-shanzay-1.png";
+const blackShanzay2 = "/black-shanzay-2.png";
+const blackShanzay3 = "/black-shanzay-3.png";
+const blackShanzay4 = "/black-shanzay-4.png";
+const blackShanzay5 = "/black-shanzay-5.png";
+const blackShanzaySizeChart = "/black-shanzay-size-chart.png";
+
 const berry1 = "/berry-1.png";
 const berry2 = "/berry-2.png";
 const berry3 = "/berry-3.png";
@@ -232,6 +239,49 @@ export interface Product {
 }
 
 export const PRODUCTS: Product[] = [
+  {
+    id: "f-030",
+    slug: "black-shanzay-3pc-cotton",
+    name: "Black Shanzay 3 Pc",
+    category: "Daily Wear",
+    fabricType: "Stitched",
+    price: 10000,
+    discountedPrice: 3600,
+    discountPercent: 64,
+    badge: "Bestseller",
+    images: [blackShanzay1, blackShanzay2, blackShanzay3, blackShanzay4, blackShanzay5],
+    description:
+      "Black Shanzay 3 Piece is pure, unapologetic power dressing — an all-black premium cotton suit worked entirely in dense self-colour embroidery that creates a mesmerising interplay of texture and light. The straight kurta features a sculpted scalloped neckline with intricate floral cutwork, a full front panel of ornate Mughal-inspired arabesques, and wide sleeves finished in luxurious lace grid cuffs. Matching straight trousers carry a delicate cutwork hem, while the sheer black chiffon dupatta — bordered in scalloped lace — flows with drama. Shanzay Black is the rare piece that needs no colour to command a room.",
+    details: [
+      "Fabric: Premium Cotton",
+      "Silhouette: Straight kurta with straight trousers & dupatta",
+      "Embroidery: Dense self-colour Mughal arabesque all over, cutwork panels",
+      "Neckline: Sculpted scalloped neckline with floral cutwork",
+      "Sleeves: Wide sleeves with lace grid cuffs",
+      "Hem: Cutwork border on trousers",
+      "Dupatta: Sheer black chiffon with scalloped lace border",
+      "Set: 3-piece stitched (kurta, trousers, dupatta)",
+      "Colour: Jet Black (tonal self-embroidery)",
+      "Occasion: Eid, dinners, formal gatherings, evening events",
+      "Care: Dry clean recommended",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2–3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      { size: "S", chest: '18–19"', shoulder: '14"', hips: '18"', armHole: '9"', legOpening: '8"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
+    ],
+    sizeChartImage: blackShanzaySizeChart,
+    reviewCount: 7,
+    soldCount: 35,
+    soldTimeframe: "13 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
   {
     id: "f-029",
     slug: "berry-2pc-arabic-lawn",
