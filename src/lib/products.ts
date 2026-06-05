@@ -1,3 +1,17 @@
+const velora1 = "/velora-1.png";
+const velora2 = "/velora-2.png";
+const velora3 = "/velora-3.png";
+const velora4 = "/velora-4.png";
+const velora5 = "/velora-5.png";
+const velora6 = "/velora-6.png";
+const velora7 = "/velora-7.png";
+const velora8 = "/velora-8.png";
+const velora9 = "/velora-9.png";
+const velora10 = "/velora-10.png";
+const velora11 = "/velora-11.png";
+const velora12 = "/velora-12.png";
+const veloraSizeChart = "/velora-size-chart.png";
+
 const blackShanzay1 = "/black-shanzay-1.png";
 const blackShanzay2 = "/black-shanzay-2.png";
 const blackShanzay3 = "/black-shanzay-3.png";
@@ -239,6 +253,49 @@ export interface Product {
 }
 
 export const PRODUCTS: Product[] = [
+  {
+    id: "f-031",
+    slug: "velora-3pc-cotton",
+    name: "Velora 3 Pc",
+    category: "Daily Wear",
+    fabricType: "Stitched",
+    price: 12000,
+    discountedPrice: 3600,
+    discountPercent: 70,
+    badge: "Bestseller",
+    images: [velora1, velora2, velora3, velora4, velora5, velora6, velora7, velora8, velora9, velora10, velora11, velora12],
+    description:
+      "Velora 3 Piece is a masterclass in heritage embroidery reimagined for the modern woman. The deep navy premium cotton kurta is adorned with bold circular mandala medallions on the sleeves — intricately worked in ivory cutwork and patterned rings — while the body is scattered with dainty floral booti and a richly embroidered hem border. The ivory palazzo trousers carry their own delicate embroidery details, and the rust-red dupatta, woven with an ajrak-inspired geometric print and jewel-accented border, adds a dramatic pop of warmth. Velora is the effortless balance between cultural pride and everyday elegance.",
+    details: [
+      "Fabric: Premium Cotton",
+      "Silhouette: Straight kurta with wide-leg palazzo & dupatta",
+      "Embroidery: Circular mandala medallions (sleeves), floral booti (body), ornate hem border",
+      "Neckline: Keyhole with button detail and embroidered panel",
+      "Sleeves: Wide bell sleeves with large mandala cutwork cuffs",
+      "Trousers: Ivory wide-leg palazzo with embroidered hem",
+      "Dupatta: Rust-red with ajrak geometric print & jewel border",
+      "Set: 3-piece stitched (kurta, trousers, dupatta)",
+      "Colour: Deep Navy + Ivory + Rust Red",
+      "Occasion: Casual gatherings, Eid day wear, family events, weddings as a guest",
+      "Care: Machine wash cold, gentle cycle",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2–3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      { size: "S", chest: '18–19"', shoulder: '14"', hips: '18"', armHole: '9"', legOpening: '8"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
+    ],
+    sizeChartImage: veloraSizeChart,
+    reviewCount: 7,
+    soldCount: 35,
+    soldTimeframe: "13 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
   {
     id: "f-030",
     slug: "black-shanzay-3pc-cotton",
