@@ -1,3 +1,14 @@
+const sapphireBlack1 = "/sapphire-black-1.png";
+const sapphireBlack2 = "/sapphire-black-2.png";
+const sapphireBlack3 = "/sapphire-black-3.png";
+const sapphireBlack4 = "/sapphire-black-4.png";
+const sapphireBlack5 = "/sapphire-black-5.png";
+const sapphireBlack6 = "/sapphire-black-6.png";
+const sapphireBlack7 = "/sapphire-black-7.png";
+const sapphireBlack8 = "/sapphire-black-8.png";
+const sapphireBlack9 = "/sapphire-black-9.png";
+const sapphireBlackSizeChart = "/sapphire-black-size-chart.png";
+
 const seharzat1 = "/seharzat-1.png";
 const seharzat2 = "/seharzat-2.png";
 const seharzat3 = "/seharzat-3.png";
@@ -265,6 +276,49 @@ export interface Product {
 }
 
 export const PRODUCTS: Product[] = [
+  {
+    id: "f-033",
+    slug: "sapphire-black-embroidered-3pc",
+    name: "SAPPHIRE BLACK EMBROIDERED 3pc",
+    category: "Daily Wear",
+    fabricType: "Stitched",
+    price: 14899,
+    discountedPrice: 3724,
+    discountPercent: 75,
+    badge: "Bestseller",
+    images: [sapphireBlack1, sapphireBlack2, sapphireBlack3, sapphireBlack4, sapphireBlack5, sapphireBlack6, sapphireBlack7, sapphireBlack8, sapphireBlack9],
+    description:
+      "SAPPHIRE BLACK EMBROIDERED 3 Piece is a bold statement in monochromatic luxury. The jet-black premium Cotton kurta is blanketed in sweeping white thread embroidery — grand paisley medallions, intricate floral sprays, and geometric borders cover the chest, sleeves, and hem in breathtaking detail. The wide-leg black trousers provide a sleek, polished base, while the sheer black dupatta with embroidered trim completes the ensemble with an air of effortless drama. A power piece for the woman who commands every room.",
+    details: [
+      "Fabric: Cotton",
+      "Silhouette: Long straight kurta with wide-leg trousers & dupatta",
+      "Embroidery: Paisley medallions, floral sprays, geometric border (white thread on black)",
+      "Neckline: Choker-style neckline with embroidered panel and button detail",
+      "Sleeves: Wide bell sleeves with ornate white embroidered cuffs",
+      "Trousers: Jet-black straight-leg with subtle hem detailing",
+      "Dupatta: Sheer black with embroidered border",
+      "Set: 3-piece stitched (kurta, trousers, dupatta)",
+      "Colour: Jet Black + White",
+      "Occasion: Festive gatherings, Eid, weddings as a guest, evening events",
+      "Care: Hand wash cold or gentle machine wash",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2–3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      { size: "S", chest: '18–19"', shoulder: '14"', hips: '18"', armHole: '9"', legOpening: '8"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
+    ],
+    sizeChartImage: sapphireBlackSizeChart,
+    reviewCount: 7,
+    soldCount: 34,
+    soldTimeframe: "13 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
   {
     id: "f-032",
     slug: "seharzat-3pc-lawn",
