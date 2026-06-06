@@ -1,3 +1,15 @@
+const seharzat1 = "/seharzat-1.png";
+const seharzat2 = "/seharzat-2.png";
+const seharzat3 = "/seharzat-3.png";
+const seharzat4 = "/seharzat-4.png";
+const seharzat5 = "/seharzat-5.png";
+const seharzat6 = "/seharzat-6.png";
+const seharzat7 = "/seharzat-7.png";
+const seharzat8 = "/seharzat-8.png";
+const seharzat9 = "/seharzat-9.png";
+const seharzat10 = "/seharzat-10.png";
+const seharzatSizeChart = "/seharzat-size-chart.png";
+
 const velora1 = "/velora-1.png";
 const velora2 = "/velora-2.png";
 const velora3 = "/velora-3.png";
@@ -253,6 +265,48 @@ export interface Product {
 }
 
 export const PRODUCTS: Product[] = [
+  {
+    id: "f-032",
+    slug: "seharzat-3pc-lawn",
+    name: "SEHARZAT 3pc",
+    category: "Daily Wear",
+    fabricType: "Stitched",
+    price: 8890,
+    discountedPrice: 2844,
+    discountPercent: 68,
+    badge: "Bestseller",
+    images: [seharzat1, seharzat2, seharzat3, seharzat4, seharzat5, seharzat6, seharzat7, seharzat8, seharzat9, seharzat10],
+    description:
+      "SEHARZAT 3 Piece is a vision of soft femininity rendered in premium Lawn fabric. The dusty lilac kurta is adorned with intricate multi-tone embroidery — delicate paisley motifs, floral booti, and mirror-work accents cascade across the neckline, sleeves, and hem. The ivory wide-leg trousers carry refined embroidered detailing at the hem, while subtle butti work adds texture throughout. A timeless ensemble that effortlessly bridges daily elegance and festive ease.",
+    details: [
+      "Fabric: Lawn",
+      "Silhouette: Straight kurta with wide-leg trousers & dupatta",
+      "Embroidery: Paisley motifs, floral booti, mirror-work accents",
+      "Neckline: Round keyhole with richly embroidered panel",
+      "Sleeves: Wide bell sleeves with intricate cuff embroidery",
+      "Trousers: Ivory wide-leg with embroidered hem & butti work",
+      "Set: 3-piece stitched (kurta, trousers, dupatta)",
+      "Colour: Dusty Lilac + Ivory",
+      "Occasion: Daily wear, casual outings, Eid, family gatherings",
+      "Care: Hand wash cold or gentle machine wash",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2–3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      { size: "S", chest: '18–19"', shoulder: '14"', hips: '18"', armHole: '9"', legOpening: '8"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
+    ],
+    sizeChartImage: seharzatSizeChart,
+    reviewCount: 7,
+    soldCount: 34,
+    soldTimeframe: "13 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
   {
     id: "f-031",
     slug: "velora-3pc-cotton",
