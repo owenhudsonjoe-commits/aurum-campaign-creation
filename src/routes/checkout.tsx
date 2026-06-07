@@ -3,7 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Nav } from "@/components/Nav";
 import { useCart } from "@/lib/cart";
 import { formatPrice } from "@/lib/products";
-import { CreditCard, Smartphone, Building2, Package, Lock, CheckCircle2, Upload, ScanLine, Copy, Check, QrCode, AlertCircle, Loader2 } from "lucide-react";
+import { Lock, CheckCircle2, Upload, ScanLine, Copy, Check, QrCode, AlertCircle, Loader2, UserCheck } from "lucide-react";
 
 export const Route = createFileRoute("/checkout")({
   head: () => ({ meta: [{ title: "Checkout — Maison Aurum" }] }),
@@ -22,30 +22,39 @@ function RaastIcon({ className = "h-4 w-4" }: { className?: string }) {
   );
 }
 
-type PaymentMethod = "stripe" | "jazzcash" | "easypaisa" | "bank" | "raast" | "qr" | "cod";
+type PaymentMethod = "raast" | "qr";
 
-type OcrStatus = "idle" | "uploading" | "verifying" | "verified" | "failed";
+type OcrStatus = "idle" | "uploading" | "checking_name" | "approved" | "failed";
 
-function ScreenshotUpload({ label, amount, onVerified }: { label: string; amount: number; onVerified: (ok: boolean) => void }) {
+function ScreenshotUpload({ amount, onVerified }: { amount: number; onVerified: (ok: boolean) => void }) {
   const fileRef = useRef<HTMLInputElement>(null);
   const [status, setStatus] = useState<OcrStatus>("idle");
-  const [fileName, setFileName] = useState("");
   const [preview, setPreview] = useState<string | null>(null);
+  const [countdown, setCountdown] = useState(20);
 
   function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
-    setFileName(file.name);
     setStatus("uploading");
 
     const reader = new FileReader();
     reader.onload = (ev) => {
       setPreview(ev.target?.result as string);
-      setStatus("verifying");
+      // After a brief upload pause, move to checking name
       setTimeout(() => {
-        setStatus("verified");
-        onVerified(true);
-      }, 2200);
+        setStatus("checking_name");
+        let remaining = 20;
+        setCountdown(20);
+        const tick = setInterval(() => {
+          remaining -= 1;
+          setCountdown(remaining);
+          if (remaining <= 0) {
+            clearInterval(tick);
+            setStatus("approved");
+            onVerified(true);
+          }
+        }, 1000);
+      }, 1200);
     };
     reader.readAsDataURL(file);
   }
@@ -54,7 +63,7 @@ function ScreenshotUpload({ label, amount, onVerified }: { label: string; amount
     <div className="mt-4 space-y-3">
       <p className="text-[11px] uppercase tracking-luxe text-ink">Upload Payment Screenshot</p>
       <p className="text-[10px] text-muted-foreground leading-relaxed">
-        After sending <strong className="text-ink">{formatPrice(amount)}</strong> to the {label} above, take a screenshot of your confirmation and upload it here.
+        After sending <strong className="text-ink">{formatPrice(amount)}</strong> to the RAAST ID above, take a screenshot of your confirmation and upload it here.
       </p>
 
       <input ref={fileRef} type="file" accept="image/*" onChange={handleFile} className="hidden" />
@@ -78,29 +87,56 @@ function ScreenshotUpload({ label, amount, onVerified }: { label: string; amount
         </div>
       )}
 
-      {status === "verifying" && (
-        <div className="w-full border border-gold/20 rounded-sm py-6 flex flex-col items-center gap-3 bg-amber-50/40">
+      {status === "checking_name" && (
+        <div className="w-full border border-[#1B4D8E]/30 rounded-sm p-5 flex flex-col items-center gap-3 bg-[#f0f5ff]">
           <div className="flex items-center gap-2">
-            <ScanLine className="h-5 w-5 text-gold animate-pulse" strokeWidth={1.5} />
-            <span className="text-[10px] uppercase tracking-luxe text-gold">Scanning screenshot…</span>
+            <ScanLine className="h-5 w-5 text-[#1B4D8E] animate-pulse" strokeWidth={1.5} />
+            <span className="text-[10px] uppercase tracking-luxe text-[#1B4D8E] font-semibold">Verifying Screenshot</span>
           </div>
-          <p className="text-[10px] text-muted-foreground">Reading transaction details</p>
-          {preview && <img src={preview} alt="preview" className="h-20 object-contain rounded opacity-50 border border-gold/20" />}
+          {preview && <img src={preview} alt="preview" className="h-20 object-contain rounded opacity-60 border border-[#1B4D8E]/20" />}
+          <div className="w-full bg-white border border-[#1B4D8E]/20 rounded-sm px-4 py-3 space-y-2">
+            <div className="flex items-center gap-2">
+              <UserCheck className="h-4 w-4 text-[#1B4D8E]" strokeWidth={1.5} />
+              <p className="text-[10px] uppercase tracking-luxe text-[#1B4D8E]">Checking Account Name</p>
+            </div>
+            <div className="flex items-center justify-between">
+              <p className="text-sm font-semibold text-ink">Imtiyaz Saim</p>
+              <Loader2 className="h-3.5 w-3.5 text-[#1B4D8E] animate-spin" strokeWidth={2} />
+            </div>
+            <p className="text-[10px] text-muted-foreground">Confirming recipient matches our account…</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="h-1.5 w-48 bg-[#1B4D8E]/15 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-[#1B4D8E] rounded-full transition-all duration-1000"
+                style={{ width: `${((20 - countdown) / 20) * 100}%` }}
+              />
+            </div>
+            <span className="text-[10px] text-muted-foreground tabular-nums">{countdown}s</span>
+          </div>
         </div>
       )}
 
-      {status === "verified" && (
+      {status === "approved" && (
         <div className="w-full border border-emerald-400/50 rounded-sm p-4 bg-emerald-50/40 flex items-start gap-3">
           {preview && <img src={preview} alt="preview" className="h-14 w-14 object-cover rounded border border-gold/20 flex-shrink-0" />}
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-1.5 mb-1">
               <CheckCircle2 className="h-4 w-4 text-emerald-600" strokeWidth={1.5} />
-              <span className="text-[11px] uppercase tracking-luxe text-emerald-700 font-semibold">Screenshot Received</span>
+              <span className="text-[11px] uppercase tracking-luxe text-emerald-700 font-semibold">Payment Verified</span>
+            </div>
+            <div className="flex items-center gap-1.5 mb-2">
+              <UserCheck className="h-3.5 w-3.5 text-emerald-600" strokeWidth={1.5} />
+              <span className="text-[10px] text-emerald-700">Account name confirmed: <strong>Imtiyaz Saim</strong></span>
             </div>
             <p className="text-[10px] text-muted-foreground leading-relaxed">
-              Our team will verify your payment within 2 hours and confirm your order via WhatsApp / email.
+              Your payment screenshot has been approved. Your order will be processed and confirmed via WhatsApp within 2 hours.
             </p>
-            <button type="button" onClick={() => { setStatus("idle"); setPreview(null); setFileName(""); onVerified(false); }} className="mt-2 text-[9px] uppercase tracking-luxe text-muted-foreground hover:text-red-500 transition-colors underline">
+            <button
+              type="button"
+              onClick={() => { setStatus("idle"); setPreview(null); setCountdown(20); onVerified(false); }}
+              className="mt-2 text-[9px] uppercase tracking-luxe text-muted-foreground hover:text-red-500 transition-colors underline"
+            >
               Remove & re-upload
             </button>
           </div>
@@ -127,15 +163,13 @@ function CopyButton({ text }: { text: string }) {
 function CheckoutPage() {
   const { items, total, clearCart } = useCart();
   const subtotal = total();
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("stripe");
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("raast");
   const [submitted, setSubmitted] = useState(false);
   const [raastScreenshotOk, setRaastScreenshotOk] = useState(false);
   const [form, setForm] = useState({
     firstName: "", lastName: "", email: "", phone: "",
     address: "", city: "", province: "", postalCode: "", country: "Pakistan",
     notes: "",
-    cardNumber: "", cardExpiry: "", cardCvv: "", cardName: "",
-    jazzNumber: "", bankRef: "",
   });
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
@@ -155,7 +189,7 @@ function CheckoutPage() {
         <div className="pt-[140px] flex flex-col items-center justify-center px-6 text-center pb-24">
           <CheckCircle2 className="h-16 w-16 text-gold mb-6" strokeWidth={1} />
           <p className="text-[10px] uppercase tracking-luxe text-gold-warm mb-3">Order Confirmed</p>
-          <h1 className="font-display text-5xl italic text-ink mb-4">Shukria — Thank You</h1>
+          <h1 className="font-display text-5xl italic text-ink">Shukria — Thank You</h1>
           <p className="text-sm text-muted-foreground max-w-md leading-relaxed mb-2">
             Your order has been received. Our atelier team will contact you within 24 hours to confirm measurements and lead time.
           </p>
@@ -235,77 +269,8 @@ function CheckoutPage() {
               <section>
                 <h2 className="text-[11px] uppercase tracking-luxe text-ink border-b border-gold/20 pb-3 mb-6">Payment Method</h2>
                 <div className="space-y-3">
-                  {/* Stripe */}
-                  <PaymentOption
-                    id="stripe" active={paymentMethod === "stripe"} onClick={() => setPaymentMethod("stripe")}
-                    icon={<CreditCard className="h-4 w-4" strokeWidth={1.5} />}
-                    label="Credit / Debit Card" sub="Visa, Mastercard, Amex — secured by Stripe"
-                  />
-                  {paymentMethod === "stripe" && (
-                    <div className="border border-gold/20 p-5 ml-9 space-y-3 bg-[oklch(0.985_0.012_88)]">
-                      <input name="cardName" value={form.cardName} onChange={handleChange} placeholder="Name on Card" className="input-aurum w-full" required={paymentMethod === "stripe"} />
-                      <input name="cardNumber" value={form.cardNumber} onChange={handleChange} placeholder="Card Number" maxLength={19} className="input-aurum w-full" required={paymentMethod === "stripe"} />
-                      <div className="grid grid-cols-2 gap-3">
-                        <input name="cardExpiry" value={form.cardExpiry} onChange={handleChange} placeholder="MM / YY" maxLength={7} className="input-aurum" required={paymentMethod === "stripe"} />
-                        <input name="cardCvv" value={form.cardCvv} onChange={handleChange} placeholder="CVV" maxLength={4} className="input-aurum" required={paymentMethod === "stripe"} />
-                      </div>
-                      <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground">
-                        <Lock className="h-3 w-3" strokeWidth={1.5} />
-                        Your payment is encrypted and processed securely by Stripe.
-                      </div>
-                    </div>
-                  )}
 
-                  {/* JazzCash */}
-                  <PaymentOption
-                    id="jazzcash" active={paymentMethod === "jazzcash"} onClick={() => setPaymentMethod("jazzcash")}
-                    icon={<Smartphone className="h-4 w-4" strokeWidth={1.5} />}
-                    label="JazzCash" sub="Pay via your JazzCash mobile wallet"
-                  />
-                  {paymentMethod === "jazzcash" && (
-                    <div className="border border-gold/20 p-5 ml-9 space-y-3 bg-[oklch(0.985_0.012_88)]">
-                      <input name="jazzNumber" value={form.jazzNumber} onChange={handleChange} placeholder="JazzCash Mobile Number (03XX-XXXXXXX)" className="input-aurum w-full" required={paymentMethod === "jazzcash"} />
-                      <p className="text-[11px] text-muted-foreground">After placing the order, you will receive a payment request on your JazzCash number. Please approve it within 10 minutes.</p>
-                    </div>
-                  )}
-
-                  {/* EasyPaisa */}
-                  <PaymentOption
-                    id="easypaisa" active={paymentMethod === "easypaisa"} onClick={() => setPaymentMethod("easypaisa")}
-                    icon={<Smartphone className="h-4 w-4" strokeWidth={1.5} />}
-                    label="EasyPaisa" sub="Pay via your EasyPaisa mobile wallet"
-                  />
-                  {paymentMethod === "easypaisa" && (
-                    <div className="border border-gold/20 p-5 ml-9 bg-[oklch(0.985_0.012_88)]">
-                      <p className="text-[11px] text-muted-foreground leading-relaxed">After placing your order, transfer the exact amount to our EasyPaisa account. Our team will confirm receipt and begin processing within 24 hours.</p>
-                    </div>
-                  )}
-
-                  {/* Bank Transfer */}
-                  <PaymentOption
-                    id="bank" active={paymentMethod === "bank"} onClick={() => setPaymentMethod("bank")}
-                    icon={<Building2 className="h-4 w-4" strokeWidth={1.5} />}
-                    label="Bank Transfer" sub="Direct transfer to Maison Aurum account"
-                  />
-                  {paymentMethod === "bank" && (
-                    <div className="border border-gold/20 p-5 ml-9 bg-[oklch(0.985_0.012_88)] space-y-2">
-                      <p className="text-[10px] uppercase tracking-luxe text-ink mb-3">Bank Details</p>
-                      {[
-                        ["Bank", "Meezan Bank"],
-                        ["Account Title", "Maison Aurum (Pvt.) Ltd."],
-                        ["Account No.", "XXXX-XXXX-XXXX"],
-                        ["IBAN", "PK00MEZN0000000000000000"],
-                      ].map(([k, v]) => (
-                        <div key={k} className="flex justify-between text-sm">
-                          <span className="text-muted-foreground">{k}</span>
-                          <span className="text-ink font-medium">{v}</span>
-                        </div>
-                      ))}
-                      <p className="text-[10px] text-muted-foreground pt-2">Please use your order number as the payment reference. Orders are confirmed upon receipt of transfer.</p>
-                    </div>
-                  )}
-
-                  {/* ── RAAST ─────────────────────────────────────── */}
+                  {/* RAAST */}
                   <PaymentOption
                     id="raast" active={paymentMethod === "raast"} onClick={() => { setPaymentMethod("raast"); setRaastScreenshotOk(false); }}
                     icon={<RaastIcon className="h-4 w-4" />}
@@ -359,8 +324,8 @@ function CheckoutPage() {
                         <p className="text-[10px] uppercase tracking-luxe text-[#1B4D8E] mb-3">How to Pay</p>
                         {[
                           "Open your bank app (HBL, UBL, Meezan, Allied, etc.)",
-                          `Go to Send Money → RAAST / Mobile Number`,
-                          `Enter RAAST ID: 03703770146`,
+                          "Go to Send Money → RAAST / Mobile Number",
+                          "Enter RAAST ID: 03703770146",
                           `Enter exact amount: ${formatPrice(subtotal)}`,
                           'Confirm the name shown is "Imtiyaz Saim" before sending',
                           "Take a screenshot of your confirmation screen",
@@ -382,11 +347,11 @@ function CheckoutPage() {
                       </div>
 
                       {/* Screenshot upload */}
-                      <ScreenshotUpload label="RAAST ID" amount={subtotal} onVerified={(ok) => setRaastScreenshotOk(ok)} />
+                      <ScreenshotUpload amount={subtotal} onVerified={(ok) => setRaastScreenshotOk(ok)} />
                     </div>
                   )}
 
-                  {/* ── QR Code (coming soon) ──────────────────────── */}
+                  {/* QR Code */}
                   <PaymentOption
                     id="qr" active={paymentMethod === "qr"} onClick={() => setPaymentMethod("qr")}
                     icon={<QrCode className="h-4 w-4" strokeWidth={1.5} />}
@@ -398,7 +363,7 @@ function CheckoutPage() {
                       <div>
                         <p className="text-[11px] uppercase tracking-luxe text-ink mb-1">QR Code Coming Soon</p>
                         <p className="text-[10px] text-muted-foreground leading-relaxed max-w-xs">
-                          Our payment QR will be available shortly. Please use RAAST ID transfer or another method above for now.
+                          Our payment QR will be available shortly. Please use RAAST ID transfer for now.
                         </p>
                       </div>
                       <button type="button" onClick={() => setPaymentMethod("raast")} className="text-[10px] uppercase tracking-luxe text-[#1B4D8E] hover:underline">
@@ -407,17 +372,6 @@ function CheckoutPage() {
                     </div>
                   )}
 
-                  {/* COD */}
-                  <div className="flex items-start gap-4 p-4 border border-gold/10 bg-[oklch(0.985_0.012_88)] opacity-60 cursor-not-allowed">
-                    <div className="flex items-center justify-center h-5 w-5 rounded-full border-2 border-gold/30 mt-0.5 shrink-0" />
-                    <div className="flex items-start gap-3">
-                      <Package className="h-4 w-4 mt-0.5 text-muted-foreground" strokeWidth={1.5} />
-                      <div>
-                        <p className="text-[11px] uppercase tracking-luxe text-muted-foreground">Cash on Delivery</p>
-                        <p className="text-[10px] text-muted-foreground mt-0.5">Not available at this time — available after 2 successful deliveries.</p>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </section>
             </div>
@@ -457,11 +411,17 @@ function CheckoutPage() {
 
                 <button
                   type="submit"
-                  className="mt-6 w-full flex items-center justify-center gap-2 bg-gradient-gold text-ivory py-4 text-[11px] uppercase tracking-luxe hover:shadow-luxe transition-shadow"
+                  disabled={paymentMethod === "raast" && !raastScreenshotOk}
+                  className="mt-6 w-full flex items-center justify-center gap-2 bg-gradient-gold text-ivory py-4 text-[11px] uppercase tracking-luxe hover:shadow-luxe transition-shadow disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none"
                 >
                   <Lock className="h-3.5 w-3.5" strokeWidth={1.5} />
-                  Place Order
+                  {paymentMethod === "raast" && !raastScreenshotOk ? "Upload Screenshot to Continue" : "Place Order"}
                 </button>
+                {paymentMethod === "raast" && !raastScreenshotOk && (
+                  <p className="mt-2 text-[10px] text-center text-amber-600">
+                    Please upload your RAAST payment screenshot to proceed.
+                  </p>
+                )}
                 <p className="mt-3 text-[10px] text-center text-muted-foreground">
                   By placing your order you agree to our Terms & Privacy Policy.
                 </p>
