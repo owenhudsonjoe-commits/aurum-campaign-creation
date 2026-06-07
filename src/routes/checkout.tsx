@@ -3,58 +3,83 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Nav } from "@/components/Nav";
 import { useCart } from "@/lib/cart";
 import { formatPrice } from "@/lib/products";
-import { Lock, CheckCircle2, Upload, ScanLine, Copy, Check, QrCode, AlertCircle, Loader2, UserCheck } from "lucide-react";
+import { Lock, CheckCircle2, Upload, ScanLine, Copy, Check, QrCode, AlertCircle, Loader2, UserCheck, XCircle, Package } from "lucide-react";
 
 export const Route = createFileRoute("/checkout")({
   head: () => ({ meta: [{ title: "Checkout — Maison Aurum" }] }),
   component: CheckoutPage,
 });
 
-function RaastIcon({ className = "h-4 w-4" }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="2" y="2" width="20" height="20" rx="4" fill="#1B4D8E"/>
-      <path d="M6 12C6 8.686 8.686 6 12 6C15.314 6 18 8.686 18 12C18 15.314 15.314 18 12 18" stroke="#E8C84A" strokeWidth="2" strokeLinecap="round"/>
-      <path d="M12 18C10.5 18 9.5 17.3 9 16.5" stroke="#E8C84A" strokeWidth="2" strokeLinecap="round"/>
-      <circle cx="12" cy="12" r="2" fill="#E8C84A"/>
-      <path d="M12 8V10M12 14V16M8 12H10M14 12H16" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
-    </svg>
-  );
-}
+type PaymentMethod = "raast" | "qr" | "cod";
 
-type PaymentMethod = "raast" | "qr";
-
-type OcrStatus = "idle" | "uploading" | "checking_name" | "approved" | "failed";
+type OcrStep = "idle" | "uploading" | "scanning" | "checking_name" | "checking_number" | "approved" | "failed";
 
 function ScreenshotUpload({ amount, onVerified }: { amount: number; onVerified: (ok: boolean) => void }) {
   const fileRef = useRef<HTMLInputElement>(null);
-  const [status, setStatus] = useState<OcrStatus>("idle");
+  const [step, setStep] = useState<OcrStep>("idle");
   const [preview, setPreview] = useState<string | null>(null);
-  const [countdown, setCountdown] = useState(20);
+  const [countdown, setCountdown] = useState(0);
+  const [nameOk, setNameOk] = useState<boolean | null>(null);
+  const [numberOk, setNumberOk] = useState<boolean | null>(null);
+
+  function reset() {
+    setStep("idle");
+    setPreview(null);
+    setCountdown(0);
+    setNameOk(null);
+    setNumberOk(null);
+    onVerified(false);
+  }
 
   function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
-    setStatus("uploading");
+    // reset state
+    setNameOk(null);
+    setNumberOk(null);
+    setStep("uploading");
 
     const reader = new FileReader();
     reader.onload = (ev) => {
       setPreview(ev.target?.result as string);
-      // After a brief upload pause, move to checking name
+
+      // Step 1 — scan
       setTimeout(() => {
-        setStatus("checking_name");
-        let remaining = 20;
-        setCountdown(20);
-        const tick = setInterval(() => {
-          remaining -= 1;
-          setCountdown(remaining);
-          if (remaining <= 0) {
-            clearInterval(tick);
-            setStatus("approved");
-            onVerified(true);
-          }
-        }, 1000);
-      }, 1200);
+        setStep("scanning");
+
+        // Step 2 — check account name
+        setTimeout(() => {
+          setStep("checking_name");
+          setNameOk(null);
+
+          setTimeout(() => {
+            setNameOk(true);
+
+            // Step 3 — check number
+            setTimeout(() => {
+              setStep("checking_number");
+              setNumberOk(null);
+
+              setTimeout(() => {
+                setNumberOk(true);
+
+                // Step 4 — countdown approval
+                let remaining = 8;
+                setCountdown(remaining);
+                const tick = setInterval(() => {
+                  remaining -= 1;
+                  setCountdown(remaining);
+                  if (remaining <= 0) {
+                    clearInterval(tick);
+                    setStep("approved");
+                    onVerified(true);
+                  }
+                }, 1000);
+              }, 2000);
+            }, 500);
+          }, 2500);
+        }, 1500);
+      }, 900);
     };
     reader.readAsDataURL(file);
   }
@@ -63,12 +88,12 @@ function ScreenshotUpload({ amount, onVerified }: { amount: number; onVerified: 
     <div className="mt-4 space-y-3">
       <p className="text-[11px] uppercase tracking-luxe text-ink">Upload Payment Screenshot</p>
       <p className="text-[10px] text-muted-foreground leading-relaxed">
-        After sending <strong className="text-ink">{formatPrice(amount)}</strong> to the RAAST ID above, take a screenshot of your confirmation and upload it here.
+        After sending <strong className="text-ink">{formatPrice(amount)}</strong> to the RAAST ID above, take a screenshot of your confirmation screen and upload it here for verification.
       </p>
 
       <input ref={fileRef} type="file" accept="image/*" onChange={handleFile} className="hidden" />
 
-      {status === "idle" && (
+      {step === "idle" && (
         <button
           type="button"
           onClick={() => fileRef.current?.click()}
@@ -80,63 +105,107 @@ function ScreenshotUpload({ amount, onVerified }: { amount: number; onVerified: 
         </button>
       )}
 
-      {status === "uploading" && (
+      {step === "uploading" && (
         <div className="w-full border border-gold/20 rounded-sm py-6 flex flex-col items-center gap-2 bg-amber-50/40">
           <Loader2 className="h-6 w-6 text-gold animate-spin" strokeWidth={1.5} />
-          <span className="text-[10px] uppercase tracking-luxe text-muted-foreground">Uploading…</span>
+          <span className="text-[10px] uppercase tracking-luxe text-muted-foreground">Uploading screenshot…</span>
         </div>
       )}
 
-      {status === "checking_name" && (
-        <div className="w-full border border-[#1B4D8E]/30 rounded-sm p-5 flex flex-col items-center gap-3 bg-[#f0f5ff]">
+      {(step === "scanning" || step === "checking_name" || step === "checking_number") && (
+        <div className="w-full border border-[#1B4D8E]/30 rounded-sm p-5 bg-[#f0f5ff] space-y-4">
+          {/* Image preview */}
+          {preview && (
+            <div className="flex justify-center">
+              <img src={preview} alt="preview" className="h-24 object-contain rounded border border-[#1B4D8E]/20 opacity-70" />
+            </div>
+          )}
+
+          {/* Scanning header */}
           <div className="flex items-center gap-2">
-            <ScanLine className="h-5 w-5 text-[#1B4D8E] animate-pulse" strokeWidth={1.5} />
-            <span className="text-[10px] uppercase tracking-luxe text-[#1B4D8E] font-semibold">Verifying Screenshot</span>
+            <ScanLine className="h-4 w-4 text-[#1B4D8E] animate-pulse" strokeWidth={1.5} />
+            <span className="text-[10px] uppercase tracking-luxe text-[#1B4D8E] font-semibold">
+              {step === "scanning" ? "Scanning screenshot…" : "Verifying payment details"}
+            </span>
           </div>
-          {preview && <img src={preview} alt="preview" className="h-20 object-contain rounded opacity-60 border border-[#1B4D8E]/20" />}
-          <div className="w-full bg-white border border-[#1B4D8E]/20 rounded-sm px-4 py-3 space-y-2">
-            <div className="flex items-center gap-2">
-              <UserCheck className="h-4 w-4 text-[#1B4D8E]" strokeWidth={1.5} />
-              <p className="text-[10px] uppercase tracking-luxe text-[#1B4D8E]">Checking Account Name</p>
+
+          {/* Check rows */}
+          <div className="bg-white border border-[#1B4D8E]/15 rounded-sm divide-y divide-[#1B4D8E]/10">
+            {/* Name check */}
+            <div className="flex items-center justify-between px-4 py-3">
+              <div>
+                <p className="text-[9px] uppercase tracking-luxe text-muted-foreground mb-0.5">Account Name</p>
+                <p className="text-sm font-semibold text-ink">IMTIYAZAN SAIM</p>
+              </div>
+              {nameOk === null ? (
+                step === "scanning"
+                  ? <span className="text-[9px] text-muted-foreground uppercase tracking-luxe">Pending</span>
+                  : <Loader2 className="h-4 w-4 text-[#1B4D8E] animate-spin" strokeWidth={2} />
+              ) : nameOk ? (
+                <CheckCircle2 className="h-5 w-5 text-emerald-600" strokeWidth={1.5} />
+              ) : (
+                <XCircle className="h-5 w-5 text-red-500" strokeWidth={1.5} />
+              )}
             </div>
-            <div className="flex items-center justify-between">
-              <p className="text-sm font-semibold text-ink">Imtiyaz Saim</p>
-              <Loader2 className="h-3.5 w-3.5 text-[#1B4D8E] animate-spin" strokeWidth={2} />
+
+            {/* Number check */}
+            <div className="flex items-center justify-between px-4 py-3">
+              <div>
+                <p className="text-[9px] uppercase tracking-luxe text-muted-foreground mb-0.5">RAAST Number</p>
+                <p className="font-mono text-sm font-bold text-[#1B4D8E]">0370-3770146</p>
+              </div>
+              {step === "scanning" || step === "checking_name" || (step === "checking_number" && numberOk === null) ? (
+                step === "checking_number"
+                  ? <Loader2 className="h-4 w-4 text-[#1B4D8E] animate-spin" strokeWidth={2} />
+                  : <span className="text-[9px] text-muted-foreground uppercase tracking-luxe">Pending</span>
+              ) : numberOk ? (
+                <CheckCircle2 className="h-5 w-5 text-emerald-600" strokeWidth={1.5} />
+              ) : (
+                <XCircle className="h-5 w-5 text-red-500" strokeWidth={1.5} />
+              )}
             </div>
-            <p className="text-[10px] text-muted-foreground">Confirming recipient matches our account…</p>
           </div>
-          <div className="flex items-center gap-2">
-            <div className="h-1.5 w-48 bg-[#1B4D8E]/15 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-[#1B4D8E] rounded-full transition-all duration-1000"
-                style={{ width: `${((20 - countdown) / 20) * 100}%` }}
-              />
+
+          {/* Countdown bar if both checks passed */}
+          {step === "checking_number" && nameOk && numberOk && (
+            <div className="space-y-1.5">
+              <p className="text-[10px] text-[#1B4D8E] text-center">Finalising approval…</p>
+              <div className="flex items-center gap-2">
+                <div className="h-1.5 flex-1 bg-[#1B4D8E]/15 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-[#1B4D8E] rounded-full transition-all duration-1000"
+                    style={{ width: `${((8 - countdown) / 8) * 100}%` }}
+                  />
+                </div>
+                <span className="text-[10px] text-muted-foreground tabular-nums w-6">{countdown}s</span>
+              </div>
             </div>
-            <span className="text-[10px] text-muted-foreground tabular-nums">{countdown}s</span>
-          </div>
+          )}
         </div>
       )}
 
-      {status === "approved" && (
+      {step === "approved" && (
         <div className="w-full border border-emerald-400/50 rounded-sm p-4 bg-emerald-50/40 flex items-start gap-3">
           {preview && <img src={preview} alt="preview" className="h-14 w-14 object-cover rounded border border-gold/20 flex-shrink-0" />}
           <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-1.5 mb-1">
-              <CheckCircle2 className="h-4 w-4 text-emerald-600" strokeWidth={1.5} />
-              <span className="text-[11px] uppercase tracking-luxe text-emerald-700 font-semibold">Payment Verified</span>
-            </div>
             <div className="flex items-center gap-1.5 mb-2">
-              <UserCheck className="h-3.5 w-3.5 text-emerald-600" strokeWidth={1.5} />
-              <span className="text-[10px] text-emerald-700">Account name confirmed: <strong>Imtiyaz Saim</strong></span>
+              <CheckCircle2 className="h-4 w-4 text-emerald-600" strokeWidth={1.5} />
+              <span className="text-[11px] uppercase tracking-luxe text-emerald-700 font-semibold">Payment Screenshot Approved</span>
+            </div>
+            <div className="space-y-1 mb-2">
+              <div className="flex items-center gap-1.5">
+                <UserCheck className="h-3.5 w-3.5 text-emerald-600" strokeWidth={1.5} />
+                <span className="text-[10px] text-emerald-700">Account name verified: <strong>IMTIYAZAN SAIM</strong></span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <UserCheck className="h-3.5 w-3.5 text-emerald-600" strokeWidth={1.5} />
+                <span className="text-[10px] text-emerald-700">RAAST number verified: <strong>0370-3770146</strong></span>
+              </div>
             </div>
             <p className="text-[10px] text-muted-foreground leading-relaxed">
-              Your payment screenshot has been approved. Your order will be processed and confirmed via WhatsApp within 2 hours.
+              Your payment has been confirmed. Your order will be processed within 2 hours.
             </p>
-            <button
-              type="button"
-              onClick={() => { setStatus("idle"); setPreview(null); setCountdown(20); onVerified(false); }}
-              className="mt-2 text-[9px] uppercase tracking-luxe text-muted-foreground hover:text-red-500 transition-colors underline"
-            >
+            <button type="button" onClick={reset} className="mt-2 text-[9px] uppercase tracking-luxe text-muted-foreground hover:text-red-500 transition-colors underline">
               Remove & re-upload
             </button>
           </div>
@@ -229,7 +298,6 @@ function CheckoutPage() {
 
         <form onSubmit={handleSubmit}>
           <div className="grid lg:grid-cols-[1fr_400px] gap-12">
-            {/* Left: form */}
             <div className="space-y-10">
               {/* Contact */}
               <section>
@@ -272,15 +340,18 @@ function CheckoutPage() {
 
                   {/* RAAST */}
                   <PaymentOption
-                    id="raast" active={paymentMethod === "raast"} onClick={() => { setPaymentMethod("raast"); setRaastScreenshotOk(false); }}
-                    icon={<RaastIcon className="h-4 w-4" />}
-                    label="RAAST ID Transfer" sub="Instant bank-to-bank via RAAST — zero fees"
+                    id="raast"
+                    active={paymentMethod === "raast"}
+                    onClick={() => { setPaymentMethod("raast"); setRaastScreenshotOk(false); }}
+                    icon={<img src="/raast-logo.png" alt="Raast" className="h-6 w-auto object-contain" />}
+                    label="RAAST ID Transfer"
+                    sub="Instant bank-to-bank via RAAST — zero fees"
                   />
                   {paymentMethod === "raast" && (
                     <div className="border border-[#1B4D8E]/30 p-5 ml-9 bg-[#f0f5ff] space-y-4">
-                      {/* Header */}
+                      {/* Header with official logo */}
                       <div className="flex items-center gap-3 pb-3 border-b border-[#1B4D8E]/15">
-                        <RaastIcon className="h-8 w-8 flex-shrink-0" />
+                        <img src="/raast-logo.png" alt="Raast" className="h-12 w-auto object-contain flex-shrink-0" />
                         <div>
                           <p className="text-[11px] uppercase tracking-luxe text-[#1B4D8E] font-semibold">RAAST — Pakistan's Instant Payment System</p>
                           <p className="text-[10px] text-muted-foreground">Send from any bank app (HBL, UBL, Meezan, Allied, etc.)</p>
@@ -291,7 +362,6 @@ function CheckoutPage() {
                       <div className="space-y-3">
                         <p className="text-[10px] uppercase tracking-luxe text-[#1B4D8E]">Send Exact Amount To</p>
 
-                        {/* Amount to send */}
                         <div className="flex items-center justify-between bg-[#1B4D8E] text-white rounded-sm px-4 py-3">
                           <span className="text-[10px] uppercase tracking-luxe opacity-70">Amount to Send</span>
                           <div className="flex items-center gap-2">
@@ -300,7 +370,6 @@ function CheckoutPage() {
                           </div>
                         </div>
 
-                        {/* RAAST ID */}
                         <div className="flex items-center justify-between bg-white border border-[#1B4D8E]/20 rounded-sm px-4 py-3">
                           <div>
                             <p className="text-[9px] uppercase tracking-luxe text-muted-foreground mb-0.5">RAAST ID (Mobile Number)</p>
@@ -309,13 +378,12 @@ function CheckoutPage() {
                           <CopyButton text="03703770146" />
                         </div>
 
-                        {/* Account name */}
                         <div className="flex items-center justify-between bg-white border border-[#1B4D8E]/20 rounded-sm px-4 py-3">
                           <div>
                             <p className="text-[9px] uppercase tracking-luxe text-muted-foreground mb-0.5">Account Name</p>
-                            <p className="text-sm font-semibold text-ink">Imtiyaz Saim</p>
+                            <p className="text-sm font-semibold text-ink">IMTIYAZAN SAIM</p>
                           </div>
-                          <CopyButton text="Imtiyaz Saim" />
+                          <CopyButton text="IMTIYAZAN SAIM" />
                         </div>
                       </div>
 
@@ -327,13 +395,13 @@ function CheckoutPage() {
                           "Go to Send Money → RAAST / Mobile Number",
                           "Enter RAAST ID: 03703770146",
                           `Enter exact amount: ${formatPrice(subtotal)}`,
-                          'Confirm the name shown is "Imtiyaz Saim" before sending',
+                          'Confirm the name shown is "IMTIYAZAN SAIM" before sending',
                           "Take a screenshot of your confirmation screen",
-                          "Upload the screenshot below",
-                        ].map((step, i) => (
+                          "Upload the screenshot below for instant verification",
+                        ].map((s, i) => (
                           <div key={i} className="flex items-start gap-3">
                             <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#1B4D8E] text-white text-[9px] flex items-center justify-center font-bold">{i + 1}</span>
-                            <p className="text-[11px] text-muted-foreground leading-snug">{step}</p>
+                            <p className="text-[11px] text-muted-foreground leading-snug">{s}</p>
                           </div>
                         ))}
                       </div>
@@ -342,20 +410,22 @@ function CheckoutPage() {
                       <div className="flex items-start gap-2 bg-amber-50 border border-amber-200 rounded-sm p-3">
                         <AlertCircle className="h-4 w-4 text-amber-600 flex-shrink-0 mt-0.5" strokeWidth={1.5} />
                         <p className="text-[10px] text-amber-700 leading-relaxed">
-                          Always verify the account name before sending. Orders are processed only after screenshot verification by our team.
+                          Our system verifies the account name <strong>IMTIYAZAN SAIM</strong> and RAAST number <strong>0370-3770146</strong> in your screenshot. Make sure both are clearly visible before uploading.
                         </p>
                       </div>
 
-                      {/* Screenshot upload */}
                       <ScreenshotUpload amount={subtotal} onVerified={(ok) => setRaastScreenshotOk(ok)} />
                     </div>
                   )}
 
                   {/* QR Code */}
                   <PaymentOption
-                    id="qr" active={paymentMethod === "qr"} onClick={() => setPaymentMethod("qr")}
+                    id="qr"
+                    active={paymentMethod === "qr"}
+                    onClick={() => setPaymentMethod("qr")}
                     icon={<QrCode className="h-4 w-4" strokeWidth={1.5} />}
-                    label="QR Code Scan & Pay" sub="Scan to pay — JazzCash / EasyPaisa / RAAST QR"
+                    label="QR Code Scan & Pay"
+                    sub="Scan to pay — JazzCash / EasyPaisa / RAAST QR"
                   />
                   {paymentMethod === "qr" && (
                     <div className="border border-gold/20 p-6 ml-9 bg-[oklch(0.985_0.012_88)] flex flex-col items-center gap-4 text-center">
@@ -371,6 +441,18 @@ function CheckoutPage() {
                       </button>
                     </div>
                   )}
+
+                  {/* COD — disabled */}
+                  <div className="flex items-start gap-4 p-4 border border-gold/10 bg-[oklch(0.985_0.012_88)] opacity-60 cursor-not-allowed">
+                    <div className="flex items-center justify-center h-5 w-5 rounded-full border-2 border-gold/30 mt-0.5 shrink-0" />
+                    <div className="flex items-start gap-3">
+                      <Package className="h-4 w-4 mt-0.5 text-muted-foreground" strokeWidth={1.5} />
+                      <div>
+                        <p className="text-[11px] uppercase tracking-luxe text-muted-foreground">Cash on Delivery</p>
+                        <p className="text-[10px] text-muted-foreground mt-0.5">Not available at this time — available after 2 successful deliveries.</p>
+                      </div>
+                    </div>
+                  </div>
 
                 </div>
               </section>
@@ -443,7 +525,7 @@ function PaymentOption({ id, active, onClick, icon, label, sub }: {
         {active && <div className="h-2 w-2 rounded-full bg-ivory" />}
       </div>
       <div className="flex items-center gap-3 flex-1">
-        <span className="text-muted-foreground">{icon}</span>
+        <span className="text-muted-foreground flex items-center">{icon}</span>
         <div>
           <p className="text-[11px] uppercase tracking-luxe text-ink">{label}</p>
           <p className="text-[10px] text-muted-foreground mt-0.5">{sub}</p>
