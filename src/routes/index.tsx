@@ -103,35 +103,96 @@ function NewsletterForm() {
   );
 }
 
+const salePreviewImages = [
+  { src: "/seharzat-1.png",      discount: "68%", rotate: "-rotate-6",  top: "top-4",  left: "left-[-4px]" },
+  { src: "/sena-1.png",          discount: "66%", rotate: "rotate-3",   top: "top-1",  left: "left-[25%]" },
+  { src: "/berry-1.png",         discount: "75%", rotate: "-rotate-4",  top: "top-5",  left: "left-[48%]" },
+  { src: "/sapphire-black-1.png",discount: "75%", rotate: "rotate-6",   top: "top-2",  left: "left-[70%]" },
+];
+
 function SummerSaleCard() {
   return (
-    <Link to="/sale" className="group block mx-6 md:mx-12 mb-[-1rem]">
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-red-600 via-orange-500 to-amber-400 shadow-xl">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute -top-16 -right-16 w-64 h-64 rounded-full bg-white/10 blur-2xl" />
-          <div className="absolute -bottom-16 -left-16 w-64 h-64 rounded-full bg-red-900/20 blur-2xl" />
-          <div className="absolute inset-0 jaali-bg opacity-5" />
+    <Link to="/sale" className="group block mx-6 md:mx-12">
+      <div className="relative overflow-hidden rounded-3xl shadow-2xl" style={{ minHeight: "320px" }}>
+
+        {/* Background gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#1a0505] via-[#7c1010] to-[#c2410c]" />
+
+        {/* Jaali overlay */}
+        <div className="absolute inset-0 jaali-bg opacity-[0.07]" />
+
+        {/* Bokeh blobs */}
+        <div className="absolute top-0 left-1/4 w-72 h-72 rounded-full bg-orange-500/30 blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 right-1/4 w-72 h-72 rounded-full bg-red-800/40 blur-3xl pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-40 rounded-full bg-amber-400/15 blur-2xl pointer-events-none" />
+
+        {/* Product images — floating polaroids */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none select-none">
+          {salePreviewImages.map((img, i) => (
+            <div
+              key={i}
+              className={`absolute ${img.top} ${img.left} ${img.rotate} transition-transform duration-700 group-hover:scale-105`}
+              style={{ width: "130px", transitionDelay: `${i * 60}ms` }}
+            >
+              <div className="bg-white p-1.5 pb-6 shadow-2xl rounded-sm">
+                <img
+                  src={img.src}
+                  alt=""
+                  className="w-full object-cover"
+                  style={{ height: "160px", objectPosition: "top" }}
+                />
+              </div>
+              {/* Discount sticker on polaroid */}
+              <div className="absolute -top-3 -right-3 w-11 h-11 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center shadow-lg border-2 border-white">
+                <span className="text-[9px] font-black text-white leading-none text-center">-{img.discount}</span>
+              </div>
+            </div>
+          ))}
         </div>
 
-        <div className="relative flex flex-col sm:flex-row items-center justify-between gap-6 px-8 md:px-14 py-10 md:py-12">
-          <div className="flex items-center gap-5">
-            <div className="flex-shrink-0 w-14 h-14 rounded-full bg-white/15 flex items-center justify-center">
-              <Flame className="h-7 w-7 text-white" strokeWidth={1.5} />
-            </div>
-            <div>
-              <p className="text-[10px] uppercase tracking-luxe text-white/70 mb-1">Limited Time · گرمیوں کی سیل</p>
-              <h2 className="font-display text-3xl md:text-5xl text-white leading-tight">
-                Summer Sale <span className="italic">Under RS 3,000</span>
-              </h2>
-              <p className="mt-2 text-sm text-white/75 font-light">Handcrafted luxury at prices that feel like a secret — grab yours before it's gone.</p>
-            </div>
-          </div>
+        {/* Dark right panel for text */}
+        <div className="absolute inset-y-0 right-0 w-full md:w-[50%] lg:w-[45%] bg-gradient-to-l from-black/80 via-black/60 to-transparent" />
 
-          <div className="flex-shrink-0 flex items-center gap-3 rounded-full bg-white px-8 py-4 text-[11px] uppercase tracking-luxe text-red-600 font-semibold shadow-md transition-all duration-500 group-hover:scale-105 group-hover:shadow-lg">
-            Shop the Sale
-            <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" strokeWidth={2} />
+        {/* Content */}
+        <div className="relative flex items-center justify-end min-h-[320px] px-8 md:px-14 py-10">
+          <div className="w-full md:max-w-sm text-right md:text-right">
+
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 rounded-full border border-orange-400/60 bg-orange-500/20 backdrop-blur px-4 py-1.5 mb-5">
+              <Flame className="h-3 w-3 text-orange-300" strokeWidth={2} />
+              <span className="text-[9px] uppercase tracking-luxe text-orange-200 font-semibold">Limited Time Offer · گرمیوں کی سیل</span>
+            </div>
+
+            {/* Headline */}
+            <div className="mb-2">
+              <p className="font-display text-6xl md:text-7xl lg:text-8xl text-white leading-none tracking-tight drop-shadow-lg">
+                SUMMER
+              </p>
+              <p className="font-display text-6xl md:text-7xl lg:text-8xl italic text-transparent leading-none tracking-tight"
+                style={{ WebkitTextStroke: "2px #f97316" }}>
+                SALE
+              </p>
+            </div>
+
+            {/* Price tag */}
+            <div className="inline-flex items-baseline gap-2 bg-gradient-to-r from-orange-500 to-red-500 rounded-full px-5 py-2 mb-5 shadow-lg shadow-orange-900/40">
+              <span className="text-[10px] uppercase tracking-luxe text-white/80">starting</span>
+              <span className="font-display text-2xl text-white font-bold">RS 2,844</span>
+            </div>
+
+            <p className="text-sm text-white/60 font-light mb-7 leading-relaxed">
+              13 handcrafted pieces — up to 75% off.<br className="hidden sm:block" />
+              Grab yours before it sells out.
+            </p>
+
+            {/* CTA */}
+            <div className="inline-flex items-center gap-3 rounded-full bg-white px-8 py-4 text-[11px] uppercase tracking-luxe text-red-700 font-bold shadow-xl shadow-black/30 transition-all duration-500 group-hover:scale-105 group-hover:shadow-orange-500/30 group-hover:shadow-2xl animate-shimmer">
+              Shop the Sale
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1.5" strokeWidth={2.5} />
+            </div>
           </div>
         </div>
+
       </div>
     </Link>
   );
@@ -260,7 +321,9 @@ function Home() {
       </section>
 
       {/* SUMMER SALE CARD */}
-      <SummerSaleCard />
+      <section className="py-10 md:py-16">
+        <SummerSaleCard />
+      </section>
 
       {/* FEATURED COLLECTIONS */}
       <section id="collection" className="px-6 md:px-12 py-28 md:py-36">
