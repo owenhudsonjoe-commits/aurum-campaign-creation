@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from "react";
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { ArchFrame } from "@/components/ArchFrame";
@@ -8,7 +8,7 @@ import { getProductBySlug, formatPrice, PRODUCTS } from "@/lib/products";
 import { useCart } from "@/lib/cart";
 import { useWishlist } from "@/lib/wishlist";
 import { useRecentlyViewed } from "@/lib/recentlyViewed";
-import { ShoppingBag, Heart, ChevronDown, ArrowRight, Ruler, Phone, Shield, Truck, RefreshCcw, Star, Zap, Clock, History } from "lucide-react";
+import { ShoppingBag, Heart, ChevronDown, ArrowRight, Ruler, Phone, Shield, Truck, RefreshCcw, Star, Zap, Clock, History, CreditCard } from "lucide-react";
 
 export const Route = createFileRoute("/product/$slug")({
   head: ({ params }) => {
@@ -47,6 +47,7 @@ function ProductPage() {
   const { addItem } = useCart();
   const { toggle: toggleWishlist, isWishlisted } = useWishlist();
   const { add: trackView, items: recentItems } = useRecentlyViewed();
+  const navigate = useNavigate();
   const wishlisted = isWishlisted(product.id);
   const [selectedSize, setSelectedSize] = useState<string>("");
   const [mainImage, setMainImage] = useState(0);
@@ -72,6 +73,16 @@ function ProductPage() {
     addItem(product, selectedSize);
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
+  }
+
+  function handleBuyNow() {
+    if (!selectedSize) {
+      setSizeError(true);
+      setTimeout(() => setSizeError(false), 2000);
+      return;
+    }
+    addItem(product, selectedSize);
+    navigate({ to: "/checkout" });
   }
 
   const related = useMemo(
@@ -318,17 +329,25 @@ function ProductPage() {
               )}
 
               {/* CTA buttons */}
-              <div className="flex gap-3 mb-4">
+              <div className="flex gap-3 mb-3">
                 <button
                   onClick={handleAddToBag}
-                  className={`flex-1 flex items-center justify-center gap-2.5 py-4 text-[11px] uppercase tracking-luxe transition-all duration-300 ${
+                  className={`flex-1 flex items-center justify-center gap-2.5 py-4 text-[11px] uppercase tracking-luxe transition-all duration-300 border ${
                     added
-                      ? "bg-emerald-deep text-ivory"
-                      : "bg-gradient-gold text-ivory hover:shadow-luxe hover:scale-[1.01]"
+                      ? "bg-emerald-deep border-emerald-deep text-ivory"
+                      : "bg-ivory border-ink text-ink hover:bg-ink hover:text-ivory"
                   }`}
                 >
                   <ShoppingBag className="h-4 w-4" strokeWidth={1.5} />
-                  {added ? "Added to Bag ✓" : "Add to Bag"}
+                  {added ? "Added ✓" : "Add to Bag"}
+                </button>
+
+                <button
+                  onClick={handleBuyNow}
+                  className="flex-1 flex items-center justify-center gap-2.5 py-4 text-[11px] uppercase tracking-luxe bg-gradient-gold text-ivory hover:shadow-luxe hover:scale-[1.01] transition-all duration-300"
+                >
+                  <CreditCard className="h-4 w-4" strokeWidth={1.5} />
+                  Buy Now
                 </button>
               </div>
 

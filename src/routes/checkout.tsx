@@ -220,7 +220,7 @@ function CheckoutPage() {
                       <div className="flex-1 min-w-0">
                         <p className="font-display italic text-sm text-ink leading-tight">{item.product.name}</p>
                         <p className="text-[10px] text-muted-foreground mt-0.5">Size: {item.size} · Qty: {item.qty}</p>
-                        <p className="text-sm text-gradient-gold mt-1">{formatPrice(item.product.price * item.qty)}</p>
+                        <p className="text-sm text-gradient-gold mt-1">{formatPrice((item.product.discountedPrice ?? item.product.price) * item.qty)}</p>
                       </div>
                     </div>
                   ))}
