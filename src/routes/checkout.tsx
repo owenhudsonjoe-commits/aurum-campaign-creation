@@ -141,40 +141,14 @@ function ScreenshotUpload({ amount, onVerified }: { amount: number; onVerified: 
       )}
 
       {(step === "scanning" || step === "checking_name" || step === "checking_number") && (
-        <div className="w-full border border-[#1B4D8E]/30 rounded-sm p-5 bg-[#f0f5ff] space-y-4">
-          {preview && <div className="flex justify-center"><img src={preview} alt="preview" className="h-24 object-contain rounded border border-[#1B4D8E]/20 opacity-70" /></div>}
+        <div className="w-full border border-[#1B4D8E]/30 rounded-sm p-5 bg-[#f0f5ff] flex flex-col items-center gap-3">
+          {preview && <img src={preview} alt="preview" className="h-20 object-contain rounded border border-[#1B4D8E]/20 opacity-70" />}
           <div className="flex items-center gap-2">
             <ScanLine className="h-4 w-4 text-[#1B4D8E] animate-pulse" strokeWidth={1.5} />
-            <span className="text-[10px] uppercase tracking-luxe text-[#1B4D8E] font-semibold">
-              {step === "scanning" ? "Running OCR scan…" : "Verifying payment details"}
-            </span>
+            <span className="text-[10px] uppercase tracking-luxe text-[#1B4D8E] font-semibold">Verifying screenshot…</span>
           </div>
-          <div className="bg-white border border-[#1B4D8E]/15 rounded-sm divide-y divide-[#1B4D8E]/10">
-            <div className="flex items-center justify-between px-4 py-3">
-              <div>
-                <p className="text-[9px] uppercase tracking-luxe text-muted-foreground mb-0.5">Account Name</p>
-                <p className="text-sm font-semibold text-ink">IMTIYAZAN SAIM</p>
-              </div>
-              {nameOk === null
-                ? (step === "scanning" ? <span className="text-[9px] text-muted-foreground uppercase tracking-luxe">Scanning…</span> : <Loader2 className="h-4 w-4 text-[#1B4D8E] animate-spin" strokeWidth={2} />)
-                : nameOk ? <CheckCircle2 className="h-5 w-5 text-emerald-600" strokeWidth={1.5} />
-                : <XCircle className="h-5 w-5 text-red-500" strokeWidth={1.5} />}
-            </div>
-            <div className="flex items-center justify-between px-4 py-3">
-              <div>
-                <p className="text-[9px] uppercase tracking-luxe text-muted-foreground mb-0.5">RAAST Number</p>
-                <p className="font-mono text-sm font-bold text-[#1B4D8E]">0370-3770146</p>
-              </div>
-              {(step === "scanning" || step === "checking_name")
-                ? <span className="text-[9px] text-muted-foreground uppercase tracking-luxe">Pending</span>
-                : numberOk === null ? <Loader2 className="h-4 w-4 text-[#1B4D8E] animate-spin" strokeWidth={2} />
-                : numberOk ? <CheckCircle2 className="h-5 w-5 text-emerald-600" strokeWidth={1.5} />
-                : <XCircle className="h-5 w-5 text-red-500" strokeWidth={1.5} />}
-            </div>
-          </div>
-          {step === "checking_number" && nameOk && numberOk !== false && (
-            <div className="space-y-1.5">
-              <p className="text-[10px] text-[#1B4D8E] text-center">Both checks passed — finalising approval…</p>
+          {step === "checking_number" && (
+            <div className="w-full space-y-1.5 mt-1">
               <div className="flex items-center gap-2">
                 <div className="h-1.5 flex-1 bg-[#1B4D8E]/15 rounded-full overflow-hidden">
                   <div className="h-full bg-[#1B4D8E] rounded-full transition-all duration-1000" style={{ width: `${((20 - countdown) / 20) * 100}%` }} />
@@ -362,65 +336,17 @@ function QrScreenshotUpload({ amount, onVerified }: { amount: number; onVerified
       )}
 
       {(step === "scanning" || step === "checking_name" || step === "checking_number") && (
-        <div className="w-full border border-gold/30 rounded-sm p-5 bg-amber-50/30 space-y-4">
-          {preview && (
-            <div className="flex justify-center">
-              <img src={preview} alt="preview" className="h-24 object-contain rounded border border-gold/20 opacity-70" />
-            </div>
-          )}
-
+        <div className="w-full border border-gold/30 rounded-sm p-5 bg-amber-50/30 flex flex-col items-center gap-3">
+          {preview && <img src={preview} alt="preview" className="h-20 object-contain rounded border border-gold/20 opacity-70" />}
           <div className="flex items-center gap-2">
             <ScanLine className="h-4 w-4 text-gold-warm animate-pulse" strokeWidth={1.5} />
-            <span className="text-[10px] uppercase tracking-luxe text-ink font-semibold">
-              {step === "scanning" ? "Scanning screenshot…" : "Verifying payment details"}
-            </span>
+            <span className="text-[10px] uppercase tracking-luxe text-ink font-semibold">Verifying screenshot…</span>
           </div>
-
-          <div className="bg-white border border-gold/15 rounded-sm divide-y divide-gold/10">
-            {/* Amount check */}
-            <div className="flex items-center justify-between px-4 py-3">
-              <div>
-                <p className="text-[9px] uppercase tracking-luxe text-muted-foreground mb-0.5">Payment Amount</p>
-                <p className="text-sm font-semibold text-ink">{formatPrice(amount)}</p>
-              </div>
-              {amountOk === null ? (
-                step === "scanning"
-                  ? <span className="text-[9px] text-muted-foreground uppercase tracking-luxe">Pending</span>
-                  : <Loader2 className="h-4 w-4 text-gold animate-spin" strokeWidth={2} />
-              ) : amountOk ? (
-                <CheckCircle2 className="h-5 w-5 text-emerald-600" strokeWidth={1.5} />
-              ) : (
-                <XCircle className="h-5 w-5 text-red-500" strokeWidth={1.5} />
-              )}
-            </div>
-
-            {/* Status check */}
-            <div className="flex items-center justify-between px-4 py-3">
-              <div>
-                <p className="text-[9px] uppercase tracking-luxe text-muted-foreground mb-0.5">Payment Status</p>
-                <p className="text-sm font-semibold text-ink">Successful / Confirmed</p>
-              </div>
-              {step === "scanning" || step === "checking_name" || (step === "checking_number" && statusOk === null) ? (
-                step === "checking_number"
-                  ? <Loader2 className="h-4 w-4 text-gold animate-spin" strokeWidth={2} />
-                  : <span className="text-[9px] text-muted-foreground uppercase tracking-luxe">Pending</span>
-              ) : statusOk ? (
-                <CheckCircle2 className="h-5 w-5 text-emerald-600" strokeWidth={1.5} />
-              ) : (
-                <XCircle className="h-5 w-5 text-red-500" strokeWidth={1.5} />
-              )}
-            </div>
-          </div>
-
-          {step === "checking_number" && amountOk && statusOk && (
-            <div className="space-y-1.5">
-              <p className="text-[10px] text-gold-warm text-center">Finalising approval…</p>
+          {step === "checking_number" && (
+            <div className="w-full space-y-1.5 mt-1">
               <div className="flex items-center gap-2">
                 <div className="h-1.5 flex-1 bg-gold/15 rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-gradient-gold rounded-full transition-all duration-1000"
-                    style={{ width: `${((20 - countdown) / 20) * 100}%` }}
-                  />
+                  <div className="h-full bg-gradient-gold rounded-full transition-all duration-1000" style={{ width: `${((20 - countdown) / 20) * 100}%` }} />
                 </div>
                 <span className="text-[10px] text-muted-foreground tabular-nums w-6">{countdown}s</span>
               </div>
