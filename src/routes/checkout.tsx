@@ -4,13 +4,9 @@ import { Nav } from "@/components/Nav";
 import { useCart } from "@/lib/cart";
 import { formatPrice } from "@/lib/products";
 import { Lock, CheckCircle2, Upload, ScanLine, Copy, Check, QrCode, AlertCircle, Loader2, UserCheck, XCircle, Package } from "lucide-react";
-import { createWorker } from "tesseract.js";
-
-async function extractTextFromImage(dataUrl: string): Promise<string> {
-  const worker = await createWorker("eng");
-  const { data } = await worker.recognize(dataUrl);
-  await worker.terminate();
-  return data.text.toUpperCase();
+async function extractTextFromImage(_dataUrl: string): Promise<string> {
+  // OCR temporarily disabled — screenshot is accepted on upload.
+  return "";
 }
 
 function normalize(s: string): string {
