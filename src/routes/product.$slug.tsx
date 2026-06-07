@@ -41,8 +41,9 @@ function StarRow({ count, size = "h-3 w-3" }: { count: number; size?: string }) 
 
 function ProductPage() {
   const { slug } = Route.useParams();
-  const product = getProductBySlug(slug);
-  if (!product) throw notFound();
+  const maybeProduct = getProductBySlug(slug);
+  if (!maybeProduct) throw notFound();
+  const product = maybeProduct;
 
   const { addItem } = useCart();
   const { toggle: toggleWishlist, isWishlisted } = useWishlist();
