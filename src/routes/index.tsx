@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Star, Sparkles, Instagram, Shield, Truck, Award, Clock, Phone, ChevronDown, Flame } from "lucide-react";
+import { ArrowRight, Star, Sparkles, Instagram, Shield, Truck, Award, Clock, Phone, ChevronDown, Flame, Quote, Gem, Crown, MapPin } from "lucide-react";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { BackToTop } from "@/components/BackToTop";
@@ -12,6 +12,10 @@ import heroImg from "@/assets/pk-hero.png";
 import bridal from "@/assets/pk-bridal.jpg";
 import pret from "@/assets/pk-pret.jpg";
 import men from "@/assets/pk-men.jpg";
+import lookbook1 from "@/assets/lookbook-1.jpg";
+import lookbook2 from "@/assets/lookbook-2.jpg";
+import pkLook1 from "@/assets/pk-look-1.jpg";
+import pkLook2 from "@/assets/pk-look-2.jpg";
 const dailyWearImg = "/zirwaha-1.png";
 import atelier from "@/assets/pk-atelier.jpg";
 
@@ -74,6 +78,200 @@ const bespokeSteps = [
   { n: "03", title: "Embroidery", desc: "Our karigars begin the hand work — 300+ hours of zardozi and dabka" },
   { n: "04", title: "Delivery", desc: "Your commission arrives in our signature emerald trunk with rose-silk lining" },
 ];
+
+const newArrivals = [
+  { src: "/seharzat-1.png",      name: "Seharzat 3 Pc",       slug: "seharzat-3pc-lawn",            price: "RS 2,844",  badge: "New" },
+  { src: "/sapphire-black-1.png",name: "Sapphire Black 3 Pc", slug: "sapphire-black-embroidered-3pc",price: "RS 3,724",  badge: "New" },
+  { src: "/hoorain-1.png",       name: "Hoorain 3 Pc",        slug: "hoorain-3pc-organza",           price: "RS 12,500", badge: "Festive" },
+  { src: "/casper-1.png",        name: "Casper 3 Pc",         slug: "casper-3pc-cotton",             price: "RS 3,200",  badge: "Bestseller" },
+  { src: "/charm-1.png",         name: "Charm 3 Pc",          slug: "charm-3pc-chiffon",             price: "RS 4,800",  badge: "Sale" },
+  { src: "/iris-1.png",          name: "Iris 3 Pc",           slug: "iris-3pc-khaddar",              price: "RS 5,600",  badge: "Limited" },
+];
+
+const clientQuotes = [
+  { q: "I wore Aurum to my walima and strangers stopped to ask who I was wearing.", name: "Nadia S.", city: "Lahore" },
+  { q: "The embroidery detail is unlike anything I have ever seen — heirloom quality.", name: "Zara M.", city: "Dubai" },
+  { q: "I cried when I opened the trunk. Truly a different level of luxury.", name: "Ayesha R.", city: "London" },
+  { q: "My lehenga was hand-delivered with rose petals inside the box. Unreal.", name: "Sana K.", city: "Karachi" },
+  { q: "Ordered online from New York — fit perfectly. Shipping was flawless.", name: "Hira T.", city: "New York" },
+  { q: "My mother asked if I had spent ten times more. That's the Aurum effect.", name: "Mehreen A.", city: "Islamabad" },
+];
+
+const heritageStats = [
+  { n: "2,400+", label: "Brides Dressed",    urdu: "دلہنیں",    icon: Crown },
+  { n: "42",     label: "Master Karigars",   urdu: "کاریگر",    icon: Gem },
+  { n: "40+",    label: "Countries Shipped", urdu: "ممالک",     icon: MapPin },
+  { n: "300+",   label: "Hours Per Piece",   urdu: "گھنٹے",     icon: Clock },
+  { n: "5",      label: "Generations",       urdu: "نسلیں",     icon: Award },
+];
+
+const editorialPanels = [
+  { img: lookbook1,  tag: "Bridal Edit · MMXXV",     headline: "The Last",       sub: "Heirloom",     caption: "Dupatta embroidered over 180 hours" },
+  { img: pkLook1,    tag: "Festive Campaign",          headline: "Eid in",         sub: "Full Bloom",   caption: "Limited drops — one season only" },
+  { img: lookbook2,  tag: "Daily Wear",                headline: "Worn, Not",      sub: "Displayed",    caption: "Luxury you can actually live in" },
+];
+
+/* ─── New Arrivals horizontal strip ─────────────────────────────────── */
+function NewArrivalsStrip() {
+  return (
+    <section className="py-20 md:py-28 overflow-hidden">
+      <div className="mx-auto max-w-[1600px] px-6 md:px-12">
+        <div className="flex items-end justify-between mb-10 flex-wrap gap-4">
+          <div>
+            <p className="text-[11px] uppercase tracking-luxe text-gold">Just In · ابھی آیا</p>
+            <h2 className="mt-3 font-display text-4xl md:text-5xl italic text-ink">New Arrivals</h2>
+          </div>
+          <Link to="/shop" className="flex items-center gap-2 text-[11px] uppercase tracking-luxe text-muted-foreground hover:text-gold transition-colors border-b border-gold/40 pb-0.5">
+            View All <ArrowRight className="h-3 w-3" strokeWidth={1.5} />
+          </Link>
+        </div>
+
+        <div className="flex gap-5 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory -mx-2 px-2">
+          {newArrivals.map((p) => (
+            <Link
+              key={p.slug}
+              to="/product/$slug"
+              params={{ slug: p.slug }}
+              className="group flex-shrink-0 snap-start w-[220px] md:w-[260px]"
+            >
+              <ArchFrame className="aspect-[3/4]">
+                <img
+                  src={p.src}
+                  alt={p.name}
+                  loading="lazy"
+                  className="h-full w-full object-cover object-top transition-transform duration-[1400ms] ease-out group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-emerald-deep/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute top-3 left-3 z-10">
+                  <span className="bg-gradient-gold text-ivory text-[8px] uppercase tracking-luxe px-3 py-1 font-medium">
+                    {p.badge}
+                  </span>
+                </div>
+              </ArchFrame>
+              <div className="mt-4 px-1">
+                <h3 className="font-display text-lg italic text-ink leading-tight group-hover:text-gold transition-colors">{p.name}</h3>
+                <p className="mt-1 text-xs text-gold font-medium">{p.price}</p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── Heritage Stats bar ─────────────────────────────────────────────── */
+function HeritageBar() {
+  return (
+    <div className="relative bg-ink text-ivory overflow-hidden border-y border-gold/20">
+      <div className="absolute inset-0 jaali-bg opacity-[0.04] pointer-events-none" />
+      <div className="relative mx-auto max-w-[1600px] px-6 md:px-12 py-14 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-10 lg:gap-0 lg:divide-x lg:divide-gold/20">
+        {heritageStats.map(({ n, label, urdu, icon: Icon }) => (
+          <div key={label} className="flex flex-col items-center text-center px-4 group">
+            <div className="w-10 h-10 rounded-full border border-gold/30 flex items-center justify-center text-gold mb-4 group-hover:bg-gradient-gold group-hover:border-transparent transition-all duration-500">
+              <Icon className="h-4 w-4" strokeWidth={1.2} />
+            </div>
+            <p className="font-display text-4xl md:text-5xl text-gradient-gold leading-none">{n}</p>
+            <p className="mt-2 text-[10px] uppercase tracking-luxe text-ivory/60">{label}</p>
+            <p className="mt-1 font-urdu text-sm text-gold/50">{urdu}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ─── Editorial Lookbook grid ────────────────────────────────────────── */
+function EditorialLookbook() {
+  return (
+    <section className="relative bg-ink overflow-hidden py-1">
+      <div className="absolute inset-0 jaali-bg opacity-[0.04] pointer-events-none" />
+      <div className="relative mx-auto max-w-[1600px] px-6 md:px-12 py-20 md:py-28">
+        <div className="mb-14 text-center">
+          <p className="text-[11px] uppercase tracking-luxe text-gold-warm">The Edit · MMXXV Campaign</p>
+          <h2 className="mt-4 font-display text-5xl md:text-7xl italic text-ivory leading-tight">
+            Dressed for <em className="text-gradient-gold not-italic">Legend</em>
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+          {editorialPanels.map((p, i) => (
+            <Link
+              key={i}
+              to="/shop"
+              className={`group relative overflow-hidden ${i === 0 ? "md:col-span-1 md:row-span-2" : ""}`}
+            >
+              <div className={`relative ${i === 0 ? "aspect-[3/4] md:h-full min-h-[500px]" : "aspect-[4/3]"} overflow-hidden`}>
+                <img
+                  src={p.img}
+                  alt={p.tag}
+                  loading="lazy"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-[2000ms] ease-out group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+
+                <div className="absolute inset-x-0 bottom-0 p-6 md:p-8">
+                  <p className="text-[9px] uppercase tracking-luxe text-gold-warm mb-2">{p.tag}</p>
+                  <h3 className="font-display text-3xl md:text-4xl text-ivory leading-none">
+                    {p.headline}<br /><em>{p.sub}</em>
+                  </h3>
+                  <p className="mt-3 text-[11px] uppercase tracking-luxe text-ivory/50">{p.caption}</p>
+                  <span className="mt-5 inline-flex items-center gap-1.5 text-[10px] uppercase tracking-luxe border-b border-gold/60 pb-0.5 text-ivory/70 group-hover:text-gold-warm group-hover:border-gold-warm transition-colors">
+                    Explore <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
+                  </span>
+                </div>
+              </div>
+            </Link>
+          ))}
+
+          {/* Tall right-side image using pk-look-2 */}
+          <Link to="/shop" className="group relative overflow-hidden md:col-start-3 md:row-start-1 md:row-span-2">
+            <div className="relative aspect-[4/3] md:h-full min-h-[500px] overflow-hidden">
+              <img
+                src={pkLook2}
+                alt="Aurum campaign"
+                loading="lazy"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-[2000ms] ease-out group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-6 md:p-8">
+                <p className="text-[9px] uppercase tracking-luxe text-gold-warm mb-2">Bespoke Commission</p>
+                <h3 className="font-display text-3xl md:text-4xl text-ivory leading-none">Made for<br /><em>One</em></h3>
+                <p className="mt-3 text-[11px] uppercase tracking-luxe text-ivory/50">Your story, hand-embroidered</p>
+                <span className="mt-5 inline-flex items-center gap-1.5 text-[10px] uppercase tracking-luxe border-b border-gold/60 pb-0.5 text-ivory/70 group-hover:text-gold-warm group-hover:border-gold-warm transition-colors">
+                  Book Now <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
+                </span>
+              </div>
+            </div>
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── Scrolling client quote marquee ────────────────────────────────── */
+function QuoteMarquee() {
+  return (
+    <div className="relative bg-amber-50/60 border-y border-gold/20 py-10 overflow-hidden">
+      <div className="flex animate-marquee whitespace-nowrap gap-0">
+        {[0, 1].map((k) => (
+          <div key={k} className="flex shrink-0 items-center gap-0">
+            {clientQuotes.map((c, i) => (
+              <div key={i} className="inline-flex items-center gap-4 px-12 border-r border-gold/20">
+                <Quote className="h-4 w-4 text-gold flex-shrink-0" strokeWidth={1} fill="currentColor" />
+                <div className="flex flex-col">
+                  <p className="font-display italic text-sm text-ink leading-snug max-w-[280px] truncate">"{c.q}"</p>
+                  <p className="text-[10px] uppercase tracking-luxe text-gold mt-1">— {c.name} · {c.city}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 function NewsletterForm() {
   const [email, setEmail] = useState("");
@@ -320,6 +518,12 @@ function Home() {
         </div>
       </section>
 
+      {/* NEW ARRIVALS STRIP */}
+      <NewArrivalsStrip />
+
+      {/* HERITAGE NUMBERS BAR */}
+      <HeritageBar />
+
       {/* SUMMER SALE CARD */}
       <section className="py-10 md:py-16">
         <SummerSaleCard />
@@ -428,6 +632,9 @@ function Home() {
           </div>
         </div>
       </section>
+
+      {/* EDITORIAL LOOKBOOK */}
+      <EditorialLookbook />
 
       {/* THE ATELIER */}
       <section className="relative bg-emerald-deep text-ivory overflow-hidden">
@@ -566,6 +773,9 @@ function Home() {
           </div>
         </div>
       </section>
+
+      {/* QUOTE MARQUEE */}
+      <QuoteMarquee />
 
       {/* INSTAGRAM FEED */}
       <section className="px-6 md:px-12 pb-28">
