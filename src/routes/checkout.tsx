@@ -4,6 +4,18 @@ import { Nav } from "@/components/Nav";
 import { useCart } from "@/lib/cart";
 import { formatPrice } from "@/lib/products";
 import { Lock, CheckCircle2, Upload, ScanLine, Copy, Check, QrCode, AlertCircle, Loader2, UserCheck, XCircle, Package } from "lucide-react";
+import { createWorker } from "tesseract.js";
+
+async function extractTextFromImage(dataUrl: string): Promise<string> {
+  const worker = await createWorker("eng");
+  const { data } = await worker.recognize(dataUrl);
+  await worker.terminate();
+  return data.text.toUpperCase();
+}
+
+function normalize(s: string): string {
+  return s.replace(/[\s\-_.,;:]/g, "").toUpperCase();
+}
 
 export const Route = createFileRoute("/checkout")({
   head: () => ({ meta: [{ title: "Checkout — Maison Aurum" }] }),
@@ -21,6 +33,7 @@ function ScreenshotUpload({ amount, onVerified }: { amount: number; onVerified: 
   const [countdown, setCountdown] = useState(0);
   const [nameOk, setNameOk] = useState<boolean | null>(null);
   const [numberOk, setNumberOk] = useState<boolean | null>(null);
+  const [failReason, setFailReason] = useState("");
 
   function reset() {
     setStep("idle");
@@ -28,58 +41,76 @@ function ScreenshotUpload({ amount, onVerified }: { amount: number; onVerified: 
     setCountdown(0);
     setNameOk(null);
     setNumberOk(null);
+    setFailReason("");
     onVerified(false);
+    if (fileRef.current) fileRef.current.value = "";
   }
 
-  function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
+  async function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
-    // reset state
     setNameOk(null);
     setNumberOk(null);
+    setFailReason("");
     setStep("uploading");
 
     const reader = new FileReader();
-    reader.onload = (ev) => {
-      setPreview(ev.target?.result as string);
+    reader.onload = async (ev) => {
+      const dataUrl = ev.target?.result as string;
+      setPreview(dataUrl);
+      setStep("scanning");
 
-      // Step 1 — scan
-      setTimeout(() => {
-        setStep("scanning");
+      let rawText = "";
+      try {
+        rawText = await extractTextFromImage(dataUrl);
+      } catch {
+        setFailReason("Could not read image. Please upload a clear screenshot.");
+        setStep("failed");
+        onVerified(false);
+        return;
+      }
 
-        // Step 2 — check account name
-        setTimeout(() => {
-          setStep("checking_name");
-          setNameOk(null);
+      const norm = normalize(rawText);
 
-          setTimeout(() => {
-            setNameOk(true);
+      // Check account name — accept common OCR variations
+      setStep("checking_name");
+      await new Promise(r => setTimeout(r, 600));
+      const nameVariants = ["IMTIYAZANSAIM", "IMTIYAZAN", "SAIM"];
+      const foundName = nameVariants.some(v => norm.includes(v));
+      setNameOk(foundName);
 
-            // Step 3 — check number
-            setTimeout(() => {
-              setStep("checking_number");
-              setNumberOk(null);
+      if (!foundName) {
+        setFailReason("Account name 'IMTIYAZAN SAIM' not found in screenshot. Make sure the name is visible and upload a valid RAAST confirmation screenshot.");
+        setStep("failed");
+        onVerified(false);
+        return;
+      }
 
-              setTimeout(() => {
-                setNumberOk(true);
+      // Check RAAST number — strip dashes/spaces
+      setStep("checking_number");
+      await new Promise(r => setTimeout(r, 600));
+      const foundNumber = norm.includes("03703770146") || norm.includes("3703770146");
+      setNumberOk(foundNumber);
 
-                // Step 4 — countdown approval
-                let remaining = 8;
-                setCountdown(remaining);
-                const tick = setInterval(() => {
-                  remaining -= 1;
-                  setCountdown(remaining);
-                  if (remaining <= 0) {
-                    clearInterval(tick);
-                    setStep("approved");
-                    onVerified(true);
-                  }
-                }, 1000);
-              }, 2000);
-            }, 500);
-          }, 2500);
-        }, 1500);
-      }, 900);
+      if (!foundNumber) {
+        setFailReason("RAAST number '0370-3770146' not found in screenshot. Make sure the recipient number is visible in your confirmation.");
+        setStep("failed");
+        onVerified(false);
+        return;
+      }
+
+      // Both passed — 20s countdown
+      let remaining = 20;
+      setCountdown(remaining);
+      const tick = setInterval(() => {
+        remaining -= 1;
+        setCountdown(remaining);
+        if (remaining <= 0) {
+          clearInterval(tick);
+          setStep("approved");
+          onVerified(true);
+        }
+      }, 1000);
     };
     reader.readAsDataURL(file);
   }
@@ -88,17 +119,14 @@ function ScreenshotUpload({ amount, onVerified }: { amount: number; onVerified: 
     <div className="mt-4 space-y-3">
       <p className="text-[11px] uppercase tracking-luxe text-ink">Upload Payment Screenshot</p>
       <p className="text-[10px] text-muted-foreground leading-relaxed">
-        After sending <strong className="text-ink">{formatPrice(amount)}</strong> to the RAAST ID above, take a screenshot of your confirmation screen and upload it here for verification.
+        After sending <strong className="text-ink">{formatPrice(amount)}</strong> to the RAAST ID above, take a screenshot of your confirmation screen. Our system will scan for <strong>IMTIYAZAN SAIM</strong> and <strong>0370-3770146</strong> — both must be visible.
       </p>
 
       <input ref={fileRef} type="file" accept="image/*" onChange={handleFile} className="hidden" />
 
       {step === "idle" && (
-        <button
-          type="button"
-          onClick={() => fileRef.current?.click()}
-          className="w-full border-2 border-dashed border-gold/30 hover:border-gold/70 transition-colors rounded-sm py-6 flex flex-col items-center gap-2 text-muted-foreground hover:text-gold-warm"
-        >
+        <button type="button" onClick={() => fileRef.current?.click()}
+          className="w-full border-2 border-dashed border-gold/30 hover:border-gold/70 transition-colors rounded-sm py-6 flex flex-col items-center gap-2 text-muted-foreground hover:text-gold-warm">
           <Upload className="h-6 w-6" strokeWidth={1.2} />
           <span className="text-[10px] uppercase tracking-luxe">Click to upload screenshot</span>
           <span className="text-[10px]">PNG, JPG, WEBP accepted</span>
@@ -108,79 +136,69 @@ function ScreenshotUpload({ amount, onVerified }: { amount: number; onVerified: 
       {step === "uploading" && (
         <div className="w-full border border-gold/20 rounded-sm py-6 flex flex-col items-center gap-2 bg-amber-50/40">
           <Loader2 className="h-6 w-6 text-gold animate-spin" strokeWidth={1.5} />
-          <span className="text-[10px] uppercase tracking-luxe text-muted-foreground">Uploading screenshot…</span>
+          <span className="text-[10px] uppercase tracking-luxe text-muted-foreground">Reading image…</span>
         </div>
       )}
 
       {(step === "scanning" || step === "checking_name" || step === "checking_number") && (
         <div className="w-full border border-[#1B4D8E]/30 rounded-sm p-5 bg-[#f0f5ff] space-y-4">
-          {/* Image preview */}
-          {preview && (
-            <div className="flex justify-center">
-              <img src={preview} alt="preview" className="h-24 object-contain rounded border border-[#1B4D8E]/20 opacity-70" />
-            </div>
-          )}
-
-          {/* Scanning header */}
+          {preview && <div className="flex justify-center"><img src={preview} alt="preview" className="h-24 object-contain rounded border border-[#1B4D8E]/20 opacity-70" /></div>}
           <div className="flex items-center gap-2">
             <ScanLine className="h-4 w-4 text-[#1B4D8E] animate-pulse" strokeWidth={1.5} />
             <span className="text-[10px] uppercase tracking-luxe text-[#1B4D8E] font-semibold">
-              {step === "scanning" ? "Scanning screenshot…" : "Verifying payment details"}
+              {step === "scanning" ? "Running OCR scan…" : "Verifying payment details"}
             </span>
           </div>
-
-          {/* Check rows */}
           <div className="bg-white border border-[#1B4D8E]/15 rounded-sm divide-y divide-[#1B4D8E]/10">
-            {/* Name check */}
             <div className="flex items-center justify-between px-4 py-3">
               <div>
                 <p className="text-[9px] uppercase tracking-luxe text-muted-foreground mb-0.5">Account Name</p>
                 <p className="text-sm font-semibold text-ink">IMTIYAZAN SAIM</p>
               </div>
-              {nameOk === null ? (
-                step === "scanning"
-                  ? <span className="text-[9px] text-muted-foreground uppercase tracking-luxe">Pending</span>
-                  : <Loader2 className="h-4 w-4 text-[#1B4D8E] animate-spin" strokeWidth={2} />
-              ) : nameOk ? (
-                <CheckCircle2 className="h-5 w-5 text-emerald-600" strokeWidth={1.5} />
-              ) : (
-                <XCircle className="h-5 w-5 text-red-500" strokeWidth={1.5} />
-              )}
+              {nameOk === null
+                ? (step === "scanning" ? <span className="text-[9px] text-muted-foreground uppercase tracking-luxe">Scanning…</span> : <Loader2 className="h-4 w-4 text-[#1B4D8E] animate-spin" strokeWidth={2} />)
+                : nameOk ? <CheckCircle2 className="h-5 w-5 text-emerald-600" strokeWidth={1.5} />
+                : <XCircle className="h-5 w-5 text-red-500" strokeWidth={1.5} />}
             </div>
-
-            {/* Number check */}
             <div className="flex items-center justify-between px-4 py-3">
               <div>
                 <p className="text-[9px] uppercase tracking-luxe text-muted-foreground mb-0.5">RAAST Number</p>
                 <p className="font-mono text-sm font-bold text-[#1B4D8E]">0370-3770146</p>
               </div>
-              {step === "scanning" || step === "checking_name" || (step === "checking_number" && numberOk === null) ? (
-                step === "checking_number"
-                  ? <Loader2 className="h-4 w-4 text-[#1B4D8E] animate-spin" strokeWidth={2} />
-                  : <span className="text-[9px] text-muted-foreground uppercase tracking-luxe">Pending</span>
-              ) : numberOk ? (
-                <CheckCircle2 className="h-5 w-5 text-emerald-600" strokeWidth={1.5} />
-              ) : (
-                <XCircle className="h-5 w-5 text-red-500" strokeWidth={1.5} />
-              )}
+              {(step === "scanning" || step === "checking_name")
+                ? <span className="text-[9px] text-muted-foreground uppercase tracking-luxe">Pending</span>
+                : numberOk === null ? <Loader2 className="h-4 w-4 text-[#1B4D8E] animate-spin" strokeWidth={2} />
+                : numberOk ? <CheckCircle2 className="h-5 w-5 text-emerald-600" strokeWidth={1.5} />
+                : <XCircle className="h-5 w-5 text-red-500" strokeWidth={1.5} />}
             </div>
           </div>
-
-          {/* Countdown bar if both checks passed */}
-          {step === "checking_number" && nameOk && numberOk && (
+          {step === "checking_number" && nameOk && numberOk !== false && (
             <div className="space-y-1.5">
-              <p className="text-[10px] text-[#1B4D8E] text-center">Finalising approval…</p>
+              <p className="text-[10px] text-[#1B4D8E] text-center">Both checks passed — finalising approval…</p>
               <div className="flex items-center gap-2">
                 <div className="h-1.5 flex-1 bg-[#1B4D8E]/15 rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-[#1B4D8E] rounded-full transition-all duration-1000"
-                    style={{ width: `${((8 - countdown) / 8) * 100}%` }}
-                  />
+                  <div className="h-full bg-[#1B4D8E] rounded-full transition-all duration-1000" style={{ width: `${((20 - countdown) / 20) * 100}%` }} />
                 </div>
                 <span className="text-[10px] text-muted-foreground tabular-nums w-6">{countdown}s</span>
               </div>
             </div>
           )}
+        </div>
+      )}
+
+      {step === "failed" && (
+        <div className="w-full border border-red-300 rounded-sm p-4 bg-red-50 space-y-3">
+          <div className="flex items-start gap-2">
+            <XCircle className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" strokeWidth={1.5} />
+            <div>
+              <p className="text-[11px] uppercase tracking-luxe text-red-700 font-semibold mb-1">Verification Failed</p>
+              <p className="text-[10px] text-red-600 leading-relaxed">{failReason}</p>
+            </div>
+          </div>
+          {preview && <img src={preview} alt="preview" className="h-16 object-contain rounded border border-red-200 opacity-60" />}
+          <button type="button" onClick={reset} className="text-[10px] uppercase tracking-luxe text-[#1B4D8E] hover:underline">
+            ← Try again with a different screenshot
+          </button>
         </div>
       )}
 
@@ -202,12 +220,8 @@ function ScreenshotUpload({ amount, onVerified }: { amount: number; onVerified: 
                 <span className="text-[10px] text-emerald-700">RAAST number verified: <strong>0370-3770146</strong></span>
               </div>
             </div>
-            <p className="text-[10px] text-muted-foreground leading-relaxed">
-              Your payment has been confirmed. Your order will be processed within 2 hours.
-            </p>
-            <button type="button" onClick={reset} className="mt-2 text-[9px] uppercase tracking-luxe text-muted-foreground hover:text-red-500 transition-colors underline">
-              Remove & re-upload
-            </button>
+            <p className="text-[10px] text-muted-foreground leading-relaxed">Your payment has been confirmed. Your order will be processed within 2 hours.</p>
+            <button type="button" onClick={reset} className="mt-2 text-[9px] uppercase tracking-luxe text-muted-foreground hover:text-red-500 transition-colors underline">Remove & re-upload</button>
           </div>
         </div>
       )}
@@ -236,6 +250,7 @@ function QrScreenshotUpload({ amount, onVerified }: { amount: number; onVerified
   const [countdown, setCountdown] = useState(0);
   const [amountOk, setAmountOk] = useState<boolean | null>(null);
   const [statusOk, setStatusOk] = useState<boolean | null>(null);
+  const [failReason, setFailReason] = useState("");
 
   function reset() {
     setStep("idle");
@@ -243,54 +258,77 @@ function QrScreenshotUpload({ amount, onVerified }: { amount: number; onVerified
     setCountdown(0);
     setAmountOk(null);
     setStatusOk(null);
+    setFailReason("");
     onVerified(false);
+    if (fileRef.current) fileRef.current.value = "";
   }
 
-  function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
+  async function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
     setAmountOk(null);
     setStatusOk(null);
+    setFailReason("");
     setStep("uploading");
 
     const reader = new FileReader();
-    reader.onload = (ev) => {
-      setPreview(ev.target?.result as string);
+    reader.onload = async (ev) => {
+      const dataUrl = ev.target?.result as string;
+      setPreview(dataUrl);
+      setStep("scanning");
 
-      setTimeout(() => {
-        setStep("scanning");
+      let rawText = "";
+      try {
+        rawText = await extractTextFromImage(dataUrl);
+      } catch {
+        setFailReason("Could not read image. Please upload a clear screenshot.");
+        setStep("failed");
+        onVerified(false);
+        return;
+      }
 
-        // Check payment amount
-        setTimeout(() => {
-          setStep("checking_name");
-          setAmountOk(null);
-          setTimeout(() => {
-            setAmountOk(true);
+      const norm = normalize(rawText);
 
-            // Check payment status
-            setTimeout(() => {
-              setStep("checking_number");
-              setStatusOk(null);
-              setTimeout(() => {
-                setStatusOk(true);
+      // Check payment status keywords
+      setStep("checking_name");
+      await new Promise(r => setTimeout(r, 600));
+      const successKeywords = ["SUCCESS", "SUCCESSFUL", "PAID", "CONFIRMED", "COMPLETE", "PAYMENT SENT", "TRANSACTIONSUCCESS", "TRANSACTIONSUCCESSFUL"];
+      const foundStatus = successKeywords.some(kw => norm.includes(normalize(kw)));
+      setAmountOk(foundStatus);
 
-                // Countdown to approval
-                let remaining = 20;
-                setCountdown(remaining);
-                const tick = setInterval(() => {
-                  remaining -= 1;
-                  setCountdown(remaining);
-                  if (remaining <= 0) {
-                    clearInterval(tick);
-                    setStep("approved");
-                    onVerified(true);
-                  }
-                }, 1000);
-              }, 2000);
-            }, 500);
-          }, 2500);
-        }, 1500);
-      }, 900);
+      if (!foundStatus) {
+        setFailReason("No payment confirmation found in screenshot. Make sure your screenshot shows a successful/confirmed payment screen from your banking app.");
+        setStep("failed");
+        onVerified(false);
+        return;
+      }
+
+      // Check that the screenshot is a payment receipt (look for payment/money/transfer keywords)
+      setStep("checking_number");
+      await new Promise(r => setTimeout(r, 600));
+      const paymentKeywords = ["AMOUNT", "RS", "PKR", "TRANSFER", "DEBIT", "PAYMENT", "SENT", "RUPEE"];
+      const foundPayment = paymentKeywords.some(kw => norm.includes(normalize(kw)));
+      setStatusOk(foundPayment);
+
+      if (!foundPayment) {
+        setFailReason("This does not appear to be a payment receipt. Please upload your bank app's payment confirmation screenshot.");
+        setStep("failed");
+        onVerified(false);
+        return;
+      }
+
+      // Both passed — 20s countdown
+      let remaining = 20;
+      setCountdown(remaining);
+      const tick = setInterval(() => {
+        remaining -= 1;
+        setCountdown(remaining);
+        if (remaining <= 0) {
+          clearInterval(tick);
+          setStep("approved");
+          onVerified(true);
+        }
+      }, 1000);
     };
     reader.readAsDataURL(file);
   }
@@ -388,6 +426,22 @@ function QrScreenshotUpload({ amount, onVerified }: { amount: number; onVerified
               </div>
             </div>
           )}
+        </div>
+      )}
+
+      {step === "failed" && (
+        <div className="w-full border border-red-300 rounded-sm p-4 bg-red-50 space-y-3">
+          <div className="flex items-start gap-2">
+            <XCircle className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" strokeWidth={1.5} />
+            <div>
+              <p className="text-[11px] uppercase tracking-luxe text-red-700 font-semibold mb-1">Verification Failed</p>
+              <p className="text-[10px] text-red-600 leading-relaxed">{failReason}</p>
+            </div>
+          </div>
+          {preview && <img src={preview} alt="preview" className="h-16 object-contain rounded border border-red-200 opacity-60" />}
+          <button type="button" onClick={reset} className="text-[10px] uppercase tracking-luxe text-gold hover:underline">
+            ← Try again with a different screenshot
+          </button>
         </div>
       )}
 
