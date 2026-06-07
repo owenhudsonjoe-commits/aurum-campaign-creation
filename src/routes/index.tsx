@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Star, Globe, Sparkles, Instagram, Shield, Truck, Award, Clock, Phone, ChevronDown } from "lucide-react";
+import { ArrowRight, Star, Globe, Sparkles, Instagram, Shield, Truck, Award, Clock, Phone, ChevronDown, Tag, Flame } from "lucide-react";
+import { PRODUCTS, formatPrice } from "@/lib/products";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { BackToTop } from "@/components/BackToTop";
@@ -100,6 +101,98 @@ function NewsletterForm() {
         Join the Cercle
       </button>
     </form>
+  );
+}
+
+function SummerSaleSection() {
+  const saleProducts = useMemo(
+    () => PRODUCTS.filter((p) => p.discountedPrice !== undefined && p.discountedPrice <= 3500),
+    []
+  );
+
+  return (
+    <section className="relative px-6 md:px-12 py-20 md:py-28 overflow-hidden bg-[#fff8ed] border-y border-amber-200">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-amber-100/60 blur-3xl" />
+        <div className="absolute -bottom-24 -left-24 w-96 h-96 rounded-full bg-orange-100/50 blur-3xl" />
+      </div>
+
+      <div className="relative mx-auto max-w-[1600px]">
+        <div className="mb-12 flex flex-col items-center text-center">
+          <div className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 px-5 py-2 mb-6 shadow-md">
+            <Flame className="h-3.5 w-3.5 text-white" strokeWidth={2} />
+            <span className="text-[10px] uppercase tracking-luxe text-white font-semibold">Limited Time Offer</span>
+          </div>
+          <h2 className="font-display text-5xl md:text-7xl text-ink">
+            Summer Sale <em className="not-italic" style={{ background: "linear-gradient(135deg, #f59e0b, #ef4444)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Under RS 3,000</em>
+          </h2>
+          <PaisleyDivider className="mt-8" />
+          <p className="mt-6 max-w-xl text-sm text-muted-foreground font-light leading-relaxed">
+            Handcrafted luxury at prices that feel like a secret. Grab your favourite before it's gone — every piece in this edit is under RS 3,500.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-5">
+          {saleProducts.map((product, i) => (
+            <Link
+              key={product.id}
+              to="/product/$slug"
+              params={{ slug: product.slug }}
+              className="group block animate-reveal"
+              style={{ animationDelay: `${i * 0.07}s` }}
+            >
+              <div className="relative overflow-hidden rounded-xl border border-amber-200 bg-white shadow-sm hover:shadow-md transition-shadow duration-500">
+                <div className="relative aspect-[3/4] overflow-hidden">
+                  <img
+                    src={product.images[0]}
+                    alt={product.name}
+                    loading="lazy"
+                    className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                  <div className="absolute top-2.5 left-2.5 flex flex-col gap-1.5">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-red-500 to-orange-500 px-2.5 py-1 text-[9px] uppercase tracking-wider text-white font-semibold shadow">
+                      -{product.discountPercent}%
+                    </span>
+                  </div>
+                  <div className="absolute bottom-2.5 left-2.5 right-2.5">
+                    <div className="flex items-baseline gap-1.5">
+                      <span className="font-display text-base font-semibold text-white drop-shadow">
+                        {formatPrice(product.discountedPrice!)}
+                      </span>
+                      <span className="text-[10px] text-white/60 line-through">
+                        {formatPrice(product.price)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-3">
+                  <p className="text-[11px] uppercase tracking-luxe text-amber-600 font-medium truncate">{product.category}</p>
+                  <p className="mt-0.5 font-display text-sm italic text-ink leading-snug line-clamp-1">{product.name}</p>
+                  <div className="mt-2.5 flex items-center justify-between">
+                    <span className="text-[9px] uppercase tracking-wider text-muted-foreground">{product.fabricType}</span>
+                    <span className="inline-flex items-center gap-1 text-[9px] uppercase tracking-wider text-amber-600 border-b border-amber-400/50 pb-px group-hover:text-orange-600 transition-colors">
+                      Shop <ArrowRight className="h-2.5 w-2.5 transition-transform group-hover:translate-x-0.5" />
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        <div className="mt-12 text-center">
+          <Link
+            to="/shop"
+            className="inline-flex items-center gap-3 rounded-full border-2 border-amber-500 px-10 py-4 text-[11px] uppercase tracking-luxe text-amber-700 hover:bg-gradient-to-r hover:from-amber-500 hover:to-orange-500 hover:text-white hover:border-transparent transition-all duration-500"
+          >
+            <Tag className="h-3.5 w-3.5" strokeWidth={1.5} />
+            View All Sale Items
+            <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
+          </Link>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -328,6 +421,9 @@ function Home() {
           </div>
         </div>
       </section>
+
+      {/* SUMMER SALE */}
+      <SummerSaleSection />
 
       {/* THE ATELIER */}
       <section className="relative bg-emerald-deep text-ivory overflow-hidden">
