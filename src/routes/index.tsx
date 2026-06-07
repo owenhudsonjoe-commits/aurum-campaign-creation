@@ -518,16 +518,16 @@ function Home() {
         </div>
       </section>
 
+      {/* SUMMER SALE CARD */}
+      <section className="py-10 md:py-16">
+        <SummerSaleCard />
+      </section>
+
       {/* NEW ARRIVALS STRIP */}
       <NewArrivalsStrip />
 
       {/* HERITAGE NUMBERS BAR */}
       <HeritageBar />
-
-      {/* SUMMER SALE CARD */}
-      <section className="py-10 md:py-16">
-        <SummerSaleCard />
-      </section>
 
       {/* FEATURED COLLECTIONS */}
       <section id="collection" className="px-6 md:px-12 py-28 md:py-36">
