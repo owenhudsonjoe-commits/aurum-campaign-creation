@@ -3,8 +3,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { z } from "zod";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
-import { ArchFrame } from "@/components/ArchFrame";
-import { SaleBanner } from "@/components/SaleBanner";
 import { PRODUCTS, formatPrice } from "@/lib/products";
 import type { FabricType, Collection } from "@/lib/products";
 import { useCart } from "@/lib/cart";
@@ -31,20 +29,12 @@ export const Route = createFileRoute("/shop")({
   validateSearch: shopSearchSchema,
   head: () => ({
     meta: [
-      { title: "Shop — Maison Aurum" },
+      { title: "Shop — AURUM" },
       { name: "description", content: "Browse Stitched & Unstitched collections — Bridal, Festive Prêt and Men's." },
     ],
   }),
   component: ShopPage,
 });
-
-const collectionMeta: Record<string, { label: string; sub: string }> = {
-  All: { label: "All Collections", sub: "Every piece, every house" },
-  Bridal: { label: "Bridal Couture", sub: "Shaadi · Mehndi · Walima" },
-  "Festive / Pret": { label: "Festive Prêt", sub: "Eid · Mehndi · Sangeet" },
-  "Daily Wear": { label: "Daily Wear", sub: "Everyday elegance · Casual · Work" },
-  "Men's": { label: "Maison Homme", sub: "Sherwani · Bandhgala" },
-};
 
 function ShopPage() {
   const { collection: initialCollection, fabric: initialFabric } = Route.useSearch();
@@ -72,7 +62,6 @@ function ShopPage() {
         p.details.some((d) => d.toLowerCase().includes(q));
       return fabricMatch && colMatch && searchMatch;
     });
-
     return [...result].sort((a, b) => {
       const aPrice = a.discountedPrice ?? a.price;
       const bPrice = b.discountedPrice ?? b.price;
@@ -96,244 +85,216 @@ function ShopPage() {
     setTimeout(() => inputRef.current?.focus(), 50);
   }
 
-  function clearSearch() {
-    setQuery("");
-    inputRef.current?.focus();
-  }
-
-  const meta = collectionMeta[activeCollection];
-
   return (
-    <div className="min-h-screen bg-ivory">
+    <div className="min-h-screen bg-background">
       <Nav />
 
       {/* Page header */}
-      <div className="pt-[120px] pb-10 text-center bg-gradient-to-b from-[oklch(0.22_0.07_162)/6] to-transparent px-6">
-        <p className="text-[10px] uppercase tracking-luxe text-gold-warm mb-3">Maison Aurum</p>
-        <h1 className="font-display text-5xl md:text-7xl italic text-ink mb-2">{meta.label}</h1>
-        <p className="text-sm text-muted-foreground font-light">{meta.sub}</p>
-        <p className="mt-3 text-[10px] uppercase tracking-luxe text-muted-foreground/60">
-          Each piece is made to order in our Lahore atelier — crafted to your measurements, finished by hand.
-        </p>
-      </div>
+      <div className="pt-[97px] border-b border-border">
+        <div className="max-w-[1400px] mx-auto px-5 md:px-10 py-8">
+          <p className="text-[11px] tracking-widest uppercase text-foreground/40 mb-2 font-medium">AURUM</p>
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">
+            {activeCollection === "All" ? "All Collections" : activeCollection}
+          </h1>
+          <p className="text-sm text-foreground/50 mt-1">{filtered.length} products</p>
+        </div>
 
-      {/* Sticky filter bar */}
-      <div className="sticky top-[41px] z-40 bg-ivory/97 backdrop-blur border-b border-gold/20">
-        {/* Fabric tabs + search toggle */}
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12 flex items-center justify-between border-b border-gold/10">
-          <div className="flex">
-            {FABRIC_TABS.map((tab) => (
+        {/* Filter bar */}
+        <div className="sticky top-[97px] z-40 bg-background border-b border-border">
+          <div className="max-w-[1400px] mx-auto px-5 md:px-10 flex items-center justify-between h-12">
+            {/* Fabric tabs */}
+            <div className="flex items-center h-full">
+              {FABRIC_TABS.map((tab) => (
+                <button
+                  key={tab}
+                  onClick={() => { setFabric(tab); setActiveCollection("All"); }}
+                  className={`h-full px-5 text-[12px] font-medium border-b-2 transition-colors ${
+                    fabric === tab
+                      ? "border-foreground text-foreground"
+                      : "border-transparent text-foreground/50 hover:text-foreground"
+                  }`}
+                >
+                  {tab}
+                </button>
+              ))}
+              <div className="h-4 w-px bg-border mx-2" />
+              {(["All", ...COLLECTIONS] as const).map((col) => (
+                <button
+                  key={col}
+                  onClick={() => setActiveCollection(col)}
+                  className={`h-full px-4 text-[12px] font-medium border-b-2 transition-colors hidden md:block ${
+                    activeCollection === col
+                      ? "border-foreground text-foreground"
+                      : "border-transparent text-foreground/50 hover:text-foreground"
+                  }`}
+                >
+                  {col === "Festive / Pret" ? "Festive" : col}
+                </button>
+              ))}
+            </div>
+
+            {/* Right controls */}
+            <div className="flex items-center gap-3">
+              {/* Sort */}
+              <div className="relative">
+                <button
+                  onClick={() => setSortOpen((v) => !v)}
+                  className="flex items-center gap-1.5 text-[12px] text-foreground/60 hover:text-foreground transition-colors"
+                >
+                  Sort: {SORT_LABELS[sort]}
+                  <ChevronDown className={`h-3.5 w-3.5 transition-transform ${sortOpen ? "rotate-180" : ""}`} strokeWidth={2} />
+                </button>
+                {sortOpen && (
+                  <div className="absolute right-0 top-full mt-2 z-50 bg-background border border-border shadow-lg min-w-[180px]">
+                    {(Object.keys(SORT_LABELS) as SortOption[]).map((opt) => (
+                      <button
+                        key={opt}
+                        onClick={() => { setSort(opt); setSortOpen(false); }}
+                        className={`w-full text-left px-4 py-3 text-[12px] transition-colors ${
+                          sort === opt ? "bg-foreground text-background" : "text-foreground/70 hover:bg-muted"
+                        }`}
+                      >
+                        {SORT_LABELS[opt]}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Search */}
+              <div className="flex items-center gap-2">
+                {searchOpen && (
+                  <div className="relative">
+                    <input
+                      ref={inputRef}
+                      type="text"
+                      value={query}
+                      onChange={(e) => setQuery(e.target.value)}
+                      placeholder="Search…"
+                      className="w-36 md:w-48 pl-3 pr-7 py-1.5 text-[12px] border border-border bg-background focus:outline-none focus:border-foreground text-foreground placeholder:text-foreground/40 transition-colors"
+                      onKeyDown={(e) => { if (e.key === "Escape") { setSearchOpen(false); setQuery(""); } }}
+                    />
+                    {query && (
+                      <button onClick={() => { setQuery(""); inputRef.current?.focus(); }} className="absolute right-2 top-1/2 -translate-y-1/2 text-foreground/40 hover:text-foreground">
+                        <X className="h-3 w-3" strokeWidth={2} />
+                      </button>
+                    )}
+                  </div>
+                )}
+                <button
+                  onClick={() => { if (searchOpen) { setSearchOpen(false); setQuery(""); } else { openSearch(); } }}
+                  className="text-foreground/50 hover:text-foreground transition-colors"
+                >
+                  {searchOpen ? <X className="h-4 w-4" strokeWidth={2} /> : <Search className="h-4 w-4" strokeWidth={2} />}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile collection pills */}
+          <div className="md:hidden flex items-center gap-2 px-5 py-2.5 overflow-x-auto scrollbar-hide">
+            {(["All", ...COLLECTIONS] as const).map((col) => (
               <button
-                key={tab}
-                onClick={() => { setFabric(tab); setActiveCollection("All"); }}
-                className={`relative px-6 py-4 text-[11px] uppercase tracking-luxe transition-colors ${
-                  fabric === tab ? "text-ink" : "text-muted-foreground hover:text-ink"
+                key={col}
+                onClick={() => setActiveCollection(col)}
+                className={`flex-shrink-0 px-3 py-1.5 text-[11px] font-medium border transition-colors ${
+                  activeCollection === col
+                    ? "bg-foreground text-background border-foreground"
+                    : "border-border text-foreground/60 hover:text-foreground"
                 }`}
               >
-                {tab}
-                {fabric === tab && <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-gold" />}
+                {col === "Festive / Pret" ? "Festive" : col}
               </button>
             ))}
           </div>
-
-          <div className="flex items-center gap-3">
-            {/* Sort dropdown */}
-            <div className="relative">
-              <button
-                onClick={() => setSortOpen((v) => !v)}
-                className="flex items-center gap-1.5 text-[10px] uppercase tracking-luxe text-muted-foreground hover:text-ink transition-colors border border-gold/20 px-3 py-1.5 hover:border-gold/50"
-              >
-                {SORT_LABELS[sort]}
-                <ChevronDown className={`h-3 w-3 transition-transform duration-200 ${sortOpen ? "rotate-180" : ""}`} strokeWidth={1.5} />
-              </button>
-              {sortOpen && (
-                <div className="absolute right-0 top-full mt-1 z-50 bg-ivory border border-gold/20 shadow-luxe min-w-[180px]">
-                  {(Object.keys(SORT_LABELS) as SortOption[]).map((opt) => (
-                    <button
-                      key={opt}
-                      onClick={() => { setSort(opt); setSortOpen(false); }}
-                      className={`w-full text-left px-4 py-2.5 text-[10px] uppercase tracking-luxe transition-colors ${
-                        sort === opt
-                          ? "bg-ink text-ivory"
-                          : "text-muted-foreground hover:bg-gold/10 hover:text-ink"
-                      }`}
-                    >
-                      {SORT_LABELS[opt]}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Expandable search */}
-            <div className={`flex items-center transition-all duration-300 ${searchOpen ? "gap-2" : "gap-0"}`}>
-              {searchOpen && (
-                <div className="relative flex items-center">
-                  <input
-                    ref={inputRef}
-                    type="text"
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Search products…"
-                    className="w-40 md:w-56 pl-3 pr-7 py-1.5 text-[11px] border border-gold/30 bg-transparent focus:outline-none focus:border-gold text-ink placeholder:text-muted-foreground/50 transition-all"
-                    onKeyDown={(e) => { if (e.key === "Escape") { setSearchOpen(false); setQuery(""); } }}
-                  />
-                  {query && (
-                    <button onClick={clearSearch} className="absolute right-2 text-muted-foreground hover:text-ink transition-colors">
-                      <X className="h-3 w-3" strokeWidth={1.5} />
-                    </button>
-                  )}
-                </div>
-              )}
-              <button
-                onClick={() => { if (searchOpen) { setSearchOpen(false); setQuery(""); } else { openSearch(); } }}
-                className="text-muted-foreground hover:text-gold transition-colors p-1"
-                aria-label="Toggle search"
-              >
-                {searchOpen ? <X className="h-4 w-4" strokeWidth={1.2} /> : <Search className="h-4 w-4" strokeWidth={1.2} />}
-              </button>
-            </div>
-
-            <p className="text-[10px] uppercase tracking-luxe text-muted-foreground hidden sm:block">
-              {filtered.length} {filtered.length === 1 ? "piece" : "pieces"}
-            </p>
-          </div>
         </div>
-
-        {/* Collection pills */}
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-3 flex items-center gap-2 flex-wrap">
-          {(["All", ...COLLECTIONS] as const).map((col) => (
-            <button
-              key={col}
-              onClick={() => setActiveCollection(col)}
-              className={`px-4 py-1.5 text-[10px] uppercase tracking-luxe border transition-all rounded-full ${
-                activeCollection === col
-                  ? "bg-ink text-ivory border-ink"
-                  : "border-gold/30 text-muted-foreground hover:border-gold hover:text-ink"
-              }`}
-            >
-              {col === "Festive / Pret" ? "Festive" : col}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Search results label */}
-      {query && (
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12 pt-8 pb-0">
-          <p className="text-[11px] uppercase tracking-luxe text-muted-foreground">
-            {filtered.length === 0
-              ? `No results for "${query}"`
-              : `${filtered.length} result${filtered.length !== 1 ? "s" : ""} for "${query}"`}
-          </p>
-        </div>
-      )}
-
-      {/* Flash sale banner */}
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12 pt-10 pb-0">
-        <SaleBanner />
       </div>
 
       {/* Products grid */}
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-10">
+      <div className="max-w-[1400px] mx-auto px-5 md:px-10 py-8">
+        {query && (
+          <p className="text-sm text-foreground/50 mb-6">
+            {filtered.length === 0 ? `No results for "${query}"` : `${filtered.length} result${filtered.length !== 1 ? "s" : ""} for "${query}"`}
+          </p>
+        )}
+
         {filtered.length === 0 ? (
-          <div className="text-center py-28 border border-gold/20">
-            {query ? (
-              <>
-                <p className="font-display text-3xl italic text-muted-foreground mb-3">No matches found</p>
-                <p className="text-sm text-muted-foreground mb-8 max-w-xs mx-auto">
-                  Try a different search term or browse all pieces below.
-                </p>
-                <button
-                  onClick={() => { setQuery(""); setActiveCollection("All"); }}
-                  className="inline-flex items-center gap-2 bg-gradient-gold text-ivory px-8 py-3.5 text-[11px] uppercase tracking-luxe hover:shadow-luxe transition-shadow"
-                >
-                  Clear Search <X className="h-3.5 w-3.5" strokeWidth={1.5} />
-                </button>
-              </>
-            ) : (
-              <>
-                <p className="font-display text-3xl italic text-muted-foreground mb-3">Coming Soon</p>
-                <p className="text-sm text-muted-foreground mb-8 max-w-xs mx-auto">We're adding new pieces to this collection — check back soon or explore another category.</p>
-                <button
-                  onClick={() => setActiveCollection("All")}
-                  className="inline-flex items-center gap-2 bg-gradient-gold text-ivory px-8 py-3.5 text-[11px] uppercase tracking-luxe hover:shadow-luxe transition-shadow"
-                >
-                  View All Pieces <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
-                </button>
-              </>
-            )}
+          <div className="text-center py-24 border border-border">
+            <p className="text-xl font-semibold text-foreground/40 mb-2">No products found</p>
+            <p className="text-sm text-foreground/40 mb-6">Try a different category or clear your search.</p>
+            <button
+              onClick={() => { setQuery(""); setActiveCollection("All"); }}
+              className="inline-flex items-center gap-2 bg-foreground text-background px-6 py-3 text-[12px] font-medium tracking-widest uppercase"
+            >
+              Clear Filters <X className="h-3.5 w-3.5" strokeWidth={2} />
+            </button>
           </div>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-14">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-10">
             {filtered.map((product) => (
               <div key={product.id} className="group relative">
                 <Link to="/product/$slug" params={{ slug: product.slug }}>
-                  <ArchFrame className="aspect-[3/4]">
+                  <div className="relative overflow-hidden bg-muted aspect-[3/4]">
                     <img
                       src={product.images[0]}
                       alt={product.name}
                       loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-[1600ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110"
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-emerald-deep/60 via-transparent to-transparent opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
 
+                    {/* Badges */}
                     {product.badge && (
-                      <div className="absolute top-4 left-4 z-20">
-                        <span className={`px-3 py-1 text-[9px] uppercase tracking-luxe font-medium ${
-                          product.badge === "New" ? "bg-gradient-gold text-ivory" :
-                          product.badge === "Limited" ? "bg-emerald-deep/90 text-gold-warm border border-gold/40" :
-                          product.badge === "Bestseller" ? "bg-gradient-gold text-ivory" :
-                          "bg-ink/80 text-ivory"
-                        }`}>
+                      <div className="absolute top-3 left-3 z-20">
+                        <span className="bg-foreground text-background text-[9px] font-semibold uppercase tracking-widest px-2 py-1">
                           {product.badge}
                         </span>
                       </div>
                     )}
-
                     {product.discountPercent && (
-                      <div className="absolute top-4 right-12 z-20">
-                        <span className="px-2 py-1 text-[9px] font-bold bg-red-500 text-white uppercase">
+                      <div className="absolute top-3 right-10 z-20">
+                        <span className="bg-red-600 text-white text-[9px] font-bold uppercase px-2 py-1">
                           -{product.discountPercent}%
                         </span>
                       </div>
                     )}
 
+                    {/* Wishlist */}
                     <button
                       onClick={(e) => { e.preventDefault(); toggleWishlist(product); }}
-                      className="absolute top-4 right-4 z-20 w-8 h-8 flex items-center justify-center bg-ivory/80 backdrop-blur opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-ivory"
+                      className="absolute top-3 right-3 z-20 w-8 h-8 flex items-center justify-center bg-background/80 backdrop-blur opacity-0 group-hover:opacity-100 transition-opacity hover:bg-background"
                       aria-label="Wishlist"
                     >
-                      <Heart className={`h-3.5 w-3.5 transition-all ${isWishlisted(product.id) ? "fill-gold text-gold" : "text-ink"}`} strokeWidth={1.5} />
+                      <Heart className={`h-3.5 w-3.5 ${isWishlisted(product.id) ? "fill-foreground text-foreground" : "text-foreground"}`} strokeWidth={1.5} />
                     </button>
 
+                    {/* Quick add */}
                     <button
                       onClick={(e) => handleAdd(product.id, e)}
-                      className={`absolute bottom-5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 rounded-full px-5 py-2.5 text-[10px] uppercase tracking-luxe backdrop-blur translate-y-4 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100 whitespace-nowrap ${
-                        addedId === product.id ? "bg-gradient-gold text-ivory" : "bg-ivory/90 text-ink hover:bg-gradient-gold hover:text-ivory"
+                      className={`absolute bottom-0 inset-x-0 z-20 flex items-center justify-center gap-2 py-3 text-[11px] font-semibold uppercase tracking-widest translate-y-full opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 ${
+                        addedId === product.id
+                          ? "bg-foreground text-background"
+                          : "bg-background text-foreground hover:bg-foreground hover:text-background"
                       }`}
                     >
-                      <ShoppingBag className="h-3 w-3" strokeWidth={1.5} />
+                      <ShoppingBag className="h-3.5 w-3.5" strokeWidth={2} />
                       {addedId === product.id ? "Added ✓" : "Quick Add"}
                     </button>
-                  </ArchFrame>
+                  </div>
 
-                  <div className="mt-4 px-1">
-                    <p className="text-[10px] uppercase tracking-luxe text-muted-foreground">{product.category} · {product.fabricType}</p>
-                    <h3 className="mt-1 font-display text-lg italic text-foreground leading-snug">{product.name}</h3>
-                    {product.urduName && <p className="font-urdu text-sm text-gold-warm/70 mt-0.5">{product.urduName}</p>}
-                    <div className="flex items-center gap-2 flex-wrap mt-1.5">
+                  <div className="mt-3">
+                    <p className="text-[10px] uppercase tracking-widest text-foreground/40 font-medium">{product.category}</p>
+                    <h3 className="mt-0.5 text-[13px] font-medium text-foreground leading-snug group-hover:text-foreground/60 transition-colors">{product.name}</h3>
+                    <div className="flex items-center gap-2 mt-1">
                       {product.discountedPrice ? (
                         <>
-                          <p className="font-display text-base text-red-600 font-semibold">{formatPrice(product.discountedPrice)}</p>
-                          <p className="font-display text-sm text-muted-foreground line-through">{formatPrice(product.price)}</p>
-                          <span className="text-[9px] font-bold bg-red-500 text-white px-1.5 py-0.5 rounded-sm">{product.discountPercent}% OFF</span>
+                          <p className="text-[13px] font-semibold text-red-600">{formatPrice(product.discountedPrice)}</p>
+                          <p className="text-[12px] text-foreground/40 line-through">{formatPrice(product.price)}</p>
                         </>
                       ) : (
-                        <p className="font-display text-base text-gradient-gold">{formatPrice(product.price)}</p>
+                        <p className="text-[13px] font-medium text-foreground">{formatPrice(product.price)}</p>
                       )}
                     </div>
-                    <p className="mt-1 text-[9px] uppercase tracking-luxe text-muted-foreground/60">{product.leadTime}</p>
+                    <p className="text-[10px] text-foreground/40 mt-0.5">{product.leadTime}</p>
                   </div>
                 </Link>
               </div>
@@ -343,12 +304,12 @@ function ShopPage() {
       </div>
 
       {/* Bespoke CTA */}
-      <div className="border-t border-gold/20 bg-[oklch(0.22_0.07_162)] text-ivory py-16 text-center px-6">
-        <p className="text-[10px] uppercase tracking-luxe text-gold-warm mb-2">Don't see what you're looking for?</p>
-        <p className="font-display text-3xl italic mb-2">Every design can be bespoke.</p>
-        <p className="text-sm text-ivory/60 mb-7 font-light max-w-md mx-auto">Commission a one-of-a-kind piece crafted to your exact measurements, fabric preferences, and vision.</p>
-        <Link to="/bespoke" className="inline-flex items-center gap-2 rounded-full bg-gradient-gold px-10 py-4 text-[11px] uppercase tracking-luxe text-ivory shadow-luxe hover:shadow-none transition-shadow">
-          Book an Atelier Consultation <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
+      <div className="border-t border-border bg-foreground text-background py-14 text-center px-6">
+        <p className="text-[11px] tracking-widest uppercase text-background/50 mb-2 font-medium">Can't find what you need?</p>
+        <h2 className="text-2xl font-bold mb-2">Every design can be bespoke.</h2>
+        <p className="text-sm text-background/60 mb-7 max-w-md mx-auto">Commission a one-of-a-kind piece crafted to your exact measurements, fabric preferences, and vision.</p>
+        <Link to="/bespoke" className="inline-flex items-center gap-2 border border-background text-background px-8 py-3.5 text-[12px] font-semibold tracking-widest uppercase hover:bg-background hover:text-foreground transition-colors">
+          Book a Consultation <ArrowRight className="h-3.5 w-3.5" strokeWidth={2} />
         </Link>
       </div>
       <Footer />
