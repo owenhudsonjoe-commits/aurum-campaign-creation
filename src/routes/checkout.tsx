@@ -273,7 +273,7 @@ function CheckoutPage() {
                   {[
                     { id: "raast" as const, label: "RAAST Transfer", sub: "Send to 0370-3770146 (IMTIYAZAN SAIM)" },
                     { id: "qr" as const, label: "QR Code Payment", sub: "Scan via any banking app" },
-                    { id: "cod" as const, label: "Cash on Delivery", sub: "Available within Pakistan only" },
+                    { id: "cod" as const, label: "Cash on Delivery", sub: "Unlocks after 2 successful deliveries" },
                   ].map((m) => (
                     <label
                       key={m.id}
@@ -338,11 +338,11 @@ function CheckoutPage() {
                 )}
 
                 {paymentMethod === "cod" && (
-                  <div className="mt-4 p-4 border border-border bg-muted/20 flex items-start gap-3">
-                    <Package className="h-5 w-5 text-foreground/50 shrink-0 mt-0.5" strokeWidth={1.5} />
+                  <div className="mt-4 p-4 border border-amber-200 bg-amber-50 flex items-start gap-3">
+                    <AlertCircle className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" strokeWidth={1.8} />
                     <div>
-                      <p className="text-[12px] font-semibold text-foreground mb-1">Cash on Delivery</p>
-                      <p className="text-[11px] text-foreground/60 leading-relaxed">Pay in cash when your order arrives. Available within Pakistan only. A {formatPrice(500)} COD fee applies.</p>
+                      <p className="text-[12px] font-semibold text-amber-800 mb-1">COD Not Yet Available</p>
+                      <p className="text-[11px] text-amber-700 leading-relaxed">Cash on Delivery becomes available after <strong>2 successful deliveries</strong> to your address. Please select RAAST Transfer or QR Code Payment for your first orders.</p>
                     </div>
                   </div>
                 )}
