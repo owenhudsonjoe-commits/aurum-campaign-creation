@@ -1,18 +1,17 @@
 import { useEffect, useState } from "react";
-import { Search, User, Heart, ShoppingBag, Menu, X, Phone } from "lucide-react";
-import { Link, useNavigate } from "@tanstack/react-router";
+import { Search, Heart, ShoppingBag, Menu, X } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { AurumLogo } from "./AurumLogo";
 import { useCart } from "@/lib/cart";
 import { useWishlist } from "@/lib/wishlist";
 
-const leftLinks = [
+const navLinks = [
   { label: "Bridal", href: "/shop", search: { collection: "Bridal" as const, fabric: "Stitched" as const } },
   { label: "Festive", href: "/shop", search: { collection: "Festive / Pret" as const, fabric: "Stitched" as const } },
   { label: "Daily Wear", href: "/shop", search: { collection: "Daily Wear" as const, fabric: "Stitched" as const } },
   { label: "Men's", href: "/shop", search: { collection: "Men's" as const, fabric: "Stitched" as const } },
-];
-const rightLinks = [
-  { label: "Bespoke", href: "/bespoke" },
+  { label: "Bespoke", href: "/bespoke", search: undefined },
+  { label: "Sale", href: "/sale", search: undefined },
 ];
 
 export function Nav() {
@@ -22,7 +21,7 @@ export function Nav() {
   const wishlistCount = useWishlist((s) => s.count());
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => setScrolled(window.scrollY > 10);
     onScroll();
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
@@ -35,132 +34,127 @@ export function Nav() {
 
   return (
     <>
-      {/* Top announcement bar */}
-      <div className="fixed inset-x-0 top-0 z-50 bg-emerald-deep text-ivory py-2.5 px-6 text-center text-[10px] uppercase tracking-luxe">
-        <span className="text-gold-warm">Complimentary Worldwide Shipping</span>
-        <span className="mx-4 text-gold/40 hidden sm:inline">·</span>
-        <span className="hidden sm:inline text-ivory/70">Authenticity Certificate with Every Piece</span>
-        <span className="mx-4 text-gold/40 hidden md:inline">·</span>
-        <span className="hidden md:inline text-ivory/70">Private Atelier Appointments Available</span>
+      {/* Announcement bar */}
+      <div className="fixed inset-x-0 top-0 z-50 bg-foreground text-background py-2.5 px-4 text-center text-[11px] tracking-widest uppercase">
+        Free shipping on orders over RS 5,000
       </div>
 
       <header
-        className={`fixed inset-x-0 top-[41px] z-50 transition-all duration-700 ${
-          scrolled
-            ? "backdrop-blur-xl bg-ivory/90 border-b border-gold/30 shadow-[0_4px_40px_rgba(0,0,0,0.07)]"
-            : "bg-transparent"
+        className={`fixed inset-x-0 top-[41px] z-50 bg-background transition-shadow duration-300 ${
+          scrolled ? "border-b border-border shadow-sm" : "border-b border-border"
         }`}
       >
-        <div className="mx-auto flex max-w-[1600px] items-center justify-between px-6 md:px-12 py-5">
-          <nav className="hidden md:flex items-center gap-8 text-[11px] uppercase tracking-luxe text-foreground/85">
-            {leftLinks.map((l) => (
-              <Link key={l.label} to={l.href} search={l.search} className="relative group">
-                <span className="transition-colors group-hover:text-gold">{l.label}</span>
-                <span className="absolute -bottom-1 left-0 h-px w-0 bg-gradient-gold transition-all duration-500 group-hover:w-full" />
+        <div className="mx-auto flex max-w-[1400px] items-center justify-between px-5 md:px-10 h-14">
+
+          {/* Left nav */}
+          <nav className="hidden md:flex items-center gap-7">
+            {navLinks.slice(0, 4).map((l) => (
+              <Link
+                key={l.label}
+                to={l.href}
+                search={l.search}
+                className="text-[12px] font-medium text-foreground/70 hover:text-foreground transition-colors tracking-wide"
+              >
+                {l.label}
               </Link>
             ))}
           </nav>
 
+          {/* Logo — centered */}
           <Link to="/" className="absolute left-1/2 -translate-x-1/2">
-            <AurumLogo className="text-2xl md:text-3xl" />
+            <AurumLogo className="text-lg" />
           </Link>
 
-          <div className="flex items-center gap-5 text-foreground/85">
-            <nav className="hidden md:flex items-center gap-8 text-[11px] uppercase tracking-luxe">
-              {rightLinks.map((l) => (
-                <Link key={l.label} to={l.href} className="relative group">
-                  <span className="transition-colors group-hover:text-gold">{l.label}</span>
-                  <span className="absolute -bottom-1 left-0 h-px w-0 bg-gradient-gold transition-all duration-500 group-hover:w-full" />
+          {/* Right side */}
+          <div className="flex items-center gap-5 ml-auto">
+            <nav className="hidden md:flex items-center gap-7">
+              {navLinks.slice(4).map((l) => (
+                <Link
+                  key={l.label}
+                  to={l.href}
+                  search={l.search}
+                  className={`text-[12px] font-medium tracking-wide transition-colors ${
+                    l.label === "Sale"
+                      ? "text-red-600 hover:text-red-700"
+                      : "text-foreground/70 hover:text-foreground"
+                  }`}
+                >
+                  {l.label}
                 </Link>
               ))}
             </nav>
+
             <div className="flex items-center gap-4">
-              <Link to="/shop" className="hidden md:block">
-                <Search className="h-4 w-4 cursor-pointer transition-colors hover:text-gold" strokeWidth={1.2} />
+              <Link to="/shop" className="hidden md:block text-foreground/60 hover:text-foreground transition-colors">
+                <Search className="h-4 w-4" strokeWidth={1.8} />
               </Link>
-              <Link to="/wishlist" className="relative">
-                <Heart className={`h-4 w-4 cursor-pointer transition-colors hover:text-gold ${wishlistCount > 0 ? "fill-gold text-gold" : ""}`} strokeWidth={1.2} />
+              <Link to="/wishlist" className="relative text-foreground/60 hover:text-foreground transition-colors">
+                <Heart
+                  className={`h-4 w-4 ${wishlistCount > 0 ? "fill-foreground text-foreground" : ""}`}
+                  strokeWidth={1.8}
+                />
                 {wishlistCount > 0 && (
-                  <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[9px] text-ivory font-medium">
+                  <span className="absolute -right-1.5 -top-1.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-foreground text-[8px] text-background font-bold">
                     {wishlistCount > 9 ? "9+" : wishlistCount}
                   </span>
                 )}
               </Link>
-              <Link to="/cart" className="relative">
-                <ShoppingBag className="h-4 w-4 cursor-pointer transition-colors hover:text-gold" strokeWidth={1.2} />
+              <Link to="/cart" className="relative text-foreground/60 hover:text-foreground transition-colors">
+                <ShoppingBag className="h-4 w-4" strokeWidth={1.8} />
                 {cartCount > 0 && (
-                  <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-gradient-gold text-[9px] text-ivory font-medium">
+                  <span className="absolute -right-1.5 -top-1.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-foreground text-[8px] text-background font-bold">
                     {cartCount > 9 ? "9+" : cartCount}
                   </span>
                 )}
               </Link>
               <button
-                className="md:hidden ml-1 text-foreground/85 hover:text-gold transition-colors"
+                className="md:hidden text-foreground/60 hover:text-foreground transition-colors"
                 onClick={() => setMobileOpen(true)}
                 aria-label="Open menu"
               >
-                <Menu className="h-5 w-5" strokeWidth={1.2} />
+                <Menu className="h-5 w-5" strokeWidth={1.8} />
               </button>
             </div>
           </div>
         </div>
       </header>
 
-      {/* Mobile menu overlay */}
+      {/* Mobile menu */}
       <div
-        className={`fixed inset-0 z-[100] transition-all duration-500 ${mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
+        className={`fixed inset-0 z-[100] transition-all duration-300 ${mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
       >
-        <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setMobileOpen(false)} />
-        <div className={`absolute right-0 top-0 h-full w-[82vw] max-w-sm bg-emerald-deep border-l border-gold/20 flex flex-col transition-transform duration-500 ${mobileOpen ? "translate-x-0" : "translate-x-full"}`}>
-          <div className="flex items-center justify-between px-8 py-6 border-b border-gold/20">
-            <AurumLogo className="text-2xl text-ivory" />
-            <button onClick={() => setMobileOpen(false)} className="text-ivory/60 hover:text-gold-warm transition-colors">
-              <X className="h-5 w-5" strokeWidth={1.2} />
+        <div className="absolute inset-0 bg-black/40" onClick={() => setMobileOpen(false)} />
+        <div className={`absolute left-0 top-0 h-full w-[85vw] max-w-xs bg-background flex flex-col transition-transform duration-300 ${mobileOpen ? "translate-x-0" : "-translate-x-full"}`}>
+          <div className="flex items-center justify-between px-6 h-14 border-b border-border">
+            <AurumLogo className="text-base" />
+            <button onClick={() => setMobileOpen(false)} className="text-foreground/50 hover:text-foreground">
+              <X className="h-5 w-5" strokeWidth={1.8} />
             </button>
           </div>
-          <nav className="flex flex-col px-8 py-8">
-            {leftLinks.map((l, i) => (
+          <nav className="flex flex-col px-6 py-4 flex-1 overflow-y-auto">
+            {navLinks.map((l) => (
               <Link
                 key={l.label}
                 to={l.href}
                 search={l.search}
                 onClick={() => setMobileOpen(false)}
-                className="py-5 border-b border-gold/10 font-display text-2xl italic text-ivory/80 hover:text-gold-warm transition-colors flex items-center justify-between"
+                className={`py-4 border-b border-border text-[15px] font-medium flex items-center justify-between ${
+                  l.label === "Sale" ? "text-red-600" : "text-foreground"
+                }`}
               >
                 {l.label}
-                <span className="text-gold/30 text-sm font-sans not-italic tracking-wider">→</span>
+                <span className="text-foreground/30">›</span>
               </Link>
             ))}
-            {rightLinks.map((l) => (
-              <Link
-                key={l.label}
-                to={l.href}
-                onClick={() => setMobileOpen(false)}
-                className="py-5 border-b border-gold/10 font-display text-2xl italic text-ivory/80 hover:text-gold-warm transition-colors flex items-center justify-between"
-              >
-                {l.label}
-                <span className="text-gold/30 text-sm font-sans not-italic tracking-wider">→</span>
-              </Link>
-            ))}
+          </nav>
+          <div className="px-6 pb-8 pt-4 border-t border-border">
             <Link
               to="/cart"
               onClick={() => setMobileOpen(false)}
-              className="py-5 border-b border-gold/10 font-display text-2xl italic text-ivory/80 hover:text-gold-warm transition-colors flex items-center justify-between"
+              className="w-full flex items-center justify-center gap-2 bg-foreground text-background py-3 text-[12px] font-medium tracking-widest uppercase"
             >
-              Your Bag {cartCount > 0 && <span className="text-gold text-sm font-sans not-italic">({cartCount})</span>}
-              <span className="text-gold/30 text-sm font-sans not-italic tracking-wider">→</span>
-            </Link>
-          </nav>
-          <div className="mt-auto px-8 pb-12 space-y-5">
-            <p className="text-[10px] uppercase tracking-luxe text-gold-warm">Visit our Ateliers</p>
-            <p className="text-sm text-ivory/60 font-light leading-relaxed">Lahore · Karachi · Dubai · London · New York</p>
-            <Link
-              to="/bespoke"
-              onClick={() => setMobileOpen(false)}
-              className="mt-4 inline-flex items-center gap-2 rounded-full bg-gradient-gold px-6 py-3.5 text-[10px] uppercase tracking-luxe text-ivory shadow-luxe"
-            >
-              <Phone className="h-3 w-3" strokeWidth={1.5} />
-              Book Private Appointment
+              <ShoppingBag className="h-4 w-4" strokeWidth={1.8} />
+              Your Bag {cartCount > 0 && `(${cartCount})`}
             </Link>
           </div>
         </div>

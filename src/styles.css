@@ -27,56 +27,35 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-ivory: var(--ivory);
-  --color-emerald: var(--emerald);
-  --color-emerald-deep: var(--emerald-deep);
-  --color-gold: var(--gold);
-  --color-gold-warm: var(--gold-warm);
-  --color-ink: var(--ink);
   --font-display: var(--font-display);
   --font-sans: var(--font-sans);
-  --font-urdu: var(--font-urdu);
 }
 
 :root {
-  --radius: 0.25rem;
+  --radius: 0rem;
 
-  --ivory: oklch(0.972 0.018 88);
-  --ink: oklch(0.18 0.012 60);
-  --emerald: oklch(0.32 0.085 160);
-  --emerald-deep: oklch(0.22 0.07 162);
-  --gold: oklch(0.68 0.12 75);
-  --gold-warm: oklch(0.82 0.12 82);
-
-  --background: var(--ivory);
-  --foreground: var(--ink);
-  --card: oklch(0.985 0.012 88);
-  --card-foreground: var(--ink);
-  --popover: oklch(0.985 0.012 88);
-  --popover-foreground: var(--ink);
-  --primary: var(--gold);
-  --primary-foreground: var(--ivory);
-  --secondary: var(--emerald);
-  --secondary-foreground: var(--ivory);
-  --muted: oklch(0.94 0.018 85);
-  --muted-foreground: oklch(0.42 0.015 70);
-  --accent: oklch(0.93 0.04 85);
-  --accent-foreground: var(--ink);
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.12 0 0);
+  --card: oklch(0.98 0 0);
+  --card-foreground: oklch(0.12 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.12 0 0);
+  --primary: oklch(0.12 0 0);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.96 0 0);
+  --secondary-foreground: oklch(0.12 0 0);
+  --muted: oklch(0.96 0 0);
+  --muted-foreground: oklch(0.5 0 0);
+  --accent: oklch(0.94 0 0);
+  --accent-foreground: oklch(0.12 0 0);
   --destructive: oklch(0.55 0.22 27);
   --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.86 0.04 80);
-  --input: oklch(0.88 0.03 80);
-  --ring: var(--gold);
+  --border: oklch(0.9 0 0);
+  --input: oklch(0.9 0 0);
+  --ring: oklch(0.12 0 0);
 
-  --font-display: "Cormorant Garamond", "Playfair Display", ui-serif, Georgia, serif;
+  --font-display: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-urdu: "Noto Nastaliq Urdu", "Cormorant Garamond", serif;
-
-  --gradient-gold: linear-gradient(135deg, oklch(0.85 0.11 82), oklch(0.6 0.14 70) 50%, oklch(0.82 0.12 80));
-  --gradient-gold-text: linear-gradient(135deg, oklch(0.82 0.13 82), oklch(0.56 0.15 68) 60%, oklch(0.88 0.10 88));
-  --gradient-emerald: linear-gradient(180deg, oklch(0.28 0.08 162), oklch(0.18 0.06 162));
-  --shadow-luxe: 0 30px 80px -30px color-mix(in oklab, var(--emerald-deep) 45%, transparent);
-  --shadow-card: 0 24px 60px -28px color-mix(in oklab, var(--ink) 30%, transparent);
 }
 
 @layer base {
@@ -90,89 +69,13 @@
   }
   h1, h2, h3, h4 {
     font-family: var(--font-display);
-    font-weight: 300;
-    letter-spacing: -0.015em;
-  }
-}
-
-@layer components {
-  .input-aurum {
-    @apply w-full border border-gold/30 bg-ivory px-4 py-3 text-sm text-ink placeholder:text-muted-foreground/50 outline-none focus:border-gold transition-colors;
+    font-weight: 600;
+    letter-spacing: -0.02em;
   }
 }
 
 @layer utilities {
   .font-display { font-family: var(--font-display); }
-  .font-urdu { font-family: var(--font-urdu); }
-  .text-gold { color: var(--gold); }
-  .text-gold-warm { color: var(--gold-warm); }
-  .text-emerald { color: var(--emerald); }
-  .bg-gradient-gold { background: var(--gradient-gold); }
-  .bg-gradient-emerald { background: var(--gradient-emerald); }
-  .text-gradient-gold {
-    background: var(--gradient-gold-text);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-  .shadow-luxe { box-shadow: var(--shadow-luxe); }
-  .shadow-card { box-shadow: var(--shadow-card); }
-  .border-gold { border-color: var(--gold); }
-  .tracking-luxe { letter-spacing: 0.35em; }
-  .tracking-wider-luxe { letter-spacing: 0.5em; }
-
-  /* Cusped Mughal arch using clip-path approximation */
-  .arch-frame {
-    clip-path: path("M 0 100 L 0 40 Q 0 0 50 0 Q 100 0 100 40 L 100 100 Z");
-    -webkit-clip-path: path("M 0 100 L 0 40 Q 0 0 50 0 Q 100 0 100 40 L 100 100 Z");
-  }
-  .arch-top {
-    border-top-left-radius: 50% 35%;
-    border-top-right-radius: 50% 35%;
-  }
-
-  /* Jaali pattern background */
-  .jaali-bg {
-    background-image:
-      radial-gradient(circle at 1px 1px, color-mix(in oklab, var(--gold) 25%, transparent) 1px, transparent 0),
-      radial-gradient(circle at 13px 13px, color-mix(in oklab, var(--gold) 18%, transparent) 1px, transparent 0);
-    background-size: 24px 24px, 24px 24px;
-  }
-  .jaali-emerald {
-    background-image:
-      radial-gradient(circle at 1px 1px, color-mix(in oklab, var(--gold-warm) 35%, transparent) 1px, transparent 0);
-    background-size: 28px 28px;
-  }
-
-  .gold-line {
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  }
-  .gold-line-v {
-    width: 1px;
-    background: linear-gradient(180deg, transparent, var(--gold), transparent);
-  }
-
-  @keyframes shimmer {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-  }
-  .animate-shimmer {
-    background-size: 200% 200%;
-    animation: shimmer 6s ease-in-out infinite;
-  }
-
-  @keyframes float-particle {
-    0%, 100% { transform: translateY(0) translateX(0); opacity: 0.25; }
-    50% { transform: translateY(-40px) translateX(15px); opacity: 0.85; }
-  }
-  .animate-float { animation: float-particle 8s ease-in-out infinite; }
-
-  @keyframes reveal {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .animate-reveal { animation: reveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) both; }
 
   @keyframes marquee {
     from { transform: translateX(0); }
@@ -182,12 +85,12 @@
     animation: marquee 40s linear infinite;
   }
 
-  @keyframes mandala-spin-cw {
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(360deg); }
+  @keyframes reveal {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
   }
-  @keyframes mandala-spin-ccw {
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(-360deg); }
-  }
+  .animate-reveal { animation: reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 }

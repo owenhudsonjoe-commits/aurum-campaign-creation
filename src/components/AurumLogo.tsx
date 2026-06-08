@@ -1,7 +1,8 @@
 export function AurumLogo({ className = "" }: { className?: string }) {
   return (
     <span
-      className={`font-display tracking-[0.5em] text-gradient-gold animate-shimmer ${className}`}
+      className={`font-sans font-bold tracking-widest text-foreground ${className}`}
+      style={{ letterSpacing: "0.15em" }}
     >
       AURUM
     </span>
