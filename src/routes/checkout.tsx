@@ -17,7 +17,7 @@ export const Route = createFileRoute("/checkout")({
   component: CheckoutPage,
 });
 
-type PaymentMethod = "raast" | "qr" | "cod" | "";
+type PaymentMethod = "raast" | "qr" | "";
 type OcrStep = "idle" | "uploading" | "scanning" | "checking_name" | "checking_number" | "approved" | "failed";
 
 function ScreenshotUpload({ amount, onVerified }: { amount: number; onVerified: (ok: boolean) => void }) {
@@ -293,10 +293,9 @@ function CheckoutPage() {
               <section>
                 <h2 className="text-[13px] font-bold text-foreground uppercase tracking-wide border-b border-border pb-3 mb-5">Payment Method</h2>
                 <div className="space-y-3">
-                  {[
-                    { id: "raast" as const, label: "RAAST Transfer", sub: "Send to 0370-3770146 (IMTIYAZAN SAIM)" },
-                    { id: "qr" as const, label: "QR Code Payment", sub: "Scan via any banking app" },
-                    { id: "cod" as const, label: "Cash on Delivery", sub: "Unlocks after 2 successful deliveries" },
+                    {[
+                    { id: "raast" as const, label: "RAAST Transfer", sub: "Send to 0370-3770146 (IMTIYAZAN SAIM)", disabled: false },
+                    { id: "qr" as const, label: "QR Code Payment", sub: "Scan via any banking app", disabled: false },
                   ].map((m) => (
                     <label
                       key={m.id}
@@ -319,6 +318,21 @@ function CheckoutPage() {
                       </div>
                     </label>
                   ))}
+
+                  {/* COD — disabled, not selectable */}
+                  <div className="flex items-start gap-4 p-4 border-2 border-border bg-muted/10 opacity-60 cursor-not-allowed select-none">
+                    <div className="mt-0.5 h-4 w-4 rounded-full border-2 border-border bg-background flex-shrink-0" />
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <p className="text-[13px] font-semibold text-foreground/60">Cash on Delivery</p>
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-amber-100 border border-amber-200 rounded-sm">
+                          <Package className="h-3 w-3 text-amber-600" strokeWidth={1.8} />
+                          <span className="text-[10px] font-semibold text-amber-700 uppercase tracking-wide">Available after 2 deliveries</span>
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-foreground/40 mt-0.5">Complete 2 successful orders to unlock COD</p>
+                    </div>
+                  </div>
                 </div>
 
                 {/* RAAST details */}
@@ -352,23 +366,14 @@ function CheckoutPage() {
                 {paymentMethod === "qr" && (
                   <div className="mt-4 p-5 border border-border bg-muted/20 text-center">
                     <p className="text-[12px] font-bold text-foreground uppercase tracking-wide mb-4">Scan to Pay</p>
-                    <div className="w-40 h-40 mx-auto bg-muted border border-border flex items-center justify-center mb-3">
-                      <p className="text-[11px] text-foreground/40">QR Code</p>
+                    <div className="w-48 h-48 mx-auto mb-3 border border-border bg-white p-2">
+                      <img src="/qr-payment.png" alt="QR Code for payment" className="w-full h-full object-contain" />
                     </div>
                     <p className="text-[12px] text-foreground/60 mb-1">Amount: <strong className="text-foreground">{formatPrice(subtotal)}</strong></p>
                     <p className="text-[11px] text-foreground/40">Scan using JazzCash, EasyPaisa, or any banking app</p>
                   </div>
                 )}
 
-                {paymentMethod === "cod" && (
-                  <div className="mt-4 p-4 border border-amber-200 bg-amber-50 flex items-start gap-3">
-                    <AlertCircle className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" strokeWidth={1.8} />
-                    <div>
-                      <p className="text-[12px] font-semibold text-amber-800 mb-1">COD Not Yet Available</p>
-                      <p className="text-[11px] text-amber-700 leading-relaxed">Cash on Delivery becomes available after <strong>2 successful deliveries</strong> to your address. Please select RAAST Transfer or QR Code Payment for your first orders.</p>
-                    </div>
-                  </div>
-                )}
               </section>
 
               <button
