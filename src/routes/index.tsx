@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Truck, Shield, RotateCcw, Headphones, Flame, Tag } from "lucide-react";
 import { Nav } from "@/components/Nav";
@@ -77,6 +77,50 @@ const clientQuotes = [
   { q: "Ordered online from New York — fit perfectly. Shipping was flawless.", name: "Hira T.", city: "New York" },
   { q: "My mother asked if I had spent ten times more. That's the Aurum effect.", name: "Mehreen A.", city: "Islamabad" },
 ];
+
+const SALE_END = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000); // 3 days from first load
+
+function CountdownTimer() {
+  const [timeLeft, setTimeLeft] = useState(() => {
+    const diff = SALE_END.getTime() - Date.now();
+    return Math.max(0, diff);
+  });
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setTimeLeft(() => Math.max(0, SALE_END.getTime() - Date.now()));
+    }, 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  const d = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+  const h = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const m = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+  const s = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+  const pad = (n: number) => String(n).padStart(2, "0");
+
+  return (
+    <div className="flex items-center gap-2">
+      {[
+        { v: pad(d), label: "Days" },
+        { v: pad(h), label: "Hrs" },
+        { v: pad(m), label: "Min" },
+        { v: pad(s), label: "Sec" },
+      ].map(({ v, label }, i) => (
+        <div key={label} className="flex items-center gap-2">
+          <div className="flex flex-col items-center">
+            <div className="bg-neutral-900 text-amber-400 font-black text-xl md:text-2xl tabular-nums w-12 md:w-14 h-12 md:h-14 flex items-center justify-center leading-none">
+              {v}
+            </div>
+            <span className="text-[9px] uppercase tracking-widest text-neutral-500 mt-1 font-semibold">{label}</span>
+          </div>
+          {i < 3 && <span className="text-rose-500 font-black text-xl md:text-2xl mb-4">:</span>}
+        </div>
+      ))}
+    </div>
+  );
+}
 
 function NewsletterForm() {
   const [email, setEmail] = useState("");
@@ -184,7 +228,7 @@ function Home() {
           <div className="max-w-[1400px] mx-auto px-5 md:px-10">
 
             {/* Header row */}
-            <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-4 mb-10">
+            <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-6 mb-10">
               <div>
                 <h2 className="text-4xl md:text-6xl font-black tracking-tight text-neutral-900 leading-none">
                   Summer<br />
@@ -192,12 +236,22 @@ function Home() {
                 </h2>
                 <p className="mt-3 text-sm text-neutral-500">Starting at <span className="font-bold text-rose-600">RS 2,499</span> · While stocks last</p>
               </div>
-              <Link
-                to="/sale"
-                className="inline-flex items-center gap-2 bg-rose-600 text-white px-7 py-3.5 text-[12px] font-bold uppercase tracking-widest hover:bg-rose-700 transition-colors shrink-0"
-              >
-                See All Sale Items <ArrowRight className="h-3.5 w-3.5" strokeWidth={2.5} />
-              </Link>
+
+              {/* Countdown + CTA stacked */}
+              <div className="flex flex-col items-start md:items-end gap-4 shrink-0">
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-rose-600 mb-2 flex items-center gap-1">
+                    <Flame className="h-3 w-3" /> Sale ends in
+                  </p>
+                  <CountdownTimer />
+                </div>
+                <Link
+                  to="/sale"
+                  className="inline-flex items-center gap-2 bg-rose-600 text-white px-7 py-3.5 text-[12px] font-bold uppercase tracking-widest hover:bg-rose-700 transition-colors"
+                >
+                  See All Sale Items <ArrowRight className="h-3.5 w-3.5" strokeWidth={2.5} />
+                </Link>
+              </div>
             </div>
 
             {/* 3 Floating product cards */}
