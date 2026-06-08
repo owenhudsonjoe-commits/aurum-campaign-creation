@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Truck, Shield, RotateCcw, Headphones } from "lucide-react";
+import { ArrowRight, Truck, Shield, RotateCcw, Headphones, Flame, Tag } from "lucide-react";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import heroImg from "@/assets/hero-daily-wear.png";
@@ -8,7 +8,6 @@ import stitchedImg from "@/assets/stitched-style.png";
 import unstitchedImg from "@/assets/unstitched-style.png";
 import dailyWearImg from "@/assets/pk-atelier.jpg";
 import lookbook1 from "@/assets/lookbook-1.jpg";
-import lookbook2 from "@/assets/lookbook-2.jpg";
 import pkLook1 from "@/assets/pk-look-1.jpg";
 import pkLook2 from "@/assets/pk-look-2.jpg";
 
@@ -29,6 +28,15 @@ export const Route = createFileRoute("/")({
   }),
   component: Home,
 });
+
+const saleItems = [
+  { src: "/iris-1.png",    name: "Iris 2 Pc Lawn",        slug: "iris-2pc-arabic-lawn",      origPrice: "RS 5,800", salePrice: "RS 2,499", off: "57% OFF" },
+  { src: "/berry-1.png",   name: "Berry 2 Pc Lawn",       slug: "berry-2pc-arabic-lawn",     origPrice: "RS 6,500", salePrice: "RS 2,799", off: "57% OFF" },
+  { src: "/casper-1.png",  name: "Casper 3 Pc Cotton",    slug: "casper-3pc-cotton",         origPrice: "RS 7,200", salePrice: "RS 2,999", off: "58% OFF" },
+  { src: "/zarmina-1.png", name: "Zarmina 2 Pc Silk",     slug: "zarmina-2pc-crush-silk",    origPrice: "RS 6,500", salePrice: "RS 2,599", off: "60% OFF" },
+  { src: "/mehmal-1.png",  name: "Mehmal 2 Pc Lawn",      slug: "mehmal-2pc-arabic-lawn",    origPrice: "RS 6,500", salePrice: "RS 2,899", off: "55% OFF" },
+  { src: "/tabeer-1.png",  name: "Tabeer 3 Pc Chiffon",   slug: "tabeer-3pc-chiffon",        origPrice: "RS 8,500", salePrice: "RS 3,299", off: "61% OFF" },
+];
 
 const newArrivals = [
   { src: "/seharzat-1.png",       name: "Seharzat 3 Pc",        slug: "seharzat-3pc-lawn",             price: "RS 2,844",  badge: "New" },
@@ -161,6 +169,86 @@ function Home() {
         </div>
       </div>
 
+      {/* ── SUMMER SUPER SALE ────────────────────────────────────── */}
+      <section className="py-14 md:py-20 border-b border-border bg-gradient-to-br from-rose-50 via-amber-50 to-orange-50">
+        <div className="max-w-[1400px] mx-auto px-5 md:px-10">
+
+          {/* Header */}
+          <div className="relative mb-10 flex flex-col md:flex-row items-start md:items-end justify-between gap-4">
+            <div>
+              <div className="inline-flex items-center gap-2 bg-rose-600 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 mb-4 rounded-sm">
+                <Flame className="h-3 w-3" />
+                Limited Time Only
+              </div>
+              <h2 className="text-3xl md:text-5xl font-black tracking-tight text-neutral-900 leading-none">
+                Summer Super
+                <span className="block text-rose-600">Sale 🔥</span>
+              </h2>
+              <p className="mt-3 text-sm text-neutral-500 font-light">
+                Handcrafted dresses — now starting at <span className="font-semibold text-rose-600">RS 2,499</span>. While stocks last.
+              </p>
+            </div>
+
+            {/* Countdown pill */}
+            <div className="flex items-center gap-3 bg-neutral-900 text-white px-5 py-3 rounded-sm shrink-0">
+              <Tag className="h-4 w-4 text-amber-400" />
+              <div>
+                <p className="text-[9px] uppercase tracking-widest text-white/50 font-semibold">Dresses Under</p>
+                <p className="text-xl font-black text-amber-400 leading-none">RS 3,500</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Product Cards */}
+          <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory">
+            {saleItems.map((item) => (
+              <Link
+                key={item.slug}
+                to="/product/$slug"
+                params={{ slug: item.slug }}
+                className="group flex-shrink-0 snap-start w-[170px] md:w-[210px]"
+              >
+                <div className="relative overflow-hidden bg-white aspect-[3/4] shadow-sm">
+                  <img
+                    src={item.src}
+                    alt={item.name}
+                    loading="lazy"
+                    className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                  />
+                  {/* Off badge */}
+                  <div className="absolute top-0 right-0 bg-rose-600 text-white text-[9px] font-black tracking-wider px-2 py-1.5">
+                    {item.off}
+                  </div>
+                  {/* Hover overlay */}
+                  <div className="absolute inset-0 bg-neutral-900/0 group-hover:bg-neutral-900/10 transition-colors duration-300" />
+                </div>
+                <div className="mt-3 px-0.5">
+                  <p className="text-[12px] font-semibold text-neutral-800 leading-tight group-hover:text-rose-600 transition-colors">
+                    {item.name}
+                  </p>
+                  <div className="mt-1.5 flex items-center gap-2">
+                    <span className="text-[14px] font-black text-rose-600">{item.salePrice}</span>
+                    <span className="text-[11px] text-neutral-400 line-through">{item.origPrice}</span>
+                  </div>
+                </div>
+              </Link>
+            ))}
+
+            {/* View All card */}
+            <Link
+              to="/sale"
+              className="group flex-shrink-0 snap-start w-[170px] md:w-[210px] flex flex-col items-center justify-center bg-neutral-900 aspect-[3/4] text-white hover:bg-rose-600 transition-colors duration-300"
+            >
+              <Flame className="h-8 w-8 mb-3 text-amber-400 group-hover:text-white transition-colors" />
+              <p className="text-[11px] font-bold uppercase tracking-widest mb-1">View All</p>
+              <p className="text-[10px] text-white/50 group-hover:text-white/70">Sale Pieces</p>
+              <ArrowRight className="h-4 w-4 mt-3 text-white/50 group-hover:translate-x-1 transition-transform" strokeWidth={2} />
+            </Link>
+          </div>
+
+        </div>
+      </section>
+
       {/* ── NEW ARRIVALS ─────────────────────────────────────────── */}
       <section className="py-14 md:py-20 border-b border-border">
         <div className="max-w-[1400px] mx-auto px-5 md:px-10">
@@ -202,30 +290,6 @@ function Home() {
               </Link>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ── SUMMER SALE BANNER ───────────────────────────────────── */}
-      <section className="py-14 md:py-20 border-b border-border">
-        <div className="max-w-[1400px] mx-auto px-5 md:px-10">
-          <Link
-            to="/sale"
-            className="group relative overflow-hidden block bg-foreground aspect-[21/9] min-h-[200px]"
-          >
-            <img
-              src={lookbook2}
-              alt="Summer Sale"
-              className="absolute inset-0 h-full w-full object-cover opacity-40 transition-transform duration-700 group-hover:scale-105"
-            />
-            <div className="relative z-10 flex flex-col items-center justify-center h-full text-background text-center px-6 py-12">
-              <p className="text-[11px] tracking-widest uppercase font-semibold text-background/60 mb-3">Limited Time</p>
-              <h2 className="text-4xl md:text-6xl font-bold tracking-tight mb-4">Summer Sale</h2>
-              <p className="text-sm text-background/70 mb-6">Up to 75% off — 13 handcrafted pieces</p>
-              <span className="inline-flex items-center gap-2 border border-background text-background px-8 py-3 text-[11px] font-semibold tracking-widest uppercase group-hover:bg-background group-hover:text-foreground transition-colors">
-                Shop the Sale <ArrowRight className="h-3.5 w-3.5" strokeWidth={2} />
-              </span>
-            </div>
-          </Link>
         </div>
       </section>
 
