@@ -3,10 +3,10 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Truck, Shield, RotateCcw, Headphones } from "lucide-react";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
-import heroImg from "@/assets/pk-hero.png";
-import bridal from "@/assets/pk-bridal.jpg";
-import pret from "@/assets/pk-pret.jpg";
-import men from "@/assets/pk-men.jpg";
+import heroImg from "@/assets/hero-aurum.jpg";
+import stitchedImg from "@/assets/pk-bridal.jpg";
+import unstitchedImg from "@/assets/pk-pret.jpg";
+import dailyWearImg from "@/assets/pk-atelier.jpg";
 import lookbook1 from "@/assets/lookbook-1.jpg";
 import lookbook2 from "@/assets/lookbook-2.jpg";
 import pkLook1 from "@/assets/pk-look-1.jpg";
@@ -39,11 +39,19 @@ const newArrivals = [
   { src: "/iris-1.png",           name: "Iris 3 Pc",            slug: "iris-3pc-khaddar",               price: "RS 5,600",  badge: "Limited" },
 ];
 
-const categories = [
-  { img: bridal,  label: "Bridal",      sub: "Couture Collections",    collection: "Bridal" as const },
-  { img: pret,    label: "Festive",     sub: "Prêt & Ready-to-wear",   collection: "Festive / Pret" as const },
-  { img: men,     label: "Men's",       sub: "Sherwani & Kurta",       collection: "Men's" as const },
-  { img: lookbook2, label: "Daily Wear", sub: "Casual & Formal",      collection: "Daily Wear" as const },
+const shopByStyle = [
+  {
+    img: stitchedImg,
+    label: "Stitched",
+    sub: "Ready-to-wear & Couture",
+    fabric: "Stitched" as const,
+  },
+  {
+    img: unstitchedImg,
+    label: "Unstitched",
+    sub: "Fabric & Suit Pieces",
+    fabric: "Unstitched" as const,
+  },
 ];
 
 const features = [
@@ -97,18 +105,16 @@ function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Nav />
-
-      {/* Spacer for fixed nav (announcement bar 41px + header 56px) */}
       <div className="h-[97px]" />
 
       {/* ── HERO ─────────────────────────────────────────────────── */}
       <section className="relative h-[85svh] min-h-[500px] w-full overflow-hidden bg-foreground/5">
         <img
           src={heroImg}
-          alt="AURUM bridal couture"
-          className="absolute inset-0 h-full w-full object-cover object-top"
+          alt="AURUM Collection"
+          className="absolute inset-0 h-full w-full object-cover object-center"
         />
-        <div className="absolute inset-0 bg-foreground/30" />
+        <div className="absolute inset-0 bg-foreground/35" />
 
         <div className="relative z-10 flex h-full flex-col items-start justify-end px-6 md:px-16 pb-16 md:pb-24 max-w-[1400px] mx-auto">
           <div className="animate-reveal">
@@ -155,42 +161,8 @@ function Home() {
         </div>
       </div>
 
-      {/* ── CATEGORIES ───────────────────────────────────────────── */}
-      <section className="py-14 md:py-20">
-        <div className="max-w-[1400px] mx-auto px-5 md:px-10">
-          <div className="flex items-end justify-between mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Shop by Category</h2>
-            <Link to="/shop" className="text-[12px] font-medium text-foreground/50 hover:text-foreground transition-colors flex items-center gap-1">
-              View All <ArrowRight className="h-3 w-3" strokeWidth={2} />
-            </Link>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-            {categories.map((c) => (
-              <Link
-                key={c.label}
-                to="/shop"
-                search={{ collection: c.collection, fabric: "Stitched" as const }}
-                className="group relative overflow-hidden bg-foreground/5 aspect-[3/4]"
-              >
-                <img
-                  src={c.img}
-                  alt={c.label}
-                  loading="lazy"
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 via-foreground/10 to-transparent" />
-                <div className="absolute bottom-0 inset-x-0 p-4 md:p-5">
-                  <p className="text-background font-bold text-base md:text-lg leading-tight">{c.label}</p>
-                  <p className="text-background/65 text-[11px] mt-0.5">{c.sub}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ── NEW ARRIVALS ─────────────────────────────────────────── */}
-      <section className="py-14 md:py-20 border-t border-border">
+      <section className="py-14 md:py-20 border-b border-border">
         <div className="max-w-[1400px] mx-auto px-5 md:px-10">
           <div className="flex items-end justify-between mb-8">
             <div>
@@ -233,11 +205,74 @@ function Home() {
         </div>
       </section>
 
-      {/* ── EDITORIAL SPLIT ──────────────────────────────────────── */}
-      <section className="py-14 md:py-20 border-t border-border">
+      {/* ── SUMMER SALE BANNER ───────────────────────────────────── */}
+      <section className="py-14 md:py-20 border-b border-border">
         <div className="max-w-[1400px] mx-auto px-5 md:px-10">
-          <div className="grid md:grid-cols-2 gap-4">
-            <Link to="/shop" search={{ collection: "Bridal" as const, fabric: "Stitched" as const }} className="group relative overflow-hidden aspect-[4/5] bg-foreground/5">
+          <Link
+            to="/sale"
+            className="group relative overflow-hidden block bg-foreground aspect-[21/9] min-h-[200px]"
+          >
+            <img
+              src={lookbook2}
+              alt="Summer Sale"
+              className="absolute inset-0 h-full w-full object-cover opacity-40 transition-transform duration-700 group-hover:scale-105"
+            />
+            <div className="relative z-10 flex flex-col items-center justify-center h-full text-background text-center px-6 py-12">
+              <p className="text-[11px] tracking-widest uppercase font-semibold text-background/60 mb-3">Limited Time</p>
+              <h2 className="text-4xl md:text-6xl font-bold tracking-tight mb-4">Summer Sale</h2>
+              <p className="text-sm text-background/70 mb-6">Up to 75% off — 13 handcrafted pieces</p>
+              <span className="inline-flex items-center gap-2 border border-background text-background px-8 py-3 text-[11px] font-semibold tracking-widest uppercase group-hover:bg-background group-hover:text-foreground transition-colors">
+                Shop the Sale <ArrowRight className="h-3.5 w-3.5" strokeWidth={2} />
+              </span>
+            </div>
+          </Link>
+        </div>
+      </section>
+
+      {/* ── SHOP BY STYLE ────────────────────────────────────────── */}
+      <section className="py-14 md:py-20 border-b border-border">
+        <div className="max-w-[1400px] mx-auto px-5 md:px-10">
+          <div className="flex items-end justify-between mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Shop by Style</h2>
+            <Link to="/shop" className="text-[12px] font-medium text-foreground/50 hover:text-foreground transition-colors flex items-center gap-1">
+              View All <ArrowRight className="h-3 w-3" strokeWidth={2} />
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {shopByStyle.map((s) => (
+              <Link
+                key={s.label}
+                to="/shop"
+                search={{ collection: "All" as const, fabric: s.fabric }}
+                className="group relative overflow-hidden bg-foreground/5 aspect-[3/2]"
+              >
+                <img
+                  src={s.img}
+                  alt={s.label}
+                  loading="lazy"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 via-foreground/10 to-transparent" />
+                <div className="absolute bottom-0 inset-x-0 p-6 md:p-8">
+                  <p className="text-background font-bold text-2xl md:text-3xl leading-tight">{s.label}</p>
+                  <p className="text-background/65 text-[13px] mt-1 mb-4">{s.sub}</p>
+                  <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold tracking-widest uppercase text-background border-b border-background/50 pb-0.5 group-hover:border-background transition-colors">
+                    Shop Now <ArrowRight className="h-3 w-3" strokeWidth={2} />
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── EDITORIAL SPLIT ──────────────────────────────────────── */}
+      <section className="py-14 md:py-20 border-b border-border">
+        <div className="max-w-[1400px] mx-auto px-5 md:px-10">
+          <div className="grid md:grid-cols-3 gap-4">
+
+            {/* Bridal — tall */}
+            <Link to="/shop" search={{ collection: "Bridal" as const, fabric: "Stitched" as const }} className="group relative overflow-hidden bg-foreground/5 md:row-span-2 aspect-[3/4] md:aspect-auto">
               <img src={lookbook1} alt="Bridal Edit" loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
               <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent" />
               <div className="absolute bottom-0 inset-x-0 p-6 md:p-8">
@@ -249,24 +284,26 @@ function Home() {
               </div>
             </Link>
 
-            <div className="flex flex-col gap-4">
-              <Link to="/shop" search={{ collection: "Festive / Pret" as const, fabric: "Stitched" as const }} className="group relative overflow-hidden aspect-[16/9] bg-foreground/5">
-                <img src={pkLook1} alt="Festive" loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent" />
-                <div className="absolute bottom-0 inset-x-0 p-5 md:p-6">
-                  <p className="text-[10px] tracking-widest uppercase text-background/60 mb-1 font-medium">Festive Collection</p>
-                  <h3 className="text-background text-xl font-bold">Eid Essentials</h3>
-                </div>
-              </Link>
-              <Link to="/bespoke" className="group relative overflow-hidden aspect-[16/9] bg-foreground/5">
-                <img src={pkLook2} alt="Bespoke" loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent" />
-                <div className="absolute bottom-0 inset-x-0 p-5 md:p-6">
-                  <p className="text-[10px] tracking-widest uppercase text-background/60 mb-1 font-medium">Bespoke</p>
-                  <h3 className="text-background text-xl font-bold">Made For You</h3>
-                </div>
-              </Link>
-            </div>
+            {/* Festive */}
+            <Link to="/shop" search={{ collection: "Festive / Pret" as const, fabric: "Stitched" as const }} className="group relative overflow-hidden bg-foreground/5 aspect-[16/9] md:col-span-2">
+              <img src={pkLook1} alt="Festive" loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+              <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent" />
+              <div className="absolute bottom-0 inset-x-0 p-5 md:p-6">
+                <p className="text-[10px] tracking-widest uppercase text-background/60 mb-1 font-medium">Festive Collection</p>
+                <h3 className="text-background text-xl font-bold">Eid Essentials</h3>
+              </div>
+            </Link>
+
+            {/* Daily Wear */}
+            <Link to="/shop" search={{ collection: "Daily Wear" as const, fabric: "Stitched" as const }} className="group relative overflow-hidden bg-foreground/5 aspect-[16/9] md:col-span-2">
+              <img src={dailyWearImg} alt="Daily Wear" loading="lazy" className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
+              <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent" />
+              <div className="absolute bottom-0 inset-x-0 p-5 md:p-6">
+                <p className="text-[10px] tracking-widest uppercase text-background/60 mb-1 font-medium">Daily Wear</p>
+                <h3 className="text-background text-xl font-bold">Everyday Elegance</h3>
+              </div>
+            </Link>
+
           </div>
         </div>
       </section>
@@ -292,32 +329,8 @@ function Home() {
         </div>
       </div>
 
-      {/* ── SALE BANNER ──────────────────────────────────────────── */}
-      <section className="py-14 md:py-20 border-b border-border">
-        <div className="max-w-[1400px] mx-auto px-5 md:px-10">
-          <Link
-            to="/sale"
-            className="group relative overflow-hidden block bg-foreground aspect-[21/9] min-h-[200px]"
-          >
-            <img
-              src={lookbook2}
-              alt="Summer Sale"
-              className="absolute inset-0 h-full w-full object-cover opacity-40 transition-transform duration-700 group-hover:scale-105"
-            />
-            <div className="relative z-10 flex flex-col items-center justify-center h-full text-background text-center px-6 py-12">
-              <p className="text-[11px] tracking-widest uppercase font-semibold text-background/60 mb-3">Limited Time</p>
-              <h2 className="text-4xl md:text-6xl font-bold tracking-tight mb-4">Summer Sale</h2>
-              <p className="text-sm text-background/70 mb-6">Up to 75% off — 13 handcrafted pieces</p>
-              <span className="inline-flex items-center gap-2 border border-background text-background px-8 py-3 text-[11px] font-semibold tracking-widest uppercase group-hover:bg-background group-hover:text-foreground transition-colors">
-                Shop the Sale <ArrowRight className="h-3.5 w-3.5" strokeWidth={2} />
-              </span>
-            </div>
-          </Link>
-        </div>
-      </section>
-
       {/* ── NEWSLETTER ───────────────────────────────────────────── */}
-      <section className="py-16 md:py-24">
+      <section className="py-16 md:py-24 border-b border-border">
         <div className="max-w-[1400px] mx-auto px-5 md:px-10 flex flex-col md:flex-row items-center justify-between gap-8">
           <div>
             <p className="text-[11px] tracking-widest uppercase text-foreground/40 mb-2 font-medium">Stay in the loop</p>
