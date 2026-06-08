@@ -1,13 +1,13 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
-import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
 import { resolve } from "path";
 
 export default defineConfig({
   plugins: [
+    TanStackRouterVite({ routesDirectory: "./src/routes", generatedRouteTree: "./src/routeTree.gen.ts" }),
     tailwindcss(),
-    tanstackStart(),
     react(),
   ],
   resolve: {
