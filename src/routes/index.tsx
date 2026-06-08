@@ -170,82 +170,88 @@ function Home() {
       </div>
 
       {/* ── SUMMER SUPER SALE ────────────────────────────────────── */}
-      <section className="py-14 md:py-20 border-b border-border bg-gradient-to-br from-rose-50 via-amber-50 to-orange-50">
-        <div className="max-w-[1400px] mx-auto px-5 md:px-10">
+      <section className="border-b border-border overflow-hidden">
+        {/* Top banner strip */}
+        <div className="bg-neutral-900 py-3 px-5 flex items-center justify-center gap-3">
+          <Flame className="h-3.5 w-3.5 text-amber-400 shrink-0" />
+          <p className="text-[11px] font-semibold uppercase tracking-widest text-white">
+            Summer Super Sale — Dresses Under <span className="text-amber-400">RS 3,500</span> · Limited Stock
+          </p>
+          <Flame className="h-3.5 w-3.5 text-amber-400 shrink-0" />
+        </div>
 
-          {/* Header */}
-          <div className="relative mb-10 flex flex-col md:flex-row items-start md:items-end justify-between gap-4">
-            <div>
-              <div className="inline-flex items-center gap-2 bg-rose-600 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 mb-4 rounded-sm">
-                <Flame className="h-3 w-3" />
-                Limited Time Only
-              </div>
-              <h2 className="text-3xl md:text-5xl font-black tracking-tight text-neutral-900 leading-none">
-                Summer Super
-                <span className="block text-rose-600">Sale 🔥</span>
-              </h2>
-              <p className="mt-3 text-sm text-neutral-500 font-light">
-                Handcrafted dresses — now starting at <span className="font-semibold text-rose-600">RS 2,499</span>. While stocks last.
-              </p>
-            </div>
+        <div className="bg-gradient-to-br from-rose-50 via-orange-50 to-amber-50 py-12 md:py-16">
+          <div className="max-w-[1400px] mx-auto px-5 md:px-10">
 
-            {/* Countdown pill */}
-            <div className="flex items-center gap-3 bg-neutral-900 text-white px-5 py-3 rounded-sm shrink-0">
-              <Tag className="h-4 w-4 text-amber-400" />
+            {/* Header row */}
+            <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-4 mb-10">
               <div>
-                <p className="text-[9px] uppercase tracking-widest text-white/50 font-semibold">Dresses Under</p>
-                <p className="text-xl font-black text-amber-400 leading-none">RS 3,500</p>
+                <h2 className="text-4xl md:text-6xl font-black tracking-tight text-neutral-900 leading-none">
+                  Summer<br />
+                  <span className="text-rose-600">Super Sale 🔥</span>
+                </h2>
+                <p className="mt-3 text-sm text-neutral-500">Starting at <span className="font-bold text-rose-600">RS 2,499</span> · While stocks last</p>
               </div>
-            </div>
-          </div>
-
-          {/* Product Cards */}
-          <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory">
-            {saleItems.map((item) => (
               <Link
-                key={item.slug}
-                to="/product/$slug"
-                params={{ slug: item.slug }}
-                className="group flex-shrink-0 snap-start w-[170px] md:w-[210px]"
+                to="/sale"
+                className="inline-flex items-center gap-2 bg-rose-600 text-white px-7 py-3.5 text-[12px] font-bold uppercase tracking-widest hover:bg-rose-700 transition-colors shrink-0"
               >
-                <div className="relative overflow-hidden bg-white aspect-[3/4] shadow-sm">
-                  <img
-                    src={item.src}
-                    alt={item.name}
-                    loading="lazy"
-                    className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                  />
-                  {/* Off badge */}
-                  <div className="absolute top-0 right-0 bg-rose-600 text-white text-[9px] font-black tracking-wider px-2 py-1.5">
-                    {item.off}
-                  </div>
-                  {/* Hover overlay */}
-                  <div className="absolute inset-0 bg-neutral-900/0 group-hover:bg-neutral-900/10 transition-colors duration-300" />
-                </div>
-                <div className="mt-3 px-0.5">
-                  <p className="text-[12px] font-semibold text-neutral-800 leading-tight group-hover:text-rose-600 transition-colors">
-                    {item.name}
-                  </p>
-                  <div className="mt-1.5 flex items-center gap-2">
-                    <span className="text-[14px] font-black text-rose-600">{item.salePrice}</span>
-                    <span className="text-[11px] text-neutral-400 line-through">{item.origPrice}</span>
-                  </div>
-                </div>
+                See All Sale Items <ArrowRight className="h-3.5 w-3.5" strokeWidth={2.5} />
               </Link>
-            ))}
+            </div>
 
-            {/* View All card */}
-            <Link
-              to="/sale"
-              className="group flex-shrink-0 snap-start w-[170px] md:w-[210px] flex flex-col items-center justify-center bg-neutral-900 aspect-[3/4] text-white hover:bg-rose-600 transition-colors duration-300"
-            >
-              <Flame className="h-8 w-8 mb-3 text-amber-400 group-hover:text-white transition-colors" />
-              <p className="text-[11px] font-bold uppercase tracking-widest mb-1">View All</p>
-              <p className="text-[10px] text-white/50 group-hover:text-white/70">Sale Pieces</p>
-              <ArrowRight className="h-4 w-4 mt-3 text-white/50 group-hover:translate-x-1 transition-transform" strokeWidth={2} />
-            </Link>
+            {/* 3 Floating product cards */}
+            <div className="grid grid-cols-3 gap-4 md:gap-6">
+              {saleItems.slice(0, 3).map((item, i) => (
+                <Link
+                  key={item.slug}
+                  to="/product/$slug"
+                  params={{ slug: item.slug }}
+                  className="group relative"
+                >
+                  <div className={`relative overflow-hidden bg-white shadow-md ${i === 1 ? "md:-mt-6" : ""}`}>
+                    <div className="aspect-[3/4]">
+                      <img
+                        src={item.src}
+                        alt={item.name}
+                        loading="lazy"
+                        className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                      />
+                    </div>
+                    {/* Off ribbon */}
+                    <div className="absolute top-3 left-0 bg-rose-600 text-white text-[9px] font-black tracking-widest px-3 py-1.5 shadow-sm">
+                      {item.off}
+                    </div>
+                    {/* Hover overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute bottom-0 inset-x-0 p-4 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-400">
+                      <span className="text-[10px] text-white font-semibold uppercase tracking-widest">View Product →</span>
+                    </div>
+                  </div>
+                  <div className="mt-3">
+                    <p className="text-[12px] font-semibold text-neutral-800 leading-tight truncate group-hover:text-rose-600 transition-colors">{item.name}</p>
+                    <div className="mt-1 flex items-center gap-2">
+                      <span className="text-[15px] font-black text-rose-600">{item.salePrice}</span>
+                      <span className="text-[11px] text-neutral-400 line-through">{item.origPrice}</span>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+            {/* Bottom CTA */}
+            <div className="mt-10 flex items-center justify-center">
+              <Link
+                to="/sale"
+                className="group inline-flex items-center gap-3 border-2 border-neutral-900 text-neutral-900 px-10 py-4 text-[12px] font-black uppercase tracking-widest hover:bg-neutral-900 hover:text-white transition-all duration-300"
+              >
+                <Flame className="h-4 w-4 text-rose-600 group-hover:text-amber-400 transition-colors" />
+                See All {saleItems.length}+ Sale Pieces
+                <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" strokeWidth={2.5} />
+              </Link>
+            </div>
+
           </div>
-
         </div>
       </section>
 
@@ -294,39 +300,92 @@ function Home() {
       </section>
 
       {/* ── SHOP BY STYLE ────────────────────────────────────────── */}
-      <section className="py-14 md:py-20 border-b border-border">
-        <div className="max-w-[1400px] mx-auto px-5 md:px-10">
-          <div className="flex items-end justify-between mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Shop by Style</h2>
-            <Link to="/shop" className="text-[12px] font-medium text-foreground/50 hover:text-foreground transition-colors flex items-center gap-1">
-              View All <ArrowRight className="h-3 w-3" strokeWidth={2} />
-            </Link>
+      <section className="border-b border-border">
+        {/* Section label */}
+        <div className="max-w-[1400px] mx-auto px-5 md:px-10 pt-12 pb-6 flex items-end justify-between">
+          <div>
+            <p className="text-[10px] tracking-widest uppercase text-foreground/40 font-semibold mb-1">Curated for You</p>
+            <h2 className="text-3xl md:text-4xl font-black tracking-tight">Shop by Style</h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {shopByStyle.map((s) => (
-              <Link
-                key={s.label}
-                to="/shop"
-                search={{ collection: "All" as const, fabric: s.fabric }}
-                className="group relative overflow-hidden bg-foreground/5 aspect-[3/2]"
-              >
-                <img
-                  src={s.img}
-                  alt={s.label}
-                  loading="lazy"
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 via-foreground/10 to-transparent" />
-                <div className="absolute bottom-0 inset-x-0 p-6 md:p-8">
-                  <p className="text-background font-bold text-2xl md:text-3xl leading-tight">{s.label}</p>
-                  <p className="text-background/65 text-[13px] mt-1 mb-4">{s.sub}</p>
-                  <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold tracking-widest uppercase text-background border-b border-background/50 pb-0.5 group-hover:border-background transition-colors">
-                    Shop Now <ArrowRight className="h-3 w-3" strokeWidth={2} />
-                  </span>
-                </div>
-              </Link>
-            ))}
-          </div>
+          <Link to="/shop" className="text-[11px] font-semibold uppercase tracking-widest text-foreground/50 hover:text-foreground transition-colors flex items-center gap-1.5">
+            All Collections <ArrowRight className="h-3 w-3" strokeWidth={2.5} />
+          </Link>
+        </div>
+
+        {/* Two-panel full-bleed layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2">
+          {/* Stitched — left */}
+          <Link
+            to="/shop"
+            search={{ collection: "All" as const, fabric: "Stitched" as const }}
+            className="group relative overflow-hidden bg-neutral-100"
+            style={{ minHeight: "520px" }}
+          >
+            <img
+              src={stitchedImg}
+              alt="Stitched"
+              loading="lazy"
+              className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-[1200ms] ease-out group-hover:scale-110"
+            />
+            {/* Dual gradient: dark bottom + subtle left side */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-transparent" />
+
+            {/* Top-left tag */}
+            <div className="absolute top-5 left-5 border border-white/40 text-white text-[9px] font-bold uppercase tracking-widest px-3 py-1.5 backdrop-blur-sm bg-white/10">
+              Ready to Wear
+            </div>
+
+            {/* Bottom content */}
+            <div className="absolute bottom-0 inset-x-0 p-7 md:p-10">
+              <p className="text-white/60 text-[10px] font-semibold uppercase tracking-widest mb-2">01 — Collection</p>
+              <h3 className="text-white text-4xl md:text-5xl font-black leading-none mb-3 tracking-tight">
+                Stitched
+              </h3>
+              <p className="text-white/70 text-sm mb-6 font-light max-w-xs leading-relaxed">
+                Ready-to-wear couture &amp; bespoke masterpieces — crafted to perfection.
+              </p>
+              <span className="inline-flex items-center gap-2 bg-white text-neutral-900 text-[11px] font-black uppercase tracking-widest px-6 py-3 group-hover:bg-rose-600 group-hover:text-white transition-all duration-300">
+                Explore <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" strokeWidth={2.5} />
+              </span>
+            </div>
+          </Link>
+
+          {/* Unstitched — right */}
+          <Link
+            to="/shop"
+            search={{ collection: "All" as const, fabric: "Unstitched" as const }}
+            className="group relative overflow-hidden bg-stone-100"
+            style={{ minHeight: "520px" }}
+          >
+            <img
+              src={unstitchedImg}
+              alt="Unstitched"
+              loading="lazy"
+              className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-[1200ms] ease-out group-hover:scale-110"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-l from-black/20 to-transparent" />
+
+            {/* Top-right tag */}
+            <div className="absolute top-5 right-5 border border-white/40 text-white text-[9px] font-bold uppercase tracking-widest px-3 py-1.5 backdrop-blur-sm bg-white/10">
+              Fabric &amp; Suits
+            </div>
+
+            {/* Bottom content */}
+            <div className="absolute bottom-0 inset-x-0 p-7 md:p-10">
+              <p className="text-white/60 text-[10px] font-semibold uppercase tracking-widest mb-2">02 — Collection</p>
+              <h3 className="text-white text-4xl md:text-5xl font-black leading-none mb-3 tracking-tight">
+                Unstitched
+              </h3>
+              <p className="text-white/70 text-sm mb-6 font-light max-w-xs leading-relaxed">
+                Luxury fabric &amp; suit pieces — tailored to your vision.
+              </p>
+              <span className="inline-flex items-center gap-2 bg-white text-neutral-900 text-[11px] font-black uppercase tracking-widest px-6 py-3 group-hover:bg-amber-500 group-hover:text-white transition-all duration-300">
+                Explore <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" strokeWidth={2.5} />
+              </span>
+            </div>
+          </Link>
         </div>
       </section>
 

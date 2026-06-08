@@ -1165,8 +1165,8 @@ export const PRODUCTS: Product[] = [
     category: "Festive / Pret",
     fabricType: "Stitched",
     price: 8500,
-    discountedPrice: 4760,
-    discountPercent: 44,
+    discountedPrice: 3299,
+    discountPercent: 61,
     badge: "Bestseller",
     images: [tabeer1, tabeer2, tabeer3, tabeer4, tabeer5],
     description:
