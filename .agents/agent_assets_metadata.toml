@@ -6,3 +6,21 @@ id = "XBgRrkras4qzpf5gaPBZi"
 uri = "file://src/assets/pk-hero.png"
 type = "image"
 title = "pakistani-bridal-hero"
+
+[[generated]]
+id = "BPjY__enncT0RCGq46yZK"
+uri = "file://src/assets/hero-daily-wear.png"
+type = "image"
+title = "Pakistani girl daily wear hero"
+
+[[generated]]
+id = "IsMEru4gAboxLW8juPmDW"
+uri = "file://src/assets/stitched-style.png"
+type = "image"
+title = "Pakistani stitched outfit editorial"
+
+[[generated]]
+id = "crybbaATT2V0916nfDO8t"
+uri = "file://src/assets/unstitched-style.png"
+type = "image"
+title = "Pakistani unstitched fabric suit"
