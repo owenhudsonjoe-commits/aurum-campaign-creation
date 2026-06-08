@@ -159,6 +159,7 @@ function CheckoutPage() {
   const subtotal = total();
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("");
   const [submitted, setSubmitted] = useState(false);
+  const [orderNumber, setOrderNumber] = useState("");
   const [raastScreenshotOk, setRaastScreenshotOk] = useState(false);
   const [form, setForm] = useState({
     firstName: "", lastName: "", email: "", phone: "",
@@ -171,6 +172,8 @@ function CheckoutPage() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    const num = `AUR-${Math.floor(1000 + Math.random() * 9000)}`;
+    setOrderNumber(num);
     setSubmitted(true);
     clearCart();
   }
@@ -188,12 +191,32 @@ function CheckoutPage() {
           <p className="text-sm text-foreground/60 max-w-md leading-relaxed mb-2">
             Your order has been received. Our team will contact you within 24 hours to confirm measurements and lead time.
           </p>
-          <p className="text-sm text-foreground/50 max-w-md mb-10">
+          <p className="text-sm text-foreground/50 max-w-md mb-6">
             A confirmation has been sent to <strong className="text-foreground">{form.email}</strong>.
           </p>
-          <Link to="/" className="inline-flex items-center gap-2 bg-foreground text-background px-8 py-3.5 text-[12px] font-semibold tracking-widest uppercase hover:bg-foreground/90 transition-colors">
-            Back to Home
-          </Link>
+
+          {/* Order number badge */}
+          <div className="border border-border bg-muted/20 px-6 py-4 mb-8 text-center">
+            <p className="text-[10px] uppercase tracking-widest text-foreground/40 mb-1">Your Order Number</p>
+            <p className="text-xl font-bold text-foreground tracking-wider">{orderNumber}</p>
+            <p className="text-[11px] text-foreground/40 mt-1">Save this to track your delivery</p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-3">
+            <Link
+              to="/track"
+              search={{ order: orderNumber } as never}
+              className="inline-flex items-center justify-center gap-2 bg-foreground text-background px-8 py-3.5 text-[12px] font-semibold tracking-widest uppercase hover:bg-foreground/90 transition-colors"
+            >
+              Track My Order
+            </Link>
+            <Link
+              to="/"
+              className="inline-flex items-center justify-center gap-2 border border-border text-foreground px-8 py-3.5 text-[12px] font-semibold tracking-widest uppercase hover:border-foreground transition-colors"
+            >
+              Back to Home
+            </Link>
+          </div>
         </div>
       </div>
     );
