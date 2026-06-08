@@ -4,7 +4,7 @@ import { ArrowRight, Truck, Shield, RotateCcw, Headphones, Flame, Tag } from "lu
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import heroImg from "@/assets/hero-daily-wear.png";
-import stitchedImg from "@/assets/stitched-style.png";
+import stitchedImg from "@/assets/stitched-magenta.png";
 import unstitchedImg from "@/assets/unstitched-style.png";
 import dailyWearImg from "@/assets/pk-atelier.jpg";
 import lookbook1 from "@/assets/lookbook-1.jpg";
