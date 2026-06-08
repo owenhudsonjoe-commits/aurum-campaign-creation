@@ -6,10 +6,6 @@ import { Footer } from "@/components/Footer";
 import heroImg from "@/assets/hero-daily-wear.png";
 import stitchedImg from "@/assets/stitched-magenta.png";
 import unstitchedImg from "@/assets/unstitched-style.png";
-import dailyWearImg from "@/assets/pk-atelier.jpg";
-import lookbook1 from "@/assets/lookbook-1.jpg";
-import pkLook1 from "@/assets/pk-look-1.jpg";
-import pkLook2 from "@/assets/pk-look-2.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -440,48 +436,6 @@ function Home() {
               </span>
             </div>
           </Link>
-        </div>
-      </section>
-
-      {/* ── EDITORIAL SPLIT ──────────────────────────────────────── */}
-      <section className="py-14 md:py-20 border-b border-border">
-        <div className="max-w-[1400px] mx-auto px-5 md:px-10">
-          <div className="grid md:grid-cols-3 gap-4">
-
-            {/* Bridal — tall */}
-            <Link to="/shop" search={{ collection: "Bridal" as const, fabric: "Stitched" as const }} className="group relative overflow-hidden bg-foreground/5 md:row-span-2 aspect-[3/4] md:aspect-auto">
-              <img src={lookbook1} alt="Bridal Edit" loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent" />
-              <div className="absolute bottom-0 inset-x-0 p-6 md:p-8">
-                <p className="text-[10px] tracking-widest uppercase text-background/60 mb-2 font-medium">Bridal Edit · 2026</p>
-                <h3 className="text-background text-2xl md:text-3xl font-bold leading-tight mb-3">The Bridal<br />Collection</h3>
-                <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold tracking-widest uppercase text-background border-b border-background/50 pb-0.5 group-hover:border-background transition-colors">
-                  Explore <ArrowRight className="h-3 w-3" strokeWidth={2} />
-                </span>
-              </div>
-            </Link>
-
-            {/* Festive */}
-            <Link to="/shop" search={{ collection: "Festive / Pret" as const, fabric: "Stitched" as const }} className="group relative overflow-hidden bg-foreground/5 aspect-[16/9] md:col-span-2">
-              <img src={pkLook1} alt="Festive" loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent" />
-              <div className="absolute bottom-0 inset-x-0 p-5 md:p-6">
-                <p className="text-[10px] tracking-widest uppercase text-background/60 mb-1 font-medium">Festive Collection</p>
-                <h3 className="text-background text-xl font-bold">Eid Essentials</h3>
-              </div>
-            </Link>
-
-            {/* Daily Wear */}
-            <Link to="/shop" search={{ collection: "Daily Wear" as const, fabric: "Stitched" as const }} className="group relative overflow-hidden bg-foreground/5 aspect-[16/9] md:col-span-2">
-              <img src={dailyWearImg} alt="Daily Wear" loading="lazy" className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent" />
-              <div className="absolute bottom-0 inset-x-0 p-5 md:p-6">
-                <p className="text-[10px] tracking-widest uppercase text-background/60 mb-1 font-medium">Daily Wear</p>
-                <h3 className="text-background text-xl font-bold">Everyday Elegance</h3>
-              </div>
-            </Link>
-
-          </div>
         </div>
       </section>
 
