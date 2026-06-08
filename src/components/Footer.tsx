@@ -12,6 +12,7 @@ const collections = [
 
 const help = [
   { label: "Bespoke Atelier", href: "/bespoke" },
+  { label: "Track My Order", href: "/track" },
   { label: "Size Guides", href: "/shop" },
   { label: "Shipping & Returns", href: "/shop" },
   { label: "Your Bag", href: "/cart" },
