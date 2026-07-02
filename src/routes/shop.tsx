@@ -1,5 +1,5 @@
 import { useState, useMemo, useRef } from "react";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { z } from "zod";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
@@ -37,11 +37,17 @@ export const Route = createFileRoute("/shop")({
 });
 
 function ShopPage() {
-  const { collection: initialCollection, fabric: initialFabric } = Route.useSearch();
-  const [fabric, setFabric] = useState<FabricType>(initialFabric);
-  const [activeCollection, setActiveCollection] = useState<Collection | "All">(initialCollection);
+  const { collection: activeCollection, fabric } = Route.useSearch();
+  const navigate = useNavigate({ from: "/shop" });
   const { addItem } = useCart();
   const { toggle: toggleWishlist, isWishlisted } = useWishlist();
+
+  function setFabric(tab: FabricType) {
+    navigate({ search: { fabric: tab, collection: "All" } });
+  }
+  function setActiveCollection(col: Collection | "All") {
+    navigate({ search: (prev) => ({ ...prev, collection: col }) });
+  }
   const [addedId, setAddedId] = useState<string | null>(null);
   const [query, setQuery] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
