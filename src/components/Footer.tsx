@@ -1,74 +1,88 @@
 import { Link } from "@tanstack/react-router";
 import { AurumLogo } from "./AurumLogo";
-import { Mail, Phone, Instagram, Facebook } from "lucide-react";
+import { Mail, MessageCircle, Instagram, Facebook } from "lucide-react";
 
 const collections = [
-  { label: "Bridal Couture", href: "/shop", search: { collection: "Bridal" as const, fabric: "Stitched" as const } },
-  { label: "Festive Prêt", href: "/shop", search: { collection: "Festive / Pret" as const, fabric: "Stitched" as const } },
-  { label: "Daily Wear", href: "/shop", search: { collection: "Daily Wear" as const, fabric: "Stitched" as const } },
-  { label: "Men's", href: "/shop", search: { collection: "Men's" as const, fabric: "Stitched" as const } },
-  { label: "Unstitched", href: "/shop", search: { collection: "All" as const, fabric: "Unstitched" as const } },
+  { label: "Bridal Couture",  href: "/shop", search: { collection: "Bridal" as const,        fabric: "Stitched" as const } },
+  { label: "Festive Prêt",    href: "/shop", search: { collection: "Festive / Pret" as const,  fabric: "Stitched" as const } },
+  { label: "Daily Wear",      href: "/shop", search: { collection: "Daily Wear" as const,      fabric: "Stitched" as const } },
+  { label: "Men's",           href: "/shop", search: { collection: "Men's" as const,           fabric: "Stitched" as const } },
+  { label: "Unstitched",      href: "/shop", search: { collection: "All" as const,             fabric: "Unstitched" as const } },
 ];
 
 const help = [
-  { label: "Bespoke Atelier", href: "/bespoke" },
-  { label: "Track My Order", href: "/track" },
-  { label: "Size Guides", href: "/shop" },
-  { label: "Shipping & Returns", href: "/shop" },
-  { label: "Your Bag", href: "/cart" },
+  { label: "Bespoke Atelier",   href: "/bespoke" },
+  { label: "Track My Order",    href: "/track" },
+  { label: "Size Guides",       href: "/shop" },
+  { label: "Shipping & Returns",href: "/shop" },
+  { label: "Your Bag",          href: "/cart" },
 ];
 
 export function Footer() {
   return (
-    <footer className="bg-foreground text-background">
-      {/* Help strip */}
-      <div className="border-b border-background/10 py-8 px-5 md:px-10">
+    <footer style={{ background: "#17130f", color: "#f5f0e8" }}>
+
+      {/* ── Help strip with gold line ── */}
+      <div style={{ borderBottom: "1px solid rgba(201,168,76,0.18)" }} className="py-8 px-5 md:px-10">
         <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row items-center justify-between gap-5">
-          <p className="text-sm font-medium">Need help? Our stylists are here for you.</p>
+          <p className="font-display text-xl font-light" style={{ color: "#d4c8b0" }}>
+            Need help? Our stylists are here for you.
+          </p>
           <div className="flex flex-col sm:flex-row gap-3">
             <a
               href="https://wa.me/923474325410"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 border border-background/20 px-5 py-2.5 text-[11px] tracking-widest uppercase hover:bg-background/10 transition-colors"
+              className="inline-flex items-center justify-center gap-2 px-5 py-2.5 text-[10px] tracking-[0.2em] uppercase font-sans font-medium transition-colors hover:opacity-80"
+              style={{ border: "1px solid rgba(201,168,76,0.35)", color: "#c9a84c" }}
             >
-              <Phone className="h-3.5 w-3.5" strokeWidth={1.8} />
-              +92 331 854 1663
+              <MessageCircle className="h-3.5 w-3.5" strokeWidth={1.5} />
+              WhatsApp Us
             </a>
             <a
               href="mailto:aurumshop12@gmail.com"
-              className="inline-flex items-center justify-center gap-2 border border-background/20 px-5 py-2.5 text-[11px] tracking-widest uppercase hover:bg-background/10 transition-colors"
+              className="inline-flex items-center justify-center gap-2 px-5 py-2.5 text-[10px] tracking-[0.2em] uppercase font-sans font-medium transition-colors hover:opacity-80"
+              style={{ border: "1px solid rgba(245,240,232,0.15)", color: "rgba(245,240,232,0.6)" }}
             >
-              <Mail className="h-3.5 w-3.5" strokeWidth={1.8} />
-              aurumshop12@gmail.com
+              <Mail className="h-3.5 w-3.5" strokeWidth={1.5} />
+              Email Us
             </a>
           </div>
         </div>
       </div>
 
-      {/* Main grid */}
+      {/* ── Main grid ── */}
       <div className="max-w-[1400px] mx-auto px-5 md:px-10 py-14 grid grid-cols-2 md:grid-cols-4 gap-10">
+
+        {/* Brand column */}
         <div className="col-span-2 md:col-span-1">
-          <AurumLogo className="text-lg text-background mb-4" />
-          <p className="text-xs text-background/50 leading-relaxed mb-6 max-w-[200px]">
+          <div className="mb-5">
+            <AurumLogo className="text-[13px]" />
+          </div>
+          <p className="text-xs leading-relaxed mb-6 max-w-[190px] font-sans font-light" style={{ color: "rgba(245,240,232,0.4)" }}>
             Pakistani heritage couture — bridal, festive prêt and bespoke tailoring from our Lahore atelier.
           </p>
           <div className="flex items-center gap-4">
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-background/40 hover:text-background transition-colors">
-              <Instagram className="h-4 w-4" strokeWidth={1.8} />
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"
+              className="transition-colors hover:opacity-60" style={{ color: "rgba(245,240,232,0.35)" }}>
+              <Instagram className="h-4 w-4" strokeWidth={1.5} />
             </a>
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-background/40 hover:text-background transition-colors">
-              <Facebook className="h-4 w-4" strokeWidth={1.8} />
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"
+              className="transition-colors hover:opacity-60" style={{ color: "rgba(245,240,232,0.35)" }}>
+              <Facebook className="h-4 w-4" strokeWidth={1.5} />
             </a>
           </div>
         </div>
 
+        {/* Collections */}
         <div>
-          <p className="text-[11px] tracking-widest uppercase text-background/40 mb-5 font-medium">Collections</p>
+          <p className="text-[9px] tracking-[0.3em] uppercase font-sans font-medium mb-5" style={{ color: "#c9a84c" }}>Collections</p>
           <ul className="space-y-3">
             {collections.map((c) => (
               <li key={c.label}>
-                <Link to={c.href} search={c.search} className="text-xs text-background/60 hover:text-background transition-colors">
+                <Link to={c.href} search={c.search}
+                  className="text-xs font-sans transition-colors hover:opacity-80"
+                  style={{ color: "rgba(245,240,232,0.5)" }}>
                   {c.label}
                 </Link>
               </li>
@@ -76,12 +90,15 @@ export function Footer() {
           </ul>
         </div>
 
+        {/* Help */}
         <div>
-          <p className="text-[11px] tracking-widest uppercase text-background/40 mb-5 font-medium">Help</p>
+          <p className="text-[9px] tracking-[0.3em] uppercase font-sans font-medium mb-5" style={{ color: "#c9a84c" }}>Help</p>
           <ul className="space-y-3">
             {help.map((l) => (
               <li key={l.label}>
-                <Link to={l.href} className="text-xs text-background/60 hover:text-background transition-colors">
+                <Link to={l.href}
+                  className="text-xs font-sans transition-colors hover:opacity-80"
+                  style={{ color: "rgba(245,240,232,0.5)" }}>
                   {l.label}
                 </Link>
               </li>
@@ -89,20 +106,22 @@ export function Footer() {
           </ul>
         </div>
 
+        {/* Ateliers */}
         <div>
-          <p className="text-[11px] tracking-widest uppercase text-background/40 mb-5 font-medium">Ateliers</p>
+          <p className="text-[9px] tracking-[0.3em] uppercase font-sans font-medium mb-5" style={{ color: "#c9a84c" }}>Ateliers</p>
           <ul className="space-y-3">
             {["Lahore", "Karachi", "Dubai", "London"].map((city) => (
-              <li key={city} className="text-xs text-background/60">{city}</li>
+              <li key={city} className="text-xs font-sans" style={{ color: "rgba(245,240,232,0.5)" }}>{city}</li>
             ))}
           </ul>
         </div>
       </div>
 
-      <div className="border-t border-background/10 px-5 md:px-10 py-5">
-        <div className="max-w-[1400px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-[10px] uppercase tracking-widest text-background/30">
+      {/* ── Bottom bar ── */}
+      <div className="px-5 md:px-10 py-5" style={{ borderTop: "1px solid rgba(245,240,232,0.07)" }}>
+        <div className="max-w-[1400px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-[9px] tracking-[0.2em] uppercase font-sans" style={{ color: "rgba(245,240,232,0.2)" }}>
           <p>© {new Date().getFullYear()} Maison Aurum. All rights reserved.</p>
-          <p>Made in Lahore</p>
+          <p>Handcrafted in Lahore</p>
         </div>
       </div>
     </footer>

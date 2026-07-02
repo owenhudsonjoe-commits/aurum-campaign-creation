@@ -98,11 +98,11 @@ function ShopPage() {
       {/* Page header */}
       <div className="pt-[97px] border-b border-border">
         <div className="max-w-[1400px] mx-auto px-5 md:px-10 py-8">
-          <p className="text-[11px] tracking-widest uppercase text-foreground/40 mb-2 font-medium">AURUM</p>
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">
+          <p className="font-sans text-[9px] tracking-[0.35em] uppercase font-medium mb-2" style={{ color: "var(--gold)" }}>AURUM</p>
+          <h1 className="font-display font-light text-3xl md:text-4xl text-foreground">
             {activeCollection === "All" ? "All Collections" : activeCollection}
           </h1>
-          <p className="text-sm text-foreground/50 mt-1">{filtered.length} products</p>
+          <p className="font-sans text-[11px] text-foreground/40 mt-1.5">{filtered.length} products</p>
         </div>
 
         {/* Filter bar */}
