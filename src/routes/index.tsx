@@ -3,9 +3,9 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Truck, Shield, RotateCcw, Headphones, Flame, Tag } from "lucide-react";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
-import heroImg from "@/assets/hero-daily-wear.png";
-import stitchedImg from "@/assets/stitched-magenta.png";
-import unstitchedImg from "@/assets/unstitched-style.png";
+import heroImg from "@/assets/hero-daily-wear.webp";
+import stitchedImg from "@/assets/stitched-magenta.webp";
+import unstitchedImg from "@/assets/unstitched-style.webp";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -26,21 +26,21 @@ export const Route = createFileRoute("/")({
 });
 
 const saleItems = [
-  { src: "/iris-1.png",    name: "Iris 2 Pc Lawn",        slug: "iris-2pc-arabic-lawn",      origPrice: "RS 5,800", salePrice: "RS 2,499", off: "57% OFF" },
-  { src: "/berry-1.png",   name: "Berry 2 Pc Lawn",       slug: "berry-2pc-arabic-lawn",     origPrice: "RS 6,500", salePrice: "RS 2,799", off: "57% OFF" },
-  { src: "/casper-1.png",  name: "Casper 3 Pc Cotton",    slug: "casper-3pc-cotton",         origPrice: "RS 7,200", salePrice: "RS 2,999", off: "58% OFF" },
-  { src: "/zarmina-1.png", name: "Zarmina 2 Pc Silk",     slug: "zarmina-2pc-crush-silk",    origPrice: "RS 6,500", salePrice: "RS 2,599", off: "60% OFF" },
-  { src: "/mehmal-1.png",  name: "Mehmal 2 Pc Lawn",      slug: "mehmal-2pc-arabic-lawn",    origPrice: "RS 6,500", salePrice: "RS 2,899", off: "55% OFF" },
-  { src: "/tabeer-1.png",  name: "Tabeer 3 Pc Chiffon",   slug: "tabeer-3pc-chiffon",        origPrice: "RS 8,500", salePrice: "RS 3,299", off: "61% OFF" },
+  { src: "/iris-1.webp",    name: "Iris 2 Pc Lawn",        slug: "iris-2pc-arabic-lawn",      origPrice: "RS 5,800", salePrice: "RS 2,499", off: "57% OFF" },
+  { src: "/berry-1.webp",   name: "Berry 2 Pc Lawn",       slug: "berry-2pc-arabic-lawn",     origPrice: "RS 6,500", salePrice: "RS 2,799", off: "57% OFF" },
+  { src: "/casper-1.webp",  name: "Casper 3 Pc Cotton",    slug: "casper-3pc-cotton",         origPrice: "RS 7,200", salePrice: "RS 2,999", off: "58% OFF" },
+  { src: "/zarmina-1.webp", name: "Zarmina 2 Pc Silk",     slug: "zarmina-2pc-crush-silk",    origPrice: "RS 6,500", salePrice: "RS 2,599", off: "60% OFF" },
+  { src: "/mehmal-1.webp",  name: "Mehmal 2 Pc Lawn",      slug: "mehmal-2pc-arabic-lawn",    origPrice: "RS 6,500", salePrice: "RS 2,899", off: "55% OFF" },
+  { src: "/tabeer-1.webp",  name: "Tabeer 3 Pc Chiffon",   slug: "tabeer-3pc-chiffon",        origPrice: "RS 8,500", salePrice: "RS 3,299", off: "61% OFF" },
 ];
 
 const newArrivals = [
-  { src: "/seharzat-1.png",       name: "Seharzat 3 Pc",        slug: "seharzat-3pc-lawn",             price: "RS 2,844",  badge: "New" },
-  { src: "/sapphire-black-1.png", name: "Sapphire Black 3 Pc",  slug: "sapphire-black-embroidered-3pc", price: "RS 3,724",  badge: "New" },
-  { src: "/hoorain-1.png",        name: "Hoorain 3 Pc",         slug: "hoorain-3pc-organza",            price: "RS 12,500", badge: "Festive" },
-  { src: "/casper-1.png",         name: "Casper 3 Pc",          slug: "casper-3pc-cotton",              price: "RS 3,200",  badge: "Bestseller" },
-  { src: "/charm-1.png",          name: "Charm 3 Pc",           slug: "charm-3pc-chiffon",              price: "RS 4,800",  badge: "Sale" },
-  { src: "/iris-1.png",           name: "Iris 3 Pc",            slug: "iris-3pc-khaddar",               price: "RS 5,600",  badge: "Limited" },
+  { src: "/seharzat-1.webp",       name: "Seharzat 3 Pc",        slug: "seharzat-3pc-lawn",             price: "RS 2,844",  badge: "New" },
+  { src: "/sapphire-black-1.webp", name: "Sapphire Black 3 Pc",  slug: "sapphire-black-embroidered-3pc", price: "RS 3,724",  badge: "New" },
+  { src: "/hoorain-1.webp",        name: "Hoorain 3 Pc",         slug: "hoorain-3pc-organza",            price: "RS 12,500", badge: "Festive" },
+  { src: "/casper-1.webp",         name: "Casper 3 Pc",          slug: "casper-3pc-cotton",              price: "RS 3,200",  badge: "Bestseller" },
+  { src: "/charm-1.webp",          name: "Charm 3 Pc",           slug: "charm-3pc-chiffon",              price: "RS 4,800",  badge: "Sale" },
+  { src: "/iris-1.webp",           name: "Iris 3 Pc",            slug: "iris-3pc-khaddar",               price: "RS 5,600",  badge: "Limited" },
 ];
 
 const shopByStyle = [
@@ -160,6 +160,8 @@ function Home() {
         <img
           src={heroImg}
           alt="AURUM Collection"
+          fetchPriority="high"
+          decoding="async"
           className="absolute inset-0 h-full w-full object-cover object-center"
         />
         <div className="absolute inset-0 bg-foreground/35" />
@@ -266,6 +268,7 @@ function Home() {
                         alt={item.name}
                         loading="lazy"
                         className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                      decoding="async"
                       />
                     </div>
                     {/* Off ribbon */}
@@ -332,6 +335,7 @@ function Home() {
                     alt={p.name}
                     loading="lazy"
                     className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                      decoding="async"
                   />
                   <div className="absolute top-2.5 left-2.5">
                     <span className="bg-foreground text-background text-[9px] font-semibold uppercase tracking-widest px-2 py-1">
@@ -376,6 +380,7 @@ function Home() {
               alt="Stitched"
               loading="lazy"
               className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-[1200ms] ease-out group-hover:scale-110"
+                      decoding="async"
             />
             {/* Dual gradient: dark bottom + subtle left side */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
@@ -413,6 +418,7 @@ function Home() {
               alt="Unstitched"
               loading="lazy"
               className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-[1200ms] ease-out group-hover:scale-110"
+                      decoding="async"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
             <div className="absolute inset-0 bg-gradient-to-l from-black/20 to-transparent" />

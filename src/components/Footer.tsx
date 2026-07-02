@@ -27,7 +27,7 @@ export function Footer() {
           <p className="text-sm font-medium">Need help? Our stylists are here for you.</p>
           <div className="flex flex-col sm:flex-row gap-3">
             <a
-              href="https://wa.me/923318541663"
+              href="https://wa.me/923474325410"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 border border-background/20 px-5 py-2.5 text-[11px] tracking-widest uppercase hover:bg-background/10 transition-colors"

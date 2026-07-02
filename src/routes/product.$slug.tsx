@@ -312,7 +312,7 @@ function ProductPage() {
               </div>
 
               <a
-                href={`https://wa.me/923318541663?text=${whatsappMsg}`}
+                href={`https://wa.me/923474325410?text=${whatsappMsg}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full flex items-center justify-center gap-2.5 py-3.5 mb-8 bg-[#25D366] hover:bg-[#20bc5a] text-white text-[12px] font-bold uppercase tracking-widest transition-colors shadow-sm"

@@ -1,234 +1,234 @@
-const sapphireBlack1 = "/sapphire-black-1.png";
-const sapphireBlack2 = "/sapphire-black-2.png";
-const sapphireBlack3 = "/sapphire-black-3.png";
-const sapphireBlack4 = "/sapphire-black-4.png";
-const sapphireBlack5 = "/sapphire-black-5.png";
-const sapphireBlack6 = "/sapphire-black-6.png";
-const sapphireBlack7 = "/sapphire-black-7.png";
-const sapphireBlack8 = "/sapphire-black-8.png";
-const sapphireBlack9 = "/sapphire-black-9.png";
-const sapphireBlackSizeChart = "/sapphire-black-size-chart.png";
+const sapphireBlack1 = "/sapphire-black-1.webp";
+const sapphireBlack2 = "/sapphire-black-2.webp";
+const sapphireBlack3 = "/sapphire-black-3.webp";
+const sapphireBlack4 = "/sapphire-black-4.webp";
+const sapphireBlack5 = "/sapphire-black-5.webp";
+const sapphireBlack6 = "/sapphire-black-6.webp";
+const sapphireBlack7 = "/sapphire-black-7.webp";
+const sapphireBlack8 = "/sapphire-black-8.webp";
+const sapphireBlack9 = "/sapphire-black-9.webp";
+const sapphireBlackSizeChart = "/sapphire-black-size-chart.webp";
 
-const seharzat1 = "/seharzat-1.png";
-const seharzat2 = "/seharzat-2.png";
-const seharzat3 = "/seharzat-3.png";
-const seharzat4 = "/seharzat-4.png";
-const seharzat5 = "/seharzat-5.png";
-const seharzat6 = "/seharzat-6.png";
-const seharzat7 = "/seharzat-7.png";
-const seharzat8 = "/seharzat-8.png";
-const seharzat9 = "/seharzat-9.png";
-const seharzat10 = "/seharzat-10.png";
-const seharzatSizeChart = "/seharzat-size-chart.png";
+const seharzat1 = "/seharzat-1.webp";
+const seharzat2 = "/seharzat-2.webp";
+const seharzat3 = "/seharzat-3.webp";
+const seharzat4 = "/seharzat-4.webp";
+const seharzat5 = "/seharzat-5.webp";
+const seharzat6 = "/seharzat-6.webp";
+const seharzat7 = "/seharzat-7.webp";
+const seharzat8 = "/seharzat-8.webp";
+const seharzat9 = "/seharzat-9.webp";
+const seharzat10 = "/seharzat-10.webp";
+const seharzatSizeChart = "/seharzat-size-chart.webp";
 
-const velora1 = "/velora-1.png";
-const velora2 = "/velora-2.png";
-const velora3 = "/velora-3.png";
-const velora4 = "/velora-4.png";
-const velora5 = "/velora-5.png";
-const velora6 = "/velora-6.png";
-const velora7 = "/velora-7.png";
-const velora8 = "/velora-8.png";
-const velora9 = "/velora-9.png";
-const velora10 = "/velora-10.png";
-const velora11 = "/velora-11.png";
-const velora12 = "/velora-12.png";
-const veloraSizeChart = "/velora-size-chart.png";
+const velora1 = "/velora-1.webp";
+const velora2 = "/velora-2.webp";
+const velora3 = "/velora-3.webp";
+const velora4 = "/velora-4.webp";
+const velora5 = "/velora-5.webp";
+const velora6 = "/velora-6.webp";
+const velora7 = "/velora-7.webp";
+const velora8 = "/velora-8.webp";
+const velora9 = "/velora-9.webp";
+const velora10 = "/velora-10.webp";
+const velora11 = "/velora-11.webp";
+const velora12 = "/velora-12.webp";
+const veloraSizeChart = "/velora-size-chart.webp";
 
-const blackShanzay1 = "/black-shanzay-1.png";
-const blackShanzay2 = "/black-shanzay-2.png";
-const blackShanzay3 = "/black-shanzay-3.png";
-const blackShanzay4 = "/black-shanzay-4.png";
-const blackShanzay5 = "/black-shanzay-5.png";
-const blackShanzaySizeChart = "/black-shanzay-size-chart.png";
+const blackShanzay1 = "/black-shanzay-1.webp";
+const blackShanzay2 = "/black-shanzay-2.webp";
+const blackShanzay3 = "/black-shanzay-3.webp";
+const blackShanzay4 = "/black-shanzay-4.webp";
+const blackShanzay5 = "/black-shanzay-5.webp";
+const blackShanzaySizeChart = "/black-shanzay-size-chart.webp";
 
-const berry1 = "/berry-1.png";
-const berry2 = "/berry-2.png";
-const berry3 = "/berry-3.png";
-const berrySizeChart = "/berry-size-chart.png";
+const berry1 = "/berry-1.webp";
+const berry2 = "/berry-2.webp";
+const berry3 = "/berry-3.webp";
+const berrySizeChart = "/berry-size-chart.webp";
 
-const buttercup1 = "/buttercup-1.png";
-const buttercup2 = "/buttercup-2.png";
-const buttercup3 = "/buttercup-3.png";
-const buttercup4 = "/buttercup-4.png";
-const buttercup5 = "/buttercup-5.png";
-const buttercup6 = "/buttercup-6.png";
-const buttercup7 = "/buttercup-7.png";
-const buttercupSizeChart = "/buttercup-size-chart.png";
+const buttercup1 = "/buttercup-1.webp";
+const buttercup2 = "/buttercup-2.webp";
+const buttercup3 = "/buttercup-3.webp";
+const buttercup4 = "/buttercup-4.webp";
+const buttercup5 = "/buttercup-5.webp";
+const buttercup6 = "/buttercup-6.webp";
+const buttercup7 = "/buttercup-7.webp";
+const buttercupSizeChart = "/buttercup-size-chart.webp";
 
-const sena1 = "/sena-1.png";
-const sena2 = "/sena-2.png";
-const sena3 = "/sena-3.png";
-const sena4 = "/sena-4.png";
-const sena5 = "/sena-5.png";
-const sena6 = "/sena-6.png";
-const sena7 = "/sena-7.png";
-const sena8 = "/sena-8.png";
-const sena9 = "/sena-9.png";
-const senaSizeChart = "/sena-size-chart.png";
+const sena1 = "/sena-1.webp";
+const sena2 = "/sena-2.webp";
+const sena3 = "/sena-3.webp";
+const sena4 = "/sena-4.webp";
+const sena5 = "/sena-5.webp";
+const sena6 = "/sena-6.webp";
+const sena7 = "/sena-7.webp";
+const sena8 = "/sena-8.webp";
+const sena9 = "/sena-9.webp";
+const senaSizeChart = "/sena-size-chart.webp";
 
-const meridia1 = "/meridia-1.png";
-const meridia2 = "/meridia-2.png";
-const meridia3 = "/meridia-3.png";
-const meridia4 = "/meridia-4.png";
-const meridia5 = "/meridia-5.png";
-const meridiaSizeChart = "/meridia-size-chart.png";
+const meridia1 = "/meridia-1.webp";
+const meridia2 = "/meridia-2.webp";
+const meridia3 = "/meridia-3.webp";
+const meridia4 = "/meridia-4.webp";
+const meridia5 = "/meridia-5.webp";
+const meridiaSizeChart = "/meridia-size-chart.webp";
 
-const zirwaha1 = "/zirwaha-1.png";
-const zirwaha2 = "/zirwaha-2.png";
-const zirwaha3 = "/zirwaha-3.png";
-const zirwahaSizeChart = "/zirwaha-size-chart.png";
+const zirwaha1 = "/zirwaha-1.webp";
+const zirwaha2 = "/zirwaha-2.webp";
+const zirwaha3 = "/zirwaha-3.webp";
+const zirwahaSizeChart = "/zirwaha-size-chart.webp";
 
-const nayha1 = "/nayha-1.png";
-const nayha2 = "/nayha-2.png";
-const nayha3 = "/nayha-3.png";
-const nayha4 = "/nayha-4.png";
-const nayha5 = "/nayha-5.png";
-const nayha6 = "/nayha-6.png";
-const nayha7 = "/nayha-7.png";
-const nayha8 = "/nayha-8.png";
-const nayha9 = "/nayha-9.png";
-const nayha10 = "/nayha-10.png";
-const nayha11 = "/nayha-11.png";
-const nayha12 = "/nayha-12.png";
-const nayha13 = "/nayha-13.png";
-const nayhaSizeChart = "/nayha-size-chart.png";
+const nayha1 = "/nayha-1.webp";
+const nayha2 = "/nayha-2.webp";
+const nayha3 = "/nayha-3.webp";
+const nayha4 = "/nayha-4.webp";
+const nayha5 = "/nayha-5.webp";
+const nayha6 = "/nayha-6.webp";
+const nayha7 = "/nayha-7.webp";
+const nayha8 = "/nayha-8.webp";
+const nayha9 = "/nayha-9.webp";
+const nayha10 = "/nayha-10.webp";
+const nayha11 = "/nayha-11.webp";
+const nayha12 = "/nayha-12.webp";
+const nayha13 = "/nayha-13.webp";
+const nayhaSizeChart = "/nayha-size-chart.webp";
 
-const blueZephyr1 = "/blue-zephyr-1.png";
-const blueZephyr2 = "/blue-zephyr-2.png";
-const blueZephyr3 = "/blue-zephyr-3.png";
-const blueZephyr4 = "/blue-zephyr-4.png";
-const blueZephyrSizeChart = "/blue-zephyr-size-chart.png";
+const blueZephyr1 = "/blue-zephyr-1.webp";
+const blueZephyr2 = "/blue-zephyr-2.webp";
+const blueZephyr3 = "/blue-zephyr-3.webp";
+const blueZephyr4 = "/blue-zephyr-4.webp";
+const blueZephyrSizeChart = "/blue-zephyr-size-chart.webp";
 
-const hoorain1 = "/hoorain-1.png";
-const hoorain2 = "/hoorain-2.png";
-const hoorain3 = "/hoorain-3.png";
-const hoorain4 = "/hoorain-4.png";
-const hoorain5 = "/hoorain-5.png";
-const hoorain6 = "/hoorain-6.png";
-const hoorain7 = "/hoorain-7.png";
-const hoorain8 = "/hoorain-8.png";
-const hoorain9 = "/hoorain-9.png";
-const hoorain10 = "/hoorain-10.png";
-const hoorain11 = "/hoorain-11.png";
-const hoorainSizeChart = "/hoorain-size-chart.png";
+const hoorain1 = "/hoorain-1.webp";
+const hoorain2 = "/hoorain-2.webp";
+const hoorain3 = "/hoorain-3.webp";
+const hoorain4 = "/hoorain-4.webp";
+const hoorain5 = "/hoorain-5.webp";
+const hoorain6 = "/hoorain-6.webp";
+const hoorain7 = "/hoorain-7.webp";
+const hoorain8 = "/hoorain-8.webp";
+const hoorain9 = "/hoorain-9.webp";
+const hoorain10 = "/hoorain-10.webp";
+const hoorain11 = "/hoorain-11.webp";
+const hoorainSizeChart = "/hoorain-size-chart.webp";
 
-const magenta1 = "/magenta-1.png";
-const magenta2 = "/magenta-2.png";
-const magenta3 = "/magenta-3.png";
-const magenta4 = "/magenta-4.png";
-const magenta5 = "/magenta-5.png";
-const magenta6 = "/magenta-6.png";
-const magenta7 = "/magenta-7.png";
-const magenta8 = "/magenta-8.png";
-const magentaSizeChart = "/magenta-size-chart.png";
+const magenta1 = "/magenta-1.webp";
+const magenta2 = "/magenta-2.webp";
+const magenta3 = "/magenta-3.webp";
+const magenta4 = "/magenta-4.webp";
+const magenta5 = "/magenta-5.webp";
+const magenta6 = "/magenta-6.webp";
+const magenta7 = "/magenta-7.webp";
+const magenta8 = "/magenta-8.webp";
+const magentaSizeChart = "/magenta-size-chart.webp";
 
-const zimal1 = "/zimal-1.png";
-const zimal2 = "/zimal-2.png";
-const zimal3 = "/zimal-3.png";
-const zimal4 = "/zimal-4.png";
-const zimal5 = "/zimal-5.png";
-const zimalSizeChart = "/zimal-size-chart.png";
+const zimal1 = "/zimal-1.webp";
+const zimal2 = "/zimal-2.webp";
+const zimal3 = "/zimal-3.webp";
+const zimal4 = "/zimal-4.webp";
+const zimal5 = "/zimal-5.webp";
+const zimalSizeChart = "/zimal-size-chart.webp";
 
-const mishka1 = "/mishka-1.png";
-const mishka2 = "/mishka-2.png";
-const mishka3 = "/mishka-3.png";
-const mishka4 = "/mishka-4.png";
-const mishka5 = "/mishka-5.png";
-const mishka6 = "/mishka-6.png";
-const mishka7 = "/mishka-7.png";
-const mishkaSizeChart = "/mishka-size-chart.png";
+const mishka1 = "/mishka-1.webp";
+const mishka2 = "/mishka-2.webp";
+const mishka3 = "/mishka-3.webp";
+const mishka4 = "/mishka-4.webp";
+const mishka5 = "/mishka-5.webp";
+const mishka6 = "/mishka-6.webp";
+const mishka7 = "/mishka-7.webp";
+const mishkaSizeChart = "/mishka-size-chart.webp";
 
-const nayaab1 = "/nayaab-1.png";
-const nayaab2 = "/nayaab-2.png";
-const nayaab3 = "/nayaab-3.png";
-const nayaab4 = "/nayaab-4.png";
-const nayaabSizeChart = "/nayaab-size-chart.png";
+const nayaab1 = "/nayaab-1.webp";
+const nayaab2 = "/nayaab-2.webp";
+const nayaab3 = "/nayaab-3.webp";
+const nayaab4 = "/nayaab-4.webp";
+const nayaabSizeChart = "/nayaab-size-chart.webp";
 
-const zarmina1 = "/zarmina-1.png";
-const zarmina2 = "/zarmina-2.png";
-const zarmina3 = "/zarmina-3.png";
-const zarmina4 = "/zarmina-4.png";
-const zarmina5 = "/zarmina-5.png";
-const zarmina6 = "/zarmina-6.png";
-const zarmina7 = "/zarmina-7.png";
-const zarminaSizeChart = "/zarmina-size-chart.png";
+const zarmina1 = "/zarmina-1.webp";
+const zarmina2 = "/zarmina-2.webp";
+const zarmina3 = "/zarmina-3.webp";
+const zarmina4 = "/zarmina-4.webp";
+const zarmina5 = "/zarmina-5.webp";
+const zarmina6 = "/zarmina-6.webp";
+const zarmina7 = "/zarmina-7.webp";
+const zarminaSizeChart = "/zarmina-size-chart.webp";
 
-const mehmal1 = "/mehmal-1.png";
-const mehmal2 = "/mehmal-2.png";
-const mehmal3 = "/mehmal-3.png";
-const mehmal4 = "/mehmal-4.png";
-const mehmal5 = "/mehmal-5.png";
-const mehmal6 = "/mehmal-6.png";
-const mehmal7 = "/mehmal-7.png";
-const mehmal8 = "/mehmal-8.png";
-const mehmalSizeChart = "/mehmal-size-chart.png";
+const mehmal1 = "/mehmal-1.webp";
+const mehmal2 = "/mehmal-2.webp";
+const mehmal3 = "/mehmal-3.webp";
+const mehmal4 = "/mehmal-4.webp";
+const mehmal5 = "/mehmal-5.webp";
+const mehmal6 = "/mehmal-6.webp";
+const mehmal7 = "/mehmal-7.webp";
+const mehmal8 = "/mehmal-8.webp";
+const mehmalSizeChart = "/mehmal-size-chart.webp";
 
-const nazneen1 = "/nazneen-1.png";
-const nazneen2 = "/nazneen-2.png";
-const nazneen3 = "/nazneen-3.png";
-const nazneen4 = "/nazneen-4.png";
-const nazneen5 = "/nazneen-5.png";
-const nazneen6 = "/nazneen-6.png";
-const nazneenSizeChart = "/nazneen-size-chart.png";
+const nazneen1 = "/nazneen-1.webp";
+const nazneen2 = "/nazneen-2.webp";
+const nazneen3 = "/nazneen-3.webp";
+const nazneen4 = "/nazneen-4.webp";
+const nazneen5 = "/nazneen-5.webp";
+const nazneen6 = "/nazneen-6.webp";
+const nazneenSizeChart = "/nazneen-size-chart.webp";
 
-const hazel1 = "/hazel-1.png";
-const hazel2 = "/hazel-2.png";
-const hazel3 = "/hazel-3.png";
-const hazel4 = "/hazel-4.png";
-const hazel5 = "/hazel-5.png";
-const hazelSizeChart = "/hazel-size-chart.png";
+const hazel1 = "/hazel-1.webp";
+const hazel2 = "/hazel-2.webp";
+const hazel3 = "/hazel-3.webp";
+const hazel4 = "/hazel-4.webp";
+const hazel5 = "/hazel-5.webp";
+const hazelSizeChart = "/hazel-size-chart.webp";
 
-const iris1 = "/iris-1.png";
-const iris2 = "/iris-2.png";
-const iris3 = "/iris-3.png";
-const iris4 = "/iris-4.png";
-const iris5 = "/iris-5.png";
-const irisSizeChart = "/iris-size-chart.png";
+const iris1 = "/iris-1.webp";
+const iris2 = "/iris-2.webp";
+const iris3 = "/iris-3.webp";
+const iris4 = "/iris-4.webp";
+const iris5 = "/iris-5.webp";
+const irisSizeChart = "/iris-size-chart.webp";
 
-const tabeer1 = "/tabeer-1.png";
-const tabeer2 = "/tabeer-2.png";
-const tabeer3 = "/tabeer-3.png";
-const tabeer4 = "/tabeer-4.png";
-const tabeer5 = "/tabeer-5.png";
-const tabeerSizeChart = "/tabeer-size-chart.png";
+const tabeer1 = "/tabeer-1.webp";
+const tabeer2 = "/tabeer-2.webp";
+const tabeer3 = "/tabeer-3.webp";
+const tabeer4 = "/tabeer-4.webp";
+const tabeer5 = "/tabeer-5.webp";
+const tabeerSizeChart = "/tabeer-size-chart.webp";
 
-const shanzay1 = "/shanzay-1.png";
-const shanzay2 = "/shanzay-2.png";
-const shanzay3 = "/shanzay-3.png";
-const shanzaySizeChart = "/shanzay-size-chart.png";
+const shanzay1 = "/shanzay-1.webp";
+const shanzay2 = "/shanzay-2.webp";
+const shanzay3 = "/shanzay-3.webp";
+const shanzaySizeChart = "/shanzay-size-chart.webp";
 
-const rimsha1 = "/rimsha-1.png";
-const rimsha2 = "/rimsha-2.png";
-const rimsha3 = "/rimsha-3.png";
-const rimsha4 = "/rimsha-4.png";
-const rimsha5 = "/rimsha-5.png";
-const rimsha6 = "/rimsha-6.png";
-const rimshaSizeChart = "/rimsha-size-chart.png";
+const rimsha1 = "/rimsha-1.webp";
+const rimsha2 = "/rimsha-2.webp";
+const rimsha3 = "/rimsha-3.webp";
+const rimsha4 = "/rimsha-4.webp";
+const rimsha5 = "/rimsha-5.webp";
+const rimsha6 = "/rimsha-6.webp";
+const rimshaSizeChart = "/rimsha-size-chart.webp";
 
-const zyra1 = "/zyra-1.png";
-const zyra2 = "/zyra-2.png";
-const zyra3 = "/zyra-3.png";
-const zyra4 = "/zyra-4.png";
-const zyra5 = "/zyra-5.png";
-const zyraSizeChart = "/zyra-size-chart.png";
+const zyra1 = "/zyra-1.webp";
+const zyra2 = "/zyra-2.webp";
+const zyra3 = "/zyra-3.webp";
+const zyra4 = "/zyra-4.webp";
+const zyra5 = "/zyra-5.webp";
+const zyraSizeChart = "/zyra-size-chart.webp";
 
-const charm1 = "/charm-1.png";
-const charm2 = "/charm-2.png";
-const charm3 = "/charm-3.png";
-const charm4 = "/charm-4.png";
-const charm5 = "/charm-5.png";
-const charm6 = "/charm-6.png";
-const charm7 = "/charm-7.png";
-const charmSizeChart = "/charm-size-chart.png";
+const charm1 = "/charm-1.webp";
+const charm2 = "/charm-2.webp";
+const charm3 = "/charm-3.webp";
+const charm4 = "/charm-4.webp";
+const charm5 = "/charm-5.webp";
+const charm6 = "/charm-6.webp";
+const charm7 = "/charm-7.webp";
+const charmSizeChart = "/charm-size-chart.webp";
 
-const simran1 = "/simran-1.png";
-const simran2 = "/simran-2.png";
-const simran3 = "/simran-3.png";
-const simran4 = "/simran-4.png";
-const simran5 = "/simran-5.png";
-const simran6 = "/simran-6.png";
-const simranSizeChart = "/simran-size-chart.png";
+const simran1 = "/simran-1.webp";
+const simran2 = "/simran-2.webp";
+const simran3 = "/simran-3.webp";
+const simran4 = "/simran-4.webp";
+const simran5 = "/simran-5.webp";
+const simran6 = "/simran-6.webp";
+const simranSizeChart = "/simran-size-chart.webp";
 
 export type Badge = "New" | "Limited" | "Last Piece" | "Bestseller";
 export type FabricType = "Stitched" | "Unstitched";
@@ -1367,12 +1367,12 @@ export const PRODUCTS: Product[] = [
     discountPercent: 44,
     badge: "Bestseller",
     images: [
-      "/zeba-1.png",
-      "/zeba-2.png",
-      "/zeba-3.png",
-      "/zeba-4.png",
-      "/zeba-5.png",
-      "/zeba-6.png",
+      "/zeba-1.webp",
+      "/zeba-2.webp",
+      "/zeba-3.webp",
+      "/zeba-4.webp",
+      "/zeba-5.webp",
+      "/zeba-6.webp",
     ],
     description:
       "Zeba 3 Piece is pure festive drama in the most regal of tones — deep plum premium cotton cut into a sweeping A-line silhouette with a front-open flair. The grandeur lives in the details: a bright purple sequin-dense hem border of arched motifs, richly embroidered bell cuffs alive with zardozi and resham florals, a delicate scattered neckline in gold and lilac, and a sheer plum dupatta sprinkled with sequin bootas. Whether you are leading the table at Eid or turning heads at a walima, Zeba commands every room.",
@@ -1394,7 +1394,7 @@ export const PRODUCTS: Product[] = [
       { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
       { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
     ],
-    sizeChartImage: "/zeba-size-chart.png",
+    sizeChartImage: "/zeba-size-chart.webp",
     reviewCount: 7,
     soldCount: 37,
     soldTimeframe: "13 hours",
@@ -1414,12 +1414,12 @@ export const PRODUCTS: Product[] = [
     discountPercent: 64,
     badge: "Bestseller",
     images: [
-      "/namal-1.png",
-      "/namal-2.png",
-      "/namal-3.png",
-      "/namal-4.png",
-      "/namal-5.png",
-      "/namal-6.png",
+      "/namal-1.webp",
+      "/namal-2.webp",
+      "/namal-3.webp",
+      "/namal-4.webp",
+      "/namal-5.webp",
+      "/namal-6.webp",
     ],
     description:
       "Namal 3 Piece is a study in quiet confidence — deep forest green premium cotton, richly embroidered with ivory and black thread in grand floral arches at the neckline, dense bands at the hem and cuffs, and a delicate scatter of mirror-work on the matching chiffon dupatta. Paired with ivory straight-leg trousers carrying coordinated border embroidery at the ankle, this ensemble moves effortlessly from a family dawat to a moonlit mehndi.",
@@ -1441,7 +1441,7 @@ export const PRODUCTS: Product[] = [
       { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
       { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
     ],
-    sizeChartImage: "/namal-size-chart.png",
+    sizeChartImage: "/namal-size-chart.webp",
     reviewCount: 7,
     soldCount: 31,
     soldTimeframe: "13 hours",
@@ -1461,11 +1461,11 @@ export const PRODUCTS: Product[] = [
     discountPercent: 66,
     badge: "Bestseller",
     images: [
-      "/zara-1.png",
-      "/zara-2.png",
-      "/zara-3.png",
-      "/zara-4.png",
-      "/zara-5.png",
+      "/zara-1.webp",
+      "/zara-2.webp",
+      "/zara-3.webp",
+      "/zara-4.webp",
+      "/zara-5.webp",
     ],
     description:
       "Zara 3 Piece captures the romance of a Lahori spring — dusty rose premium cotton adorned with all-over white floral threadwork and intricate border embroidery at the hem and cuffs. The matching chikankari dupatta and straight-cut trouser create a complete, effortlessly feminine look that is just as beautiful at a mehndi as it is on a family lunch.",
@@ -1485,7 +1485,7 @@ export const PRODUCTS: Product[] = [
       { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
       { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
     ],
-    sizeChartImage: "/zara-size-chart.png",
+    sizeChartImage: "/zara-size-chart.webp",
     reviewCount: 7,
     soldCount: 21,
     soldTimeframe: "13 hours",
@@ -1505,12 +1505,12 @@ export const PRODUCTS: Product[] = [
     discountPercent: 66,
     badge: "Bestseller",
     images: [
-      "/sahar-1.png",
-      "/sahar-2.png",
-      "/sahar-3.png",
-      "/sahar-4.png",
-      "/sahar-5.png",
-      "/sahar-6.png",
+      "/sahar-1.webp",
+      "/sahar-2.webp",
+      "/sahar-3.webp",
+      "/sahar-4.webp",
+      "/sahar-5.webp",
+      "/sahar-6.webp",
     ],
     description:
       "Sahar 3 Piece is a luminous celebration of fine organza — ivory white with intricate gold and silver threadwork cascading down the front panel and hem border. The sheer sleeves and dupatta float like morning light, while delicate leaf and floral motifs hand-embroidered across the fabric make this an effortlessly regal choice for any festive occasion.",
@@ -1530,7 +1530,7 @@ export const PRODUCTS: Product[] = [
       { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
       { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
     ],
-    sizeChartImage: "/sahar-size-chart.png",
+    sizeChartImage: "/sahar-size-chart.webp",
     reviewCount: 7,
     soldCount: 35,
     soldTimeframe: "13 hours",
@@ -1550,12 +1550,12 @@ export const PRODUCTS: Product[] = [
     discountPercent: 54,
     badge: "Bestseller",
     images: [
-      "/casper-1.png",
-      "/casper-2.png",
-      "/casper-3.png",
-      "/casper-4.png",
-      "/casper-5.png",
-      "/casper-6.png",
+      "/casper-1.webp",
+      "/casper-2.webp",
+      "/casper-3.webp",
+      "/casper-4.webp",
+      "/casper-5.webp",
+      "/casper-6.webp",
     ],
     description:
       "The Casper 3 Piece is a study in understated elegance — ivory premium cotton with a heavily embellished gold tilla yoke that catches the light beautifully. The wide-leg sharara is adorned with scattered floral gold threadwork, while a soft mint-tinted organza dupatta with tassel ends completes this timeless ensemble. A perfect festive choice for the woman who speaks through grace.",
@@ -1576,7 +1576,7 @@ export const PRODUCTS: Product[] = [
       { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
       { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
     ],
-    sizeChartImage: "/casper-size-chart.png",
+    sizeChartImage: "/casper-size-chart.webp",
     reviewCount: 7,
     soldCount: 38,
     soldTimeframe: "13 hours",
@@ -1596,13 +1596,13 @@ export const PRODUCTS: Product[] = [
     discountPercent: 52,
     badge: "Bestseller",
     images: [
-      "/rupenzal-1.png",
-      "/rupenzal-2.png",
-      "/rupenzal-3.png",
-      "/rupenzal-4.png",
-      "/rupenzal-5.png",
-      "/rupenzal-6.png",
-      "/rupenzal-7.png",
+      "/rupenzal-1.webp",
+      "/rupenzal-2.webp",
+      "/rupenzal-3.webp",
+      "/rupenzal-4.webp",
+      "/rupenzal-5.webp",
+      "/rupenzal-6.webp",
+      "/rupenzal-7.webp",
     ],
     description:
       "The Rupenzal 2 Piece is a vision of floral romance — crafted in premium Grip Silk with an all-over blue floral print on a crisp white base. The flowing silhouette features intricate embroidered borders at the hem and sleeves, with a delicate dotted net dupatta to complete the look. Perfect for festive evenings, garden parties, and beachside celebrations.",
@@ -1623,7 +1623,7 @@ export const PRODUCTS: Product[] = [
       { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
       { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
     ],
-    sizeChartImage: "/rupenzal-size-chart.png",
+    sizeChartImage: "/rupenzal-size-chart.webp",
     reviewCount: 7,
     soldCount: 32,
     soldTimeframe: "13 hours",

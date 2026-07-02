@@ -367,7 +367,7 @@ function CheckoutPage() {
                   <div className="mt-4 p-5 border border-border bg-muted/20 text-center">
                     <p className="text-[12px] font-bold text-foreground uppercase tracking-wide mb-4">Scan to Pay</p>
                     <div className="w-48 h-48 mx-auto mb-3 border border-border bg-white p-2">
-                      <img src="/qr-payment.png" alt="QR Code for payment" className="w-full h-full object-contain" />
+                      <img src="/qr-payment.webp" alt="QR Code for payment" className="w-full h-full object-contain" />
                     </div>
                     <p className="text-[12px] text-foreground/60 mb-1">Amount: <strong className="text-foreground">{formatPrice(subtotal)}</strong></p>
                     <p className="text-[11px] text-foreground/40">Scan using JazzCash, EasyPaisa, or any banking app</p>
