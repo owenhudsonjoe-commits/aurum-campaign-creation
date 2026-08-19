@@ -1,3 +1,7 @@
+const pastelGreen1 = "/pastel-green-1.webp";
+const pastelGreen2 = "/pastel-green-2.webp";
+const pastelGreenSizeChart = "/pastel-green-size-chart.webp";
+
 const sapphireBlack1 = "/sapphire-black-1.webp";
 const sapphireBlack2 = "/sapphire-black-2.webp";
 const sapphireBlack3 = "/sapphire-black-3.webp";
