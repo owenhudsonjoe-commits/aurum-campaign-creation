@@ -232,7 +232,7 @@ const simranSizeChart = "/simran-size-chart.webp";
 
 export type Badge = "New" | "Limited" | "Last Piece" | "Bestseller";
 export type FabricType = "Stitched" | "Unstitched";
-export type Collection = "Bridal" | "Festive / Pret" | "Men's" | "Daily Wear";
+export type Collection = "Bridal" | "Festive / Pret" | "Men's" | "Daily Wear" | "Cultural Fusion";
 
 export interface SizeChartRow {
   size: string;

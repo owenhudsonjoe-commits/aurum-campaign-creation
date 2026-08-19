@@ -242,6 +242,41 @@ function Home() {
         </div>
       </section>
 
+      {/* ── CULTURAL FUSION (STITCHED) ───────────────────────────── */}
+      <section className="py-16 md:py-24 border-b border-border" style={{ background: "rgba(201,168,76,0.03)" }}>
+        <div className="max-w-[1400px] mx-auto px-5 md:px-10">
+          <div className="flex items-end justify-between mb-10">
+            <div>
+              <p className="font-sans text-[9px] tracking-[0.35em] uppercase font-medium mb-2" style={{ color: "var(--gold)" }}>Heritage meets Modern</p>
+              <h2 className="font-display font-light text-3xl md:text-4xl text-foreground">Cultural Fusion</h2>
+            </div>
+            <Link to="/shop" search={{ collection: "Cultural Fusion", fabric: "Stitched" }} className="font-sans text-[11px] tracking-[0.15em] uppercase font-medium text-foreground/40 hover:text-foreground transition-colors flex items-center gap-1.5">
+              Explore Collection <ArrowRight className="h-3 w-3" strokeWidth={2} />
+            </Link>
+          </div>
+
+          <div className="flex gap-5 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory">
+            {/* Filtered for Cultural Fusion products would go here */}
+            {newArrivals.slice(0, 4).map((p) => (
+              <Link key={`fusion-${p.slug}`} to="/product/$slug" params={{ slug: p.slug }}
+                className="group flex-shrink-0 snap-start w-[170px] md:w-[210px]">
+                <div className="relative overflow-hidden aspect-[3/4]" style={{ background: "var(--color-muted)" }}>
+                  <img src={p.src} alt={p.name} loading="lazy" decoding="async"
+                    className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
+                  <div className="absolute top-2.5 left-2.5">
+                    <span className="font-sans text-[8px] font-semibold uppercase tracking-[0.2em] px-2 py-1 bg-foreground text-background">Fusion</span>
+                  </div>
+                </div>
+                <div className="mt-3">
+                  <p className="font-sans text-[12px] font-medium leading-tight group-hover:text-foreground/50 transition-colors">{p.name}</p>
+                  <p className="mt-1 font-sans text-[12px]" style={{ color: "var(--gold)" }}>{p.price}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── NEW ARRIVALS ─────────────────────────────────────────── */}
       <section className="py-16 md:py-24 border-b border-border">
         <div className="max-w-[1400px] mx-auto px-5 md:px-10">
