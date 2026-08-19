@@ -1,3 +1,7 @@
+const pastelGreen1 = "/pastel-green-1.webp";
+const pastelGreen2 = "/pastel-green-2.webp";
+const pastelGreenSizeChart = "/pastel-green-size-chart.webp";
+
 const sapphireBlack1 = "/sapphire-black-1.webp";
 const sapphireBlack2 = "/sapphire-black-2.webp";
 const sapphireBlack3 = "/sapphire-black-3.webp";
@@ -276,6 +280,46 @@ export interface Product {
 }
 
 export const PRODUCTS: Product[] = [
+  {
+    id: "cf-001",
+    slug: "pastel-green-3pc",
+    name: "PASTEL GREEN",
+    category: "Cultural Fusion",
+    fabricType: "Stitched",
+    price: 7290,
+    discountedPrice: 2916,
+    discountPercent: 70,
+    badge: "New",
+    images: [pastelGreen1, pastelGreen2],
+    description:
+      "PASTEL GREEN is soft-spoken elegance. A premium lawn long shirt in a fresh pastel green carries delicate white floral embroidery across the front, with sheer panelled sleeves and covered button detailing. Paired with matching wide plazo and a pure chiffon dupatta finished with a lace edge, it is the easy, graceful choice for daytime gatherings and everyday luxury.",
+    details: [
+      "Fabric — Long Shirt & Plazo: Premium Lawn",
+      "Dupatta: Pure Chiffon",
+      "Embroidery: White floral sprays on front and sleeves",
+      "Sleeves: Panelled sheer-stripe with embroidered cuffs",
+      "Set: 3-piece stitched (shirt, plazo, dupatta)",
+      "Colour: Pastel Green",
+      "Occasion: Daytime events, casual gatherings, everyday wear",
+      "Care: Hand wash cold or gentle machine wash",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2–3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      { size: "S", chest: '18–19"', shoulder: '14"', hips: '18"', armHole: '9"', legOpening: '8"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
+    ],
+    sizeChartImage: pastelGreenSizeChart,
+    reviewCount: 7,
+    soldCount: 22,
+    soldTimeframe: "13 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
   {
     id: "f-033",
     slug: "sapphire-black-embroidered-3pc",
