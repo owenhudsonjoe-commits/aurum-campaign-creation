@@ -9,6 +9,7 @@ const navLinks = [
   { label: "Bridal",     href: "/shop", search: { collection: "Bridal" as const,       fabric: "Stitched" as const } },
   { label: "Festive",    href: "/shop", search: { collection: "Festive / Pret" as const, fabric: "Stitched" as const } },
   { label: "Daily Wear", href: "/shop", search: { collection: "Daily Wear" as const,    fabric: "Stitched" as const } },
+  { label: "Fusion",     href: "/shop", search: { collection: "Cultural Fusion" as const, fabric: "Stitched" as const } },
   { label: "Men's",      href: "/shop", search: { collection: "Men's" as const,         fabric: "Stitched" as const } },
   { label: "Bespoke",    href: "/bespoke", search: undefined },
   { label: "Sale",       href: "/sale",    search: undefined },
