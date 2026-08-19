@@ -18,10 +18,10 @@ const SORT_LABELS: Record<SortOption, string> = {
 };
 
 const FABRIC_TABS: FabricType[] = ["Stitched", "Unstitched"];
-const COLLECTIONS: Collection[] = ["Bridal", "Festive / Pret", "Daily Wear", "Men's"];
+const COLLECTIONS: Collection[] = ["Bridal", "Festive / Pret", "Daily Wear", "Men's", "Cultural Fusion"];
 
 const shopSearchSchema = z.object({
-  collection: z.enum(["All", "Bridal", "Festive / Pret", "Daily Wear", "Men's"]).optional().default("All"),
+  collection: z.enum(["All", "Bridal", "Festive / Pret", "Daily Wear", "Men's", "Cultural Fusion"]).optional().default("All"),
   fabric: z.enum(["Stitched", "Unstitched"]).optional().default("Stitched"),
 });
 
@@ -46,7 +46,7 @@ function ShopPage() {
     navigate({ search: { fabric: tab, collection: "All" } });
   }
   function setActiveCollection(col: Collection | "All") {
-    navigate({ search: (prev) => ({ ...prev, collection: col }) });
+    navigate({ search: (prev: any) => ({ ...prev, collection: col }) });
   }
   const [addedId, setAddedId] = useState<string | null>(null);
   const [query, setQuery] = useState("");
