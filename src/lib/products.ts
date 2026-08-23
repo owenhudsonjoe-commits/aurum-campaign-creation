@@ -2,6 +2,14 @@ const pastelGreen1 = "/pastel-green-1.webp";
 const pastelGreen2 = "/pastel-green-2.webp";
 const pastelGreenSizeChart = "/pastel-green-size-chart.webp";
 
+const pastelYellow1 = "/pastel-yellow-1.png";
+const pastelYellow2 = "/pastel-yellow-2.png";
+const pastelYellow3 = "/pastel-yellow-3.png";
+const pastelYellow4 = "/pastel-yellow-4.png";
+const pastelYellow5 = "/pastel-yellow-5.png";
+const pastelYellow6 = "/pastel-yellow-6.png";
+const pastelYellowSizeChart = "/pastel-yellow-size-chart.png";
+
 const sapphireBlack1 = "/sapphire-black-1.webp";
 const sapphireBlack2 = "/sapphire-black-2.webp";
 const sapphireBlack3 = "/sapphire-black-3.webp";
@@ -315,6 +323,74 @@ export const PRODUCTS: Product[] = [
     reviewCount: 7,
     soldCount: 22,
     soldTimeframe: "13 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
+  {
+    id: "cf-002",
+    slug: "pastel-yellow",
+    name: "PASTEL YELLOW",
+    category: "Cultural Fusion",
+    fabricType: "Stitched",
+    price: 5990,
+    discountedPrice: 2396,
+    discountPercent: 60,
+    badge: "Bestseller",
+    images: [pastelYellow1, pastelYellow2, pastelYellow3, pastelYellow4, pastelYellow5, pastelYellow6],
+    description:
+      "PASTEL YELLOW is a graceful stitched chiffon ensemble in a soft sunshine hue. Delicate floral embroidery, refined neckline and cuff detailing, and an airy dupatta create an elegant cultural-fusion look for everyday celebrations and intimate festive gatherings.",
+    details: [
+      "Fabric: Chiffon",
+      "Embroidery: Delicate floral motifs on the shirt, sleeves, and hem",
+      "Set: 3-piece stitched (shirt, trousers, dupatta)",
+      "Colour: Pastel Yellow",
+      "Occasion: Cultural fusion, festive, and daytime gatherings",
+      "Care: Dry clean only — do not wring or bleach",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2–3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      {
+        size: "S",
+        chest: '18–19"',
+        shoulder: '14"',
+        hips: '18"',
+        armHole: '9"',
+        legOpening: '8"',
+        trouserLength: '37"',
+        shirtLength: '37"',
+        thigh: '12"',
+      },
+      {
+        size: "M",
+        chest: '21"',
+        shoulder: '15"',
+        hips: '21"',
+        armHole: '9.5"',
+        legOpening: '9"',
+        trouserLength: '37"',
+        shirtLength: '37"',
+        thigh: '12"',
+      },
+      {
+        size: "L",
+        chest: '23"',
+        shoulder: '16"',
+        hips: '23"',
+        armHole: '10"',
+        legOpening: '9.5"',
+        trouserLength: '38"',
+        shirtLength: '38"',
+        thigh: '13"',
+      },
+    ],
+    sizeChartImage: pastelYellowSizeChart,
+    reviewCount: 8,
+    soldCount: 27,
+    soldTimeframe: "11 hours",
     returnPolicy:
       "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
     inStock: true,
