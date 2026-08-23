@@ -263,6 +263,14 @@ const beigePremiumLawn6 = "/beige-premium-lawn-6.png";
 const beigePremiumLawn7 = "/beige-premium-lawn-7.png";
 const beigePremiumLawnSizeChart = "/beige-premium-lawn-size-chart.png";
 
+const blackPremiumLawn1 = "/black-premium-lawn-1.png";
+const blackPremiumLawn2 = "/black-premium-lawn-2.png";
+const blackPremiumLawn3 = "/black-premium-lawn-3.png";
+const blackPremiumLawn4 = "/black-premium-lawn-4.png";
+const blackPremiumLawn5 = "/black-premium-lawn-5.png";
+const blackPremiumLawn6 = "/black-premium-lawn-6.png";
+const blackPremiumLawnSizeChart = "/black-premium-lawn-size-chart.png";
+
 export type Badge = "New" | "Limited" | "Last Piece" | "Bestseller";
 export type FabricType = "Stitched" | "Unstitched";
 export type Collection = "Bridal" | "Festive / Pret" | "Men's" | "Daily Wear" | "Cultural Fusion";
@@ -309,6 +317,52 @@ export interface Product {
 }
 
 export const PRODUCTS: Product[] = [
+  {
+    id: "cf-005",
+    slug: "black-premium-lawn",
+    name: "BLACK PREMIUM LAWN",
+    category: "Cultural Fusion",
+    fabricType: "Stitched",
+    price: 7432,
+    discountedPrice: 2972,
+    discountPercent: 60,
+    badge: "New",
+    images: [
+      blackPremiumLawn1,
+      blackPremiumLawn2,
+      blackPremiumLawn3,
+      blackPremiumLawn4,
+      blackPremiumLawn5,
+      blackPremiumLawn6,
+    ],
+    description:
+      "BLACK PREMIUM LAWN is a striking cultural-fusion ensemble that pairs a fluid black lawn silhouette with a vivid red dupatta. Clean tailoring, subtle sleeve detailing, and the dramatic colour contrast create an effortlessly polished look for evening gatherings, festive occasions, and confident everyday dressing.",
+    details: [
+      "Fabric: Premium Lawn",
+      "Set: Stitched shirt and trouser with contrasting dupatta",
+      "Colour: Black with vibrant red accents",
+      "Detailing: Refined neckline, cuffs, and hem finish",
+      "Silhouette: Relaxed long shirt with easy-fit trousers",
+      "Occasion: Festive evenings, celebrations, and everyday wear",
+      "Care: Gentle hand wash or dry clean; do not bleach",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2 to 3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      { size: "S", chest: '18–19"', shoulder: '14"', hips: '18"', armHole: '9"', legOpening: '8"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
+    ],
+    sizeChartImage: blackPremiumLawnSizeChart,
+    reviewCount: 12,
+    soldCount: 33,
+    soldTimeframe: "13 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
   {
     id: "cf-004",
     slug: "beige-premium-lawn",
