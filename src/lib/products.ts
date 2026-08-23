@@ -246,6 +246,14 @@ const simran5 = "/simran-5.webp";
 const simran6 = "/simran-6.webp";
 const simranSizeChart = "/simran-size-chart.webp";
 
+const premiumLawn1 = "/premium-lawn-1.png";
+const premiumLawn2 = "/premium-lawn-2.png";
+const premiumLawn3 = "/premium-lawn-3.png";
+const premiumLawn4 = "/premium-lawn-4.png";
+const premiumLawn5 = "/premium-lawn-5.png";
+const premiumLawn6 = "/premium-lawn-6.png";
+const premiumLawnSizeChart = "/premium-lawn-size-chart.png";
+
 export type Badge = "New" | "Limited" | "Last Piece" | "Bestseller";
 export type FabricType = "Stitched" | "Unstitched";
 export type Collection = "Bridal" | "Festive / Pret" | "Men's" | "Daily Wear" | "Cultural Fusion";
@@ -292,6 +300,44 @@ export interface Product {
 }
 
 export const PRODUCTS: Product[] = [
+  {
+    id: "cf-003",
+    slug: "premium-lawn",
+    name: "PREMIUM LAWN",
+    category: "Cultural Fusion",
+    fabricType: "Stitched",
+    price: 7432,
+    discountedPrice: 2973,
+    discountPercent: 60,
+    badge: "New",
+    images: [premiumLawn1, premiumLawn2, premiumLawn3, premiumLawn4, premiumLawn5, premiumLawn6],
+    description:
+      "PREMIUM LAWN is an effortless cultural-fusion set in a soft pastel green, finished with delicate floral motifs and refined detailing at the neckline, cuffs, and hem. The fluid silhouette and airy coordinating dupatta make it an elegant choice for daytime celebrations, festive lunches, and polished everyday dressing.",
+    details: [
+      "Fabric: Premium Lawn",
+      "Set: Stitched shirt and trouser with coordinating dupatta",
+      "Embroidery: Delicate floral motifs with detailed neckline and cuffs",
+      "Colour: Soft pastel green",
+      "Occasion: Festive lunches, daytime celebrations, and everyday wear",
+      "Care: Gentle hand wash or dry clean; do not bleach",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2 to 3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      { size: "S", chest: '18–19"', shoulder: '14"', hips: '18"', armHole: '9"', legOpening: '8"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
+    ],
+    sizeChartImage: premiumLawnSizeChart,
+    reviewCount: 5,
+    soldCount: 23,
+    soldTimeframe: "7 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
   {
     id: "cf-001",
     slug: "pastel-green-3pc",
