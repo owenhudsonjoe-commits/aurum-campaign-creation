@@ -3,6 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Truck, Shield, RotateCcw, Headphones, Sparkles } from "lucide-react";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
+import { PRODUCTS, formatPrice } from "@/lib/products";
 import heroImg from "@/assets/hero-daily-wear.webp";
 import stitchedImg from "@/assets/stitched-magenta.webp";
 import unstitchedImg from "@/assets/unstitched-style.webp";
@@ -44,6 +45,8 @@ const features = [
   { icon: Shield,      title: "100% Authentic",  desc: "Certificate with every piece" },
   { icon: Headphones,  title: "Expert Styling",  desc: "Personal styling consultation" },
 ];
+
+const culturalFusionProducts = PRODUCTS.filter((product) => product.category === "Cultural Fusion").slice(0, 4);
 
 const clientQuotes = [
   { q: "I wore Aurum to my walima and strangers stopped to ask who I was wearing.", name: "Nadia S.", city: "Lahore" },
@@ -242,21 +245,65 @@ function Home() {
         </div>
       </section>
 
-      {/* ── CULTURAL FUSION (STITCHED) ───────────────────────────── */}
+      {/* ── CULTURAL FUSION SALE ──────────────────────────────────── */}
       <section className="py-16 md:py-24 border-b border-border" style={{ background: "rgba(201,168,76,0.03)" }}>
         <div className="max-w-[1400px] mx-auto px-5 md:px-10">
-          <div className="flex items-end justify-between mb-10">
-            <div>
-              <p className="font-sans text-[9px] tracking-[0.35em] uppercase font-medium mb-2" style={{ color: "var(--gold)" }}>Heritage meets Modern</p>
-              <h2 className="font-display font-light text-3xl md:text-4xl text-foreground">Cultural Fusion</h2>
+          <Link
+            to="/shop"
+            search={{ collection: "Cultural Fusion", fabric: "Stitched" }}
+            className="group relative grid min-h-[360px] overflow-hidden bg-[#1d2a1b] md:grid-cols-2"
+          >
+            <img
+              src="/pastel-green-1.png"
+              alt="Cultural Fusion collection"
+              loading="lazy"
+              decoding="async"
+              className="h-full min-h-[300px] w-full object-cover object-top transition-transform duration-[1200ms] group-hover:scale-105"
+            />
+            <div className="relative flex flex-col items-start justify-center px-8 py-12 md:px-14">
+              <p className="font-sans text-[10px] font-medium uppercase tracking-[0.35em]" style={{ color: "#c9a84c" }}>
+                Heritage meets modern
+              </p>
+              <h2 className="mt-4 font-display text-5xl font-light leading-none md:text-6xl" style={{ color: "#f5f0e8" }}>
+                Cultural<br /><em className="italic" style={{ color: "#c9a84c" }}>Fusion</em>
+              </h2>
+              <p className="mt-5 max-w-xs font-sans text-sm font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.6)" }}>
+                Modern silhouettes, rooted in tradition. Discover the collection made for your everyday celebrations.
+              </p>
+              <span className="mt-8 inline-flex items-center gap-3 px-6 py-3.5 font-sans text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ background: "#f5f0e8", color: "#17130f" }}>
+                60% Off · Shop Collection <ArrowRight className="h-3.5 w-3.5" strokeWidth={2} />
+              </span>
             </div>
-            <Link to="/shop" search={{ collection: "Cultural Fusion", fabric: "Stitched" }} className="font-sans text-[11px] tracking-[0.15em] uppercase font-medium text-foreground/40 hover:text-foreground transition-colors flex items-center gap-1.5">
-              Explore Collection <ArrowRight className="h-3 w-3" strokeWidth={2} />
+          </Link>
+
+          <div className="mt-10 flex items-end justify-between">
+            <div>
+              <p className="font-sans text-[9px] font-medium uppercase tracking-[0.35em]" style={{ color: "var(--gold)" }}>Curated edit</p>
+              <h3 className="mt-2 font-display text-3xl font-light text-foreground">Cultural Fusion Pieces</h3>
+            </div>
+            <Link to="/shop" search={{ collection: "Cultural Fusion", fabric: "Stitched" }} className="flex items-center gap-1.5 font-sans text-[11px] font-medium uppercase tracking-[0.15em] text-foreground/40 transition-colors hover:text-foreground">
+              View Collection <ArrowRight className="h-3 w-3" strokeWidth={2} />
             </Link>
           </div>
 
-          <div className="min-h-[300px] flex items-center justify-center border border-dashed border-border">
-            <p className="font-sans text-[11px] tracking-[0.2em] uppercase text-foreground/30">New designs arriving soon</p>
+          <div className="mt-7 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
+            {culturalFusionProducts.map((product) => (
+              <Link key={product.id} to="/product/$slug" params={{ slug: product.slug }} className="group">
+                <div className="relative aspect-[3/4] overflow-hidden bg-muted">
+                  <img src={product.images[0]} alt={product.name} loading="lazy" decoding="async" className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
+                  {product.discountPercent && (
+                    <span className="absolute left-2.5 top-2.5 bg-red-600 px-2 py-1 font-sans text-[8px] font-bold uppercase tracking-wider text-white">
+                      {product.discountPercent}% Off
+                    </span>
+                  )}
+                </div>
+                <p className="mt-3 truncate font-sans text-[12px] font-medium text-foreground group-hover:text-foreground/60">{product.name}</p>
+                <div className="mt-1 flex items-center gap-2">
+                  <span className="font-sans text-[13px] font-bold text-red-600">{formatPrice(product.discountedPrice ?? product.price)}</span>
+                  {product.discountedPrice && <span className="font-sans text-[10px] text-foreground/35 line-through">{formatPrice(product.price)}</span>}
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>

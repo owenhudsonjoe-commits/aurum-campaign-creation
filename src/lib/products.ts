@@ -1,5 +1,9 @@
-const pastelGreen1 = "/pastel-green-1.webp";
-const pastelGreen2 = "/pastel-green-2.webp";
+const pastelGreen1 = "/pastel-green-1.png";
+const pastelGreen2 = "/pastel-green-2.png";
+const pastelGreen3 = "/pastel-green-3.png";
+const pastelGreen4 = "/pastel-green-4.png";
+const pastelGreen5 = "/pastel-green-5.png";
+const pastelGreen6 = "/pastel-green-6.png";
 const pastelGreenSizeChart = "/pastel-green-size-chart.webp";
 
 const pastelYellow1 = "/pastel-yellow-1.png";
@@ -298,7 +302,7 @@ export const PRODUCTS: Product[] = [
     discountedPrice: 2916,
     discountPercent: 70,
     badge: "New",
-    images: [pastelGreen1, pastelGreen2],
+    images: [pastelGreen1, pastelGreen2, pastelGreen3, pastelGreen4, pastelGreen5, pastelGreen6],
     description:
       "PASTEL GREEN is soft-spoken elegance. A premium lawn long shirt in a fresh pastel green carries delicate white floral embroidery across the front, with sheer panelled sleeves and covered button detailing. Paired with matching wide plazo and a pure chiffon dupatta finished with a lace edge, it is the easy, graceful choice for daytime gatherings and everyday luxury.",
     details: [
