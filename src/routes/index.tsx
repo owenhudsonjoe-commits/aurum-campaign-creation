@@ -253,13 +253,15 @@ function Home() {
             search={{ collection: "Cultural Fusion", fabric: "Stitched" }}
             className="group relative grid min-h-[280px] overflow-hidden bg-[#1d2a1b] md:min-h-[300px] md:grid-cols-[0.55fr_1.45fr]"
           >
-            <img
-              src="/pastel-green-1.png"
-              alt="Cultural Fusion collection"
-              loading="lazy"
-              decoding="async"
-              className="h-full min-h-[210px] w-full object-cover object-top transition-transform duration-[1200ms] group-hover:scale-105 md:min-h-[300px]"
-            />
+            <div className="flex items-center justify-center bg-[#263a24] p-4 md:p-5">
+              <img
+                src="/pastel-green-1.png"
+                alt="Cultural Fusion collection"
+                loading="lazy"
+                decoding="async"
+                className="h-[220px] w-full max-w-[220px] object-cover object-top transition-transform duration-[1200ms] group-hover:scale-105 md:h-[260px]"
+              />
+            </div>
             <div className="relative flex flex-col items-start justify-center px-6 py-8 md:px-10 md:py-9">
               <div className="absolute right-8 top-8 hidden h-14 w-14 items-center justify-center rounded-full border border-[#c9a84c]/50 md:flex">
                 <span className="text-center font-sans text-[8px] font-semibold uppercase leading-tight tracking-wider" style={{ color: "#c9a84c" }}>Aurum<br />Edit</span>
