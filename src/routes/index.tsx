@@ -251,26 +251,26 @@ function Home() {
           <Link
             to="/shop"
             search={{ collection: "Cultural Fusion", fabric: "Stitched" }}
-            className="group relative grid min-h-[360px] overflow-hidden bg-[#1d2a1b] md:grid-cols-2"
+            className="group relative grid min-h-[300px] overflow-hidden bg-[#1d2a1b] md:min-h-[320px] md:grid-cols-2"
           >
             <img
               src="/pastel-green-1.png"
               alt="Cultural Fusion collection"
               loading="lazy"
               decoding="async"
-              className="h-full min-h-[300px] w-full object-cover object-top transition-transform duration-[1200ms] group-hover:scale-105"
+              className="h-full min-h-[250px] w-full object-cover object-top transition-transform duration-[1200ms] group-hover:scale-105 md:min-h-[320px]"
             />
-            <div className="relative flex flex-col items-start justify-center px-8 py-12 md:px-14">
+            <div className="relative flex flex-col items-start justify-center px-7 py-9 md:px-12 md:py-10">
               <p className="font-sans text-[10px] font-medium uppercase tracking-[0.35em]" style={{ color: "#c9a84c" }}>
                 Heritage meets modern
               </p>
-              <h2 className="mt-4 font-display text-5xl font-light leading-none md:text-6xl" style={{ color: "#f5f0e8" }}>
+              <h2 className="mt-3 font-display text-4xl font-light leading-none md:text-5xl" style={{ color: "#f5f0e8" }}>
                 Cultural<br /><em className="italic" style={{ color: "#c9a84c" }}>Fusion</em>
               </h2>
-              <p className="mt-5 max-w-xs font-sans text-sm font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.6)" }}>
+              <p className="mt-4 max-w-xs font-sans text-[13px] font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.6)" }}>
                 Modern silhouettes, rooted in tradition. Discover the collection made for your everyday celebrations.
               </p>
-              <span className="mt-8 inline-flex items-center gap-3 px-6 py-3.5 font-sans text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ background: "#f5f0e8", color: "#17130f" }}>
+              <span className="mt-6 inline-flex items-center gap-3 px-5 py-3 font-sans text-[10px] font-semibold uppercase tracking-[0.18em]" style={{ background: "#f5f0e8", color: "#17130f" }}>
                 60% Off · Shop Collection <ArrowRight className="h-3.5 w-3.5" strokeWidth={2} />
               </span>
             </div>
