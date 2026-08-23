@@ -251,26 +251,35 @@ function Home() {
           <Link
             to="/shop"
             search={{ collection: "Cultural Fusion", fabric: "Stitched" }}
-            className="group relative grid min-h-[300px] overflow-hidden bg-[#1d2a1b] md:min-h-[320px] md:grid-cols-2"
+            className="group relative grid min-h-[320px] overflow-hidden bg-[#1d2a1b] md:min-h-[390px] md:grid-cols-[0.78fr_1.22fr]"
           >
             <img
               src="/pastel-green-1.png"
               alt="Cultural Fusion collection"
               loading="lazy"
               decoding="async"
-              className="h-full min-h-[250px] w-full object-cover object-top transition-transform duration-[1200ms] group-hover:scale-105 md:min-h-[320px]"
+              className="h-full min-h-[230px] w-full object-cover object-top transition-transform duration-[1200ms] group-hover:scale-105 md:min-h-[390px]"
             />
-            <div className="relative flex flex-col items-start justify-center px-7 py-9 md:px-12 md:py-10">
+            <div className="relative flex flex-col items-start justify-center px-7 py-10 md:px-14 md:py-12">
+              <div className="absolute right-8 top-8 hidden h-14 w-14 items-center justify-center rounded-full border border-[#c9a84c]/50 md:flex">
+                <span className="text-center font-sans text-[8px] font-semibold uppercase leading-tight tracking-wider" style={{ color: "#c9a84c" }}>Aurum<br />Edit</span>
+              </div>
               <p className="font-sans text-[10px] font-medium uppercase tracking-[0.35em]" style={{ color: "#c9a84c" }}>
-                Heritage meets modern
+                The modern heritage edit
               </p>
-              <h2 className="mt-3 font-display text-4xl font-light leading-none md:text-5xl" style={{ color: "#f5f0e8" }}>
+              <h2 className="mt-4 font-display text-4xl font-light leading-[0.95] md:text-6xl" style={{ color: "#f5f0e8" }}>
                 Cultural<br /><em className="italic" style={{ color: "#c9a84c" }}>Fusion</em>
               </h2>
-              <p className="mt-4 max-w-xs font-sans text-[13px] font-light leading-relaxed" style={{ color: "rgba(245,240,232,0.6)" }}>
-                Modern silhouettes, rooted in tradition. Discover the collection made for your everyday celebrations.
+              <div className="mt-5 h-px w-14" style={{ background: "#c9a84c" }} />
+              <p className="mt-4 max-w-md font-sans text-[13px] font-light leading-relaxed md:text-sm" style={{ color: "rgba(245,240,232,0.65)" }}>
+                Contemporary Pakistani silhouettes, thoughtfully stitched for the woman who carries her culture forward.
               </p>
-              <span className="mt-6 inline-flex items-center gap-3 px-5 py-3 font-sans text-[10px] font-semibold uppercase tracking-[0.18em]" style={{ background: "#f5f0e8", color: "#17130f" }}>
+              <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 font-sans text-[9px] uppercase tracking-[0.18em]" style={{ color: "rgba(245,240,232,0.45)" }}>
+                <span>Stitched</span>
+                <span>Chiffon</span>
+                <span>Ready to wear</span>
+              </div>
+              <span className="mt-7 inline-flex items-center gap-3 px-5 py-3.5 font-sans text-[10px] font-semibold uppercase tracking-[0.18em]" style={{ background: "#f5f0e8", color: "#17130f" }}>
                 60% Off · Shop Collection <ArrowRight className="h-3.5 w-3.5" strokeWidth={2} />
               </span>
             </div>
