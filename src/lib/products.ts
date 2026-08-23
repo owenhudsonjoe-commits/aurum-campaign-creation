@@ -254,6 +254,15 @@ const premiumLawn5 = "/premium-lawn-5.png";
 const premiumLawn6 = "/premium-lawn-6.png";
 const premiumLawnSizeChart = "/premium-lawn-size-chart.png";
 
+const beigePremiumLawn1 = "/beige-premium-lawn-1.png";
+const beigePremiumLawn2 = "/beige-premium-lawn-2.png";
+const beigePremiumLawn3 = "/beige-premium-lawn-3.png";
+const beigePremiumLawn4 = "/beige-premium-lawn-4.png";
+const beigePremiumLawn5 = "/beige-premium-lawn-5.png";
+const beigePremiumLawn6 = "/beige-premium-lawn-6.png";
+const beigePremiumLawn7 = "/beige-premium-lawn-7.png";
+const beigePremiumLawnSizeChart = "/beige-premium-lawn-size-chart.png";
+
 export type Badge = "New" | "Limited" | "Last Piece" | "Bestseller";
 export type FabricType = "Stitched" | "Unstitched";
 export type Collection = "Bridal" | "Festive / Pret" | "Men's" | "Daily Wear" | "Cultural Fusion";
@@ -300,6 +309,53 @@ export interface Product {
 }
 
 export const PRODUCTS: Product[] = [
+  {
+    id: "cf-004",
+    slug: "beige-premium-lawn",
+    name: "BEIGE PREMIUM LAWN",
+    category: "Cultural Fusion",
+    fabricType: "Stitched",
+    price: 7192,
+    discountedPrice: 2876,
+    discountPercent: 60,
+    badge: "New",
+    images: [
+      beigePremiumLawn1,
+      beigePremiumLawn2,
+      beigePremiumLawn3,
+      beigePremiumLawn4,
+      beigePremiumLawn5,
+      beigePremiumLawn6,
+      beigePremiumLawn7,
+    ],
+    description:
+      "BEIGE PREMIUM LAWN brings soft floral colour and graceful tailoring together in an easy cultural-fusion ensemble. The delicately printed lawn shirt is finished with feminine sleeve and hem details, while the contrasting mauve dupatta adds a rich touch of colour to the light beige base.",
+    details: [
+      "Fabric: Premium Lawn",
+      "Set: Stitched shirt and trouser with coordinating dupatta",
+      "Print: Soft floral botanical pattern in beige and mauve",
+      "Detailing: Finished neckline, sleeves, and hem",
+      "Colour: Beige with mauve accents",
+      "Occasion: Daytime celebrations, festive lunches, and everyday wear",
+      "Care: Gentle hand wash or dry clean; do not bleach",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2 to 3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      { size: "S", chest: '18–19"', shoulder: '14"', hips: '18"', armHole: '9"', legOpening: '8"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
+    ],
+    sizeChartImage: beigePremiumLawnSizeChart,
+    reviewCount: 9,
+    soldCount: 33,
+    soldTimeframe: "11 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
   {
     id: "cf-003",
     slug: "premium-lawn",
