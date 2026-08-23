@@ -251,23 +251,23 @@ function Home() {
           <Link
             to="/shop"
             search={{ collection: "Cultural Fusion", fabric: "Stitched" }}
-            className="group relative grid min-h-[320px] overflow-hidden bg-[#1d2a1b] md:min-h-[390px] md:grid-cols-[0.78fr_1.22fr]"
+            className="group relative grid min-h-[280px] overflow-hidden bg-[#1d2a1b] md:min-h-[300px] md:grid-cols-[0.55fr_1.45fr]"
           >
             <img
               src="/pastel-green-1.png"
               alt="Cultural Fusion collection"
               loading="lazy"
               decoding="async"
-              className="h-full min-h-[230px] w-full object-cover object-top transition-transform duration-[1200ms] group-hover:scale-105 md:min-h-[390px]"
+              className="h-full min-h-[210px] w-full object-cover object-top transition-transform duration-[1200ms] group-hover:scale-105 md:min-h-[300px]"
             />
-            <div className="relative flex flex-col items-start justify-center px-7 py-10 md:px-14 md:py-12">
+            <div className="relative flex flex-col items-start justify-center px-6 py-8 md:px-10 md:py-9">
               <div className="absolute right-8 top-8 hidden h-14 w-14 items-center justify-center rounded-full border border-[#c9a84c]/50 md:flex">
                 <span className="text-center font-sans text-[8px] font-semibold uppercase leading-tight tracking-wider" style={{ color: "#c9a84c" }}>Aurum<br />Edit</span>
               </div>
               <p className="font-sans text-[10px] font-medium uppercase tracking-[0.35em]" style={{ color: "#c9a84c" }}>
                 The modern heritage edit
               </p>
-              <h2 className="mt-4 font-display text-4xl font-light leading-[0.95] md:text-6xl" style={{ color: "#f5f0e8" }}>
+              <h2 className="mt-3 font-display text-4xl font-light leading-[0.95] md:text-5xl" style={{ color: "#f5f0e8" }}>
                 Cultural<br /><em className="italic" style={{ color: "#c9a84c" }}>Fusion</em>
               </h2>
               <div className="mt-5 h-px w-14" style={{ background: "#c9a84c" }} />
