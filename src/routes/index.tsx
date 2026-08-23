@@ -251,18 +251,9 @@ function Home() {
           <Link
             to="/shop"
             search={{ collection: "Cultural Fusion", fabric: "Stitched" }}
-            className="group relative grid min-h-[280px] overflow-hidden bg-[#1d2a1b] md:min-h-[300px] md:grid-cols-[0.55fr_1.45fr]"
+            className="group relative block min-h-[280px] overflow-hidden bg-[#1d2a1b] md:min-h-[300px]"
           >
-            <div className="flex items-center justify-center bg-[#263a24] p-4 md:p-5">
-              <img
-                src="/pastel-green-1.png"
-                alt="Cultural Fusion collection"
-                loading="lazy"
-                decoding="async"
-                className="h-[220px] w-full max-w-[220px] object-cover object-top transition-transform duration-[1200ms] group-hover:scale-105 md:h-[260px]"
-              />
-            </div>
-            <div className="relative flex flex-col items-start justify-center px-6 py-8 md:px-10 md:py-9">
+            <div className="relative flex h-full min-h-[280px] flex-col items-start justify-center px-6 py-8 md:min-h-[300px] md:px-14 md:py-10">
               <div className="absolute right-8 top-8 hidden h-14 w-14 items-center justify-center rounded-full border border-[#c9a84c]/50 md:flex">
                 <span className="text-center font-sans text-[8px] font-semibold uppercase leading-tight tracking-wider" style={{ color: "#c9a84c" }}>Aurum<br />Edit</span>
               </div>
@@ -273,12 +264,16 @@ function Home() {
                 Cultural<br /><em className="italic" style={{ color: "#c9a84c" }}>Fusion</em>
               </h2>
               <div className="mt-5 h-px w-14" style={{ background: "#c9a84c" }} />
-              <p className="mt-4 max-w-md font-sans text-[13px] font-light leading-relaxed md:text-sm" style={{ color: "rgba(245,240,232,0.65)" }}>
-                Contemporary Pakistani silhouettes, thoughtfully stitched for the woman who carries her culture forward.
+              <p className="mt-4 max-w-2xl font-sans text-[13px] font-light leading-relaxed md:text-sm" style={{ color: "rgba(245,240,232,0.65)" }}>
+                A considered meeting of old-world craft and a new-world wardrobe. Discover fluid Pakistani silhouettes, hand-inspired embroidery and expressive colour, thoughtfully stitched for the woman who carries her culture forward.
+              </p>
+              <p className="mt-3 max-w-2xl font-sans text-[12px] font-light leading-relaxed md:text-[13px]" style={{ color: "rgba(245,240,232,0.48)" }}>
+                From softly tailored kurtas and easy three-piece sets to statement dupattas, each look is made for festive lunches, intimate celebrations and everyday occasions that deserve a little more beauty.
               </p>
               <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 font-sans text-[9px] uppercase tracking-[0.18em]" style={{ color: "rgba(245,240,232,0.45)" }}>
                 <span>Stitched</span>
-                <span>Chiffon</span>
+                <span>Embroidered details</span>
+                <span>Lightweight fabrics</span>
                 <span>Ready to wear</span>
               </div>
               <span className="mt-7 inline-flex items-center gap-3 px-5 py-3.5 font-sans text-[10px] font-semibold uppercase tracking-[0.18em]" style={{ background: "#f5f0e8", color: "#17130f" }}>
