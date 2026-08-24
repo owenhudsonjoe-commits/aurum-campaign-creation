@@ -294,6 +294,14 @@ const pinkPremiumLawn5 = "/pink-premium-lawn-5.png";
 const pinkPremiumLawn6 = "/pink-premium-lawn-6.png";
 const pinkPremiumLawnSizeChart = "/pink-premium-lawn-size-chart.png";
 
+const slubKhaddarEmbroidered1 = "/slub-khaddar-embroidered-1.png";
+const slubKhaddarEmbroidered2 = "/slub-khaddar-embroidered-2.png";
+const slubKhaddarEmbroidered3 = "/slub-khaddar-embroidered-3.png";
+const slubKhaddarEmbroidered4 = "/slub-khaddar-embroidered-4.png";
+const slubKhaddarEmbroidered5 = "/slub-khaddar-embroidered-5.png";
+const slubKhaddarEmbroidered6 = "/slub-khaddar-embroidered-6.png";
+const slubKhaddarEmbroideredSizeChart = "/slub-khaddar-embroidered-size-chart.png";
+
 export type Badge = "New" | "Limited" | "Last Piece" | "Bestseller";
 export type FabricType = "Stitched" | "Unstitched";
 export type Collection = "Bridal" | "Festive / Pret" | "Men's" | "Daily Wear" | "Cultural Fusion";
@@ -340,6 +348,54 @@ export interface Product {
 }
 
 export const PRODUCTS: Product[] = [
+  {
+    id: "cf-009",
+    slug: "slub-khaddar-embroidered",
+    name: "SLUB KHADDAR EMBROIDERED",
+    category: "Cultural Fusion",
+    fabricType: "Stitched",
+    price: 6592,
+    discountedPrice: 2636,
+    discountPercent: 60,
+    badge: "New",
+    images: [
+      slubKhaddarEmbroidered1,
+      slubKhaddarEmbroidered2,
+      slubKhaddarEmbroidered3,
+      slubKhaddarEmbroidered4,
+      slubKhaddarEmbroidered5,
+      slubKhaddarEmbroidered6,
+    ],
+    description:
+      "SLUB KHADDAR EMBROIDERED is a rich wine-toned cultural-fusion ensemble designed for effortless winter elegance. The straight long shirt features a statement embroidered neckline, button detailing, and refined sleeve borders, paired with geometric printed trousers and a soft contrasting dupatta.",
+    details: [
+      "Fabric: Slub Khaddar",
+      "Set: 3-piece stitched shirt, trouser, and dupatta",
+      "Shirt: Straight silhouette with embroidered neckline and button detailing",
+      "Sleeves: Full sleeves with embroidered cuff borders",
+      "Trousers: Coordinating trousers with bold geometric print",
+      "Dupatta: Soft contrast dupatta with delicate edging",
+      "Colour: Deep Wine / Maroon",
+      "Occasion: Winter gatherings, festive lunches, and everyday wear",
+      "Care: Gentle hand wash or dry clean; do not bleach",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2 to 3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      { size: "S", chest: '18–19"', shoulder: '14"', hips: '18"', armHole: '9"', legOpening: '8"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
+    ],
+    sizeChartImage: slubKhaddarEmbroideredSizeChart,
+    reviewCount: 7,
+    soldCount: 34,
+    soldTimeframe: "13 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
   {
     id: "cf-008",
     slug: "pink-premium-lawn",
