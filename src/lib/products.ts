@@ -312,6 +312,15 @@ const parrotGreenChiffon7 = "/parrot-green-chiffon-7.png";
 const parrotGreenChiffon8 = "/parrot-green-chiffon-8.png";
 const parrotGreenChiffonSizeChart = "/parrot-green-chiffon-size-chart.png";
 
+const limeYellowPureChiffon1 = "/lime-yellow-pure-chiffon-1.png";
+const limeYellowPureChiffon2 = "/lime-yellow-pure-chiffon-2.png";
+const limeYellowPureChiffon3 = "/lime-yellow-pure-chiffon-3.png";
+const limeYellowPureChiffon4 = "/lime-yellow-pure-chiffon-4.png";
+const limeYellowPureChiffon5 = "/lime-yellow-pure-chiffon-5.png";
+const limeYellowPureChiffon6 = "/lime-yellow-pure-chiffon-6.png";
+const limeYellowPureChiffon7 = "/lime-yellow-pure-chiffon-7.png";
+const limeYellowPureChiffonSizeChart = "/lime-yellow-pure-chiffon-size-chart.png";
+
 export type Badge = "New" | "Limited" | "Last Piece" | "Bestseller";
 export type FabricType = "Stitched" | "Unstitched";
 export type Collection = "Bridal" | "Festive / Pret" | "Men's" | "Daily Wear" | "Cultural Fusion";
@@ -358,6 +367,55 @@ export interface Product {
 }
 
 export const PRODUCTS: Product[] = [
+  {
+    id: "cf-011",
+    slug: "lime-yellow-pure-chiffon",
+    name: "LIME YELLOW PURE CHIFFON",
+    category: "Cultural Fusion",
+    fabricType: "Stitched",
+    price: 7473,
+    discountedPrice: 2989,
+    discountPercent: 60,
+    badge: "New",
+    images: [
+      limeYellowPureChiffon1,
+      limeYellowPureChiffon2,
+      limeYellowPureChiffon3,
+      limeYellowPureChiffon4,
+      limeYellowPureChiffon5,
+      limeYellowPureChiffon6,
+      limeYellowPureChiffon7,
+    ],
+    description:
+      "LIME YELLOW PURE CHIFFON is a luminous cultural-fusion ensemble in a soft lemon-lime hue. The airy printed shirt is scattered with delicate botanical motifs and finished with scalloped edging, paired with coordinating wide-leg trousers and a flowing chiffon dupatta for effortless festive elegance.",
+    details: [
+      "Fabric: Pure Chiffon",
+      "Set: 3-piece stitched shirt, trouser, and dupatta",
+      "Shirt: Lightly printed chiffon with delicate botanical motifs",
+      "Detailing: Refined neckline and scalloped hem edging",
+      "Trousers: Coordinating wide-leg trousers with subtle floral print",
+      "Dupatta: Flowing matching chiffon dupatta with finished edging",
+      "Colour: Lime Yellow",
+      "Occasion: Festive lunches, daytime celebrations, and everyday wear",
+      "Care: Dry clean recommended",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2 to 3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      { size: "S", chest: '18–19"', shoulder: '14"', hips: '18"', armHole: '9"', legOpening: '8"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
+    ],
+    sizeChartImage: limeYellowPureChiffonSizeChart,
+    reviewCount: 7,
+    soldCount: 34,
+    soldTimeframe: "13 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
   {
     id: "cf-010",
     slug: "parrot-green-chiffon",
