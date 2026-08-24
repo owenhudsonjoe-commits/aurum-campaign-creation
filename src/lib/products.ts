@@ -302,6 +302,16 @@ const slubKhaddarEmbroidered5 = "/slub-khaddar-embroidered-5.png";
 const slubKhaddarEmbroidered6 = "/slub-khaddar-embroidered-6.png";
 const slubKhaddarEmbroideredSizeChart = "/slub-khaddar-embroidered-size-chart.png";
 
+const parrotGreenChiffon1 = "/parrot-green-chiffon-1.png";
+const parrotGreenChiffon2 = "/parrot-green-chiffon-2.png";
+const parrotGreenChiffon3 = "/parrot-green-chiffon-3.png";
+const parrotGreenChiffon4 = "/parrot-green-chiffon-4.png";
+const parrotGreenChiffon5 = "/parrot-green-chiffon-5.png";
+const parrotGreenChiffon6 = "/parrot-green-chiffon-6.png";
+const parrotGreenChiffon7 = "/parrot-green-chiffon-7.png";
+const parrotGreenChiffon8 = "/parrot-green-chiffon-8.png";
+const parrotGreenChiffonSizeChart = "/parrot-green-chiffon-size-chart.png";
+
 export type Badge = "New" | "Limited" | "Last Piece" | "Bestseller";
 export type FabricType = "Stitched" | "Unstitched";
 export type Collection = "Bridal" | "Festive / Pret" | "Men's" | "Daily Wear" | "Cultural Fusion";
@@ -348,6 +358,56 @@ export interface Product {
 }
 
 export const PRODUCTS: Product[] = [
+  {
+    id: "cf-010",
+    slug: "parrot-green-chiffon",
+    name: "PARROT GREEN CHIFFON",
+    category: "Cultural Fusion",
+    fabricType: "Stitched",
+    price: 6355,
+    discountedPrice: 2542,
+    discountPercent: 60,
+    badge: "New",
+    images: [
+      parrotGreenChiffon1,
+      parrotGreenChiffon2,
+      parrotGreenChiffon3,
+      parrotGreenChiffon4,
+      parrotGreenChiffon5,
+      parrotGreenChiffon6,
+      parrotGreenChiffon7,
+      parrotGreenChiffon8,
+    ],
+    description:
+      "PARROT GREEN CHIFFON is a fresh and feminine cultural-fusion ensemble in a luminous parrot green. The flowing printed chiffon shirt is finished with delicate floral borders and embroidered sleeve detailing, paired with coordinating trousers and an airy matching dupatta for graceful festive dressing.",
+    details: [
+      "Fabric: Chiffon",
+      "Set: 3-piece stitched shirt, trouser, and dupatta",
+      "Shirt: Flowing printed chiffon with floral motif detailing",
+      "Sleeves: Full sleeves with embroidered borders and lace trim",
+      "Trousers: Coordinating printed trousers",
+      "Dupatta: Airy matching chiffon dupatta with finished edging",
+      "Colour: Parrot Green with yellow and pink floral accents",
+      "Occasion: Festive lunches, daytime celebrations, and everyday wear",
+      "Care: Dry clean recommended",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2 to 3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      { size: "S", chest: '18–19"', shoulder: '14"', hips: '18"', armHole: '9"', legOpening: '8"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
+    ],
+    sizeChartImage: parrotGreenChiffonSizeChart,
+    reviewCount: 11,
+    soldCount: 34,
+    soldTimeframe: "11 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
   {
     id: "cf-009",
     slug: "slub-khaddar-embroidered",
