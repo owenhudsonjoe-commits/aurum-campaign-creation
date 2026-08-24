@@ -286,6 +286,14 @@ const maroonPureLawn4 = "/maroon-pure-lawn-4.png";
 const maroonPureLawn5 = "/maroon-pure-lawn-5.png";
 const maroonPureLawnSizeChart = "/maroon-pure-lawn-size-chart.png";
 
+const pinkPremiumLawn1 = "/pink-premium-lawn-1.png";
+const pinkPremiumLawn2 = "/pink-premium-lawn-2.png";
+const pinkPremiumLawn3 = "/pink-premium-lawn-3.png";
+const pinkPremiumLawn4 = "/pink-premium-lawn-4.png";
+const pinkPremiumLawn5 = "/pink-premium-lawn-5.png";
+const pinkPremiumLawn6 = "/pink-premium-lawn-6.png";
+const pinkPremiumLawnSizeChart = "/pink-premium-lawn-size-chart.png";
+
 export type Badge = "New" | "Limited" | "Last Piece" | "Bestseller";
 export type FabricType = "Stitched" | "Unstitched";
 export type Collection = "Bridal" | "Festive / Pret" | "Men's" | "Daily Wear" | "Cultural Fusion";
@@ -332,6 +340,46 @@ export interface Product {
 }
 
 export const PRODUCTS: Product[] = [
+  {
+    id: "cf-008",
+    slug: "pink-premium-lawn",
+    name: "PINK PREMIUM LAWN",
+    category: "Cultural Fusion",
+    fabricType: "Stitched",
+    price: 7592,
+    discountedPrice: 3036,
+    discountPercent: 60,
+    badge: "New",
+    images: [pinkPremiumLawn1, pinkPremiumLawn2, pinkPremiumLawn3, pinkPremiumLawn4, pinkPremiumLawn5, pinkPremiumLawn6],
+    description:
+      "PINK PREMIUM LAWN is a soft and graceful cultural-fusion ensemble in a delicate pink shade. The relaxed long shirt is finished with a refined buttoned neckline and statement embroidered cuffs, while the flowing matching dupatta and trousers complete this polished everyday festive look.",
+    details: [
+      "Fabric: Premium Lawn",
+      "Set: 3-piece stitched shirt, trouser, and dupatta",
+      "Detailing: Embroidered neckline and statement sleeve cuffs",
+      "Dupatta: Lightweight matching dupatta with delicate trim",
+      "Colour: Soft Pink",
+      "Silhouette: Relaxed long shirt with coordinating trousers",
+      "Occasion: Everyday wear, festive lunches, and daytime celebrations",
+      "Care: Gentle hand wash or dry clean; do not bleach",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2 to 3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      { size: "S", chest: '18–19"', shoulder: '14"', hips: '18"', armHole: '9"', legOpening: '8"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
+    ],
+    sizeChartImage: pinkPremiumLawnSizeChart,
+    reviewCount: 7,
+    soldCount: 24,
+    soldTimeframe: "9 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
   {
     id: "cf-007",
     slug: "maroon-pure-lawn",
