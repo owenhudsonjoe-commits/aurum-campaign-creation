@@ -279,6 +279,13 @@ const whitePremiumLawn5 = "/white-premium-lawn-5.png";
 const whitePremiumLawn6 = "/white-premium-lawn-6.png";
 const whitePremiumLawnSizeChart = "/white-premium-lawn-size-chart.png";
 
+const maroonPureLawn1 = "/maroon-pure-lawn-1.png";
+const maroonPureLawn2 = "/maroon-pure-lawn-2.png";
+const maroonPureLawn3 = "/maroon-pure-lawn-3.png";
+const maroonPureLawn4 = "/maroon-pure-lawn-4.png";
+const maroonPureLawn5 = "/maroon-pure-lawn-5.png";
+const maroonPureLawnSizeChart = "/maroon-pure-lawn-size-chart.png";
+
 export type Badge = "New" | "Limited" | "Last Piece" | "Bestseller";
 export type FabricType = "Stitched" | "Unstitched";
 export type Collection = "Bridal" | "Festive / Pret" | "Men's" | "Daily Wear" | "Cultural Fusion";
@@ -325,6 +332,45 @@ export interface Product {
 }
 
 export const PRODUCTS: Product[] = [
+  {
+    id: "cf-007",
+    slug: "maroon-pure-lawn",
+    name: "MAROON PURE LAWN",
+    category: "Cultural Fusion",
+    fabricType: "Stitched",
+    price: 7332,
+    discountedPrice: 2932,
+    discountPercent: 60,
+    badge: "New",
+    images: [maroonPureLawn1, maroonPureLawn2, maroonPureLawn3, maroonPureLawn4, maroonPureLawn5],
+    description:
+      "MAROON PURE LAWN is an effortlessly graceful two-piece cultural-fusion ensemble in a rich maroon shade. The flowing long shirt features a relaxed silhouette, a tie neckline, and sheer striped sleeve panels, finished with delicate scalloped edging for an easy polished look.",
+    details: [
+      "Fabric: Pure Lawn",
+      "Set: 2-piece stitched shirt and trouser",
+      "Detailing: Tie neckline, sheer striped sleeves, and scalloped hem edging",
+      "Colour: Maroon",
+      "Silhouette: Relaxed long shirt with matching trousers",
+      "Occasion: Everyday wear, festive lunches, and daytime celebrations",
+      "Care: Gentle hand wash or dry clean; do not bleach",
+    ],
+    leadTime: "Ready to ship",
+    estimatedDelivery: "2 to 3 days",
+    sizes: ["S", "M", "L"],
+    sizeChart: [
+      { size: "S", chest: '18–19"', shoulder: '14"', hips: '18"', armHole: '9"', legOpening: '8"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+      { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
+    ],
+    sizeChartImage: maroonPureLawnSizeChart,
+    reviewCount: 7,
+    soldCount: 23,
+    soldTimeframe: "11 hours",
+    returnPolicy:
+      "We want you to love your purchase. If your item arrives with a manufacturing defect or damage, please contact us within 24 hours of delivery with photos and we will arrange a replacement or full refund. As each piece is stitched to standard sizes, size-based returns are not accepted — please refer to the size guide before ordering. Sale and discounted items are final sale.",
+    inStock: true,
+    featured: true,
+  },
   {
     id: "cf-006",
     slug: "white-premium-lawn",
