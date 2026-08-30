@@ -79,7 +79,6 @@ function AuthLoading() {
 
 function AdminLogin({ onSuccess }: { onSuccess: () => void }) {
   const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
@@ -92,7 +91,7 @@ function AdminLogin({ onSuccess }: { onSuccess: () => void }) {
         method: "POST",
         credentials: "same-origin",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ username }),
       });
       const responseText = await response.text();
       let data: { message?: string } = {};
@@ -151,7 +150,7 @@ function AdminLogin({ onSuccess }: { onSuccess: () => void }) {
           </p>
           <h2 className="mt-3 font-serif text-4xl">Sign in to your atelier.</h2>
           <p className="mt-3 text-sm leading-relaxed text-[#77736b]">
-            Use your store owner credentials to access the catalog and site controls.
+            Enter your store owner username to access the catalog and site controls.
           </p>
           <form onSubmit={login} className="mt-8 space-y-5">
             <Field
@@ -162,20 +161,6 @@ function AdminLogin({ onSuccess }: { onSuccess: () => void }) {
               autoComplete="username"
               required
             />
-            <label className="block">
-              <span className="mb-1.5 block text-[10px] font-semibold uppercase tracking-[0.12em] text-[#77736b]">
-                Password<span className="ml-1 text-red-500">*</span>
-              </span>
-              <input
-                type="password"
-                autoComplete="current-password"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-                placeholder="Enter your password"
-                required
-                className="w-full border border-[#191713]/15 bg-white px-3 py-3 text-[12px] outline-none placeholder:text-[#aaa59a] focus:border-[#c9a84c]"
-              />
-            </label>
             {error && (
               <p className="border border-red-200 bg-red-50 px-3 py-2.5 text-[11px] text-red-700">
                 {error}

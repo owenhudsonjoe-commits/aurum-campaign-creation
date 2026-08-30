@@ -52,20 +52,13 @@ function adminAuthPlugin(): Plugin {
         }
 
         if (requestUrl.pathname === "/api/admin/login" && request.method === "POST") {
-          if (!process.env.ADMIN_PASSWORD) {
-            response.statusCode = 503;
-            response.end(JSON.stringify({ message: "Admin password is not configured." }));
-            return;
-          }
-
           const body = await readRequestBody(request);
           const username = typeof body?.username === "string" ? body.username : "";
-          const password = typeof body?.password === "string" ? body.password : "";
           const expectedUsername = process.env.ADMIN_USERNAME || "admin";
 
-          if (username !== expectedUsername || password !== process.env.ADMIN_PASSWORD) {
+          if (username !== expectedUsername) {
             response.statusCode = 401;
-            response.end(JSON.stringify({ message: "Incorrect username or password." }));
+            response.end(JSON.stringify({ message: "Incorrect username." }));
             return;
           }
 
