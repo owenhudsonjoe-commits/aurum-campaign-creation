@@ -94,7 +94,15 @@ function AdminLogin({ onSuccess }: { onSuccess: () => void }) {
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ username, password }),
       });
-      const data = (await response.json()) as { message?: string };
+      const responseText = await response.text();
+      let data: { message?: string } = {};
+      if (responseText) {
+        try {
+          data = JSON.parse(responseText) as { message?: string };
+        } catch {
+          // Some proxy errors return an empty or non-JSON body.
+        }
+      }
       if (!response.ok) throw new Error(data.message || "Unable to sign in.");
       onSuccess();
     } catch (loginError) {
