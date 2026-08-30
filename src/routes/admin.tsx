@@ -46,16 +46,41 @@ const navItems: { id: AdminSection; label: string; icon: typeof LayoutDashboard 
   { id: "settings", label: "Site settings", icon: Settings2 },
 ];
 
+const LOCAL_SESSION_KEY = "aurum_admin_local_session";
+const ALLOWED_USERNAMES = ["umair455", "admin"];
+
+function isAllowedUsername(value: string) {
+  return ALLOWED_USERNAMES.includes(value.trim().toLowerCase());
+}
+
 function AdminPage() {
   const [authenticated, setAuthenticated] = useState<boolean | null>(null);
 
   useEffect(() => {
+    let cancelled = false;
+    const local =
+      typeof window !== "undefined" && window.localStorage.getItem(LOCAL_SESSION_KEY) === "1";
+
     fetch("/api/admin/session", { credentials: "same-origin" })
       .then(async (response) => {
-        const data = (await response.json()) as { authenticated?: boolean };
-        setAuthenticated(response.ok && data.authenticated === true);
+        const text = await response.text();
+        let data: { authenticated?: boolean } = {};
+        try {
+          data = JSON.parse(text) as { authenticated?: boolean };
+        } catch {
+          // Static hosting returns HTML for unknown API paths.
+          if (!cancelled) setAuthenticated(local);
+          return;
+        }
+        if (!cancelled) setAuthenticated((response.ok && data.authenticated === true) || local);
       })
-      .catch(() => setAuthenticated(false));
+      .catch(() => {
+        if (!cancelled) setAuthenticated(local);
+      });
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   if (authenticated === null) return <AuthLoading />;
@@ -63,6 +88,7 @@ function AdminPage() {
 
   return <AdminWorkspace onLogout={() => setAuthenticated(false)} />;
 }
+
 
 function AuthLoading() {
   return (
