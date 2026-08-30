@@ -53,8 +53,8 @@ function adminAuthPlugin(): Plugin {
 
         if (requestUrl.pathname === "/api/admin/login" && request.method === "POST") {
           const body = await readRequestBody(request);
-          const username = typeof body?.username === "string" ? body.username : "";
-          const expectedUsername = process.env.ADMIN_USERNAME || "admin";
+          const username = typeof body?.username === "string" ? body.username.trim() : "";
+          const expectedUsername = (process.env.ADMIN_USERNAME || "admin").trim();
 
           if (username !== expectedUsername) {
             response.statusCode = 401;

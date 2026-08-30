@@ -91,7 +91,7 @@ function AdminLogin({ onSuccess }: { onSuccess: () => void }) {
         method: "POST",
         credentials: "same-origin",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ username }),
+        body: JSON.stringify({ username: username.trim() }),
       });
       const responseText = await response.text();
       let data: { message?: string } = {};
