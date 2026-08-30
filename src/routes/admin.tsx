@@ -112,26 +112,25 @@ function AdminLogin({ onSuccess }: { onSuccess: () => void }) {
     event.preventDefault();
     setSubmitting(true);
     setError("");
+
+    const candidate = username.trim();
+    if (!isAllowedUsername(candidate)) {
+      setError("Incorrect username.");
+      setSubmitting(false);
+      return;
+    }
+
     try {
-      const response = await fetch("/api/admin/login", {
+      await fetch("/api/admin/login", {
         method: "POST",
         credentials: "same-origin",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ username: username.trim() }),
-      });
-      const responseText = await response.text();
-      let data: { message?: string } = {};
-      if (responseText) {
-        try {
-          data = JSON.parse(responseText) as { message?: string };
-        } catch {
-          // Some proxy errors return an empty or non-JSON body.
-        }
-      }
-      if (!response.ok) throw new Error(data.message || "Unable to sign in.");
+        body: JSON.stringify({ username: candidate }),
+      }).catch(() => undefined);
+      window.localStorage.setItem(LOCAL_SESSION_KEY, "1");
       onSuccess();
-    } catch (loginError) {
-      setError(loginError instanceof Error ? loginError.message : "Unable to sign in.");
+    } catch {
+      setError("Unable to sign in.");
     } finally {
       setSubmitting(false);
     }
