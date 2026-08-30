@@ -217,7 +217,10 @@ function AdminWorkspace({ onLogout }: { onLogout: () => void }) {
   const { settings } = useCatalog();
 
   async function logout() {
-    await fetch("/api/admin/logout", { method: "POST", credentials: "same-origin" });
+    window.localStorage.removeItem(LOCAL_SESSION_KEY);
+    await fetch("/api/admin/logout", { method: "POST", credentials: "same-origin" }).catch(
+      () => undefined,
+    );
     onLogout();
   }
 
