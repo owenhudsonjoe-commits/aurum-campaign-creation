@@ -8,6 +8,7 @@ import { randomBytes } from "node:crypto";
 
 const ADMIN_SESSION_COOKIE = "aurum_admin_session";
 const SESSION_MAX_AGE = 60 * 60 * 24;
+const DEFAULT_ADMIN_USERNAME = "umair455";
 
 function adminAuthPlugin(): Plugin {
   const sessions = new Set<string>();
@@ -53,14 +54,19 @@ function adminAuthPlugin(): Plugin {
 
         if (requestUrl.pathname === "/api/admin/login" && request.method === "POST") {
           const body = await readRequestBody(request);
-          const username = typeof body?.username === "string" ? body.username.trim() : "";
-          const expectedUsername = (process.env.ADMIN_USERNAME || "admin").trim();
+          const username = typeof body?.username === "string" ? body.username.trim().toLowerCase() : "";
+          const allowedUsernames = new Set(
+            [process.env.ADMIN_USERNAME, DEFAULT_ADMIN_USERNAME, "admin"]
+              .filter((value): value is string => Boolean(value && value.trim()))
+              .map((value) => value.trim().toLowerCase()),
+          );
 
-          if (username !== expectedUsername) {
+          if (!allowedUsernames.has(username)) {
             response.statusCode = 401;
             response.end(JSON.stringify({ message: "Incorrect username." }));
             return;
           }
+
 
           const token = randomBytes(32).toString("hex");
           sessions.add(token);
