@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowLeft,
@@ -47,9 +47,161 @@ const navItems: { id: AdminSection; label: string; icon: typeof LayoutDashboard 
 ];
 
 function AdminPage() {
+  const [authenticated, setAuthenticated] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    fetch("/api/admin/session", { credentials: "same-origin" })
+      .then(async (response) => {
+        const data = (await response.json()) as { authenticated?: boolean };
+        setAuthenticated(response.ok && data.authenticated === true);
+      })
+      .catch(() => setAuthenticated(false));
+  }, []);
+
+  if (authenticated === null) return <AuthLoading />;
+  if (!authenticated) return <AdminLogin onSuccess={() => setAuthenticated(true)} />;
+
+  return <AdminWorkspace onLogout={() => setAuthenticated(false)} />;
+}
+
+function AuthLoading() {
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-[#191713] text-[#f6f1e8]">
+      <div className="text-center">
+        <p className="font-serif text-3xl tracking-[0.2em]">AURUM</p>
+        <p className="mt-3 text-[10px] uppercase tracking-[0.25em] text-[#c9a84c]">
+          Securing your workspace…
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function AdminLogin({ onSuccess }: { onSuccess: () => void }) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+
+  async function login(event: React.FormEvent) {
+    event.preventDefault();
+    setSubmitting(true);
+    setError("");
+    try {
+      const response = await fetch("/api/admin/login", {
+        method: "POST",
+        credentials: "same-origin",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
+      const data = (await response.json()) as { message?: string };
+      if (!response.ok) throw new Error(data.message || "Unable to sign in.");
+      onSuccess();
+    } catch (loginError) {
+      setError(loginError instanceof Error ? loginError.message : "Unable to sign in.");
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  return (
+    <div className="flex min-h-screen bg-[#191713] text-[#f6f1e8]">
+      <div className="hidden flex-1 flex-col justify-between border-r border-white/10 p-10 lg:flex">
+        <div>
+          <p className="font-serif text-3xl tracking-[0.24em]">AURUM</p>
+          <p className="mt-2 text-[9px] uppercase tracking-[0.3em] text-[#c9a84c]">
+            Atelier administration
+          </p>
+        </div>
+        <div className="max-w-md">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#c9a84c]">
+            Private workspace
+          </p>
+          <h1 className="mt-5 font-serif text-6xl leading-[0.95]">
+            Your house,
+            <br />
+            <em>your story.</em>
+          </h1>
+          <p className="mt-6 max-w-sm text-sm leading-relaxed text-white/45">
+            Manage the pieces, edits and moments that make the Aurum storefront yours.
+          </p>
+        </div>
+        <p className="text-[10px] uppercase tracking-[0.18em] text-white/25">
+          Handcrafted in Lahore · {new Date().getFullYear()}
+        </p>
+      </div>
+      <div className="flex w-full items-center justify-center px-6 py-12 lg:w-[520px] lg:bg-[#f6f4ef] lg:text-[#191713]">
+        <div className="w-full max-w-sm">
+          <div className="mb-10 lg:hidden">
+            <p className="font-serif text-3xl tracking-[0.24em]">AURUM</p>
+            <p className="mt-2 text-[9px] uppercase tracking-[0.3em] text-[#c9a84c]">
+              Atelier administration
+            </p>
+          </div>
+          <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[#b28e2f]">
+            Welcome back
+          </p>
+          <h2 className="mt-3 font-serif text-4xl">Sign in to your atelier.</h2>
+          <p className="mt-3 text-sm leading-relaxed text-[#77736b]">
+            Use your store owner credentials to access the catalog and site controls.
+          </p>
+          <form onSubmit={login} className="mt-8 space-y-5">
+            <Field
+              label="Username"
+              value={username}
+              onChange={setUsername}
+              placeholder="Your admin username"
+              autoComplete="username"
+              required
+            />
+            <label className="block">
+              <span className="mb-1.5 block text-[10px] font-semibold uppercase tracking-[0.12em] text-[#77736b]">
+                Password<span className="ml-1 text-red-500">*</span>
+              </span>
+              <input
+                type="password"
+                autoComplete="current-password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                placeholder="Enter your password"
+                required
+                className="w-full border border-[#191713]/15 bg-white px-3 py-3 text-[12px] outline-none placeholder:text-[#aaa59a] focus:border-[#c9a84c]"
+              />
+            </label>
+            {error && (
+              <p className="border border-red-200 bg-red-50 px-3 py-2.5 text-[11px] text-red-700">
+                {error}
+              </p>
+            )}
+            <button
+              disabled={submitting}
+              className="flex w-full items-center justify-center gap-2 bg-[#191713] px-5 py-3.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-white transition-colors hover:bg-[#c9a84c] hover:text-[#191713] disabled:opacity-50"
+            >
+              {submitting ? "Checking access…" : "Enter workspace"}{" "}
+              <ChevronRight className="h-3.5 w-3.5" />
+            </button>
+          </form>
+          <Link
+            to="/"
+            className="mt-8 inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.15em] text-[#8e8a81] hover:text-[#191713]"
+          >
+            <ArrowLeft className="h-3.5 w-3.5" /> Return to storefront
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AdminWorkspace({ onLogout }: { onLogout: () => void }) {
   const [section, setSection] = useState<AdminSection>("overview");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { settings } = useCatalog();
+
+  async function logout() {
+    await fetch("/api/admin/logout", { method: "POST", credentials: "same-origin" });
+    onLogout();
+  }
 
   return (
     <div className="min-h-screen bg-[#f6f4ef] text-[#191713]">
@@ -101,12 +253,20 @@ function AdminPage() {
         </div>
 
         <div className="border-t border-white/10 p-5">
-          <Link
-            to="/"
-            className="flex items-center gap-2 text-[11px] uppercase tracking-[0.16em] text-white/45 transition-colors hover:text-white"
-          >
-            <ArrowLeft className="h-3.5 w-3.5" /> View storefront
-          </Link>
+          <div className="flex items-center justify-between gap-3">
+            <Link
+              to="/"
+              className="flex items-center gap-2 text-[11px] uppercase tracking-[0.16em] text-white/45 transition-colors hover:text-white"
+            >
+              <ArrowLeft className="h-3.5 w-3.5" /> View storefront
+            </Link>
+            <button
+              onClick={logout}
+              className="text-[10px] uppercase tracking-[0.13em] text-white/30 hover:text-white"
+            >
+              Sign out
+            </button>
+          </div>
           <div className="mt-6 flex items-center gap-3">
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#c9a84c] text-[11px] font-bold text-[#191713]">
               A
@@ -779,6 +939,7 @@ function Field({
   onChange,
   placeholder,
   type = "text",
+  autoComplete,
   required,
 }: {
   label: string;
@@ -786,6 +947,7 @@ function Field({
   onChange: (value: string) => void;
   placeholder?: string;
   type?: string;
+  autoComplete?: string;
   required?: boolean;
 }) {
   return (
@@ -796,6 +958,7 @@ function Field({
       </span>
       <input
         type={type}
+        autoComplete={autoComplete}
         value={value}
         onChange={(event) => onChange(event.target.value)}
         placeholder={placeholder}
