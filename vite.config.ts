@@ -35,9 +35,7 @@ function adminAuthPlugin(): Plugin {
 
         if (requestUrl.pathname === "/api/admin/session" && request.method === "GET") {
           response.statusCode = 200;
-          response.end(
-            JSON.stringify({ authenticated: Boolean(session && sessions.has(session)) }),
-          );
+          response.end(JSON.stringify({ authenticated: Boolean(session && sessions.has(session)) }));
           return;
         }
 
@@ -54,19 +52,19 @@ function adminAuthPlugin(): Plugin {
 
         if (requestUrl.pathname === "/api/admin/login" && request.method === "POST") {
           const body = await readRequestBody(request);
-          const username = typeof body?.username === "string" ? body.username.trim().toLowerCase() : "";
-          const allowedUsernames = new Set(
+          const username =
+            typeof body?.username === "string" ? body.username.trim().toLowerCase() : "";
+          const allowed = new Set(
             [process.env.ADMIN_USERNAME, DEFAULT_ADMIN_USERNAME, "admin"]
               .filter((value): value is string => Boolean(value && value.trim()))
               .map((value) => value.trim().toLowerCase()),
           );
 
-          if (!allowedUsernames.has(username)) {
+          if (!allowed.has(username)) {
             response.statusCode = 401;
             response.end(JSON.stringify({ message: "Incorrect username." }));
             return;
           }
-
 
           const token = randomBytes(32).toString("hex");
           sessions.add(token);
@@ -106,6 +104,7 @@ function readRequestBody(
     request.on("error", () => resolveBody(null));
   });
 }
+
 
 export default defineConfig({
   plugins: [
