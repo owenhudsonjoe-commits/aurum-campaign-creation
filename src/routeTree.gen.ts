@@ -19,9 +19,6 @@ import { Route as BespokeRouteImport } from './routes/bespoke'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProductSlugRouteImport } from './routes/product.$slug'
-import { Route as ApiAdminSessionRouteImport } from './routes/api.admin.session'
-import { Route as ApiAdminLogoutRouteImport } from './routes/api.admin.logout'
-import { Route as ApiAdminLoginRouteImport } from './routes/api.admin.login'
 
 const WishlistRoute = WishlistRouteImport.update({
   id: '/wishlist',
@@ -73,21 +70,6 @@ const ProductSlugRoute = ProductSlugRouteImport.update({
   path: '/product/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiAdminSessionRoute = ApiAdminSessionRouteImport.update({
-  id: '/api/admin/session',
-  path: '/api/admin/session',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiAdminLogoutRoute = ApiAdminLogoutRouteImport.update({
-  id: '/api/admin/logout',
-  path: '/api/admin/logout',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiAdminLoginRoute = ApiAdminLoginRouteImport.update({
-  id: '/api/admin/login',
-  path: '/api/admin/login',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -100,9 +82,6 @@ export interface FileRoutesByFullPath {
   '/track': typeof TrackRoute
   '/wishlist': typeof WishlistRoute
   '/product/$slug': typeof ProductSlugRoute
-  '/api/admin/login': typeof ApiAdminLoginRoute
-  '/api/admin/logout': typeof ApiAdminLogoutRoute
-  '/api/admin/session': typeof ApiAdminSessionRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -115,9 +94,6 @@ export interface FileRoutesByTo {
   '/track': typeof TrackRoute
   '/wishlist': typeof WishlistRoute
   '/product/$slug': typeof ProductSlugRoute
-  '/api/admin/login': typeof ApiAdminLoginRoute
-  '/api/admin/logout': typeof ApiAdminLogoutRoute
-  '/api/admin/session': typeof ApiAdminSessionRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -131,9 +107,6 @@ export interface FileRoutesById {
   '/track': typeof TrackRoute
   '/wishlist': typeof WishlistRoute
   '/product/$slug': typeof ProductSlugRoute
-  '/api/admin/login': typeof ApiAdminLoginRoute
-  '/api/admin/logout': typeof ApiAdminLogoutRoute
-  '/api/admin/session': typeof ApiAdminSessionRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -148,9 +121,6 @@ export interface FileRouteTypes {
     | '/track'
     | '/wishlist'
     | '/product/$slug'
-    | '/api/admin/login'
-    | '/api/admin/logout'
-    | '/api/admin/session'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -163,9 +133,6 @@ export interface FileRouteTypes {
     | '/track'
     | '/wishlist'
     | '/product/$slug'
-    | '/api/admin/login'
-    | '/api/admin/logout'
-    | '/api/admin/session'
   id:
     | '__root__'
     | '/'
@@ -178,9 +145,6 @@ export interface FileRouteTypes {
     | '/track'
     | '/wishlist'
     | '/product/$slug'
-    | '/api/admin/login'
-    | '/api/admin/logout'
-    | '/api/admin/session'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -194,9 +158,6 @@ export interface RootRouteChildren {
   TrackRoute: typeof TrackRoute
   WishlistRoute: typeof WishlistRoute
   ProductSlugRoute: typeof ProductSlugRoute
-  ApiAdminLoginRoute: typeof ApiAdminLoginRoute
-  ApiAdminLogoutRoute: typeof ApiAdminLogoutRoute
-  ApiAdminSessionRoute: typeof ApiAdminSessionRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -271,27 +232,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/admin/session': {
-      id: '/api/admin/session'
-      path: '/api/admin/session'
-      fullPath: '/api/admin/session'
-      preLoaderRoute: typeof ApiAdminSessionRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/admin/logout': {
-      id: '/api/admin/logout'
-      path: '/api/admin/logout'
-      fullPath: '/api/admin/logout'
-      preLoaderRoute: typeof ApiAdminLogoutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/admin/login': {
-      id: '/api/admin/login'
-      path: '/api/admin/login'
-      fullPath: '/api/admin/login'
-      preLoaderRoute: typeof ApiAdminLoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
@@ -306,9 +246,6 @@ const rootRouteChildren: RootRouteChildren = {
   TrackRoute: TrackRoute,
   WishlistRoute: WishlistRoute,
   ProductSlugRoute: ProductSlugRoute,
-  ApiAdminLoginRoute: ApiAdminLoginRoute,
-  ApiAdminLogoutRoute: ApiAdminLogoutRoute,
-  ApiAdminSessionRoute: ApiAdminSessionRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
