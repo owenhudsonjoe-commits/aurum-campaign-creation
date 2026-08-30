@@ -19,6 +19,7 @@ import { Route as BespokeRouteImport } from './routes/bespoke'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProductSlugRouteImport } from './routes/product.$slug'
+import { Route as ApiAdminSessionRouteImport } from './routes/api.admin.session'
 import { Route as ApiAdminLoginRouteImport } from './routes/api.admin.login'
 
 const WishlistRoute = WishlistRouteImport.update({
@@ -71,6 +72,11 @@ const ProductSlugRoute = ProductSlugRouteImport.update({
   path: '/product/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiAdminSessionRoute = ApiAdminSessionRouteImport.update({
+  id: '/api/admin/session',
+  path: '/api/admin/session',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiAdminLoginRoute = ApiAdminLoginRouteImport.update({
   id: '/api/admin/login',
   path: '/api/admin/login',
@@ -89,6 +95,7 @@ export interface FileRoutesByFullPath {
   '/wishlist': typeof WishlistRoute
   '/product/$slug': typeof ProductSlugRoute
   '/api/admin/login': typeof ApiAdminLoginRoute
+  '/api/admin/session': typeof ApiAdminSessionRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -102,6 +109,7 @@ export interface FileRoutesByTo {
   '/wishlist': typeof WishlistRoute
   '/product/$slug': typeof ProductSlugRoute
   '/api/admin/login': typeof ApiAdminLoginRoute
+  '/api/admin/session': typeof ApiAdminSessionRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -116,6 +124,7 @@ export interface FileRoutesById {
   '/wishlist': typeof WishlistRoute
   '/product/$slug': typeof ProductSlugRoute
   '/api/admin/login': typeof ApiAdminLoginRoute
+  '/api/admin/session': typeof ApiAdminSessionRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -131,6 +140,7 @@ export interface FileRouteTypes {
     | '/wishlist'
     | '/product/$slug'
     | '/api/admin/login'
+    | '/api/admin/session'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -144,6 +154,7 @@ export interface FileRouteTypes {
     | '/wishlist'
     | '/product/$slug'
     | '/api/admin/login'
+    | '/api/admin/session'
   id:
     | '__root__'
     | '/'
@@ -157,6 +168,7 @@ export interface FileRouteTypes {
     | '/wishlist'
     | '/product/$slug'
     | '/api/admin/login'
+    | '/api/admin/session'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -171,6 +183,7 @@ export interface RootRouteChildren {
   WishlistRoute: typeof WishlistRoute
   ProductSlugRoute: typeof ProductSlugRoute
   ApiAdminLoginRoute: typeof ApiAdminLoginRoute
+  ApiAdminSessionRoute: typeof ApiAdminSessionRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -245,6 +258,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/admin/session': {
+      id: '/api/admin/session'
+      path: '/api/admin/session'
+      fullPath: '/api/admin/session'
+      preLoaderRoute: typeof ApiAdminSessionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/admin/login': {
       id: '/api/admin/login'
       path: '/api/admin/login'
@@ -267,6 +287,7 @@ const rootRouteChildren: RootRouteChildren = {
   WishlistRoute: WishlistRoute,
   ProductSlugRoute: ProductSlugRoute,
   ApiAdminLoginRoute: ApiAdminLoginRoute,
+  ApiAdminSessionRoute: ApiAdminSessionRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
