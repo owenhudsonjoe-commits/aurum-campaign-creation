@@ -57,3 +57,8 @@ deploymentTarget = "autoscale"
 build = ["npm", "run", "build"]
 publicDir = "dist/client"
 run = ["node", "./dist/index.cjs"]
+
+[userenv]
+
+[userenv.shared]
+ADMIN_USERNAME = "umair455"
