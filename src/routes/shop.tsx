@@ -3,8 +3,9 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { z } from "zod";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
-import { PRODUCTS, formatPrice } from "@/lib/products";
+import { formatPrice } from "@/lib/products";
 import type { FabricType, Collection } from "@/lib/products";
+import { useCatalog } from "@/lib/catalog";
 import { useCart } from "@/lib/cart";
 import { useWishlist } from "@/lib/wishlist";
 import { ShoppingBag, ArrowRight, Heart, Search, X, ChevronDown } from "lucide-react";
@@ -18,10 +19,8 @@ const SORT_LABELS: Record<SortOption, string> = {
 };
 
 const FABRIC_TABS: FabricType[] = ["Stitched", "Unstitched"];
-const COLLECTIONS: Collection[] = ["Bridal", "Festive / Pret", "Daily Wear", "Men's", "Cultural Fusion"];
-
 const shopSearchSchema = z.object({
-  collection: z.enum(["All", "Bridal", "Festive / Pret", "Daily Wear", "Men's", "Cultural Fusion"]).optional().default("All"),
+  collection: z.string().optional().default("All"),
   fabric: z.enum(["Stitched", "Unstitched"]).optional().default("Stitched"),
 });
 
@@ -39,6 +38,7 @@ export const Route = createFileRoute("/shop")({
 function ShopPage() {
   const { collection: activeCollection, fabric } = Route.useSearch();
   const navigate = useNavigate({ from: "/shop" });
+  const { products, collections } = useCatalog();
   const { addItem } = useCart();
   const { toggle: toggleWishlist, isWishlisted } = useWishlist();
 
@@ -57,7 +57,7 @@ function ShopPage() {
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    const result = PRODUCTS.filter((p) => {
+    const result = products.filter((p) => {
       const fabricMatch = p.fabricType === fabric;
       const colMatch = activeCollection === "All" || p.category === activeCollection;
       const searchMatch =
@@ -76,11 +76,11 @@ function ShopPage() {
       if (sort === "most-popular") return (b.soldCount ?? 0) - (a.soldCount ?? 0);
       return 0;
     });
-  }, [fabric, activeCollection, query, sort]);
+  }, [products, fabric, activeCollection, query, sort]);
 
   function handleAdd(productId: string, e: React.MouseEvent) {
     e.preventDefault();
-    const product = PRODUCTS.find((p) => p.id === productId)!;
+    const product = products.find((p) => p.id === productId)!;
     addItem(product, product.sizes[0]);
     setAddedId(productId);
     setTimeout(() => setAddedId(null), 1800);
@@ -124,7 +124,7 @@ function ShopPage() {
                 </button>
               ))}
               <div className="h-4 w-px bg-border mx-2" />
-              {(["All", ...COLLECTIONS] as const).map((col) => (
+              {(["All", ...collections] as const).map((col) => (
                 <button
                   key={col}
                   onClick={() => setActiveCollection(col)}
@@ -199,7 +199,7 @@ function ShopPage() {
 
           {/* Mobile collection pills */}
           <div className="md:hidden flex items-center gap-2 px-5 py-2.5 overflow-x-auto scrollbar-hide">
-            {(["All", ...COLLECTIONS] as const).map((col) => (
+            {(["All", ...collections] as const).map((col) => (
               <button
                 key={col}
                 onClick={() => setActiveCollection(col)}

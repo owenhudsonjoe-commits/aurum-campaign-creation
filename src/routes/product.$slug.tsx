@@ -2,7 +2,8 @@ import { useState, useMemo, useEffect } from "react";
 import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
-import { getProductBySlug, formatPrice, PRODUCTS } from "@/lib/products";
+import { getProductBySlug, formatPrice } from "@/lib/products";
+import { useCatalog } from "@/lib/catalog";
 import { useCart } from "@/lib/cart";
 import { useWishlist } from "@/lib/wishlist";
 import { useRecentlyViewed } from "@/lib/recentlyViewed";
@@ -39,7 +40,8 @@ function Stars({ count, size = "h-3 w-3" }: { count: number; size?: string }) {
 
 function ProductPage() {
   const { slug } = Route.useParams();
-  const maybeProduct = getProductBySlug(slug);
+  const { products } = useCatalog();
+  const maybeProduct = products.find((item) => item.slug === slug);
   if (!maybeProduct) throw notFound();
   const product = maybeProduct;
 
@@ -61,8 +63,8 @@ function ProductPage() {
 
   const recentlyViewed = recentItems.filter((p) => p.id !== product.id).slice(0, 4);
   const related = useMemo(
-    () => PRODUCTS.filter((p) => p.id !== product.id && p.category === product.category).slice(0, 4),
-    [product]
+    () => products.filter((p) => p.id !== product.id && p.category === product.category).slice(0, 4),
+    [product, products]
   );
   const hasSizeChart = product.sizeChart.length > 0 || !!product.sizeChartImage;
   const reviewCount = product.reviewCount ?? 48;

@@ -4,7 +4,8 @@ import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { BackToTop } from "@/components/BackToTop";
 import { ArchFrame } from "@/components/ArchFrame";
-import { PRODUCTS, formatPrice } from "@/lib/products";
+import { formatPrice } from "@/lib/products";
+import { useCatalog } from "@/lib/catalog";
 import { useCart } from "@/lib/cart";
 import { useWishlist } from "@/lib/wishlist";
 import { ShoppingBag, Heart, Flame, ArrowLeft, ChevronDown } from "lucide-react";
@@ -30,13 +31,14 @@ export const Route = createFileRoute("/sale")({
 function SalePage() {
   const { addItem } = useCart();
   const { toggle: toggleWishlist, isWishlisted } = useWishlist();
+  const { products } = useCatalog();
   const [addedId, setAddedId] = useState<string | null>(null);
   const [sort, setSort] = useState<SortOption>("featured");
   const [sortOpen, setSortOpen] = useState(false);
   const sortRef = useRef<HTMLDivElement>(null);
 
   const saleProducts = useMemo(() => {
-    const base = PRODUCTS.filter(
+    const base = products.filter(
       (p) => p.discountedPrice !== undefined && p.discountedPrice <= 3500
     );
     return [...base].sort((a, b) => {
@@ -47,11 +49,11 @@ function SalePage() {
       if (sort === "most-popular") return (b.soldCount ?? 0) - (a.soldCount ?? 0);
       return 0;
     });
-  }, [sort]);
+  }, [products, sort]);
 
   function handleAdd(productId: string, e: React.MouseEvent) {
     e.preventDefault();
-    const product = PRODUCTS.find((p) => p.id === productId)!;
+    const product = products.find((p) => p.id === productId)!;
     addItem(product, product.sizes[0]);
     setAddedId(productId);
     setTimeout(() => setAddedId(null), 1800);

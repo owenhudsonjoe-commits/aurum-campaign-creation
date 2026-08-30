@@ -3,7 +3,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Truck, Shield, RotateCcw, Headphones, Sparkles } from "lucide-react";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
-import { PRODUCTS, formatPrice } from "@/lib/products";
+import { formatPrice } from "@/lib/products";
+import { useCatalog } from "@/lib/catalog";
 import heroImg from "@/assets/hero-daily-wear.webp";
 import stitchedImg from "@/assets/stitched-magenta.webp";
 import unstitchedImg from "@/assets/unstitched-style.webp";
@@ -45,8 +46,6 @@ const features = [
   { icon: Shield,      title: "100% Authentic",  desc: "Certificate with every piece" },
   { icon: Headphones,  title: "Expert Styling",  desc: "Personal styling consultation" },
 ];
-
-const culturalFusionProducts = PRODUCTS.filter((product) => product.category === "Cultural Fusion").slice(0, 4);
 
 const clientQuotes = [
   { q: "I wore Aurum to my walima and strangers stopped to ask who I was wearing.", name: "Nadia S.", city: "Lahore" },
@@ -110,6 +109,15 @@ function NewsletterForm() {
 
 /* ─── Home page ──────────────────────────────────────────────────── */
 function Home() {
+  const { products, banners, settings } = useCatalog();
+  const culturalFusionProducts = products.filter((product) => product.category === "Cultural Fusion").slice(0, 4);
+  const activeBanner = banners.find((banner) => banner.isActive);
+  const heroImage = settings.heroImage || heroImg;
+  const accentIndex = settings.heroTitle.indexOf(settings.heroAccent);
+  const hasAccent = Boolean(settings.heroAccent && accentIndex >= 0);
+  const heroBefore = hasAccent ? settings.heroTitle.slice(0, accentIndex) : settings.heroTitle;
+  const heroAfter = hasAccent ? settings.heroTitle.slice(accentIndex + settings.heroAccent.length) : "";
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Nav />
@@ -118,7 +126,7 @@ function Home() {
       {/* ── HERO ─────────────────────────────────────────────────── */}
       <section className="relative overflow-hidden" style={{ height: "88svh", minHeight: "520px" }}>
         <img
-          src={heroImg} alt="AURUM Collection"
+          src={heroImage} alt="AURUM Collection"
           fetchPriority="high" decoding="async"
           className="absolute inset-0 h-full w-full object-cover object-center"
         />
@@ -132,13 +140,13 @@ function Home() {
         <div className="relative z-10 flex h-full flex-col items-start justify-center px-8 md:px-20 max-w-[1400px] mx-auto">
           <div className="animate-reveal">
             <p className="font-sans text-[10px] tracking-[0.4em] uppercase mb-5 font-medium" style={{ color: "#c9a84c" }}>
-              New Collection · Summer 2026
+               {settings.heroEyebrow}
             </p>
-            <h1 className="font-display font-light leading-[1.08] mb-6 max-w-2xl" style={{ fontSize: "clamp(2.8rem,6vw,5.5rem)", color: "#f5f0e8" }}>
-              Dressed for<br />the <em className="italic" style={{ color: "#c9a84c" }}>Modern</em> Woman
+            <h1 className="font-display font-light leading-[1.08] mb-6 max-w-2xl whitespace-pre-line" style={{ fontSize: "clamp(2.8rem,6vw,5.5rem)", color: "#f5f0e8" }}>
+              {heroBefore}{hasAccent && <em className="italic" style={{ color: "#c9a84c" }}>{settings.heroAccent}</em>}{heroAfter}
             </h1>
             <p className="font-sans font-light text-sm md:text-base mb-10 max-w-sm leading-relaxed" style={{ color: "rgba(245,240,232,0.6)" }}>
-              Heritage craftsmanship, contemporary silhouettes — bridal, festive prêt and bespoke, handcrafted in Lahore.
+              {settings.heroSubtitle}
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <Link to="/shop"
@@ -177,7 +185,7 @@ function Home() {
         <div className="py-3 px-5 flex items-center justify-center gap-3" style={{ background: "var(--gold)" }}>
           <Sparkles className="h-3.5 w-3.5 shrink-0" style={{ color: "#17130f" }} />
           <p className="font-sans text-[10px] font-bold uppercase tracking-[0.25em]" style={{ color: "#17130f" }}>
-            Summer Sale · Dresses from RS 2,499 · Limited Stock
+            {activeBanner ? `${activeBanner.title} · ${activeBanner.subtitle}` : "Discover the latest Aurum edit"}
           </p>
           <Sparkles className="h-3.5 w-3.5 shrink-0" style={{ color: "#17130f" }} />
         </div>

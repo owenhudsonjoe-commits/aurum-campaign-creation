@@ -323,7 +323,7 @@ const limeYellowPureChiffonSizeChart = "/lime-yellow-pure-chiffon-size-chart.png
 
 export type Badge = "New" | "Limited" | "Last Piece" | "Bestseller";
 export type FabricType = "Stitched" | "Unstitched";
-export type Collection = "Bridal" | "Festive / Pret" | "Men's" | "Daily Wear" | "Cultural Fusion";
+export type Collection = string;
 
 export interface SizeChartRow {
   size: string;
@@ -344,7 +344,7 @@ export interface Product {
   slug: string;
   name: string;
   urduName?: string;
-  category: Collection;
+  category: string;
   fabricType: FabricType;
   price: number;
   discountedPrice?: number;

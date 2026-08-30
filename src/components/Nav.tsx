@@ -4,6 +4,7 @@ import { Link } from "@tanstack/react-router";
 import { AurumLogo } from "./AurumLogo";
 import { useCart } from "@/lib/cart";
 import { useWishlist } from "@/lib/wishlist";
+import { useCatalog } from "@/lib/catalog";
 
 const navLinks = [
   { label: "Bridal",     href: "/shop", search: { collection: "Bridal" as const,       fabric: "Stitched" as const } },
@@ -20,6 +21,7 @@ export function Nav() {
   const [mobileOpen,  setMobileOpen]  = useState(false);
   const cartCount     = useCart((s) => s.count());
   const wishlistCount = useWishlist((s) => s.count());
+  const announcement   = useCatalog((s) => s.settings.announcement);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -40,7 +42,7 @@ export function Nav() {
         className="fixed inset-x-0 top-0 z-50 py-2.5 px-4 text-center text-[10px] tracking-[0.25em] uppercase font-sans font-medium"
         style={{ background: "var(--gold)", color: "#1a1410" }}
       >
-        Complimentary shipping on orders above RS 5,000
+        {announcement}
       </div>
 
       {/* ── Main header ── */}

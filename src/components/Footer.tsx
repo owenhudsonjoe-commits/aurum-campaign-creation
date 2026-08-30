@@ -1,14 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { AurumLogo } from "./AurumLogo";
 import { Mail, MessageCircle, Instagram, Facebook } from "lucide-react";
-
-const collections = [
-  { label: "Bridal Couture",  href: "/shop", search: { collection: "Bridal" as const,        fabric: "Stitched" as const } },
-  { label: "Festive Prêt",    href: "/shop", search: { collection: "Festive / Pret" as const,  fabric: "Stitched" as const } },
-  { label: "Daily Wear",      href: "/shop", search: { collection: "Daily Wear" as const,      fabric: "Stitched" as const } },
-  { label: "Men's",           href: "/shop", search: { collection: "Men's" as const,           fabric: "Stitched" as const } },
-  { label: "Unstitched",      href: "/shop", search: { collection: "All" as const,             fabric: "Unstitched" as const } },
-];
+import { useCatalog } from "@/lib/catalog";
 
 const help = [
   { label: "Bespoke Atelier",   href: "/bespoke" },
@@ -19,6 +12,8 @@ const help = [
 ];
 
 export function Footer() {
+  const { collections, settings } = useCatalog();
+
   return (
     <footer style={{ background: "#17130f", color: "#f5f0e8" }}>
 
@@ -30,7 +25,7 @@ export function Footer() {
           </p>
           <div className="flex flex-col sm:flex-row gap-3">
             <a
-              href="https://wa.me/923474325410"
+              href={`https://wa.me/${settings.whatsapp.replace(/\D/g, "")}`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 px-5 py-2.5 text-[10px] tracking-[0.2em] uppercase font-sans font-medium transition-colors hover:opacity-80"
@@ -40,7 +35,7 @@ export function Footer() {
               WhatsApp Us
             </a>
             <a
-              href="mailto:aurumshop12@gmail.com"
+              href={`mailto:${settings.supportEmail}`}
               className="inline-flex items-center justify-center gap-2 px-5 py-2.5 text-[10px] tracking-[0.2em] uppercase font-sans font-medium transition-colors hover:opacity-80"
               style={{ border: "1px solid rgba(245,240,232,0.15)", color: "rgba(245,240,232,0.6)" }}
             >
@@ -63,11 +58,11 @@ export function Footer() {
             Pakistani heritage couture — bridal, festive prêt and bespoke tailoring from our Lahore atelier.
           </p>
           <div className="flex items-center gap-4">
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"
+            <a href={settings.instagram} target="_blank" rel="noopener noreferrer"
               className="transition-colors hover:opacity-60" style={{ color: "rgba(245,240,232,0.35)" }}>
               <Instagram className="h-4 w-4" strokeWidth={1.5} />
             </a>
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"
+            <a href={settings.facebook} target="_blank" rel="noopener noreferrer"
               className="transition-colors hover:opacity-60" style={{ color: "rgba(245,240,232,0.35)" }}>
               <Facebook className="h-4 w-4" strokeWidth={1.5} />
             </a>
@@ -78,12 +73,12 @@ export function Footer() {
         <div>
           <p className="text-[9px] tracking-[0.3em] uppercase font-sans font-medium mb-5" style={{ color: "#c9a84c" }}>Collections</p>
           <ul className="space-y-3">
-            {collections.map((c) => (
-              <li key={c.label}>
-                <Link to={c.href} search={c.search}
+            {collections.map((collection) => (
+              <li key={collection}>
+                <Link to="/shop" search={{ collection, fabric: "Stitched" }}
                   className="text-xs font-sans transition-colors hover:opacity-80"
                   style={{ color: "rgba(245,240,232,0.5)" }}>
-                  {c.label}
+                  {collection}
                 </Link>
               </li>
             ))}
