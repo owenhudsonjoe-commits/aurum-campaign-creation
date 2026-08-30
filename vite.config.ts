@@ -8,6 +8,7 @@ import { randomBytes } from "node:crypto";
 
 const ADMIN_SESSION_COOKIE = "aurum_admin_session";
 const SESSION_MAX_AGE = 60 * 60 * 24;
+const DEFAULT_ADMIN_USERNAME = "umair455";
 
 function adminAuthPlugin(): Plugin {
   const sessions = new Set<string>();
