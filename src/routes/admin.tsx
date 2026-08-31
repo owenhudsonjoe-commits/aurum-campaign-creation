@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowLeft,
@@ -19,6 +19,7 @@ import {
   ShoppingBag,
   Store,
   Trash2,
+  Upload,
   X,
 } from "lucide-react";
 import {
@@ -734,6 +735,112 @@ function ProductsManager() {
   );
 }
 
+function readFileAsDataUrl(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = () => reject(reader.error);
+    reader.readAsDataURL(file);
+  });
+}
+
+function ImagePicker({
+  images,
+  onChange,
+}: {
+  images: string[];
+  onChange: (images: string[]) => void;
+}) {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [pasteActive, setPasteActive] = useState(false);
+
+  const addFiles = async (files: File[]) => {
+    const imageFiles = files.filter((file) => file.type.startsWith("image/"));
+    if (imageFiles.length === 0) return;
+    const dataUrls = await Promise.all(imageFiles.map(readFileAsDataUrl));
+    onChange([...images.filter((item) => item.trim()), ...dataUrls]);
+  };
+
+  const handlePaste = (event: React.ClipboardEvent) => {
+    const files = Array.from(event.clipboardData?.files ?? []);
+    if (files.length > 0) {
+      event.preventDefault();
+      void addFiles(files);
+    }
+  };
+
+  const removeImage = (index: number) =>
+    onChange(images.filter((_, itemIndex) => itemIndex !== index));
+
+  const previews = images.filter((item) => item.trim());
+
+  return (
+    <div className="space-y-3">
+      <div
+        role="button"
+        tabIndex={0}
+        onClick={() => fileInputRef.current?.click()}
+        onKeyDown={(event) => {
+          if (event.key === "Enter" || event.key === " ") fileInputRef.current?.click();
+        }}
+        onPaste={handlePaste}
+        onFocus={() => setPasteActive(true)}
+        onBlur={() => setPasteActive(false)}
+        className={`flex cursor-pointer flex-col items-center justify-center gap-2 rounded-md border border-dashed px-4 py-6 text-center transition-colors ${
+          pasteActive
+            ? "border-[#9b8040] bg-[#9b8040]/5"
+            : "border-[#191713]/25 bg-white hover:border-[#9b8040]/60"
+        }`}
+      >
+        <Upload className="h-5 w-5 text-[#9b8040]" />
+        <p className="text-xs font-medium text-[#191713]">
+          Click to choose image files
+        </p>
+        <p className="text-[11px] text-[#77736b]">
+          or click here and press Ctrl+V to paste a copied image
+        </p>
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          multiple
+          className="hidden"
+          onChange={(event) => {
+            void addFiles(Array.from(event.target.files ?? []));
+            event.target.value = "";
+          }}
+        />
+      </div>
+
+      {previews.length > 0 && (
+        <div className="grid grid-cols-4 gap-2">
+          {previews.map((src, index) => (
+            <div
+              key={`${index}-${src.slice(0, 32)}`}
+              className="group relative aspect-[3/4] overflow-hidden rounded-md border border-[#191713]/10 bg-[#efede7]"
+            >
+              <img src={src} alt="" className="h-full w-full object-cover" />
+              <button
+                type="button"
+                onClick={() => removeImage(images.indexOf(src))}
+                className="absolute right-1 top-1 rounded-full bg-[#191713]/70 p-1 text-white opacity-0 transition-opacity group-hover:opacity-100"
+                aria-label="Remove image"
+              >
+                <X className="h-3 w-3" />
+              </button>
+              {index === 0 && (
+                <span className="absolute left-1 top-1 rounded-sm bg-[#9b8040] px-1.5 py-0.5 text-[8px] font-semibold uppercase tracking-wider text-white">
+                  Cover
+                </span>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function ProductEditor({
   draft,
   setDraft,
@@ -850,8 +957,12 @@ function ProductEditor({
 
             <EditorGroup
               title="Product gallery"
-              description="Paste one image URL or public asset path per line."
+              description="Pick image files or paste (Ctrl+V) a copied image — or paste one image URL / public asset path per line."
             >
+              <ImagePicker
+                images={draft.images}
+                onChange={(images) => update("images", images)}
+              />
               <TextArea
                 label="Image paths / URLs"
                 value={imageText}
