@@ -41,6 +41,7 @@ interface CatalogStore {
   addProduct: (product: ProductInput) => void;
   updateProduct: (id: string, product: Partial<ProductInput>) => void;
   removeProduct: (id: string) => void;
+  moveProduct: (id: string, to: "first" | "last" | "up" | "down" | number) => void;
   addCollection: (name: string) => void;
   removeCollection: (name: string) => void;
   addBanner: (banner: Omit<StoreBanner, "id">) => void;
@@ -49,6 +50,7 @@ interface CatalogStore {
   updateSettings: (settings: Partial<SiteSettings>) => void;
   resetCatalog: () => void;
 }
+
 
 export const DEFAULT_COLLECTIONS = [
   "Bridal",
