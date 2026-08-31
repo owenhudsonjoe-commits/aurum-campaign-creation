@@ -148,6 +148,31 @@ export const useCatalog = create<CatalogStore>()(
       removeProduct: (id) =>
         set((state) => ({ products: state.products.filter((item) => item.id !== id) })),
 
+      moveProduct: (id, to) =>
+        set((state) => {
+          const index = state.products.findIndex((item) => item.id === id);
+          if (index === -1) return state;
+
+          const next = [...state.products];
+          const [item] = next.splice(index, 1);
+
+          const target =
+            to === "first"
+              ? 0
+              : to === "last"
+                ? next.length
+                : to === "up"
+                  ? Math.max(0, index - 1)
+                  : to === "down"
+                    ? Math.min(next.length, index + 1)
+                    : Math.min(Math.max(0, to), next.length);
+
+          next.splice(target, 0, item);
+          return { products: next };
+        }),
+
+
+
       addCollection: (name) =>
         set((state) => {
           const normalized = name.trim();
