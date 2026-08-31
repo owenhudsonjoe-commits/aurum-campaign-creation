@@ -850,8 +850,12 @@ function ProductEditor({
 
             <EditorGroup
               title="Product gallery"
-              description="Paste one image URL or public asset path per line."
+              description="Pick image files or paste (Ctrl+V) a copied image — or paste one image URL / public asset path per line."
             >
+              <ImagePicker
+                images={draft.images}
+                onChange={(images) => update("images", images)}
+              />
               <TextArea
                 label="Image paths / URLs"
                 value={imageText}
