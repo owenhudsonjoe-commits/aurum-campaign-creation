@@ -1,6 +1,8 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { PRODUCTS, type Product } from "./products";
+import { fetchCloudCatalog, getAdminKey, saveCloudCatalog } from "./cloud-catalog";
+
 
 export interface StoreBanner {
   id: string;
