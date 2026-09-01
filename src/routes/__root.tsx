@@ -5,6 +5,8 @@ import {
   createRootRouteWithContext,
   useRouter,
 } from "@tanstack/react-router";
+import { useEffect } from "react";
+import { hydrateCatalogFromCloud } from "@/lib/catalog";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { BackToTop } from "@/components/BackToTop";
 
@@ -73,6 +75,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+
+  useEffect(() => {
+    void hydrateCatalogFromCloud();
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
