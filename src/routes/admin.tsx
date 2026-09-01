@@ -28,6 +28,7 @@ import {
   X,
 } from "lucide-react";
 import {
+  catalogSyncStatus,
   DEFAULT_COLLECTIONS,
   emptyProduct,
   slugify,
@@ -35,6 +36,7 @@ import {
   type SiteSettings,
   type StoreBanner,
 } from "@/lib/catalog";
+import { clearAdminKey, setAdminKey } from "@/lib/cloud-catalog";
 import type { Product } from "@/lib/products";
 import { formatPrice } from "@/lib/products";
 
@@ -134,6 +136,7 @@ function AdminLogin({ onSuccess }: { onSuccess: () => void }) {
         body: JSON.stringify({ username: candidate }),
       }).catch(() => undefined);
       window.localStorage.setItem(LOCAL_SESSION_KEY, "1");
+      setAdminKey(candidate);
       onSuccess();
     } catch {
       setError("Unable to sign in.");
@@ -224,6 +227,7 @@ function AdminWorkspace({ onLogout }: { onLogout: () => void }) {
 
   async function logout() {
     window.localStorage.removeItem(LOCAL_SESSION_KEY);
+    clearAdminKey();
     await fetch("/api/admin/logout", { method: "POST", credentials: "same-origin" }).catch(
       () => undefined,
     );
@@ -573,7 +577,9 @@ function QuickAction({
 }
 
 function ProductsManager() {
-  const { products, collections, addProduct, updateProduct, removeProduct } = useCatalog();
+  const { products, collections, addProduct, updateProduct, removeProduct, moveProduct } =
+    useCatalog();
+  const syncStatus = catalogSyncStatus((state) => state.status);
   const [search, setSearch] = useState("");
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editorOpen, setEditorOpen] = useState(false);
@@ -657,7 +663,16 @@ function ProductsManager() {
             placeholder="Search products by name, collection or slug…"
             className="w-full max-w-md border border-[#191713]/15 bg-[#faf9f6] px-4 py-2.5 text-[12px] outline-none placeholder:text-[#aaa59a] focus:border-[#c9a84c]"
           />
-          <span className="text-[10px] uppercase tracking-[0.14em] text-[#8e8a81]">
+          <span className="flex items-center gap-3 text-[10px] uppercase tracking-[0.14em] text-[#8e8a81]">
+            {syncStatus !== "idle" && (
+              <span className={syncStatus === "error" ? "text-red-600" : "text-[#9b8040]"}>
+                {syncStatus === "saving"
+                  ? "Publishing…"
+                  : syncStatus === "saved"
+                    ? "Published live"
+                    : "Publish failed"}
+              </span>
+            )}
             {filtered.length} shown
           </span>
         </div>
