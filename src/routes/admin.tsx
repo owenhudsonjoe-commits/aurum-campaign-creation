@@ -220,6 +220,25 @@ function AdminLogin({ onSuccess }: { onSuccess: () => void }) {
   );
 }
 
+function SyncBadge() {
+  const status = catalogSyncStatus((state) => state.status);
+  const label =
+    status === "saving"
+      ? "Publishing to live store…"
+      : status === "error"
+        ? "Publish failed — check connection"
+        : status === "saved"
+          ? "Live on every device"
+          : "Connected to live store";
+  const dot =
+    status === "error" ? "bg-red-500" : status === "saving" ? "bg-amber-500" : "bg-emerald-500";
+  return (
+    <span className="hidden items-center gap-2 text-[11px] text-[#6e6a62] sm:flex">
+      <span className={`h-2 w-2 rounded-full ${dot}`} /> {label}
+    </span>
+  );
+}
+
 function AdminWorkspace({ onLogout }: { onLogout: () => void }) {
   const [section, setSection] = useState<AdminSection>("overview");
   const [sidebarOpen, setSidebarOpen] = useState(false);
