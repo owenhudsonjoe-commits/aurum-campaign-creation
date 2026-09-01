@@ -5,6 +5,11 @@ import {
   BarChart3,
   Check,
   ChevronRight,
+  ChevronUp,
+  ChevronDown,
+  ChevronsUp,
+  ChevronsDown,
+
   CircleDollarSign,
   FolderOpen,
   ImagePlus,
@@ -23,6 +28,7 @@ import {
   X,
 } from "lucide-react";
 import {
+  catalogSyncStatus,
   DEFAULT_COLLECTIONS,
   emptyProduct,
   slugify,
@@ -30,6 +36,7 @@ import {
   type SiteSettings,
   type StoreBanner,
 } from "@/lib/catalog";
+import { clearAdminKey, setAdminKey } from "@/lib/cloud-catalog";
 import type { Product } from "@/lib/products";
 import { formatPrice } from "@/lib/products";
 
@@ -129,6 +136,7 @@ function AdminLogin({ onSuccess }: { onSuccess: () => void }) {
         body: JSON.stringify({ username: candidate }),
       }).catch(() => undefined);
       window.localStorage.setItem(LOCAL_SESSION_KEY, "1");
+      setAdminKey(candidate);
       onSuccess();
     } catch {
       setError("Unable to sign in.");
@@ -212,6 +220,25 @@ function AdminLogin({ onSuccess }: { onSuccess: () => void }) {
   );
 }
 
+function SyncBadge() {
+  const status = catalogSyncStatus((state) => state.status);
+  const label =
+    status === "saving"
+      ? "Publishing to live store…"
+      : status === "error"
+        ? "Publish failed — check connection"
+        : status === "saved"
+          ? "Live on every device"
+          : "Connected to live store";
+  const dot =
+    status === "error" ? "bg-red-500" : status === "saving" ? "bg-amber-500" : "bg-emerald-500";
+  return (
+    <span className="hidden items-center gap-2 text-[11px] text-[#6e6a62] sm:flex">
+      <span className={`h-2 w-2 rounded-full ${dot}`} /> {label}
+    </span>
+  );
+}
+
 function AdminWorkspace({ onLogout }: { onLogout: () => void }) {
   const [section, setSection] = useState<AdminSection>("overview");
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -219,6 +246,7 @@ function AdminWorkspace({ onLogout }: { onLogout: () => void }) {
 
   async function logout() {
     window.localStorage.removeItem(LOCAL_SESSION_KEY);
+    clearAdminKey();
     await fetch("/api/admin/logout", { method: "POST", credentials: "same-origin" }).catch(
       () => undefined,
     );
@@ -322,9 +350,8 @@ function AdminWorkspace({ onLogout }: { onLogout: () => void }) {
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <span className="hidden items-center gap-2 text-[11px] text-[#6e6a62] sm:flex">
-              <span className="h-2 w-2 rounded-full bg-emerald-500" /> All changes saved locally
-            </span>
+            <SyncBadge />
+
             <Link
               to="/"
               className="inline-flex items-center gap-2 border border-[#191713]/15 px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.15em] transition-colors hover:bg-[#191713] hover:text-white"
@@ -568,7 +595,9 @@ function QuickAction({
 }
 
 function ProductsManager() {
-  const { products, collections, addProduct, updateProduct, removeProduct } = useCatalog();
+  const { products, collections, addProduct, updateProduct, removeProduct, moveProduct } =
+    useCatalog();
+  const syncStatus = catalogSyncStatus((state) => state.status);
   const [search, setSearch] = useState("");
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editorOpen, setEditorOpen] = useState(false);
@@ -652,7 +681,16 @@ function ProductsManager() {
             placeholder="Search products by name, collection or slug…"
             className="w-full max-w-md border border-[#191713]/15 bg-[#faf9f6] px-4 py-2.5 text-[12px] outline-none placeholder:text-[#aaa59a] focus:border-[#c9a84c]"
           />
-          <span className="text-[10px] uppercase tracking-[0.14em] text-[#8e8a81]">
+          <span className="flex items-center gap-3 text-[10px] uppercase tracking-[0.14em] text-[#8e8a81]">
+            {syncStatus !== "idle" && (
+              <span className={syncStatus === "error" ? "text-red-600" : "text-[#9b8040]"}>
+                {syncStatus === "saving"
+                  ? "Publishing…"
+                  : syncStatus === "saved"
+                    ? "Published live"
+                    : "Publish failed"}
+              </span>
+            )}
             {filtered.length} shown
           </span>
         </div>
@@ -702,20 +740,53 @@ function ProductsManager() {
               </span>
               <div className="flex items-center gap-1 md:justify-end">
                 <button
+                  onClick={() => moveProduct(product.id, "first")}
+                  className="p-1.5 text-[#77736b] hover:bg-[#f0eee9] hover:text-[#191713]"
+                  aria-label={`Move ${product.name} to first`}
+                  title="Move to first"
+                >
+                  <ChevronsUp className="h-3.5 w-3.5" />
+                </button>
+                <button
+                  onClick={() => moveProduct(product.id, "up")}
+                  className="p-1.5 text-[#77736b] hover:bg-[#f0eee9] hover:text-[#191713]"
+                  aria-label={`Move ${product.name} up`}
+                  title="Move up"
+                >
+                  <ChevronUp className="h-3.5 w-3.5" />
+                </button>
+                <button
+                  onClick={() => moveProduct(product.id, "down")}
+                  className="p-1.5 text-[#77736b] hover:bg-[#f0eee9] hover:text-[#191713]"
+                  aria-label={`Move ${product.name} down`}
+                  title="Move down"
+                >
+                  <ChevronDown className="h-3.5 w-3.5" />
+                </button>
+                <button
+                  onClick={() => moveProduct(product.id, "last")}
+                  className="p-1.5 text-[#77736b] hover:bg-[#f0eee9] hover:text-[#191713]"
+                  aria-label={`Move ${product.name} to last`}
+                  title="Move to last"
+                >
+                  <ChevronsDown className="h-3.5 w-3.5" />
+                </button>
+                <button
                   onClick={() => openEdit(product)}
-                  className="p-2 text-[#77736b] hover:bg-[#f0eee9] hover:text-[#191713]"
+                  className="p-1.5 text-[#77736b] hover:bg-[#f0eee9] hover:text-[#191713]"
                   aria-label={`Edit ${product.name}`}
                 >
                   <Pencil className="h-3.5 w-3.5" />
                 </button>
                 <button
                   onClick={() => deleteProduct(product)}
-                  className="p-2 text-[#a39d94] hover:bg-red-50 hover:text-red-600"
+                  className="p-1.5 text-[#a39d94] hover:bg-red-50 hover:text-red-600"
                   aria-label={`Delete ${product.name}`}
                 >
                   <Trash2 className="h-3.5 w-3.5" />
                 </button>
               </div>
+
             </div>
           ))}
         </div>
