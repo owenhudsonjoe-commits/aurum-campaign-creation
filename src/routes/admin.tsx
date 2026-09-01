@@ -5,6 +5,11 @@ import {
   BarChart3,
   Check,
   ChevronRight,
+  ChevronUp,
+  ChevronDown,
+  ChevronsUp,
+  ChevronsDown,
+
   CircleDollarSign,
   FolderOpen,
   ImagePlus,
