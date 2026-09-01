@@ -702,20 +702,53 @@ function ProductsManager() {
               </span>
               <div className="flex items-center gap-1 md:justify-end">
                 <button
+                  onClick={() => moveProduct(product.id, "first")}
+                  className="p-1.5 text-[#77736b] hover:bg-[#f0eee9] hover:text-[#191713]"
+                  aria-label={`Move ${product.name} to first`}
+                  title="Move to first"
+                >
+                  <ChevronsUp className="h-3.5 w-3.5" />
+                </button>
+                <button
+                  onClick={() => moveProduct(product.id, "up")}
+                  className="p-1.5 text-[#77736b] hover:bg-[#f0eee9] hover:text-[#191713]"
+                  aria-label={`Move ${product.name} up`}
+                  title="Move up"
+                >
+                  <ChevronUp className="h-3.5 w-3.5" />
+                </button>
+                <button
+                  onClick={() => moveProduct(product.id, "down")}
+                  className="p-1.5 text-[#77736b] hover:bg-[#f0eee9] hover:text-[#191713]"
+                  aria-label={`Move ${product.name} down`}
+                  title="Move down"
+                >
+                  <ChevronDown className="h-3.5 w-3.5" />
+                </button>
+                <button
+                  onClick={() => moveProduct(product.id, "last")}
+                  className="p-1.5 text-[#77736b] hover:bg-[#f0eee9] hover:text-[#191713]"
+                  aria-label={`Move ${product.name} to last`}
+                  title="Move to last"
+                >
+                  <ChevronsDown className="h-3.5 w-3.5" />
+                </button>
+                <button
                   onClick={() => openEdit(product)}
-                  className="p-2 text-[#77736b] hover:bg-[#f0eee9] hover:text-[#191713]"
+                  className="p-1.5 text-[#77736b] hover:bg-[#f0eee9] hover:text-[#191713]"
                   aria-label={`Edit ${product.name}`}
                 >
                   <Pencil className="h-3.5 w-3.5" />
                 </button>
                 <button
                   onClick={() => deleteProduct(product)}
-                  className="p-2 text-[#a39d94] hover:bg-red-50 hover:text-red-600"
+                  className="p-1.5 text-[#a39d94] hover:bg-red-50 hover:text-red-600"
                   aria-label={`Delete ${product.name}`}
                 >
                   <Trash2 className="h-3.5 w-3.5" />
                 </button>
               </div>
+
             </div>
           ))}
         </div>
