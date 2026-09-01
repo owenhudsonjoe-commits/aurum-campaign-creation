@@ -331,9 +331,8 @@ function AdminWorkspace({ onLogout }: { onLogout: () => void }) {
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <span className="hidden items-center gap-2 text-[11px] text-[#6e6a62] sm:flex">
-              <span className="h-2 w-2 rounded-full bg-emerald-500" /> All changes saved locally
-            </span>
+            <SyncBadge />
+
             <Link
               to="/"
               className="inline-flex items-center gap-2 border border-[#191713]/15 px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.15em] transition-colors hover:bg-[#191713] hover:text-white"
