@@ -1167,8 +1167,9 @@ function ProductEditor({
             <Save className="h-3.5 w-3.5" /> {editing ? "Save changes" : "Create product"}
           </button>
         </div>
-
+      </div>
     </div>
+
   );
 }
 
