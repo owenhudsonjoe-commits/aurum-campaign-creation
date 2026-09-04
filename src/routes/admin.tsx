@@ -1150,22 +1150,24 @@ function ProductEditor({
             </EditorGroup>
           </div>
         </div>
-        <div className="flex items-center justify-between border-t border-[#191713]/10 bg-white px-6 py-4">
+        <div className="flex flex-col gap-3 border-t border-[#191713]/10 bg-white px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
+          {error && (
+            <p className="text-[11px] font-medium text-red-600 sm:order-2 sm:max-w-xs">{error}</p>
+          )}
           <button
             onClick={onClose}
-            className="px-4 py-2.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-[#77736b] hover:text-[#191713]"
+            className="px-4 py-2.5 text-left text-[10px] font-semibold uppercase tracking-[0.15em] text-[#77736b] hover:text-[#191713] sm:order-1"
           >
             Cancel
           </button>
           <button
             onClick={onSave}
-            disabled={!draft.name.trim() || !draft.price}
-            className="inline-flex items-center gap-2 bg-[#191713] px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.15em] text-white disabled:cursor-not-allowed disabled:opacity-40 hover:bg-[#c9a84c] hover:text-[#191713]"
+            className="inline-flex items-center justify-center gap-2 bg-[#191713] px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.15em] text-white hover:bg-[#c9a84c] hover:text-[#191713] sm:order-3"
           >
             <Save className="h-3.5 w-3.5" /> {editing ? "Save changes" : "Create product"}
           </button>
         </div>
-      </div>
+
     </div>
   );
 }
