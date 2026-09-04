@@ -815,6 +815,36 @@ function readFileAsDataUrl(file: File): Promise<string> {
   });
 }
 
+/** Downscales + compresses an image so the catalog stays small enough to publish. */
+async function compressImageFile(file: File, maxSize = 1400): Promise<string> {
+  const original = await readFileAsDataUrl(file);
+  try {
+    const image = await new Promise<HTMLImageElement>((resolve, reject) => {
+      const element = new Image();
+      element.onload = () => resolve(element);
+      element.onerror = reject;
+      element.src = original;
+    });
+
+    const scale = Math.min(1, maxSize / Math.max(image.width, image.height));
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.round(image.width * scale);
+    canvas.height = Math.round(image.height * scale);
+    const context = canvas.getContext("2d");
+    if (!context) return original;
+    context.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+    const webp = canvas.toDataURL("image/webp", 0.82);
+    const jpeg = canvas.toDataURL("image/jpeg", 0.82);
+    const best = [webp, jpeg, original]
+      .filter((item) => item && item.startsWith("data:image"))
+      .sort((a, b) => a.length - b.length)[0];
+    return best ?? original;
+  } catch {
+    return original;
+  }
+}
+
 function ImagePicker({
   images,
   onChange,
@@ -828,9 +858,10 @@ function ImagePicker({
   const addFiles = async (files: File[]) => {
     const imageFiles = files.filter((file) => file.type.startsWith("image/"));
     if (imageFiles.length === 0) return;
-    const dataUrls = await Promise.all(imageFiles.map(readFileAsDataUrl));
+    const dataUrls = await Promise.all(imageFiles.map((file) => compressImageFile(file)));
     onChange([...images.filter((item) => item.trim()), ...dataUrls]);
   };
+
 
   const handlePaste = (event: React.ClipboardEvent) => {
     const files = Array.from(event.clipboardData?.files ?? []);
