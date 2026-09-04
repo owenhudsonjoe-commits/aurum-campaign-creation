@@ -970,6 +970,7 @@ function ProductEditor({
   onSave,
   onClose,
   collections,
+  error,
 }: {
   draft: Product;
   setDraft: (product: Product) => void;
@@ -977,7 +978,9 @@ function ProductEditor({
   onSave: () => void;
   onClose: () => void;
   collections: string[];
+  error?: string | null;
 }) {
+
   const update = <K extends keyof Product>(key: K, value: Product[K]) =>
     setDraft({ ...draft, [key]: value });
   const imageText = draft.images.join("\n");
