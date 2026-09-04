@@ -625,30 +625,48 @@ function ProductsManager() {
     setEditorOpen(true);
   }
 
+  const [saveError, setSaveError] = useState<string | null>(null);
+
   function save() {
-    if (!draft.name.trim() || !draft.price) return;
-    const discountedPrice =
-      draft.discountedPrice && draft.discountedPrice > 0
-        ? Number(draft.discountedPrice)
-        : undefined;
-    const normalized: Product = {
-      ...draft,
-      name: draft.name.trim(),
-      slug: slugify(draft.slug || draft.name),
-      price: Number(draft.price),
-      discountedPrice,
-      discountPercent: discountedPrice
-        ? Math.round((1 - discountedPrice / Number(draft.price)) * 100)
-        : undefined,
-      images: draft.images.map((image) => image.trim()).filter(Boolean),
-      details: draft.details.map((detail) => detail.trim()).filter(Boolean),
-      sizes: draft.sizes.map((size) => size.trim()).filter(Boolean),
-      description: draft.description.trim(),
-    };
-    if (editingId) updateProduct(editingId, normalized);
-    else addProduct(normalized);
-    setEditorOpen(false);
+    if (!draft.name.trim()) {
+      setSaveError("Please enter a product name.");
+      return;
+    }
+    if (!Number(draft.price)) {
+      setSaveError("Please enter a price greater than 0.");
+      return;
+    }
+    try {
+      const discountedPrice =
+        draft.discountedPrice && draft.discountedPrice > 0
+          ? Number(draft.discountedPrice)
+          : undefined;
+      const normalized: Product = {
+        ...draft,
+        name: draft.name.trim(),
+        slug: slugify(draft.slug || draft.name),
+        price: Number(draft.price),
+        discountedPrice,
+        discountPercent: discountedPrice
+          ? Math.round((1 - discountedPrice / Number(draft.price)) * 100)
+          : undefined,
+        images: draft.images.map((image) => image.trim()).filter(Boolean),
+        details: draft.details.map((detail) => detail.trim()).filter(Boolean),
+        sizes: draft.sizes.map((size) => size.trim()).filter(Boolean),
+        description: draft.description.trim(),
+      };
+      if (editingId) updateProduct(editingId, normalized);
+      else addProduct(normalized);
+      setSaveError(null);
+      setEditorOpen(false);
+    } catch (error) {
+      console.error("Failed to save product", error);
+      setSaveError(
+        "Could not save this product. Try using fewer or smaller images and save again.",
+      );
+    }
   }
+
 
   function deleteProduct(product: Product) {
     if (window.confirm(`Remove ${product.name} from the catalog?`)) removeProduct(product.id);
