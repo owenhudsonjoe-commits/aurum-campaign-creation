@@ -625,30 +625,48 @@ function ProductsManager() {
     setEditorOpen(true);
   }
 
+  const [saveError, setSaveError] = useState<string | null>(null);
+
   function save() {
-    if (!draft.name.trim() || !draft.price) return;
-    const discountedPrice =
-      draft.discountedPrice && draft.discountedPrice > 0
-        ? Number(draft.discountedPrice)
-        : undefined;
-    const normalized: Product = {
-      ...draft,
-      name: draft.name.trim(),
-      slug: slugify(draft.slug || draft.name),
-      price: Number(draft.price),
-      discountedPrice,
-      discountPercent: discountedPrice
-        ? Math.round((1 - discountedPrice / Number(draft.price)) * 100)
-        : undefined,
-      images: draft.images.map((image) => image.trim()).filter(Boolean),
-      details: draft.details.map((detail) => detail.trim()).filter(Boolean),
-      sizes: draft.sizes.map((size) => size.trim()).filter(Boolean),
-      description: draft.description.trim(),
-    };
-    if (editingId) updateProduct(editingId, normalized);
-    else addProduct(normalized);
-    setEditorOpen(false);
+    if (!draft.name.trim()) {
+      setSaveError("Please enter a product name.");
+      return;
+    }
+    if (!Number(draft.price)) {
+      setSaveError("Please enter a price greater than 0.");
+      return;
+    }
+    try {
+      const discountedPrice =
+        draft.discountedPrice && draft.discountedPrice > 0
+          ? Number(draft.discountedPrice)
+          : undefined;
+      const normalized: Product = {
+        ...draft,
+        name: draft.name.trim(),
+        slug: slugify(draft.slug || draft.name),
+        price: Number(draft.price),
+        discountedPrice,
+        discountPercent: discountedPrice
+          ? Math.round((1 - discountedPrice / Number(draft.price)) * 100)
+          : undefined,
+        images: draft.images.map((image) => image.trim()).filter(Boolean),
+        details: draft.details.map((detail) => detail.trim()).filter(Boolean),
+        sizes: draft.sizes.map((size) => size.trim()).filter(Boolean),
+        description: draft.description.trim(),
+      };
+      if (editingId) updateProduct(editingId, normalized);
+      else addProduct(normalized);
+      setSaveError(null);
+      setEditorOpen(false);
+    } catch (error) {
+      console.error("Failed to save product", error);
+      setSaveError(
+        "Could not save this product. Try using fewer or smaller images and save again.",
+      );
+    }
   }
+
 
   function deleteProduct(product: Product) {
     if (window.confirm(`Remove ${product.name} from the catalog?`)) removeProduct(product.id);
@@ -800,7 +818,9 @@ function ProductsManager() {
           onSave={save}
           onClose={() => setEditorOpen(false)}
           collections={collections}
+          error={saveError}
         />
+
       )}
     </div>
   );
@@ -813,6 +833,36 @@ function readFileAsDataUrl(file: File): Promise<string> {
     reader.onerror = () => reject(reader.error);
     reader.readAsDataURL(file);
   });
+}
+
+/** Downscales + compresses an image so the catalog stays small enough to publish. */
+async function compressImageFile(file: File, maxSize = 1400): Promise<string> {
+  const original = await readFileAsDataUrl(file);
+  try {
+    const image = await new Promise<HTMLImageElement>((resolve, reject) => {
+      const element = new Image();
+      element.onload = () => resolve(element);
+      element.onerror = reject;
+      element.src = original;
+    });
+
+    const scale = Math.min(1, maxSize / Math.max(image.width, image.height));
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.round(image.width * scale);
+    canvas.height = Math.round(image.height * scale);
+    const context = canvas.getContext("2d");
+    if (!context) return original;
+    context.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+    const webp = canvas.toDataURL("image/webp", 0.82);
+    const jpeg = canvas.toDataURL("image/jpeg", 0.82);
+    const best = [webp, jpeg, original]
+      .filter((item) => item && item.startsWith("data:image"))
+      .sort((a, b) => a.length - b.length)[0];
+    return best ?? original;
+  } catch {
+    return original;
+  }
 }
 
 function ImagePicker({
@@ -828,9 +878,10 @@ function ImagePicker({
   const addFiles = async (files: File[]) => {
     const imageFiles = files.filter((file) => file.type.startsWith("image/"));
     if (imageFiles.length === 0) return;
-    const dataUrls = await Promise.all(imageFiles.map(readFileAsDataUrl));
+    const dataUrls = await Promise.all(imageFiles.map((file) => compressImageFile(file)));
     onChange([...images.filter((item) => item.trim()), ...dataUrls]);
   };
+
 
   const handlePaste = (event: React.ClipboardEvent) => {
     const files = Array.from(event.clipboardData?.files ?? []);
@@ -919,6 +970,7 @@ function ProductEditor({
   onSave,
   onClose,
   collections,
+  error,
 }: {
   draft: Product;
   setDraft: (product: Product) => void;
@@ -926,7 +978,9 @@ function ProductEditor({
   onSave: () => void;
   onClose: () => void;
   collections: string[];
+  error?: string | null;
 }) {
+
   const update = <K extends keyof Product>(key: K, value: Product[K]) =>
     setDraft({ ...draft, [key]: value });
   const imageText = draft.images.join("\n");
@@ -1096,23 +1150,26 @@ function ProductEditor({
             </EditorGroup>
           </div>
         </div>
-        <div className="flex items-center justify-between border-t border-[#191713]/10 bg-white px-6 py-4">
+        <div className="flex flex-col gap-3 border-t border-[#191713]/10 bg-white px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
+          {error && (
+            <p className="text-[11px] font-medium text-red-600 sm:order-2 sm:max-w-xs">{error}</p>
+          )}
           <button
             onClick={onClose}
-            className="px-4 py-2.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-[#77736b] hover:text-[#191713]"
+            className="px-4 py-2.5 text-left text-[10px] font-semibold uppercase tracking-[0.15em] text-[#77736b] hover:text-[#191713] sm:order-1"
           >
             Cancel
           </button>
           <button
             onClick={onSave}
-            disabled={!draft.name.trim() || !draft.price}
-            className="inline-flex items-center gap-2 bg-[#191713] px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.15em] text-white disabled:cursor-not-allowed disabled:opacity-40 hover:bg-[#c9a84c] hover:text-[#191713]"
+            className="inline-flex items-center justify-center gap-2 bg-[#191713] px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.15em] text-white hover:bg-[#c9a84c] hover:text-[#191713] sm:order-3"
           >
             <Save className="h-3.5 w-3.5" /> {editing ? "Save changes" : "Create product"}
           </button>
         </div>
       </div>
     </div>
+
   );
 }
 
