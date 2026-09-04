@@ -215,7 +215,36 @@ export const useCatalog = create<CatalogStore>()(
           settings: DEFAULT_SETTINGS,
         }),
     }),
-    { name: "aurum-catalog-v1" },
+    {
+      name: "aurum-catalog-v1",
+      // Storing base64 product photos can blow past the localStorage quota.
+      // Never let that throw — the cloud copy is the source of truth.
+      storage: {
+        getItem: (name) => {
+          try {
+            const value = window.localStorage.getItem(name);
+            return value ? JSON.parse(value) : null;
+          } catch {
+            return null;
+          }
+        },
+        setItem: (name, value) => {
+          try {
+            window.localStorage.setItem(name, JSON.stringify(value));
+          } catch (error) {
+            console.warn("Local catalog cache skipped (storage full).", error);
+          }
+        },
+        removeItem: (name) => {
+          try {
+            window.localStorage.removeItem(name);
+          } catch {
+            /* ignore */
+          }
+        },
+      },
+    },
+
   ),
 );
 
