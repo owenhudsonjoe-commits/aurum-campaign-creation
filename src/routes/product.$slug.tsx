@@ -2,7 +2,7 @@ import { useState, useMemo, useEffect } from "react";
 import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
-import { getProductBySlug, formatPrice } from "@/lib/products";
+import { getProductBySlug, formatPrice, DEFAULT_SIZE_CHART } from "@/lib/products";
 import { useCatalog } from "@/lib/catalog";
 import { useCart } from "@/lib/cart";
 import { useWishlist } from "@/lib/wishlist";
@@ -66,7 +66,8 @@ function ProductPage() {
     () => products.filter((p) => p.id !== product.id && p.category === product.category).slice(0, 4),
     [product, products]
   );
-  const hasSizeChart = product.sizeChart.length > 0 || !!product.sizeChartImage;
+  const sizeChartRows = product.sizeChart.length > 0 ? product.sizeChart : DEFAULT_SIZE_CHART;
+  const hasSizeChart = true;
   const reviewCount = product.reviewCount ?? 48;
   const whatsappMsg = encodeURIComponent(
     `Hi, I'm interested in the ${product.name} (${product.discountedPrice ? formatPrice(product.discountedPrice) : formatPrice(product.price)}). Could you please assist me?`
@@ -268,19 +269,22 @@ function ProductPage() {
                       <table className="w-full text-[12px]">
                         <thead>
                           <tr className="border-b border-border">
-                            {["Size", "Chest", "Waist", "Hips", "Length"].map((h) => (
+                            {["Size", "Chest", "Shoulder", "Hips", "Arm Hole", "Shirt Length", "Trouser Length", "Leg Opening"].map((h) => (
                               <th key={h} className="text-left py-2 pr-4 text-foreground/50 font-medium uppercase tracking-wide text-[10px]">{h}</th>
                             ))}
                           </tr>
                         </thead>
                         <tbody>
-                          {product.sizeChart.map((row, i) => (
+                          {sizeChartRows.map((row, i) => (
                             <tr key={i} className={`border-b border-border/50 ${selectedSize === row.size ? "bg-muted" : ""}`}>
                               <td className="py-2.5 pr-4 font-semibold text-foreground">{row.size}</td>
                               <td className="py-2.5 pr-4 text-foreground/60">{row.chest ?? "—"}</td>
-                              <td className="py-2.5 pr-4 text-foreground/60">{row.waist ?? "—"}</td>
+                              <td className="py-2.5 pr-4 text-foreground/60">{row.shoulder ?? "—"}</td>
                               <td className="py-2.5 pr-4 text-foreground/60">{row.hips ?? "—"}</td>
-                              <td className="py-2.5 pr-4 text-foreground/60">{row.length ?? "—"}</td>
+                              <td className="py-2.5 pr-4 text-foreground/60">{row.armHole ?? "—"}</td>
+                              <td className="py-2.5 pr-4 text-foreground/60">{row.shirtLength ?? row.length ?? "—"}</td>
+                              <td className="py-2.5 pr-4 text-foreground/60">{row.trouserLength ?? "—"}</td>
+                              <td className="py-2.5 pr-4 text-foreground/60">{row.legOpening ?? "—"}</td>
                             </tr>
                           ))}
                         </tbody>
