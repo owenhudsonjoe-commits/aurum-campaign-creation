@@ -818,7 +818,9 @@ function ProductsManager() {
           onSave={save}
           onClose={() => setEditorOpen(false)}
           collections={collections}
+          error={saveError}
         />
+
       )}
     </div>
   );
