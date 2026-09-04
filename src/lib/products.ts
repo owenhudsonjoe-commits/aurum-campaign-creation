@@ -339,6 +339,12 @@ export interface SizeChartRow {
   thigh?: string;
 }
 
+export const DEFAULT_SIZE_CHART: SizeChartRow[] = [
+  { size: "S", chest: '18–19"', shoulder: '14"', hips: '18"', armHole: '9"', legOpening: '8"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+  { size: "M", chest: '21"', shoulder: '15"', hips: '21"', armHole: '9.5"', legOpening: '9"', trouserLength: '37"', shirtLength: '37"', thigh: '12"' },
+  { size: "L", chest: '23"', shoulder: '16"', hips: '23"', armHole: '10"', legOpening: '9.5"', trouserLength: '38"', shirtLength: '38"', thigh: '13"' },
+];
+
 export interface Product {
   id: string;
   slug: string;

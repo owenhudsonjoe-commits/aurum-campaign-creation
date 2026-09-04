@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { PRODUCTS, type Product } from "./products";
+import { PRODUCTS, DEFAULT_SIZE_CHART, type Product } from "./products";
 import { fetchCloudCatalog, getAdminKey, saveCloudCatalog } from "./cloud-catalog";
 
 
@@ -111,7 +111,7 @@ export const emptyProduct = (category = DEFAULT_COLLECTIONS[0]): Product => ({
   leadTime: "Ready to ship",
   estimatedDelivery: "2–5 working days",
   sizes: ["S", "M", "L"],
-  sizeChart: [],
+  sizeChart: DEFAULT_SIZE_CHART,
   reviewCount: 0,
   soldCount: 0,
   inStock: true,
