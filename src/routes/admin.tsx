@@ -875,11 +875,40 @@ function ImagePicker({
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [pasteActive, setPasteActive] = useState(false);
 
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+
   const addFiles = async (files: File[]) => {
     const imageFiles = files.filter((file) => file.type.startsWith("image/"));
     if (imageFiles.length === 0) return;
-    const dataUrls = await Promise.all(imageFiles.map((file) => compressImageFile(file)));
-    onChange([...images.filter((item) => item.trim()), ...dataUrls]);
+    setUploading(true);
+    setUploadError(null);
+    try {
+      const uploaded: string[] = [];
+      for (const file of imageFiles) {
+        const dataUrl = await compressImageFile(file);
+        const response = await fetch(dataUrl);
+        const blob = await response.blob();
+        const extension = blob.type.includes("png")
+          ? "png"
+          : blob.type.includes("jpeg")
+            ? "jpg"
+            : "webp";
+        const url = await uploadProductImage(blob, extension);
+        if (url) uploaded.push(url);
+      }
+      if (uploaded.length !== imageFiles.length) {
+        setUploadError("Some photos could not be uploaded. Please try again.");
+      }
+      if (uploaded.length > 0) {
+        onChange([...images.filter((item) => item.trim()), ...uploaded]);
+      }
+    } catch (error) {
+      console.error("Image upload failed", error);
+      setUploadError("Photo upload failed. Please check your connection and try again.");
+    } finally {
+      setUploading(false);
+    }
   };
 
 
