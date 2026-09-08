@@ -945,11 +945,12 @@ function ImagePicker({
       >
         <Upload className="h-5 w-5 text-[#9b8040]" />
         <p className="text-xs font-medium text-[#191713]">
-          Click to choose image files
+          {uploading ? "Uploading photos…" : "Click to choose image files"}
         </p>
         <p className="text-[11px] text-[#77736b]">
           or click here and press Ctrl+V to paste a copied image
         </p>
+        {uploadError && <p className="text-[11px] font-medium text-red-600">{uploadError}</p>}
         <input
           ref={fileInputRef}
           type="file"
