@@ -36,7 +36,7 @@ import {
   type SiteSettings,
   type StoreBanner,
 } from "@/lib/catalog";
-import { clearAdminKey, setAdminKey } from "@/lib/cloud-catalog";
+import { clearAdminKey, getAdminKey, setAdminKey, uploadProductImage } from "@/lib/cloud-catalog";
 import type { Product } from "@/lib/products";
 import { formatPrice } from "@/lib/products";
 
@@ -66,8 +66,15 @@ function AdminPage() {
 
   useEffect(() => {
     let cancelled = false;
-    const local =
-      typeof window !== "undefined" && window.localStorage.getItem(LOCAL_SESSION_KEY) === "1";
+    const stored =
+      typeof window !== "undefined" ? window.localStorage.getItem(LOCAL_SESSION_KEY) : null;
+    const local = Boolean(stored);
+
+    // Make sure the publishing credential exists whenever a session is restored,
+    // otherwise edits would silently never reach the shared database.
+    if (local && !getAdminKey()) {
+      setAdminKey(stored === "1" ? ALLOWED_USERNAMES[0] : (stored as string));
+    }
 
     fetch("/api/admin/session", { credentials: "same-origin" })
       .then(async (response) => {
@@ -135,7 +142,7 @@ function AdminLogin({ onSuccess }: { onSuccess: () => void }) {
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ username: candidate }),
       }).catch(() => undefined);
-      window.localStorage.setItem(LOCAL_SESSION_KEY, "1");
+      window.localStorage.setItem(LOCAL_SESSION_KEY, candidate);
       setAdminKey(candidate);
       onSuccess();
     } catch {
@@ -875,11 +882,40 @@ function ImagePicker({
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [pasteActive, setPasteActive] = useState(false);
 
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+
   const addFiles = async (files: File[]) => {
     const imageFiles = files.filter((file) => file.type.startsWith("image/"));
     if (imageFiles.length === 0) return;
-    const dataUrls = await Promise.all(imageFiles.map((file) => compressImageFile(file)));
-    onChange([...images.filter((item) => item.trim()), ...dataUrls]);
+    setUploading(true);
+    setUploadError(null);
+    try {
+      const uploaded: string[] = [];
+      for (const file of imageFiles) {
+        const dataUrl = await compressImageFile(file);
+        const response = await fetch(dataUrl);
+        const blob = await response.blob();
+        const extension = blob.type.includes("png")
+          ? "png"
+          : blob.type.includes("jpeg")
+            ? "jpg"
+            : "webp";
+        const url = await uploadProductImage(blob, extension);
+        if (url) uploaded.push(url);
+      }
+      if (uploaded.length !== imageFiles.length) {
+        setUploadError("Some photos could not be uploaded. Please try again.");
+      }
+      if (uploaded.length > 0) {
+        onChange([...images.filter((item) => item.trim()), ...uploaded]);
+      }
+    } catch (error) {
+      console.error("Image upload failed", error);
+      setUploadError("Photo upload failed. Please check your connection and try again.");
+    } finally {
+      setUploading(false);
+    }
   };
 
 
@@ -916,11 +952,12 @@ function ImagePicker({
       >
         <Upload className="h-5 w-5 text-[#9b8040]" />
         <p className="text-xs font-medium text-[#191713]">
-          Click to choose image files
+          {uploading ? "Uploading photos…" : "Click to choose image files"}
         </p>
         <p className="text-[11px] text-[#77736b]">
           or click here and press Ctrl+V to paste a copied image
         </p>
+        {uploadError && <p className="text-[11px] font-medium text-red-600">{uploadError}</p>}
         <input
           ref={fileInputRef}
           type="file"

@@ -297,7 +297,6 @@ export async function hydrateCatalogFromCloud() {
 if (typeof window !== "undefined") {
   useCatalog.subscribe((state, previous) => {
     if (applyingRemote) return;
-    if (!getAdminKey()) return;
 
     const changed =
       state.products !== previous.products ||
@@ -305,6 +304,13 @@ if (typeof window !== "undefined") {
       state.banners !== previous.banners ||
       state.settings !== previous.settings;
     if (!changed) return;
+
+    // No admin credential means nothing can reach the shared database.
+    // Surface that instead of failing silently.
+    if (!getAdminKey()) {
+      catalogSyncStatus.getState().setStatus("error");
+      return;
+    }
 
     catalogSyncStatus.getState().setStatus("saving");
     if (saveTimer) clearTimeout(saveTimer);
