@@ -66,8 +66,15 @@ function AdminPage() {
 
   useEffect(() => {
     let cancelled = false;
-    const local =
-      typeof window !== "undefined" && window.localStorage.getItem(LOCAL_SESSION_KEY) === "1";
+    const stored =
+      typeof window !== "undefined" ? window.localStorage.getItem(LOCAL_SESSION_KEY) : null;
+    const local = Boolean(stored);
+
+    // Make sure the publishing credential exists whenever a session is restored,
+    // otherwise edits would silently never reach the shared database.
+    if (local && !getAdminKey()) {
+      setAdminKey(stored === "1" ? ALLOWED_USERNAMES[0] : (stored as string));
+    }
 
     fetch("/api/admin/session", { credentials: "same-origin" })
       .then(async (response) => {
