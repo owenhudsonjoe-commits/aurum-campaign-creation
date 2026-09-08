@@ -36,7 +36,7 @@ import {
   type SiteSettings,
   type StoreBanner,
 } from "@/lib/catalog";
-import { clearAdminKey, setAdminKey } from "@/lib/cloud-catalog";
+import { clearAdminKey, getAdminKey, setAdminKey, uploadProductImage } from "@/lib/cloud-catalog";
 import type { Product } from "@/lib/products";
 import { formatPrice } from "@/lib/products";
 
