@@ -142,7 +142,7 @@ function AdminLogin({ onSuccess }: { onSuccess: () => void }) {
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ username: candidate }),
       }).catch(() => undefined);
-      window.localStorage.setItem(LOCAL_SESSION_KEY, "1");
+      window.localStorage.setItem(LOCAL_SESSION_KEY, candidate);
       setAdminKey(candidate);
       onSuccess();
     } catch {
