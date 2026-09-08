@@ -23,6 +23,28 @@ export function clearAdminKey() {
   window.localStorage.removeItem(ADMIN_KEY_STORAGE);
 }
 
+const IMAGE_BUCKET = "product-images";
+const TEN_YEARS = 60 * 60 * 24 * 365 * 10;
+
+/**
+ * Uploads a product photo to shared cloud storage and returns a long-lived URL.
+ * Keeps the catalog record tiny so it always saves.
+ */
+export async function uploadProductImage(blob: Blob, extension = "webp"): Promise<string | null> {
+  const name = `${Date.now()}-${Math.random().toString(36).slice(2, 10)}.${extension}`;
+  const { error } = await supabase.storage
+    .from(IMAGE_BUCKET)
+    .upload(name, blob, { contentType: blob.type || "image/webp", upsert: false });
+
+  if (error) {
+    console.error("Image upload failed", error);
+    return null;
+  }
+
+  const { data } = await supabase.storage.from(IMAGE_BUCKET).createSignedUrl(name, TEN_YEARS);
+  return data?.signedUrl ?? null;
+}
+
 /** Reads the shared catalog that every visitor sees. */
 export async function fetchCloudCatalog(): Promise<CatalogSnapshot | null> {
   const { data, error } = await supabase
