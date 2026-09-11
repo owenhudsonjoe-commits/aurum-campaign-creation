@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Reveal, Parallax, TiltCard, HorizontalRail, useSceneProgress, useMotionEnabled } from "@/lib/motion";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Truck, Shield, RotateCcw, Headphones, Sparkles } from "lucide-react";
 import { Nav } from "@/components/Nav";
