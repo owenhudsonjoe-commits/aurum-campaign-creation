@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Reveal, Parallax, TiltCard, HorizontalRail, useSceneProgress, useMotionEnabled } from "@/lib/motion";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Truck, Shield, RotateCcw, Headphones, Sparkles } from "lucide-react";
 import { Nav } from "@/components/Nav";
@@ -107,6 +108,119 @@ function NewsletterForm() {
   );
 }
 
+/* ─── Cinematic hero scene ───────────────────────────────────────── */
+function HeroScene({
+  heroImage, eyebrow, before, accent, after, subtitle,
+}: {
+  heroImage: string; eyebrow: string; before: string; accent: string; after: string; subtitle: string;
+}) {
+  const motion = useMotionEnabled();
+  const { ref, progress } = useSceneProgress<HTMLElement>(motion);
+  // progress: 0 when hero bottom enters, ~0.5 when centred, 1 when it has left
+  const p = Math.max(0, (progress - 0.45) / 0.55); // only start once we scroll away
+
+  return (
+    <section
+      ref={ref}
+      className="relative overflow-hidden"
+      style={{ height: "92svh", minHeight: "540px", perspective: "1400px" }}
+    >
+      {/* Layer 1 — imagery, camera pushes forward */}
+      <div
+        className="absolute inset-0"
+        style={{
+          transform: `scale(${(1 + p * 0.18).toFixed(4)}) translate3d(0, ${(p * -6).toFixed(2)}%, 0)`,
+          willChange: "transform",
+        }}
+      >
+        <img
+          src={heroImage}
+          alt="AURUM Collection"
+          fetchPriority="high"
+          decoding="async"
+          className="h-full w-full object-cover object-center"
+        />
+      </div>
+
+      {/* Layer 2 — atmosphere / depth of field */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(to right, rgba(23,19,15,0.72) 0%, rgba(23,19,15,0.3) 58%, rgba(23,19,15,0.12) 100%)",
+          opacity: 1 + p * 0.15,
+        }}
+      />
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: "radial-gradient(120% 80% at 50% 50%, transparent 40%, rgba(23,19,15,0.55) 100%)" }}
+      />
+
+      {/* Layer 3 — ornaments, slowest */}
+      <div
+        className="pointer-events-none absolute inset-0 hidden md:block"
+        style={{ transform: `translate3d(0, ${(p * -40).toFixed(1)}px, 0)`, opacity: 1 - p }}
+      >
+        <div className="absolute left-8 top-8" style={{ width: 48, height: 48, borderTop: "1px solid rgba(201,168,76,0.5)", borderLeft: "1px solid rgba(201,168,76,0.5)" }} />
+        <div className="absolute bottom-8 right-8" style={{ width: 48, height: 48, borderBottom: "1px solid rgba(201,168,76,0.5)", borderRight: "1px solid rgba(201,168,76,0.5)" }} />
+      </div>
+
+      {/* Layer 4 — typography, travels back through space */}
+      <div className="relative z-10 mx-auto flex h-full max-w-[1400px] flex-col items-start justify-center px-8 md:px-20">
+        <div
+          style={{
+            transform: `translate3d(0, ${(p * -70).toFixed(1)}px, ${(p * -220).toFixed(0)}px)`,
+            opacity: Math.max(0, 1 - p * 1.35),
+            transformStyle: "preserve-3d",
+            willChange: "transform, opacity",
+          }}
+        >
+          <Reveal y={18} delay={60}>
+            <p className="mb-5 font-sans text-[10px] font-medium uppercase tracking-[0.4em]" style={{ color: "#c9a84c" }}>
+              {eyebrow}
+            </p>
+          </Reveal>
+          <Reveal y={34} delay={160}>
+            <h1 className="mb-6 max-w-2xl whitespace-pre-line font-display font-light leading-[1.06]" style={{ fontSize: "clamp(2.8rem,6vw,5.5rem)", color: "#f5f0e8" }}>
+              {before}
+              {accent && <em className="italic" style={{ color: "#c9a84c" }}>{accent}</em>}
+              {after}
+            </h1>
+          </Reveal>
+          <Reveal y={24} delay={280}>
+            <p className="mb-10 max-w-sm font-sans text-sm font-light leading-relaxed md:text-base" style={{ color: "rgba(245,240,232,0.62)" }}>
+              {subtitle}
+            </p>
+          </Reveal>
+          <Reveal y={20} delay={380}>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Link to="/shop"
+                className="inline-flex items-center gap-2 px-8 py-3.5 font-sans text-[11px] font-semibold uppercase tracking-[0.2em] transition-transform duration-500 hover:-translate-y-0.5"
+                style={{ background: "#f5f0e8", color: "#17130f" }}>
+                Shop Now <ArrowRight className="h-3.5 w-3.5" strokeWidth={2} />
+              </Link>
+              <Link to="/bespoke"
+                className="inline-flex items-center gap-2 px-8 py-3.5 font-sans text-[11px] font-semibold uppercase tracking-[0.2em] transition-all duration-500 hover:-translate-y-0.5 hover:bg-white/10"
+                style={{ border: "1px solid rgba(245,240,232,0.35)", color: "#f5f0e8" }}>
+                Book Bespoke
+              </Link>
+            </div>
+          </Reveal>
+        </div>
+      </div>
+
+      {/* Scroll cue */}
+      <div
+        className="absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 md:flex"
+        style={{ opacity: Math.max(0, 1 - p * 2.5) }}
+      >
+        <span className="font-sans text-[9px] uppercase tracking-[0.35em]" style={{ color: "rgba(245,240,232,0.5)" }}>Scroll</span>
+        <span className="block h-10 w-px" style={{ background: "linear-gradient(to bottom, rgba(201,168,76,0.8), transparent)" }} />
+      </div>
+    </section>
+  );
+}
+
 /* ─── Home page ──────────────────────────────────────────────────── */
 function Home() {
   const { products, banners, settings } = useCatalog();
@@ -124,45 +238,15 @@ function Home() {
       <div className="h-[97px]" />
 
       {/* ── HERO ─────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden" style={{ height: "88svh", minHeight: "520px" }}>
-        <img
-          src={heroImage} alt="AURUM Collection"
-          fetchPriority="high" decoding="async"
-          className="absolute inset-0 h-full w-full object-cover object-center"
-        />
-        {/* Dark vignette */}
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(23,19,15,0.65) 0%, rgba(23,19,15,0.25) 60%, rgba(23,19,15,0.1) 100%)" }} />
+      <HeroScene
+        heroImage={heroImage}
+        eyebrow={settings.heroEyebrow}
+        before={heroBefore}
+        accent={hasAccent ? settings.heroAccent : ""}
+        after={heroAfter}
+        subtitle={settings.heroSubtitle}
+      />
 
-        {/* Corner ornament */}
-        <div className="absolute top-8 left-8 hidden md:block" style={{ width: 48, height: 48, borderTop: "1px solid rgba(201,168,76,0.5)", borderLeft: "1px solid rgba(201,168,76,0.5)" }} />
-        <div className="absolute bottom-8 right-8 hidden md:block" style={{ width: 48, height: 48, borderBottom: "1px solid rgba(201,168,76,0.5)", borderRight: "1px solid rgba(201,168,76,0.5)" }} />
-
-        <div className="relative z-10 flex h-full flex-col items-start justify-center px-8 md:px-20 max-w-[1400px] mx-auto">
-          <div className="animate-reveal">
-            <p className="font-sans text-[10px] tracking-[0.4em] uppercase mb-5 font-medium" style={{ color: "#c9a84c" }}>
-               {settings.heroEyebrow}
-            </p>
-            <h1 className="font-display font-light leading-[1.08] mb-6 max-w-2xl whitespace-pre-line" style={{ fontSize: "clamp(2.8rem,6vw,5.5rem)", color: "#f5f0e8" }}>
-              {heroBefore}{hasAccent && <em className="italic" style={{ color: "#c9a84c" }}>{settings.heroAccent}</em>}{heroAfter}
-            </h1>
-            <p className="font-sans font-light text-sm md:text-base mb-10 max-w-sm leading-relaxed" style={{ color: "rgba(245,240,232,0.6)" }}>
-              {settings.heroSubtitle}
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <Link to="/shop"
-                className="inline-flex items-center gap-2 px-8 py-3.5 font-sans text-[11px] font-semibold tracking-[0.2em] uppercase transition-opacity hover:opacity-90"
-                style={{ background: "#f5f0e8", color: "#17130f" }}>
-                Shop Now <ArrowRight className="h-3.5 w-3.5" strokeWidth={2} />
-              </Link>
-              <Link to="/bespoke"
-                className="inline-flex items-center gap-2 px-8 py-3.5 font-sans text-[11px] font-semibold tracking-[0.2em] uppercase transition-colors hover:bg-white/10"
-                style={{ border: "1px solid rgba(245,240,232,0.35)", color: "#f5f0e8" }}>
-                Book Bespoke
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* ── FEATURES BAR ─────────────────────────────────────────── */}
       <div className="border-y border-border" style={{ background: "var(--color-muted)" }}>

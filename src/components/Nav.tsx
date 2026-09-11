@@ -47,9 +47,14 @@ export function Nav() {
 
       {/* ── Main header ── */}
       <header
-        className={`fixed inset-x-0 top-[41px] z-50 bg-background transition-all duration-300 ${
-          scrolled ? "shadow-[0_1px_20px_rgba(0,0,0,0.06)]" : ""
-        } border-b border-border`}
+        className="fixed inset-x-0 top-[41px] z-50 border-b border-border"
+        style={{
+          background: scrolled ? "color-mix(in oklab, var(--background) 82%, transparent)" : "var(--background)",
+          backdropFilter: scrolled ? "blur(14px) saturate(1.2)" : undefined,
+          WebkitBackdropFilter: scrolled ? "blur(14px) saturate(1.2)" : undefined,
+          boxShadow: scrolled ? "0 12px 40px -28px rgba(23,19,15,0.55)" : "none",
+          transition: "background 500ms ease, box-shadow 500ms ease, backdrop-filter 500ms ease",
+        }}
       >
         <div className="mx-auto flex max-w-[1400px] items-center justify-between px-5 md:px-10 h-[56px]">
 
