@@ -75,8 +75,35 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   errorComponent: ErrorComponent,
 });
 
+/** Fades/scales the page shell between routes — routing itself is untouched. */
+function SceneTransition({ children }: { children: React.ReactNode }) {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    setVisible(false);
+    const id = requestAnimationFrame(() => setVisible(true));
+    return () => cancelAnimationFrame(id);
+  }, [pathname]);
+
+  return (
+    <div
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? "none" : "scale(0.994) translate3d(0,10px,0)",
+        transition: "opacity 520ms cubic-bezier(0.16,1,0.3,1), transform 620ms cubic-bezier(0.16,1,0.3,1)",
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const { enabled, coarse } = useMotionSettings();
+
+  useSmoothScroll(enabled && !coarse);
 
   useEffect(() => {
     void hydrateCatalogFromCloud();
@@ -84,9 +111,13 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Outlet />
-      <WhatsAppButton />
-      <BackToTop />
+      <MotionProvider value={enabled}>
+        <SceneTransition>
+          <Outlet />
+        </SceneTransition>
+        <WhatsAppButton />
+        <BackToTop />
+      </MotionProvider>
     </QueryClientProvider>
   );
 }
