@@ -125,45 +125,15 @@ function Home() {
       <div className="h-[97px]" />
 
       {/* ── HERO ─────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden" style={{ height: "88svh", minHeight: "520px" }}>
-        <img
-          src={heroImage} alt="AURUM Collection"
-          fetchPriority="high" decoding="async"
-          className="absolute inset-0 h-full w-full object-cover object-center"
-        />
-        {/* Dark vignette */}
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(23,19,15,0.65) 0%, rgba(23,19,15,0.25) 60%, rgba(23,19,15,0.1) 100%)" }} />
+      <HeroScene
+        heroImage={heroImage}
+        eyebrow={settings.heroEyebrow}
+        before={heroBefore}
+        accent={hasAccent ? settings.heroAccent : ""}
+        after={heroAfter}
+        subtitle={settings.heroSubtitle}
+      />
 
-        {/* Corner ornament */}
-        <div className="absolute top-8 left-8 hidden md:block" style={{ width: 48, height: 48, borderTop: "1px solid rgba(201,168,76,0.5)", borderLeft: "1px solid rgba(201,168,76,0.5)" }} />
-        <div className="absolute bottom-8 right-8 hidden md:block" style={{ width: 48, height: 48, borderBottom: "1px solid rgba(201,168,76,0.5)", borderRight: "1px solid rgba(201,168,76,0.5)" }} />
-
-        <div className="relative z-10 flex h-full flex-col items-start justify-center px-8 md:px-20 max-w-[1400px] mx-auto">
-          <div className="animate-reveal">
-            <p className="font-sans text-[10px] tracking-[0.4em] uppercase mb-5 font-medium" style={{ color: "#c9a84c" }}>
-               {settings.heroEyebrow}
-            </p>
-            <h1 className="font-display font-light leading-[1.08] mb-6 max-w-2xl whitespace-pre-line" style={{ fontSize: "clamp(2.8rem,6vw,5.5rem)", color: "#f5f0e8" }}>
-              {heroBefore}{hasAccent && <em className="italic" style={{ color: "#c9a84c" }}>{settings.heroAccent}</em>}{heroAfter}
-            </h1>
-            <p className="font-sans font-light text-sm md:text-base mb-10 max-w-sm leading-relaxed" style={{ color: "rgba(245,240,232,0.6)" }}>
-              {settings.heroSubtitle}
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <Link to="/shop"
-                className="inline-flex items-center gap-2 px-8 py-3.5 font-sans text-[11px] font-semibold tracking-[0.2em] uppercase transition-opacity hover:opacity-90"
-                style={{ background: "#f5f0e8", color: "#17130f" }}>
-                Shop Now <ArrowRight className="h-3.5 w-3.5" strokeWidth={2} />
-              </Link>
-              <Link to="/bespoke"
-                className="inline-flex items-center gap-2 px-8 py-3.5 font-sans text-[11px] font-semibold tracking-[0.2em] uppercase transition-colors hover:bg-white/10"
-                style={{ border: "1px solid rgba(245,240,232,0.35)", color: "#f5f0e8" }}>
-                Book Bespoke
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* ── FEATURES BAR ─────────────────────────────────────────── */}
       <div className="border-y border-border" style={{ background: "var(--color-muted)" }}>
