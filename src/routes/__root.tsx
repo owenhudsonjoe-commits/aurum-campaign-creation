@@ -4,11 +4,13 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
 } from "@tanstack/react-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { hydrateCatalogFromCloud } from "@/lib/catalog";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { BackToTop } from "@/components/BackToTop";
+import { MotionProvider, useMotionSettings, useSmoothScroll } from "@/lib/motion";
 
 function NotFoundComponent() {
   return (
