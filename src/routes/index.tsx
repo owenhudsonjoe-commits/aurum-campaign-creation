@@ -301,28 +301,32 @@ function Home() {
 
             <div className="grid grid-cols-3 gap-4 md:gap-6">
               {saleItems.map((item, i) => (
-                <Link key={item.slug} to="/product/$slug" params={{ slug: item.slug }} className="group relative">
-                  <div className={`relative overflow-hidden ${i === 1 ? "md:-mt-8" : ""}`} style={{ background: "#1f1a15" }}>
-                    <div className="aspect-[3/4]">
-                      <img src={item.src} alt={item.name} loading="lazy" decoding="async"
-                        className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
+                <Reveal key={item.slug} delay={i * 120} y={56} from={0.94} depth={120}>
+                  <Link to="/product/$slug" params={{ slug: item.slug }} className="group relative block">
+                    <TiltCard max={4} lift={8}>
+                      <div className={`relative overflow-hidden ${i === 1 ? "md:-mt-8" : ""}`} style={{ background: "#1f1a15", boxShadow: "0 40px 80px -50px rgba(0,0,0,0.9)" }}>
+                        <div className="aspect-[3/4]">
+                          <img src={item.src} alt={item.name} loading="lazy" decoding="async"
+                            className="h-full w-full object-cover object-top transition-transform duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.07]" />
+                        </div>
+                        <div className="absolute top-0 left-0 px-3 py-1.5 font-sans text-[9px] font-bold tracking-[0.15em] uppercase" style={{ background: "var(--gold)", color: "#17130f" }}>
+                          {item.off}
+                        </div>
+                        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: "linear-gradient(to top, rgba(23,19,15,0.7) 0%, transparent 60%)" }} />
+                        <div className="absolute bottom-0 inset-x-0 p-4 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                          <span className="font-sans text-[10px] font-semibold tracking-widest uppercase" style={{ color: "#f5f0e8" }}>View Product →</span>
+                        </div>
+                      </div>
+                    </TiltCard>
+                    <div className="mt-3">
+                      <p className="font-sans text-[12px] font-medium leading-tight truncate" style={{ color: "rgba(245,240,232,0.7)" }}>{item.name}</p>
+                      <div className="mt-1.5 flex items-center gap-2">
+                        <span className="font-sans text-[14px] font-bold" style={{ color: "#c9a84c" }}>{item.salePrice}</span>
+                        <span className="font-sans text-[11px] line-through" style={{ color: "rgba(245,240,232,0.3)" }}>{item.origPrice}</span>
+                      </div>
                     </div>
-                    <div className="absolute top-0 left-0 px-3 py-1.5 font-sans text-[9px] font-bold tracking-[0.15em] uppercase" style={{ background: "var(--gold)", color: "#17130f" }}>
-                      {item.off}
-                    </div>
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: "linear-gradient(to top, rgba(23,19,15,0.7) 0%, transparent 60%)" }} />
-                    <div className="absolute bottom-0 inset-x-0 p-4 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                      <span className="font-sans text-[10px] font-semibold tracking-widest uppercase" style={{ color: "#f5f0e8" }}>View Product →</span>
-                    </div>
-                  </div>
-                  <div className="mt-3">
-                    <p className="font-sans text-[12px] font-medium leading-tight truncate" style={{ color: "rgba(245,240,232,0.7)" }}>{item.name}</p>
-                    <div className="mt-1.5 flex items-center gap-2">
-                      <span className="font-sans text-[14px] font-bold" style={{ color: "#c9a84c" }}>{item.salePrice}</span>
-                      <span className="font-sans text-[11px] line-through" style={{ color: "rgba(245,240,232,0.3)" }}>{item.origPrice}</span>
-                    </div>
-                  </div>
-                </Link>
+                  </Link>
+                </Reveal>
               ))}
             </div>
 
