@@ -379,6 +379,8 @@ function Home() {
               </span>
             </div>
           </Link>
+          </Reveal>
+
 
           <div className="mt-10 flex items-end justify-between">
             <div>
