@@ -471,8 +471,10 @@ function Home() {
           {shopByStyle.map((s, i) => (
             <Link key={s.label} to="/shop" search={{ collection: "All" as const, fabric: s.fabric }}
               className="group relative overflow-hidden" style={{ minHeight: "520px" }}>
-              <img src={s.img} alt={s.label} loading="lazy" decoding="async"
-                className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-[1200ms] ease-out group-hover:scale-105" />
+              <Parallax className="absolute inset-[-12%]" distance={-70} scaleRange={0.06}>
+                <img src={s.img} alt={s.label} loading="lazy" decoding="async"
+                  className="h-full w-full object-cover object-center transition-transform duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105" />
+              </Parallax>
               <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(23,19,15,0.8) 0%, rgba(23,19,15,0.1) 60%, transparent 100%)" }} />
 
               {/* Index label */}
