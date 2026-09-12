@@ -344,10 +344,12 @@ function Home() {
       {/* ── CULTURAL FUSION SALE ──────────────────────────────────── */}
       <section className="py-16 md:py-24 border-b border-border" style={{ background: "rgba(201,168,76,0.03)" }}>
         <div className="max-w-[1400px] mx-auto px-5 md:px-10">
+          <Reveal y={44} from={0.97} depth={140}>
           <Link
             to="/shop"
             search={{ collection: "Cultural Fusion", fabric: "Stitched" }}
-            className="group relative block min-h-[280px] overflow-hidden bg-[#1d2a1b] md:min-h-[300px]"
+            className="group relative block min-h-[280px] overflow-hidden bg-[#1d2a1b] transition-transform duration-700 hover:-translate-y-1 md:min-h-[300px]"
+            style={{ boxShadow: "0 50px 90px -60px rgba(23,19,15,0.9)" }}
           >
             <div className="relative flex h-full min-h-[280px] flex-col items-start justify-center px-6 py-8 md:min-h-[300px] md:px-14 md:py-10">
               <div className="absolute right-8 top-8 hidden h-14 w-14 items-center justify-center rounded-full border border-[#c9a84c]/50 md:flex">
