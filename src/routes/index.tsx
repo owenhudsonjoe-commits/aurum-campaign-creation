@@ -251,14 +251,14 @@ function Home() {
       {/* ── FEATURES BAR ─────────────────────────────────────────── */}
       <div className="border-y border-border" style={{ background: "var(--color-muted)" }}>
         <div className="max-w-[1400px] mx-auto grid grid-cols-2 md:grid-cols-4 divide-x divide-border">
-          {features.map(({ icon: Icon, title, desc }) => (
-            <div key={title} className="flex items-center gap-3 px-6 py-5">
+          {features.map(({ icon: Icon, title, desc }, i) => (
+            <Reveal key={title} delay={i * 90} y={16} className="flex items-center gap-3 px-6 py-5">
               <Icon className="h-4 w-4 shrink-0 text-foreground/30" strokeWidth={1.5} />
               <div>
                 <p className="font-sans text-[11px] font-semibold tracking-wide text-foreground">{title}</p>
                 <p className="font-sans text-[10px] mt-0.5" style={{ color: "rgba(26,23,20,0.45)" }}>{desc}</p>
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>
