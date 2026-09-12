@@ -9,6 +9,7 @@ import { useCatalog } from "@/lib/catalog";
 import { useCart } from "@/lib/cart";
 import { useWishlist } from "@/lib/wishlist";
 import { ShoppingBag, ArrowRight, Heart, Search, X, ChevronDown } from "lucide-react";
+import { Reveal } from "@/lib/motion";
 
 type SortOption = "featured" | "price-asc" | "price-desc" | "most-popular";
 const SORT_LABELS: Record<SortOption, string> = {
