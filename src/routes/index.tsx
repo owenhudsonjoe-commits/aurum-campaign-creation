@@ -418,10 +418,10 @@ function Home() {
         </div>
       </section>
 
-      {/* ── NEW ARRIVALS ─────────────────────────────────────────── */}
-      <section className="py-16 md:py-24 border-b border-border">
+      {/* ── NEW ARRIVALS — pinned horizontal scene ───────────────── */}
+      <section className="border-b border-border pt-16 md:pt-24">
         <div className="max-w-[1400px] mx-auto px-5 md:px-10">
-          <div className="flex items-end justify-between mb-10">
+          <Reveal y={28} className="mb-10 flex items-end justify-between">
             <div>
               <p className="font-sans text-[9px] tracking-[0.35em] uppercase font-medium mb-2" style={{ color: "var(--gold)" }}>Just In</p>
               <h2 className="font-display font-light text-3xl md:text-4xl text-foreground">New Arrivals</h2>
@@ -429,28 +429,31 @@ function Home() {
             <Link to="/shop" className="font-sans text-[11px] tracking-[0.15em] uppercase font-medium text-foreground/40 hover:text-foreground transition-colors flex items-center gap-1.5">
               View All <ArrowRight className="h-3 w-3" strokeWidth={2} />
             </Link>
-          </div>
+          </Reveal>
+        </div>
 
-          <div className="flex gap-5 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory">
-            {newArrivals.map((p) => (
-              <Link key={p.slug} to="/product/$slug" params={{ slug: p.slug }}
-                className="group flex-shrink-0 snap-start w-[170px] md:w-[210px]">
-                <div className="relative overflow-hidden aspect-[3/4]" style={{ background: "var(--color-muted)" }}>
+        <HorizontalRail heightVh={260}>
+          {newArrivals.map((p) => (
+            <Link key={p.slug} to="/product/$slug" params={{ slug: p.slug }}
+              className="group flex-shrink-0 snap-start w-[170px] md:w-[300px]">
+              <TiltCard max={4} lift={6}>
+                <div className="relative overflow-hidden aspect-[3/4]" style={{ background: "var(--color-muted)", boxShadow: "0 40px 70px -55px rgba(23,19,15,0.85)" }}>
                   <img src={p.src} alt={p.name} loading="lazy" decoding="async"
-                    className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
+                    className="h-full w-full object-cover object-top transition-transform duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.07]" />
                   <div className="absolute top-2.5 left-2.5">
                     <span className="font-sans text-[8px] font-semibold uppercase tracking-[0.2em] px-2 py-1 bg-foreground text-background">{p.badge}</span>
                   </div>
                 </div>
-                <div className="mt-3">
-                  <p className="font-sans text-[12px] font-medium leading-tight group-hover:text-foreground/50 transition-colors">{p.name}</p>
-                  <p className="mt-1 font-sans text-[12px]" style={{ color: "var(--gold)" }}>{p.price}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
+              </TiltCard>
+              <div className="mt-3">
+                <p className="font-sans text-[12px] font-medium leading-tight group-hover:text-foreground/50 transition-colors">{p.name}</p>
+                <p className="mt-1 font-sans text-[12px]" style={{ color: "var(--gold)" }}>{p.price}</p>
+              </div>
+            </Link>
+          ))}
+        </HorizontalRail>
       </section>
+
 
       {/* ── SHOP BY STYLE ────────────────────────────────────────── */}
       <section className="border-b border-border">
