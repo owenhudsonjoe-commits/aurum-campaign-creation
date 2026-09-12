@@ -9,6 +9,7 @@ import { useCatalog } from "@/lib/catalog";
 import { useCart } from "@/lib/cart";
 import { useWishlist } from "@/lib/wishlist";
 import { ShoppingBag, ArrowRight, Heart, Search, X, ChevronDown } from "lucide-react";
+import { Reveal } from "@/lib/motion";
 
 type SortOption = "featured" | "price-asc" | "price-desc" | "most-popular";
 const SORT_LABELS: Record<SortOption, string> = {
@@ -237,10 +238,11 @@ function ShopPage() {
           </div>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-10">
-            {filtered.map((product) => (
-              <div key={product.id} className="group relative">
+            {filtered.map((product, i) => (
+              <Reveal key={product.id} delay={(i % 8) * 70} y={44} from={0.96} depth={70} className="group relative">
                 <Link to="/product/$slug" params={{ slug: product.slug }}>
-                  <div className="relative overflow-hidden bg-muted aspect-[3/4]">
+                  <div className="relative overflow-hidden bg-muted aspect-[3/4] transition-transform duration-700 group-hover:-translate-y-1"
+                    style={{ boxShadow: "0 30px 60px -50px rgba(23,19,15,0.9)" }}>
                     <img
                       src={product.images[0]}
                       alt={product.name}
@@ -304,7 +306,7 @@ function ShopPage() {
                     <p className="text-[10px] text-foreground/40 mt-0.5">{product.leadTime}</p>
                   </div>
                 </Link>
-              </div>
+              </Reveal>
             ))}
           </div>
         )}

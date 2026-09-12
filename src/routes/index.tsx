@@ -251,14 +251,14 @@ function Home() {
       {/* ── FEATURES BAR ─────────────────────────────────────────── */}
       <div className="border-y border-border" style={{ background: "var(--color-muted)" }}>
         <div className="max-w-[1400px] mx-auto grid grid-cols-2 md:grid-cols-4 divide-x divide-border">
-          {features.map(({ icon: Icon, title, desc }) => (
-            <div key={title} className="flex items-center gap-3 px-6 py-5">
+          {features.map(({ icon: Icon, title, desc }, i) => (
+            <Reveal key={title} delay={i * 90} y={16} className="flex items-center gap-3 px-6 py-5">
               <Icon className="h-4 w-4 shrink-0 text-foreground/30" strokeWidth={1.5} />
               <div>
                 <p className="font-sans text-[11px] font-semibold tracking-wide text-foreground">{title}</p>
                 <p className="font-sans text-[10px] mt-0.5" style={{ color: "rgba(26,23,20,0.45)" }}>{desc}</p>
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>
@@ -277,7 +277,7 @@ function Home() {
         <div className="py-14 md:py-20">
           <div className="max-w-[1400px] mx-auto px-5 md:px-10">
             <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-8 mb-12">
-              <div>
+              <Reveal y={34}>
                 <p className="font-sans text-[10px] tracking-[0.3em] uppercase mb-3 font-medium" style={{ color: "#c9a84c" }}>Limited Time</p>
                 <h2 className="font-display font-light leading-none" style={{ fontSize: "clamp(2.5rem,5vw,4.5rem)", color: "#f5f0e8" }}>
                   Summer<br /><em className="italic" style={{ color: "#c9a84c" }}>Super Sale</em>
@@ -285,7 +285,7 @@ function Home() {
                 <p className="font-sans text-sm mt-3" style={{ color: "rgba(245,240,232,0.4)" }}>
                   Starting at <span className="font-semibold" style={{ color: "#c9a84c" }}>RS 2,499</span> · While stocks last
                 </p>
-              </div>
+              </Reveal>
               <div className="flex flex-col items-start md:items-end gap-5">
                 <div>
                   <p className="font-sans text-[9px] tracking-[0.3em] uppercase mb-2 font-medium" style={{ color: "rgba(245,240,232,0.4)" }}>Sale ends in</p>
@@ -301,28 +301,32 @@ function Home() {
 
             <div className="grid grid-cols-3 gap-4 md:gap-6">
               {saleItems.map((item, i) => (
-                <Link key={item.slug} to="/product/$slug" params={{ slug: item.slug }} className="group relative">
-                  <div className={`relative overflow-hidden ${i === 1 ? "md:-mt-8" : ""}`} style={{ background: "#1f1a15" }}>
-                    <div className="aspect-[3/4]">
-                      <img src={item.src} alt={item.name} loading="lazy" decoding="async"
-                        className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
+                <Reveal key={item.slug} delay={i * 120} y={56} from={0.94} depth={120}>
+                  <Link to="/product/$slug" params={{ slug: item.slug }} className="group relative block">
+                    <TiltCard max={4} lift={8}>
+                      <div className={`relative overflow-hidden ${i === 1 ? "md:-mt-8" : ""}`} style={{ background: "#1f1a15", boxShadow: "0 40px 80px -50px rgba(0,0,0,0.9)" }}>
+                        <div className="aspect-[3/4]">
+                          <img src={item.src} alt={item.name} loading="lazy" decoding="async"
+                            className="h-full w-full object-cover object-top transition-transform duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.07]" />
+                        </div>
+                        <div className="absolute top-0 left-0 px-3 py-1.5 font-sans text-[9px] font-bold tracking-[0.15em] uppercase" style={{ background: "var(--gold)", color: "#17130f" }}>
+                          {item.off}
+                        </div>
+                        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: "linear-gradient(to top, rgba(23,19,15,0.7) 0%, transparent 60%)" }} />
+                        <div className="absolute bottom-0 inset-x-0 p-4 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                          <span className="font-sans text-[10px] font-semibold tracking-widest uppercase" style={{ color: "#f5f0e8" }}>View Product →</span>
+                        </div>
+                      </div>
+                    </TiltCard>
+                    <div className="mt-3">
+                      <p className="font-sans text-[12px] font-medium leading-tight truncate" style={{ color: "rgba(245,240,232,0.7)" }}>{item.name}</p>
+                      <div className="mt-1.5 flex items-center gap-2">
+                        <span className="font-sans text-[14px] font-bold" style={{ color: "#c9a84c" }}>{item.salePrice}</span>
+                        <span className="font-sans text-[11px] line-through" style={{ color: "rgba(245,240,232,0.3)" }}>{item.origPrice}</span>
+                      </div>
                     </div>
-                    <div className="absolute top-0 left-0 px-3 py-1.5 font-sans text-[9px] font-bold tracking-[0.15em] uppercase" style={{ background: "var(--gold)", color: "#17130f" }}>
-                      {item.off}
-                    </div>
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: "linear-gradient(to top, rgba(23,19,15,0.7) 0%, transparent 60%)" }} />
-                    <div className="absolute bottom-0 inset-x-0 p-4 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                      <span className="font-sans text-[10px] font-semibold tracking-widest uppercase" style={{ color: "#f5f0e8" }}>View Product →</span>
-                    </div>
-                  </div>
-                  <div className="mt-3">
-                    <p className="font-sans text-[12px] font-medium leading-tight truncate" style={{ color: "rgba(245,240,232,0.7)" }}>{item.name}</p>
-                    <div className="mt-1.5 flex items-center gap-2">
-                      <span className="font-sans text-[14px] font-bold" style={{ color: "#c9a84c" }}>{item.salePrice}</span>
-                      <span className="font-sans text-[11px] line-through" style={{ color: "rgba(245,240,232,0.3)" }}>{item.origPrice}</span>
-                    </div>
-                  </div>
-                </Link>
+                  </Link>
+                </Reveal>
               ))}
             </div>
 
@@ -340,10 +344,12 @@ function Home() {
       {/* ── CULTURAL FUSION SALE ──────────────────────────────────── */}
       <section className="py-16 md:py-24 border-b border-border" style={{ background: "rgba(201,168,76,0.03)" }}>
         <div className="max-w-[1400px] mx-auto px-5 md:px-10">
+          <Reveal y={44} from={0.97} depth={140}>
           <Link
             to="/shop"
             search={{ collection: "Cultural Fusion", fabric: "Stitched" }}
-            className="group relative block min-h-[280px] overflow-hidden bg-[#1d2a1b] md:min-h-[300px]"
+            className="group relative block min-h-[280px] overflow-hidden bg-[#1d2a1b] transition-transform duration-700 hover:-translate-y-1 md:min-h-[300px]"
+            style={{ boxShadow: "0 50px 90px -60px rgba(23,19,15,0.9)" }}
           >
             <div className="relative flex h-full min-h-[280px] flex-col items-start justify-center px-6 py-8 md:min-h-[300px] md:px-14 md:py-10">
               <div className="absolute right-8 top-8 hidden h-14 w-14 items-center justify-center rounded-full border border-[#c9a84c]/50 md:flex">
@@ -373,6 +379,8 @@ function Home() {
               </span>
             </div>
           </Link>
+          </Reveal>
+
 
           <div className="mt-10 flex items-end justify-between">
             <div>
@@ -385,31 +393,35 @@ function Home() {
           </div>
 
           <div className="mt-7 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
-            {culturalFusionProducts.map((product) => (
-              <Link key={product.id} to="/product/$slug" params={{ slug: product.slug }} className="group">
-                <div className="relative aspect-[3/4] overflow-hidden bg-muted">
-                  <img src={product.images[0]} alt={product.name} loading="lazy" decoding="async" className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
-                  {product.discountPercent && (
-                    <span className="absolute left-2.5 top-2.5 bg-red-600 px-2 py-1 font-sans text-[8px] font-bold uppercase tracking-wider text-white">
-                      {product.discountPercent}% Off
-                    </span>
-                  )}
-                </div>
-                <p className="mt-3 truncate font-sans text-[12px] font-medium text-foreground group-hover:text-foreground/60">{product.name}</p>
-                <div className="mt-1 flex items-center gap-2">
-                  <span className="font-sans text-[13px] font-bold text-red-600">{formatPrice(product.discountedPrice ?? product.price)}</span>
-                  {product.discountedPrice && <span className="font-sans text-[10px] text-foreground/35 line-through">{formatPrice(product.price)}</span>}
-                </div>
-              </Link>
+            {culturalFusionProducts.map((product, i) => (
+              <Reveal key={product.id} delay={i * 110} y={50} from={0.95} depth={90}>
+                <Link to="/product/$slug" params={{ slug: product.slug }} className="group block">
+                  <TiltCard max={4} lift={6}>
+                    <div className="relative aspect-[3/4] overflow-hidden bg-muted" style={{ boxShadow: "0 30px 60px -45px rgba(23,19,15,0.8)" }}>
+                      <img src={product.images[0]} alt={product.name} loading="lazy" decoding="async" className="h-full w-full object-cover object-top transition-transform duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.07]" />
+                      {product.discountPercent && (
+                        <span className="absolute left-2.5 top-2.5 bg-red-600 px-2 py-1 font-sans text-[8px] font-bold uppercase tracking-wider text-white">
+                          {product.discountPercent}% Off
+                        </span>
+                      )}
+                    </div>
+                  </TiltCard>
+                  <p className="mt-3 truncate font-sans text-[12px] font-medium text-foreground group-hover:text-foreground/60">{product.name}</p>
+                  <div className="mt-1 flex items-center gap-2">
+                    <span className="font-sans text-[13px] font-bold text-red-600">{formatPrice(product.discountedPrice ?? product.price)}</span>
+                    {product.discountedPrice && <span className="font-sans text-[10px] text-foreground/35 line-through">{formatPrice(product.price)}</span>}
+                  </div>
+                </Link>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── NEW ARRIVALS ─────────────────────────────────────────── */}
-      <section className="py-16 md:py-24 border-b border-border">
+      {/* ── NEW ARRIVALS — pinned horizontal scene ───────────────── */}
+      <section className="border-b border-border pt-16 md:pt-24">
         <div className="max-w-[1400px] mx-auto px-5 md:px-10">
-          <div className="flex items-end justify-between mb-10">
+          <Reveal y={28} className="mb-10 flex items-end justify-between">
             <div>
               <p className="font-sans text-[9px] tracking-[0.35em] uppercase font-medium mb-2" style={{ color: "var(--gold)" }}>Just In</p>
               <h2 className="font-display font-light text-3xl md:text-4xl text-foreground">New Arrivals</h2>
@@ -417,28 +429,31 @@ function Home() {
             <Link to="/shop" className="font-sans text-[11px] tracking-[0.15em] uppercase font-medium text-foreground/40 hover:text-foreground transition-colors flex items-center gap-1.5">
               View All <ArrowRight className="h-3 w-3" strokeWidth={2} />
             </Link>
-          </div>
+          </Reveal>
+        </div>
 
-          <div className="flex gap-5 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory">
-            {newArrivals.map((p) => (
-              <Link key={p.slug} to="/product/$slug" params={{ slug: p.slug }}
-                className="group flex-shrink-0 snap-start w-[170px] md:w-[210px]">
-                <div className="relative overflow-hidden aspect-[3/4]" style={{ background: "var(--color-muted)" }}>
+        <HorizontalRail heightVh={260}>
+          {newArrivals.map((p) => (
+            <Link key={p.slug} to="/product/$slug" params={{ slug: p.slug }}
+              className="group flex-shrink-0 snap-start w-[170px] md:w-[300px]">
+              <TiltCard max={4} lift={6}>
+                <div className="relative overflow-hidden aspect-[3/4]" style={{ background: "var(--color-muted)", boxShadow: "0 40px 70px -55px rgba(23,19,15,0.85)" }}>
                   <img src={p.src} alt={p.name} loading="lazy" decoding="async"
-                    className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
+                    className="h-full w-full object-cover object-top transition-transform duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.07]" />
                   <div className="absolute top-2.5 left-2.5">
                     <span className="font-sans text-[8px] font-semibold uppercase tracking-[0.2em] px-2 py-1 bg-foreground text-background">{p.badge}</span>
                   </div>
                 </div>
-                <div className="mt-3">
-                  <p className="font-sans text-[12px] font-medium leading-tight group-hover:text-foreground/50 transition-colors">{p.name}</p>
-                  <p className="mt-1 font-sans text-[12px]" style={{ color: "var(--gold)" }}>{p.price}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
+              </TiltCard>
+              <div className="mt-3">
+                <p className="font-sans text-[12px] font-medium leading-tight group-hover:text-foreground/50 transition-colors">{p.name}</p>
+                <p className="mt-1 font-sans text-[12px]" style={{ color: "var(--gold)" }}>{p.price}</p>
+              </div>
+            </Link>
+          ))}
+        </HorizontalRail>
       </section>
+
 
       {/* ── SHOP BY STYLE ────────────────────────────────────────── */}
       <section className="border-b border-border">
@@ -456,8 +471,10 @@ function Home() {
           {shopByStyle.map((s, i) => (
             <Link key={s.label} to="/shop" search={{ collection: "All" as const, fabric: s.fabric }}
               className="group relative overflow-hidden" style={{ minHeight: "520px" }}>
-              <img src={s.img} alt={s.label} loading="lazy" decoding="async"
-                className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-[1200ms] ease-out group-hover:scale-105" />
+              <Parallax className="absolute inset-[-12%]" distance={-70} scaleRange={0.06}>
+                <img src={s.img} alt={s.label} loading="lazy" decoding="async"
+                  className="h-full w-full object-cover object-center transition-transform duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105" />
+              </Parallax>
               <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(23,19,15,0.8) 0%, rgba(23,19,15,0.1) 60%, transparent 100%)" }} />
 
               {/* Index label */}
@@ -501,18 +518,24 @@ function Home() {
 
       {/* ── BESPOKE CTA ──────────────────────────────────────────── */}
       <section className="py-20 md:py-28 border-b border-border text-center px-6" style={{ background: "#17130f" }}>
-        <p className="font-sans text-[9px] tracking-[0.4em] uppercase mb-4 font-medium" style={{ color: "#c9a84c" }}>Couture Atelier</p>
-        <h2 className="font-display font-light mb-4" style={{ fontSize: "clamp(2rem,4vw,3.5rem)", color: "#f5f0e8" }}>
-          Every design can be bespoke.
-        </h2>
-        <p className="font-sans text-sm font-light mb-10 max-w-md mx-auto leading-relaxed" style={{ color: "rgba(245,240,232,0.45)" }}>
-          Commission a one-of-a-kind piece crafted to your exact measurements, fabric preferences, and vision.
-        </p>
-        <Link to="/bespoke"
-          className="inline-flex items-center gap-3 px-10 py-4 font-sans text-[11px] font-semibold tracking-[0.2em] uppercase transition-colors hover:bg-white/5"
-          style={{ border: "1px solid rgba(201,168,76,0.5)", color: "#c9a84c" }}>
-          Book a Consultation <ArrowRight className="h-3.5 w-3.5" strokeWidth={2} />
-        </Link>
+        <Reveal y={24}>
+          <p className="font-sans text-[9px] tracking-[0.4em] uppercase mb-4 font-medium" style={{ color: "#c9a84c" }}>Couture Atelier</p>
+        </Reveal>
+        <Reveal y={36} delay={100}>
+          <h2 className="font-display font-light mb-4" style={{ fontSize: "clamp(2rem,4vw,3.5rem)", color: "#f5f0e8" }}>
+            Every design can be bespoke.
+          </h2>
+        </Reveal>
+        <Reveal y={24} delay={200}>
+          <p className="font-sans text-sm font-light mb-10 max-w-md mx-auto leading-relaxed" style={{ color: "rgba(245,240,232,0.45)" }}>
+            Commission a one-of-a-kind piece crafted to your exact measurements, fabric preferences, and vision.
+          </p>
+          <Link to="/bespoke"
+            className="inline-flex items-center gap-3 px-10 py-4 font-sans text-[11px] font-semibold tracking-[0.2em] uppercase transition-all duration-500 hover:-translate-y-0.5 hover:bg-white/5"
+            style={{ border: "1px solid rgba(201,168,76,0.5)", color: "#c9a84c" }}>
+            Book a Consultation <ArrowRight className="h-3.5 w-3.5" strokeWidth={2} />
+          </Link>
+        </Reveal>
       </section>
 
       {/* ── NEWSLETTER ───────────────────────────────────────────── */}
