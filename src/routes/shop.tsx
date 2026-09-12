@@ -305,7 +305,7 @@ function ShopPage() {
                     <p className="text-[10px] text-foreground/40 mt-0.5">{product.leadTime}</p>
                   </div>
                 </Link>
-              </div>
+              </Reveal>
             ))}
           </div>
         )}
