@@ -518,18 +518,24 @@ function Home() {
 
       {/* ── BESPOKE CTA ──────────────────────────────────────────── */}
       <section className="py-20 md:py-28 border-b border-border text-center px-6" style={{ background: "#17130f" }}>
-        <p className="font-sans text-[9px] tracking-[0.4em] uppercase mb-4 font-medium" style={{ color: "#c9a84c" }}>Couture Atelier</p>
-        <h2 className="font-display font-light mb-4" style={{ fontSize: "clamp(2rem,4vw,3.5rem)", color: "#f5f0e8" }}>
-          Every design can be bespoke.
-        </h2>
-        <p className="font-sans text-sm font-light mb-10 max-w-md mx-auto leading-relaxed" style={{ color: "rgba(245,240,232,0.45)" }}>
-          Commission a one-of-a-kind piece crafted to your exact measurements, fabric preferences, and vision.
-        </p>
-        <Link to="/bespoke"
-          className="inline-flex items-center gap-3 px-10 py-4 font-sans text-[11px] font-semibold tracking-[0.2em] uppercase transition-colors hover:bg-white/5"
-          style={{ border: "1px solid rgba(201,168,76,0.5)", color: "#c9a84c" }}>
-          Book a Consultation <ArrowRight className="h-3.5 w-3.5" strokeWidth={2} />
-        </Link>
+        <Reveal y={24}>
+          <p className="font-sans text-[9px] tracking-[0.4em] uppercase mb-4 font-medium" style={{ color: "#c9a84c" }}>Couture Atelier</p>
+        </Reveal>
+        <Reveal y={36} delay={100}>
+          <h2 className="font-display font-light mb-4" style={{ fontSize: "clamp(2rem,4vw,3.5rem)", color: "#f5f0e8" }}>
+            Every design can be bespoke.
+          </h2>
+        </Reveal>
+        <Reveal y={24} delay={200}>
+          <p className="font-sans text-sm font-light mb-10 max-w-md mx-auto leading-relaxed" style={{ color: "rgba(245,240,232,0.45)" }}>
+            Commission a one-of-a-kind piece crafted to your exact measurements, fabric preferences, and vision.
+          </p>
+          <Link to="/bespoke"
+            className="inline-flex items-center gap-3 px-10 py-4 font-sans text-[11px] font-semibold tracking-[0.2em] uppercase transition-all duration-500 hover:-translate-y-0.5 hover:bg-white/5"
+            style={{ border: "1px solid rgba(201,168,76,0.5)", color: "#c9a84c" }}>
+            Book a Consultation <ArrowRight className="h-3.5 w-3.5" strokeWidth={2} />
+          </Link>
+        </Reveal>
       </section>
 
       {/* ── NEWSLETTER ───────────────────────────────────────────── */}
