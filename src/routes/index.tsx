@@ -277,7 +277,7 @@ function Home() {
         <div className="py-14 md:py-20">
           <div className="max-w-[1400px] mx-auto px-5 md:px-10">
             <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-8 mb-12">
-              <div>
+              <Reveal y={34}>
                 <p className="font-sans text-[10px] tracking-[0.3em] uppercase mb-3 font-medium" style={{ color: "#c9a84c" }}>Limited Time</p>
                 <h2 className="font-display font-light leading-none" style={{ fontSize: "clamp(2.5rem,5vw,4.5rem)", color: "#f5f0e8" }}>
                   Summer<br /><em className="italic" style={{ color: "#c9a84c" }}>Super Sale</em>
@@ -285,7 +285,7 @@ function Home() {
                 <p className="font-sans text-sm mt-3" style={{ color: "rgba(245,240,232,0.4)" }}>
                   Starting at <span className="font-semibold" style={{ color: "#c9a84c" }}>RS 2,499</span> · While stocks last
                 </p>
-              </div>
+              </Reveal>
               <div className="flex flex-col items-start md:items-end gap-5">
                 <div>
                   <p className="font-sans text-[9px] tracking-[0.3em] uppercase mb-2 font-medium" style={{ color: "rgba(245,240,232,0.4)" }}>Sale ends in</p>
