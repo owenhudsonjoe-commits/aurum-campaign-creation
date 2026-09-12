@@ -354,7 +354,7 @@ export function HorizontalRail({
 
   return (
     <div ref={outer} style={{ height: `${heightVh}vh` }} className="relative">
-      <div className="sticky top-0 flex h-screen items-center overflow-hidden">
+      <div className="sticky top-[97px] flex h-[calc(100svh-97px)] max-h-[820px] items-center overflow-hidden">
         <div
           ref={track}
           className={`flex gap-8 pl-8 md:pl-20 ${className}`}
