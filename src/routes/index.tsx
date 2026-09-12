@@ -389,22 +389,26 @@ function Home() {
           </div>
 
           <div className="mt-7 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
-            {culturalFusionProducts.map((product) => (
-              <Link key={product.id} to="/product/$slug" params={{ slug: product.slug }} className="group">
-                <div className="relative aspect-[3/4] overflow-hidden bg-muted">
-                  <img src={product.images[0]} alt={product.name} loading="lazy" decoding="async" className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
-                  {product.discountPercent && (
-                    <span className="absolute left-2.5 top-2.5 bg-red-600 px-2 py-1 font-sans text-[8px] font-bold uppercase tracking-wider text-white">
-                      {product.discountPercent}% Off
-                    </span>
-                  )}
-                </div>
-                <p className="mt-3 truncate font-sans text-[12px] font-medium text-foreground group-hover:text-foreground/60">{product.name}</p>
-                <div className="mt-1 flex items-center gap-2">
-                  <span className="font-sans text-[13px] font-bold text-red-600">{formatPrice(product.discountedPrice ?? product.price)}</span>
-                  {product.discountedPrice && <span className="font-sans text-[10px] text-foreground/35 line-through">{formatPrice(product.price)}</span>}
-                </div>
-              </Link>
+            {culturalFusionProducts.map((product, i) => (
+              <Reveal key={product.id} delay={i * 110} y={50} from={0.95} depth={90}>
+                <Link to="/product/$slug" params={{ slug: product.slug }} className="group block">
+                  <TiltCard max={4} lift={6}>
+                    <div className="relative aspect-[3/4] overflow-hidden bg-muted" style={{ boxShadow: "0 30px 60px -45px rgba(23,19,15,0.8)" }}>
+                      <img src={product.images[0]} alt={product.name} loading="lazy" decoding="async" className="h-full w-full object-cover object-top transition-transform duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.07]" />
+                      {product.discountPercent && (
+                        <span className="absolute left-2.5 top-2.5 bg-red-600 px-2 py-1 font-sans text-[8px] font-bold uppercase tracking-wider text-white">
+                          {product.discountPercent}% Off
+                        </span>
+                      )}
+                    </div>
+                  </TiltCard>
+                  <p className="mt-3 truncate font-sans text-[12px] font-medium text-foreground group-hover:text-foreground/60">{product.name}</p>
+                  <div className="mt-1 flex items-center gap-2">
+                    <span className="font-sans text-[13px] font-bold text-red-600">{formatPrice(product.discountedPrice ?? product.price)}</span>
+                    {product.discountedPrice && <span className="font-sans text-[10px] text-foreground/35 line-through">{formatPrice(product.price)}</span>}
+                  </div>
+                </Link>
+              </Reveal>
             ))}
           </div>
         </div>
